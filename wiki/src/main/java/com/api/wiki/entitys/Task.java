@@ -20,7 +20,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
     private Long time; // hours
-    private String Description;
+    private String description;
     private String titleTask;
     private String state;
     private String solution;
@@ -29,6 +29,7 @@ public class Task {
     private Date endDate;
     private String personCreate;
     private String personWorked;
+    private String taskReferenceNumber;
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

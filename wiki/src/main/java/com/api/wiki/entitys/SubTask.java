@@ -25,12 +25,13 @@ public class SubTask {
     private String state;
     private String taskType;
     private Long time; // hours
-    private String Description;
-    private String Solution;
+    private String description;
+    private String solution;
     private Date createDate;
     private Date endDate;
     private String personCreate;
     private String personWorked;
+    private String taskReference;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_sub_task")
