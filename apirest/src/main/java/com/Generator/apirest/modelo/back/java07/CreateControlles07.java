@@ -138,11 +138,11 @@ public class CreateControlles07 implements IImportModel {
 
     private StringBuilder createImport(EntidadesPojo entidad) {
         StringBuilder sb1 = new StringBuilder();
-        sb1.append(stringEnsamble(Lists.newArrayList("package ", paquete, ".controller;")));
+        sb1.append(stringEnsamble(Lists.newArrayList("package ", paquete , ".controller;")));
         sb1.append(DOUBLEBREAK_LINE);
-        sb1.append(stringEnsamble(Lists.newArrayList("import ", paquete, ".entitys.", entidad.getNombreClase(), ";")));
+        sb1.append(stringEnsamble(Lists.newArrayList("import ",paquete,".entitys.",entidad.getNombreClase(),";")));
         sb1.append(BREAK_LINE);
-        sb1.append(stringEnsamble(Lists.newArrayList("import ", paquete, ".service.", entidad.getNombreClase(), "Service;")));
+        sb1.append( stringEnsamble(Lists.newArrayList("import ",paquete,".service.",entidad.getNombreClase(),"Service;")));
         sb1.append(BREAK_LINE);
         sb1.append(importController07());
         for (RelacionPojo relacion : entidad.getRelaciones()) {
@@ -157,10 +157,10 @@ public class CreateControlles07 implements IImportModel {
         StringBuilder sb2 = new StringBuilder();
         sb2.append(stringEnsamble(Lists.newArrayList("@RestController", BREAK_LINE)));
         sb2.append(stringEnsamble(Lists.newArrayList("@CrossOrigin(origins = \"*\")", BREAK_LINE)));
-        sb2.append(stringEnsamble(Lists.newArrayList("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")", BREAK_LINE)));
-        sb2.append(stringEnsamble(Lists.newArrayList("public class ", entidad.getNombreClase(), "Controller {", BREAK_LINE)));
-        sb2.append(stringEnsamble(Lists.newArrayList(AUTOWIRED, BREAK_LINE)));
-        sb2.append(stringEnsamble(Lists.newArrayList(entidad.getNombreClase(), "Service ", entidad.getNombreClase().toLowerCase(), "Service;", DOUBLEBREAK_LINE)));
+        sb2.append(stringEnsamble(Lists.newArrayList("@RequestMapping(\"/",entidad.getNombreClase().toLowerCase(), "\")", BREAK_LINE)));
+        sb2.append(stringEnsamble(Lists.newArrayList("public class ",entidad.getNombreClase(),"Controller {", BREAK_LINE)));
+        sb2.append(stringEnsamble(Lists.newArrayList(AUTOWIRED,BREAK_LINE)));
+        sb2.append(stringEnsamble(Lists.newArrayList(entidad.getNombreClase(),"Service ",entidad.getNombreClase().toLowerCase(),"Service;",DOUBLEBREAK_LINE)));
         return sb2;
     }
 
@@ -176,10 +176,11 @@ public class CreateControlles07 implements IImportModel {
 
             if (!atributos.getsId()) {
                 sb3.append(BREAK_LINE);
-                sb3.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("        private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("        }", BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get" , atrubutoObjeto , "/{" , atrubutoObjeto , "}\")" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get" , atrubutoObjeto , "/{" + atrubutoObjeto + "}\")" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        private " + entidad.getNombreClase() , " findBy" , atributoName , "(@PathVariable(\"" , atrubutoObjeto , "\") " , atributos.getTipoDato(), "  " , atrubutoObjeto , ") {" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase() , "Service.findBy" , atributoName , "(" , atrubutoObjeto , ");" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        }" ,BREAK_LINE)));
             }
         }
         return sb3;
@@ -196,10 +197,14 @@ public class CreateControlles07 implements IImportModel {
             String atrubutoObjeto = atributo.getAtributoName().toLowerCase();
             if (!atributo.getsId()) {
                 sb3.append(BREAK_LINE);
-                sb3.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("        private List<", entidad.getNombreClase(), "> findBy", atributoName, "Contain(@PathVariable(\"", atrubutoObjeto, "\") ", atributo.getTipoDato(), "  ", atrubutoObjeto, ") {", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "Containing(", atrubutoObjeto, ");", BREAK_LINE)));
-                sb3.append(stringEnsamble(Lists.newArrayList("        }", BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get" , atrubutoObjeto , "contain/{" , atrubutoObjeto , "}\")" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList(
+                        "        private List<" , entidad.getNombreClase(), "> findBy" , atributoName, "Contain(@PathVariable(\""
+                        , atrubutoObjeto , "\") " , atributo.getTipoDato(), "  " , atrubutoObjeto , ") {" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList(
+                        "            return " , entidad.getNombreClase().toLowerCase()
+                        ,"Service.findBy" , atributoName, "Containing(" , atrubutoObjeto , ");" , BREAK_LINE)));
+                sb3.append(stringEnsamble(Lists.newArrayList("        }" , BREAK_LINE)));
             }
         }
         return sb3;
@@ -209,9 +214,9 @@ public class CreateControlles07 implements IImportModel {
     private StringBuilder createfindId(EntidadesPojo entidad) {
         StringBuilder sb4 = new StringBuilder();
         sb4.append(BREAK_LINE);
-        sb4.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE)));
-        sb4.append(stringEnsamble(Lists.newArrayList("          private ", entidad.getNombreClase(), " findById", "(@PathVariable(\"id\") ", idTipoDato(entidad), " id) {", BREAK_LINE)));
-        sb4.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.findById(id);", BREAK_LINE)));
+        sb4.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get" , entidad.getNombreClase() , "/{id}\")", BREAK_LINE)));
+        sb4.append(stringEnsamble(Lists.newArrayList("          private " , entidad.getNombreClase() , " findById" , "(@PathVariable(\"id\") " , idTipoDato(entidad) , " id) {" , BREAK_LINE)));
+        sb4.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase() , "Service.findById(id);" , BREAK_LINE)));
         sb4.append(stringEnsamble(Lists.newArrayList("          }", BREAK_LINE)));
         return sb4;
     }
@@ -220,9 +225,9 @@ public class CreateControlles07 implements IImportModel {
     private StringBuilder createfindAll(EntidadesPojo entidad) {
         StringBuilder sb5 = new StringBuilder();
         sb5.append(BREAK_LINE);
-        sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE)));
-        sb5.append(stringEnsamble(Lists.newArrayList("        private  List<", entidad.getNombreClase(), "> getAll", entidad.getNombreClase(), "(){", BREAK_LINE)));
-        sb5.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.getAll", entidad.getNombreClase(), "();}", BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/GetAll" , entidad.getNombreClase() , "\")" , BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("        private  List<" , entidad.getNombreClase() , "> getAll" , entidad.getNombreClase() , "(){" , BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase() , "Service.getAll" , entidad.getNombreClase() , "();}" , BREAK_LINE)));
         sb5.append(BREAK_LINE);
         return sb5;
     }
@@ -231,9 +236,9 @@ public class CreateControlles07 implements IImportModel {
     private StringBuilder createFinBySearch(EntidadesPojo entidad) {
         StringBuilder sb5 = new StringBuilder();
         sb5.append(BREAK_LINE);
-        sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Search\")", BREAK_LINE)));
-        sb5.append(stringEnsamble(Lists.newArrayList("        private  List<", entidad.getNombreClase(), "> finBySearch(@RequestParam(value = \"search\") String search){", BREAK_LINE)));
-        sb5.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.search(search);}", BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Search\")" , BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("        private  List<" , entidad.getNombreClase() , "> finBySearch(@RequestParam(value = \"search\") String search){" , BREAK_LINE)));
+        sb5.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase() , "Service.search(search);}" , BREAK_LINE)));
         sb5.append(BREAK_LINE);
         return sb5;
     }
@@ -242,9 +247,9 @@ public class CreateControlles07 implements IImportModel {
     private StringBuilder createSalve(EntidadesPojo entidad) {
         StringBuilder sb6 = new StringBuilder();
         sb6.append(BREAK_LINE);
-        sb6.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/saveOrUpdate\")", BREAK_LINE)));
-        sb6.append(stringEnsamble(Lists.newArrayList("        private Boolean  saveOrUpdate", entidad.getNombreClase(), "(@RequestBody ", entidad.getNombreClase(), " ", entidad.getNombreClase().toLowerCase(), "){ ", BREAK_LINE)));
-        sb6.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.saveOrUpdate", entidad.getNombreClase(), "(", entidad.getNombreClase().toLowerCase(), "); }", BREAK_LINE)));
+        sb6.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/saveOrUpdate\")" ,BREAK_LINE)));
+        sb6.append(stringEnsamble(Lists.newArrayList("        private Boolean  saveOrUpdate" , entidad.getNombreClase() , "(@RequestBody ", entidad.getNombreClase() , " " , entidad.getNombreClase().toLowerCase(), "){ " , BREAK_LINE)));
+        sb6.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase(), "Service.saveOrUpdate", entidad.getNombreClase() , "(", entidad.getNombreClase().toLowerCase() , "); }" , BREAK_LINE)));
         sb6.append(BREAK_LINE);
         return sb6;
     }
@@ -255,9 +260,9 @@ public class CreateControlles07 implements IImportModel {
         for (RelacionPojo relacion : entidad.getRelaciones()) {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
                 sb61.append(BREAK_LINE);
-                sb61.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/Get_", relacion.getNameRelacion(), "_contain/\")", "\r\n")));
-                sb61.append(stringEnsamble(Lists.newArrayList("        private List<", entidad.getNombreClase(), "> findBy", relacion.getNameClassRelacion(), "(@RequestBody ", relacion.getNameClassRelacion(), " ", relacion.getNameClassRelacion().toLowerCase(), "){ ", BREAK_LINE)));
-                sb61.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", relacion.getNameClassRelacion(), "Containing(", relacion.getNameClassRelacion().toLowerCase(), "); }", BREAK_LINE)));
+                sb61.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/Get_" , relacion.getNameRelacion() , "_contain/\")" , "\r\n")));
+                sb61.append(stringEnsamble(Lists.newArrayList("        private List<" , entidad.getNombreClase() , "> findBy" , relacion.getNameClassRelacion() , "(@RequestBody " , relacion.getNameClassRelacion() , " " , relacion.getNameClassRelacion().toLowerCase() , "){ " , BREAK_LINE)));
+                sb61.append(stringEnsamble(Lists.newArrayList("            return " , entidad.getNombreClase().toLowerCase() , "Service.findBy" , relacion.getNameClassRelacion(), "Containing(" , relacion.getNameClassRelacion().toLowerCase() , "); }" , BREAK_LINE)));
                 sb61.append(BREAK_LINE);
             }
         }
@@ -271,10 +276,10 @@ public class CreateControlles07 implements IImportModel {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
                 sb61.append(BREAK_LINE);
                 sb61.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/findRelacion\")", BREAK_LINE)));
-                sb61.append(stringEnsamble(Lists.newArrayList("        private List<", entidad.getNombreClase(), "> findRelacion", relacion.getNameClassRelacion()
-                        , "(@RequestBody ", relacion.getNameClassRelacion(), " ", relacion.getNameClassRelacion().toLowerCase(), "){ ", BREAK_LINE)));
+                sb61.append(stringEnsamble(Lists.newArrayList("        private List<", entidad.getNombreClase(),"> findRelacion", relacion.getNameClassRelacion()
+                        ,"(@RequestBody " , relacion.getNameClassRelacion(), " " , relacion.getNameClassRelacion().toLowerCase(), "){ " , BREAK_LINE)));
                 sb61.append(stringEnsamble(Lists.newArrayList("            return " + entidad.getNombreClase().toLowerCase()
-                        , "Service.findByRelacion", relacion.getNameClassRelacion(), "(", relacion.getNameClassRelacion().toLowerCase(), "); }", BREAK_LINE)));
+                        , "Service.findByRelacion" , relacion.getNameClassRelacion() , "(" , relacion.getNameClassRelacion().toLowerCase(), "); }" , BREAK_LINE)));
                 sb61.append(BREAK_LINE);
             }
         }
@@ -285,9 +290,9 @@ public class CreateControlles07 implements IImportModel {
     private StringBuilder createDelete(EntidadesPojo entidad) {
         StringBuilder sb9 = new StringBuilder();
         sb9.append(BREAK_LINE);
-        sb9.append(stringEnsamble(Lists.newArrayList("        @DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")", BREAK_LINE)));
-        sb9.append(stringEnsamble(Lists.newArrayList("            private boolean delete", entidad.getNombreClase(), "(@PathVariable(\"id\") ", idTipoDato(entidad), " id) {" + BREAK_LINE)));
-        sb9.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.delete", entidad.getNombreClase(), "(id); }", BREAK_LINE)));
+        sb9.append(stringEnsamble(Lists.newArrayList("        @DeleteMapping(\"/delete" , entidad.getNombreClase() , "/{id}\")" , BREAK_LINE)));
+        sb9.append(stringEnsamble(Lists.newArrayList("            private boolean delete", entidad.getNombreClase(), "(@PathVariable(\"id\") ", idTipoDato(entidad) , " id) {" + BREAK_LINE)));
+        sb9.append(stringEnsamble(Lists.newArrayList("            return ", entidad.getNombreClase().toLowerCase(), "Service.delete", entidad.getNombreClase(),"(id); }", BREAK_LINE)));
         return sb9;
     }
 

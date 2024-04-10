@@ -10,8 +10,8 @@ public class EmailConfig {
     @Bean
     public SimpleMailMessage emailTemplate() {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("xxxxxxxx@hotmail.com");
-        message.setFrom("xxtestMail@gmail.com");
+        message.setTo("alejandrosubero@hotmail.com");
+        message.setFrom("blusubero@gmail.com");
         message.setSubject("Important email");
         message.setText("GENERATE THE ONE PROYECT !!");
         return message;

@@ -15,8 +15,6 @@ import java.util.Random;
 public class EntityResponseClass {
 
 
-    private ArchivoBaseDatosPojo archivo;
-
     protected static final Log logger = LogFactory.getLog(CreateControlles.class);
 
     public void startCreateEntityResponseClass(ArchivoBaseDatosPojo archivo, Creador creadors) {
@@ -32,7 +30,7 @@ public class EntityResponseClass {
 
             try {
                     String escritos = metodPojo(archivo, creador).toString();
-                    createArchivoController(escritos,  "EntityRespone", "dto", creador,archivo.getProyectoName());
+                    createArchivoController(escritos,  "EntityRespone", "pojo", creador,archivo.getProyectoName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -75,7 +73,7 @@ public class EntityResponseClass {
 //        sb1.append(anotacionesJava.creatNotaClase());
         
         sb1.append(new AnotacionesJava(archivo).creatNotaClase().toString()+"\r\n");
-        sb1.append("package " + creador.getPackageNames() + ".dto;" + "\r\n");
+        sb1.append("package " + creador.getPackageNames() + ".pojo;" + "\r\n");
         sb1.append("\r\n");
         sb1.append("import java.util.Date;"+"\r\n");
         sb1.append("import java.io.Serializable;\n" +
@@ -137,7 +135,7 @@ public class EntityResponseClass {
 //      sb2.append(anotacionesJava.creatNotaClase());    
         sb2.append(new AnotacionesJava(archivo).creatNotaClase().toString()+"\r\n");
         sb2.append("package " + creador.getPackageNames() + ".mapper;" + "\r\n");
-        sb2.append("import " + creador.getPackageNames() + ".dto.EntityRespone;"+"\r\n");
+        sb2.append("import " + creador.getPackageNames() + ".pojo.EntityRespone;"+"\r\n");
 
         sb2.append("\r\n");
         sb2.append("\n" +

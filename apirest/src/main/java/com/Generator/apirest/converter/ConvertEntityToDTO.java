@@ -15,30 +15,21 @@ import java.util.List;
 
 @Scope("singleton")
 @Component
-public class ConvertEntityToModelT {
+public class ConvertEntityToDTO {
 
-    private String model;
-    private String modelM;
+    protected static final Log logger = LogFactory.getLog(ConvertEntityToDTO.class);
 
-
-    protected static final Log logger = LogFactory.getLog(ConvertEntityToModelT.class);
-
-    public List<EntidadesPojo> startConvertEntityToModelT(ArchivoBaseDatosPojo archivo) {
+    public List<EntidadesPojo> startConvertEntityToDTO(ArchivoBaseDatosPojo archivo) {
 
         List<EntidadesPojo> newList = new ArrayList<>();
-        model = archivo.getCapaPojo().getModelT();
-        modelM =  archivo.getCapaPojo().getModelM();
-
         for (EntidadesPojo entidad : archivo.getEntidades()) {
-
-            logger.info(this.stringEnsamble(List.of("Create the entity: ",entidad+model.toUpperCase())));
-
+            logger.info("Se crea el pojo de la entidad  " +entidad+"DTO");
             if (entidad.getIsEntity()) {
                 EntidadesPojo dto = new EntidadesPojo();
                 dto.setIsEntity(false);
-                dto.setNombreClase(this.stringEnsamble(List.of(entidad.getNombreClase(),modelM)));
+                dto.setNombreClase(entidad.getNombreClase() + "dto");
                 dto.setNombreTabla(entidad.getNombreTabla());
-                dto.setPaquete(model.toLowerCase());
+                dto.setPaquete("dto");
                 dto.setAtributos(entidad.getAtributos());
                 dto.setRelaciones(convertRelacion(entidad.getRelaciones()));
                 newList.add(dto);
@@ -53,11 +44,10 @@ public class ConvertEntityToModelT {
 
     private List<RelacionPojo> convertRelacion(List<RelacionPojo> relacionList) {
         List<RelacionPojo> relacionPojoList = new ArrayList<>();
-
         for (RelacionPojo relacion : relacionList) {
             RelacionPojo relacionPojo = new RelacionPojo();
-            relacionPojo.setNameClassRelacion(this.stringEnsamble(List.of(relacion.getNameClassRelacion(),modelM)));
-            relacionPojo.setNameClassRelacionar(this.stringEnsamble(List.of(relacion.getNameClassRelacionar(),modelM)));
+            relacionPojo.setNameClassRelacion(relacion.getNameClassRelacion()+"Dto");
+            relacionPojo.setNameClassRelacionar(relacion.getNameClassRelacionar()+"Dto");
             relacionPojo.setMappedByRelacion(relacion.getMappedByRelacion());
             relacionPojo.setMappedBy(relacion.getMappedBy());
             relacionPojo.setBidireccional(relacion.getBidireccional());
@@ -79,14 +69,6 @@ public class ConvertEntityToModelT {
         return relacionPojoList;
     }
 
-
-    private String stringEnsamble(List<String> stringPaths) {
-        StringBuilder newString = new StringBuilder();
-        for (String part : stringPaths) {
-            newString.append(part);
-        }
-        return newString.toString();
-    }
 
 
 

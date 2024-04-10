@@ -38,11 +38,10 @@ public class CreateClasesProyecto07 {
 
         try {
             creacionDeClases.startCreacionDeClases(archivo, creador);
-
-            // creacionDeClases.createClass2();
+           // creacionDeClases.createClass2();
             logger.info("Finalizo Creando Archivos de clases para el proyecto");
-            logger.info("Creando Archivos de repositorios, servicios  proyecto");
 
+            logger.info("Creando Archivos de repositorios, servicios  proyecto");
             createRepositorie07.startCreacion(archivo,creador);
             createService07.startCreacion(archivo, creador);
             createServiceImp07.startCreacionImplement07(archivo, creador);

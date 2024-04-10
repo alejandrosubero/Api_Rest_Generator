@@ -88,6 +88,30 @@ public class CreacionDeClases implements IImportModel {
             sb.append(DOUBLEBREAK_LINE);
         }
 
+//        if (entidad.getIsEntity()) {
+//            sb.append(DOUBLEBREAK_LINE);
+////            sb.append(BREAK_LINE);
+//            sb.append("@Entity");
+//            sb.append(BREAK_LINE);
+//            sb.append("@Table(name = \"" + entidad.getNombreTabla() + "\")");
+//            sb.append(BREAK_LINE);
+//            sb.append("public class " + entidad.getNombreClase() + " implements Serializable {");
+//            sb.append(BREAK_LINE);
+//            long rand_lub1 = rand.nextLong();
+//            sb.append(BREAK_LINE);
+//            sb.append("private static final long serialVersionUID = " + rand_lub1 + "L;");
+//            sb.append(DOUBLEBREAK_LINE);
+////            sb.append(BREAK_LINE);
+//        } else {
+//            sb.append(DOUBLEBREAK_LINE);
+////            sb.append(BREAK_LINE);
+//            sb.append("public class " + entidad.getNombreClase() + " implements Serializable {"+BREAK_LINE);
+//            long rand_lub2 = rand.nextLong();
+//            sb.append(BREAK_LINE);
+//            sb.append("private static final long serialVersionUID = " + rand_lub2 + "L;" + BREAK_LINE);
+//            sb.append(BREAK_LINE);
+//        }
+ 
     }
 
 
@@ -205,6 +229,7 @@ public class CreacionDeClases implements IImportModel {
             
             sb.append(TAB);
             sb.append(atributo.getAtributoName() + ";");
+            sb.append(BREAK_LINE);
             sb.append(DOUBLEBREAK_LINE);
         } else {
             sb.append("		private " + atributo.getTipoDato() + " " + atributo.getAtributoName() + ";");
@@ -226,14 +251,14 @@ public class CreacionDeClases implements IImportModel {
                         sb.append(", fetch = FetchType.LAZY");
                         sb.append(", mappedBy = \"" + relacion.getMappedBy() + "\"");
                         sb.append(", orphanRemoval = " + relacion.getOrphanRemoval() + ")");
-                        sb.append(BREAK_LINE);
+                        sb.append(DOUBLEBREAK_LINE);
                     }
                 } else {
                     if (relacion.getRelation().equals("ManyToMany")) {
                         sb.append(DOUBLETAB+"@" + relacion.getRelation() + "(cascade = CascadeType." + relacion.getCascadeType());
                         sb.append(", fetch = FetchType.LAZY");
                         sb.append(", orphanRemoval = " + relacion.getOrphanRemoval() + ")");
-                        sb.append(BREAK_LINE);
+                        sb.append(DOUBLEBREAK_LINE);
                     }
                 }
                 if (relacion.getRelation().equals("ManyToOne")) {
@@ -242,7 +267,7 @@ public class CreacionDeClases implements IImportModel {
                     sb.append(DOUBLETAB+"@" + relacion.getRelation() + "(cascade = CascadeType." + relacion.getCascadeType());
                     sb.append(", fetch = FetchType.EAGER");
                     sb.append(", orphanRemoval = " + relacion.getOrphanRemoval() + ")");
-                    sb.append(BREAK_LINE);
+                    sb.append(DOUBLEBREAK_LINE);
                 }
             }
 
@@ -251,14 +276,14 @@ public class CreacionDeClases implements IImportModel {
                 sb.append(DOUBLETAB+"@" + relacion.getRelation() + "(cascade = CascadeType." + relacion.getCascadeType());
                 sb.append(", fetch = FetchType.EAGER");
                 sb.append(" )");
-                sb.append(BREAK_LINE);
+                sb.append(DOUBLEBREAK_LINE);
             }
 
             if (relacion.getRelation().equals("OneToMany") || relacion.getRelation().equals("ManyToMany")) {
                 sb.append(DOUBLETAB+"@" + relacion.getRelation() + "(cascade = CascadeType." + relacion.getCascadeType());
                 sb.append(", fetch = FetchType.LAZY");
                 sb.append(", orphanRemoval = " + relacion.getOrphanRemoval() + ")");
-                sb.append(BREAK_LINE);
+                sb.append(DOUBLEBREAK_LINE);
             }
 
             if (relacion.getIsJoinTable()) {
@@ -361,8 +386,7 @@ public class CreacionDeClases implements IImportModel {
 
     private void generateEqualsmetodo(EntidadesPojo entidad, StringBuilder sb) throws InterruptedException {
       
-//        sb.append(DOUBLETAB+"public boolean equals" + entidad.getNombreClase() + "(Object o) {");
-        sb.append(DOUBLETAB+"public boolean equals" + "(Object o) {");
+        sb.append(DOUBLETAB+"public boolean equals" + entidad.getNombreClase() + "(Object o) {");
         sb.append(BREAK_LINE);
         sb.append(DOUBLETAB+TAB+"if (this == o) return true;");
         sb.append(BREAK_LINE);

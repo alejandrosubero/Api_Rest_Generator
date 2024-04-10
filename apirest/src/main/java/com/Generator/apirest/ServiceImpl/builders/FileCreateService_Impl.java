@@ -39,10 +39,10 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 
 		if (create_archivo.exists()) {
 			logger.info("THE File EXISTS");
-
+			// JOptionPane.showMessageDialog(null, "el archivo existe");
 		} else {
 			logger.info("THE File DOES NOT EXIST IT WILL BE CREATED");
-
+			// JOptionPane.showMessageDialog(null, "el archivo no existe pero se creara");
 			create_carpeta.mkdirs();
 			try {
 				if (create_archivo.createNewFile()) {
@@ -51,10 +51,10 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 					bw.write(contenido1);
 					bw.close();
 					logger.info("THE FILE WAS CREATED");
-
+					// JOptionPane.showMessageDialog(null, "el archivo fue creado");
 				} else {
 					logger.info("THE FILE WAS NOT CREATED");
-
+					// JOptionPane.showMessageDialog(null, "el archivo no fue creado");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -72,6 +72,7 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 			String nameFile = entidad_getNombreClase + ".java";
 			String singleString = sb.toString();
 			String direction = directions + entidad_paquete;
+			//String direction = this.directionForJava() + entidad_paquete; 
 			crearArchivo(direction, singleString, nameFile);
 			logger.info("Finalizo la creacion de CreateFileClass" + "  NOMBRE = " + entidad_getNombreClase);
 

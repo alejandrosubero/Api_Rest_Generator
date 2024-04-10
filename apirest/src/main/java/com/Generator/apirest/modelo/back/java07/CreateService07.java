@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+//@Scope("singleton")
 @Component
 public class CreateService07 {
 

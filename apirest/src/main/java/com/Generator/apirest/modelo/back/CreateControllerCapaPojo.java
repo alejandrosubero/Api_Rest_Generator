@@ -4,7 +4,6 @@ package com.Generator.apirest.modelo.back;
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AtributoPojo;
-import com.Generator.apirest.pojos.back.CapaPojo;
 import com.Generator.apirest.pojos.back.EntidadesPojo;
 import com.Generator.apirest.pojos.back.RelacionPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
@@ -21,6 +20,7 @@ import java.util.List;
 @Component
 public class CreateControllerCapaPojo implements IImportModel {
 
+
 	private List<EntidadesPojo> toPojos = new ArrayList<>();
     private List<EntidadesPojo> toEntidad = new ArrayList<>();
     protected static final Log logger = LogFactory.getLog(CreateControllerCapaPojo.class);
@@ -33,7 +33,7 @@ public class CreateControllerCapaPojo implements IImportModel {
 
         try {
 			if (archivo.getEntidades().size() > 0) {
-				this.separateEntidadToPojos(archivo.getEntidades(), archivo.getCapaPojo());
+				this.separateEntidadToPojos(archivo.getEntidades());
 				for (EntidadesPojo entidad : archivo.getEntidades()) {
 					if (entidad.getIsEntity()) {
 						String escritos = metods(entidad, creadors, archivo).toString();
@@ -47,10 +47,10 @@ public class CreateControllerCapaPojo implements IImportModel {
     }
 
 
-    private void separateEntidadToPojos(List<EntidadesPojo> entidadesList, CapaPojo capaPojo) {
+    private void separateEntidadToPojos(List<EntidadesPojo> entidadesList) {
         logger.info("Inicia la separacion de entidades");
         for (EntidadesPojo entidad : entidadesList) {
-            if (entidad.getPaquete().equals(capaPojo.getModelT()) && !entidad.getIsEntity()) {
+            if (entidad.getPaquete().equals("pojo") && !entidad.getIsEntity()) {
                 toPojos.add(entidad);
             } else {
                 toEntidad.add(entidad);
@@ -69,12 +69,12 @@ public class CreateControllerCapaPojo implements IImportModel {
             sb.append(anotacionesJava.creatNotaClase()+BREAK_LINE);
             
             sb.append(BREAK_LINE);
-            sb.append(this.createImport(entidad, creadors.getPackageNames(), archivo.getCapaPojo()));
+            sb.append(this.createImport(entidad, creadors.getPackageNames()));
+
             sb.append(BREAK_LINE);
             sb.append(this.createTituloClass(entidad));
             sb.append(BREAK_LINE);
-            sb.append(this.createAutoWire(entidad));
-            sb.append(BREAK_LINE);
+
         	if(archivo.getMethodManager().isMethodFindByOrLoop()) 
             sb.append(this.createLoop(entidad));
             sb.append(BREAK_LINE);
@@ -92,26 +92,26 @@ public class CreateControllerCapaPojo implements IImportModel {
             sb.append(BREAK_LINE);
 
             if(archivo.getMethodManager().isMetohdSave())
-            sb.append(this.createSave(entidad, archivo.getCapaPojo()));
+            sb.append(this.createSave(entidad));
             sb.append(BREAK_LINE);
 
             if(archivo.getMethodManager().isMethodUpdate())
-            sb.append(this.createUpdate(entidad, archivo.getCapaPojo()));
+            sb.append(this.createUpdate(entidad));
             sb.append(BREAK_LINE);
 
             if(archivo.getMethodManager().isMethodsaveOrUpdate())
-            sb.append(this.createsaveOrUpdate(entidad, archivo.getCapaPojo()));
+            sb.append(this.createsaveOrUpdate(entidad));
             sb.append(BREAK_LINE);
 
-            if(archivo.getMethodManager().isMethodDelete()){
+            if(entidad.getDelete()) {
                 sb.append(this.createDelete(entidad));
             }
             
             if(archivo.getMethodManager().isMethodContainingRelacion())
-            sb.append(this.findByRelacion(entidad, archivo.getCapaPojo()));
+            sb.append(this.findByRelacion(entidad));
 
         	if(archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional())
-            sb.append(this.findByRelacionNoBidirecional(entidad, archivo.getCapaPojo()));
+            sb.append(this.findByRelacionNoBidirecional(entidad));
            
         	sb.append("}" + BREAK_LINE);
         	sb.append(AnotacionesJava.apacheSoftwareLicensed() + BREAK_LINE);
@@ -153,7 +153,7 @@ public class CreateControllerCapaPojo implements IImportModel {
     }
 
 
-    private StringBuilder createImport(EntidadesPojo entidad, String paquete, CapaPojo capaPojo) {
+    private StringBuilder createImport(EntidadesPojo entidad, String paquete) {
 
         StringBuilder sb1 = new StringBuilder();
         sb1.append("package " + paquete + ".controller;");
@@ -168,7 +168,7 @@ public class CreateControllerCapaPojo implements IImportModel {
         sb1.append(BREAK_LINE);
         sb1.append("import " + paquete + ".mapper.MapperEntityRespone;");
         sb1.append(BREAK_LINE);
-        sb1.append("import " + paquete + ".dto.EntityRespone;");
+        sb1.append("import " + paquete + ".pojo.EntityRespone;");
         sb1.append(BREAK_LINE);
         
         sb1.append(importAutowiredAnnotation());
@@ -179,7 +179,7 @@ public class CreateControllerCapaPojo implements IImportModel {
         
       
         for (EntidadesPojo entidadPojo : toPojos) {
-            String[] clavePojo = entidadPojo.getNombreClase().split(capaPojo.getModelM());
+            String[] clavePojo = entidadPojo.getNombreClase().split("Pojo");
             if (entidad.getNombreClase().equals(clavePojo[0])) {
                 sb1.append("import " + paquete + "." + entidadPojo.getPaquete() + "." + entidadPojo.getNombreClase() + ";");
                 sb1.append(BREAK_LINE);
@@ -196,7 +196,7 @@ public class CreateControllerCapaPojo implements IImportModel {
         }
 
         for (int i = 0; i < toPojos.size(); i++) {
-            String[] clavePojo = toPojos.get(i).getNombreClase().split(capaPojo.getModelM());
+            String[] clavePojo = toPojos.get(i).getNombreClase().split("Pojo");
             if (entidad.getNombreClase().equals(clavePojo[0])) {
                 for (RelacionPojo relacion : toPojos.get(i).getRelaciones()) {
                     sb1.append("import " + paquete + "." + toPojos.get(i).getPaquete() + "." + relacion.getNameClassRelacion() + ";");
@@ -204,31 +204,23 @@ public class CreateControllerCapaPojo implements IImportModel {
                 }
             }
         }
-        sb1.append(BREAK_LINE);
+        sb1.append("\r\n");
         return sb1;
     }
 
 
     private StringBuilder createTituloClass(EntidadesPojo entidad) {
 
-        StringBuilder sb2a = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
 
-        sb2a.append("@RestController");
-        sb2a.append(BREAK_LINE);
-        sb2a.append("@CrossOrigin(origins = \"*\")");
-        sb2a.append(BREAK_LINE);
-        sb2a.append("@RequestMapping(\"/" + entidad.getNombreClase().toLowerCase() + "\")");
-        sb2a.append(BREAK_LINE);
-        sb2a.append("public class " + entidad.getNombreClase() + "Controller {");
-        sb2a.append(DOUBLEBREAK_LINE);
-        return sb2a;
-    }
-
-    private StringBuilder createAutoWire(EntidadesPojo entidad){
-
-        StringBuilder sb2 = new StringBuilder(BREAK_LINE);
-        String validationAutowiredName ="";
-        String mapperAutowiredName ="";
+        sb2.append("@RestController");
+        sb2.append(BREAK_LINE);
+        sb2.append("@CrossOrigin(origins = \"*\")");
+        sb2.append(BREAK_LINE);
+        sb2.append("@RequestMapping(\"/" + entidad.getNombreClase().toLowerCase() + "\")");
+        sb2.append(BREAK_LINE);
+        sb2.append("public class " + entidad.getNombreClase() + "Controller {");
+        sb2.append(DOUBLEBREAK_LINE);
 
         sb2.append(DOUBLETAB+"@Autowired" );
         sb2.append(BREAK_LINE);
@@ -237,14 +229,12 @@ public class CreateControllerCapaPojo implements IImportModel {
 
         sb2.append(DOUBLETAB+"@Autowired");
         sb2.append(BREAK_LINE);
-        validationAutowiredName = DOUBLETAB+ entidad.getNombreClase() + "Validation " + entidad.getNombreClase().toLowerCase() + "ValidationService;";
-        sb2.append(validationAutowiredName);
+        sb2.append(DOUBLETAB+ entidad.getNombreClase() + "Validation " + entidad.getNombreClase().toLowerCase() + "ValidationService;");
         sb2.append(DOUBLEBREAK_LINE);
 
         sb2.append(DOUBLETAB+"@Autowired");
         sb2.append(BREAK_LINE);
-        mapperAutowiredName= DOUBLETAB+ entidad.getNombreClase() + "Mapper " + entidad.getNombreClase().toLowerCase() + "Mapper;";
-        sb2.append(mapperAutowiredName);
+        sb2.append(DOUBLETAB+ entidad.getNombreClase() + "Mapper " + entidad.getNombreClase().toLowerCase() + "Mapper;");
         sb2.append(DOUBLEBREAK_LINE);
 
         sb2.append(DOUBLETAB+"@Autowired");
@@ -253,30 +243,26 @@ public class CreateControllerCapaPojo implements IImportModel {
         sb2.append(DOUBLEBREAK_LINE);
 
         for (RelacionPojo relacion : entidad.getRelaciones()) {
-            String validationAutowiredName2 =DOUBLETAB+ relacion.getNameClassRelacion() + "Validation " + relacion.getNameClassRelacion().toLowerCase() + "ValidationService;";
-            String mapperAutowiredName2 =DOUBLETAB+ relacion.getNameClassRelacion() + "Mapper " + relacion.getNameClassRelacion().toLowerCase() + "Mapper;" ;
+            sb2.append(DOUBLETAB+"@Autowired" );
+            sb2.append(BREAK_LINE);
+            sb2.append(DOUBLETAB+ relacion.getNameClassRelacion() + "Validation " + relacion.getNameClassRelacion().toLowerCase() + "ValidationService;" );
+            sb2.append(DOUBLEBREAK_LINE);
 
-            if(!validationAutowiredName.equals(validationAutowiredName2)){
-                sb2.append(DOUBLETAB+"@Autowired" );
-                sb2.append(BREAK_LINE);
-                sb2.append(validationAutowiredName2);
-            }
+            sb2.append(DOUBLETAB+"@Autowired");
+            sb2.append(BREAK_LINE);
+            sb2.append(DOUBLETAB+ relacion.getNameClassRelacion() + "Mapper " + relacion.getNameClassRelacion().toLowerCase() + "Mapper;" );
             sb2.append(DOUBLEBREAK_LINE);
-            if(!mapperAutowiredName.equals(mapperAutowiredName2)){
-                sb2.append(DOUBLETAB+"@Autowired");
-                sb2.append(BREAK_LINE);
-                sb2.append(mapperAutowiredName2);
-            }
-            sb2.append(DOUBLEBREAK_LINE);
-        }
+        }                
         return sb2;
     }
+
 
     private StringBuilder createLoop(EntidadesPojo entidad) {
 
         StringBuilder sb3 = new StringBuilder();
         List<AtributoPojo> listAtributos = entidad.getAtributos();
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
+
         for (AtributoPojo atributos : listAtributos) {
             String atributoName = atributos.getAtributoName().substring(0, 1).toUpperCase() + atributos.getAtributoName().substring(1);
             String atrubutoObjeto = atributos.getAtributoName().toLowerCase();
@@ -313,7 +299,9 @@ public class CreateControllerCapaPojo implements IImportModel {
 
     
     private StringBuilder createLoopContain(EntidadesPojo entidad) {
+
         StringBuilder sb3b = new StringBuilder();
+       
         for (AtributoPojo atributo : entidad.getAtributos()) {
             String atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
             String atrubutoObjeto = atributo.getAtributoName().toLowerCase();
@@ -351,6 +339,7 @@ public class CreateControllerCapaPojo implements IImportModel {
 
     private StringBuilder createfindId(EntidadesPojo entidad) {
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
+    
         StringBuilder sb4 = new StringBuilder();
         sb4.append(BREAK_LINE);
         sb4.append(DOUBLETAB+"@GetMapping(\"/Get" + entidad.getNombreClase() + "/{id}\")");
@@ -384,7 +373,7 @@ public class CreateControllerCapaPojo implements IImportModel {
     }
 
 
-    private StringBuilder createSave(EntidadesPojo entidad, CapaPojo capaPojo) {
+    private StringBuilder createSave(EntidadesPojo entidad) {
         StringBuilder sb6 = new StringBuilder();
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
@@ -393,7 +382,7 @@ public class CreateControllerCapaPojo implements IImportModel {
         sb6.append(DOUBLETAB+"@PostMapping(\"/save\")");
         sb6.append(BREAK_LINE);
         sb6.append(DOUBLETAB+"private Boolean  save" + entidad.getNombreClase() + "(@RequestBody " + entidad.getNombreClase() );
-        sb6.append(capaPojo.getModelM()+"  " + entidad.getNombreClase().toLowerCase() + "){ ");
+        sb6.append("Pojo  " + entidad.getNombreClase().toLowerCase() + "){ ");
         sb6.append(BREAK_LINE);
         sb6.append(DOUBLETAB+TAB+"return " + entidad.getNombreClase().toLowerCase() + "Service.save");
         sb6.append(entidad.getNombreClase() + "(" + contenido + " ); }");
@@ -402,7 +391,7 @@ public class CreateControllerCapaPojo implements IImportModel {
     }
 
 
-    private StringBuilder createUpdate(EntidadesPojo entidad, CapaPojo capaPojo) {
+    private StringBuilder createUpdate(EntidadesPojo entidad) {
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
         String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + entidad.getNombreClase().toLowerCase() + "))";
@@ -411,32 +400,28 @@ public class CreateControllerCapaPojo implements IImportModel {
         sb7.append(DOUBLETAB+"@PostMapping(\"/Update\")");
         sb7.append(BREAK_LINE);
         sb7.append(DOUBLETAB+"private " + idTipoDato(entidad) + " Update" + entidad.getNombreClase());
-        sb7.append("(@RequestBody " + entidad.getNombreClase() + capaPojo.getModelM()+"  ");
+        sb7.append("(@RequestBody " + entidad.getNombreClase() + "Pojo  ");
         sb7.append(entidad.getNombreClase().toLowerCase() + "){ ");
         sb7.append(BREAK_LINE);
         sb7.append(DOUBLETAB+TAB+ entidad.getNombreClase().toLowerCase() + "Service.update" + entidad.getNombreClase() + "(" + contenido + ");");
         sb7.append(BREAK_LINE);
-        String atributoName = "";
-        for (AtributoPojo atributo:entidad.getAtributos()) {
-            if(atributo.getsId()){
-                atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
-            }
-        }
-        sb7.append(DOUBLETAB+TAB+"return " + entidad.getNombreClase().toLowerCase() + ".get" + atributoName +"(); }");
+        sb7.append(DOUBLETAB+TAB+"return " + entidad.getNombreClase().toLowerCase() + ".getId(); }");
         sb7.append(BREAK_LINE);
         return sb7;
     }
 
 
-    private StringBuilder createsaveOrUpdate(EntidadesPojo entidad, CapaPojo capaPojo) {
+    private StringBuilder createsaveOrUpdate(EntidadesPojo entidad) {
+
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
         String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + entidad.getNombreClase().toLowerCase() + "))";
+
         StringBuilder sb8 = new StringBuilder();
         sb8.append(BREAK_LINE);
         sb8.append(DOUBLETAB+"@PostMapping(\"/saveOrUpdate\")");
         sb8.append(BREAK_LINE);
-        sb8.append(DOUBLETAB+"private boolean saveOrUpdate" + entidad.getNombreClase() + "(@RequestBody " + entidad.getNombreClase() + capaPojo.getModelM()+"  ");
+        sb8.append(DOUBLETAB+"private boolean saveOrUpdate" + entidad.getNombreClase() + "(@RequestBody " + entidad.getNombreClase() + "Pojo  ");
         sb8.append(entidad.getNombreClase().toLowerCase() + "){ ");
         sb8.append(BREAK_LINE);
         sb8.append(DOUBLETAB+TAB+"return " + entidad.getNombreClase().toLowerCase() + "Service.saveOrUpdate");
@@ -460,19 +445,20 @@ public class CreateControllerCapaPojo implements IImportModel {
         return sb9;
     }
 
-    private StringBuilder findByRelacion(EntidadesPojo entidad, CapaPojo capaPojo) {
+    private StringBuilder findByRelacion(EntidadesPojo entidad) {
         StringBuilder sb61 = new StringBuilder(BREAK_LINE);
 
         for (RelacionPojo relacion : entidad.getRelaciones()) {
             String validationService = relacion.getNameClassRelacion().toLowerCase() + "ValidationService";
             String mapperService = relacion.getNameClassRelacion().toLowerCase() + "Mapper";
             String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + relacion.getNameClassRelacion().toLowerCase() + "))";
+
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
                 sb61.append(BREAK_LINE);
                 sb61.append(DOUBLETAB+"@PostMapping(\"/Get_" + relacion.getNameRelacion() + "_contain/\")" );
                 sb61.append(BREAK_LINE);
-                sb61.append(DOUBLETAB+"private List<" + entidad.getNombreClase()+capaPojo.getModelM() + "> findBy" + relacion.getNameClassRelacion());
-                sb61.append("(@RequestBody " + relacion.getNameClassRelacion() + capaPojo.getModelM() +"  " + relacion.getNameClassRelacion().toLowerCase() + "){ ");
+                sb61.append(DOUBLETAB+"private List<" + entidad.getNombreClase() + "> findBy" + relacion.getNameClassRelacion());
+                sb61.append("(@RequestBody " + relacion.getNameClassRelacion() + "Pojo  " + relacion.getNameClassRelacion().toLowerCase() + "){ ");
                 sb61.append(BREAK_LINE);
                 sb61.append(DOUBLETAB+TAB+"return " + entidad.getNombreClase().toLowerCase() + "Service.findBy" + relacion.getNameClassRelacion());
                 sb61.append("Containing(" + contenido + "); }");
@@ -482,7 +468,7 @@ public class CreateControllerCapaPojo implements IImportModel {
         return sb61;
     }
 
-    private StringBuilder findByRelacionNoBidirecional(EntidadesPojo entidad, CapaPojo capaPojo) {
+    private StringBuilder findByRelacionNoBidirecional(EntidadesPojo entidad) {
 
         StringBuilder sb61 = new StringBuilder();
 
@@ -491,8 +477,7 @@ public class CreateControllerCapaPojo implements IImportModel {
                 sb61.append(BREAK_LINE);
                 sb61.append(DOUBLETAB+"@PostMapping(\"/find" + relacion.getNameRelacion() + "\")" );
                 sb61.append(BREAK_LINE);
-                sb61.append(DOUBLETAB+"private ResponseEntity<EntityRespone> findRelacion" + relacion.getNameClassRelacion() + "(@RequestBody "
-                        + relacion.getNameClassRelacion() + capaPojo.getModelM() +" " + relacion.getNameClassRelacion().toLowerCase() + "){ ");
+                sb61.append(DOUBLETAB+"private ResponseEntity<EntityRespone> findRelacion" + relacion.getNameClassRelacion() + "(@RequestBody " + relacion.getNameClassRelacion() + "Pojo " + relacion.getNameClassRelacion().toLowerCase() + "){ ");
                 sb61.append(BREAK_LINE);
                 sb61.append(DOUBLETAB+DOUBLETAB+"EntityRespone entityRespone = mapperEntityRespone.setEntityT(");
                 sb61.append(entidad.getNombreClase().toLowerCase() + "Service.findByRelacion" + relacion.getNameClassRelacion());

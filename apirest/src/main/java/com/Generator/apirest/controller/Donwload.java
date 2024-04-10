@@ -21,10 +21,9 @@ import java.io.InputStream;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/apis")
+@RequestMapping("/Anas")
 public class Donwload {
 
-	// /ApiREST/Generator/apis
 	protected static final Log logger = LogFactory.getLog(Donwload.class);
 
 	@Autowired

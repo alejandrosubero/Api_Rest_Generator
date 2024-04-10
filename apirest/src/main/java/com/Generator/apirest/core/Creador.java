@@ -13,12 +13,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+// @Scope("singleton")
 @Component
 public class Creador {
 
-	protected static final Log logger = LogFactory.getLog(Creador.class);
-
+	// private int relantizar2 = SleepRelantizer.RELANTIZERC;
 	private  String context;
 	private String proyectoName = "";
 	private String packageNames = "";
@@ -27,11 +26,18 @@ public class Creador {
 	private String artifact = "";
 	private String com = "";
 	private char ch = '.';
-
+	
+//	private static String barra = java.nio.file.FileSystems.getDefault().getSeparator();
+//	private static String sDirectorioTrabajo = System.getProperty("user.dir");
+//	private static String direccionDeCarpeta = sDirectorioTrabajo + barra+ "lib"+ barra;
+//	private String direccionOriginal = sDirectorioTrabajo + barra +"libbase";
+	
 	private String sDirectorioTrabajo ;
 	private String direccionDeCarpeta ;
 	private String direccionOriginal ;
 
+	
+	protected static final Log logger = LogFactory.getLog(Creador.class);
 
 	public Creador() {}
 

@@ -34,7 +34,6 @@ public class ArchivosBase implements IImportModel {
 			this.createApplicationPropeties(archivo, creadors);
 			this.createBanner(archivo, creadors);
 			this.createApplicationController(archivo, creadors);
-			//TODO: CONTROLAR EL CREAR ESTA CLASE PARA APLICACIONES CON SPRING BOOT DE 2.9 EN ADELANTE
 			this.createSwaggerClass(archivo, creadors);
 		}
 	}
@@ -76,11 +75,13 @@ public class ArchivosBase implements IImportModel {
 			String proyectoName = archivo.getProyectoName();
 			sb.append("package " + creador.getPackageNames() + ";");
 			sb.append(DOUBLEBREAK_LINE);
+//			sb.append(BREAK_LINE);
 
 			if (archivo.getToolClassPojo().getServerTcp() || archivo.getToolClassPojo().getServerUdp()) {
 				sb.append("import " + creador.getPackageNames() + ".serviceImplement.StartServer;");
 				sb.append(BREAK_LINE);
 				sb.append(SPRING_AUTOWIRED_IMPORT);
+				// sb.append( "import org.springframework.beans.factory.annotation.Autowired;"+BREAK_LINE);
 			}
 			
 			sb.append(importApplication());
@@ -102,8 +103,10 @@ public class ArchivosBase implements IImportModel {
 				sb.append(BREAK_LINE);
 			}
 
+		
 			sb.append("		public static void main(String[] args) {");
 			sb.append(DOUBLEBREAK_LINE);
+//			sb.append(BREAK_LINE);
 			
 			if(archivo.getCapaPojo().getCreateCapaJavaBase7()) {
 				sb.append(DOUBLETAB+"logger.info(\"the document  Swagger is in link: ==>  http://localhost:1111/swagger-ui.html\");");
@@ -134,7 +137,9 @@ public class ArchivosBase implements IImportModel {
 			sb.append("}");
 			sb.append(DOUBLEBREAK_LINE);
 
-			String direccion = path(Lists.newArrayList(
+			String direccion = 
+					path(
+							Lists.newArrayList(
 							creador.getDireccionDeCarpeta() + proyectoName,
 									"src",
 									"main",
@@ -164,7 +169,8 @@ public class ArchivosBase implements IImportModel {
 			as.append(TAB+"protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {"+BREAK_LINE);
 			as.append(DOUBLETAB+"return application.sources(" + claseName + ".class);\r\n" + "	}" + BREAK_LINE + "}"+DOUBLEBREAK_LINE);
 
-			String direccion = path(Lists.newArrayList(
+			String direccion = path(
+					Lists.newArrayList(
 							creador.getDireccionDeCarpeta() + archivo.getProyectoName(),
 							"src",
 							"main",
@@ -205,7 +211,9 @@ public class ArchivosBase implements IImportModel {
 				
 			String direccion = path(Lists.newArrayList(
 					creador.getDireccionDeCarpeta() + archivo.getProyectoName(), "src", "main", "java", 
-					creador.getCom(), creador.getPackageNames1(), creador.getArtifact(),"controller"));
+					creador.getCom(), creador.getPackageNames1(), creador.getArtifact(),"controller")
+					);
+			
 			creador.crearArchivo(direccion, controller.toString(), archivo.getProyectoName() + "Controller.java");
 			
 		} catch (Exception e) {	logger.error(e); }
@@ -253,8 +261,10 @@ public class ArchivosBase implements IImportModel {
 			sb.append(TAB+"}"+BREAK_LINE);
 			sb.append(BREAK_LINE);
 			sb.append("}"+DOUBLEBREAK_LINE);
+//			sb.append(BREAK_LINE);
 
-			String direccion = path(Lists.newArrayList(
+			String direccion = path(
+					Lists.newArrayList(
 							creador.getDireccionDeCarpeta() + archivo.getProyectoName(),
 							"src",
 							"main",
@@ -438,6 +448,7 @@ public class ArchivosBase implements IImportModel {
 			}
 
 			sb.append(DOUBLEBREAK_LINE);
+//			sb.append(BREAK_LINE);
 			sb.append("#SWAGGER URL #"+ BREAK_LINE);
 			
 			if(archivo.getCapaPojo().getCreateCapaJavaBase7()) {
@@ -447,7 +458,8 @@ public class ArchivosBase implements IImportModel {
 				sb.append("#http://localhost:1111/"+creador.getContext()+"/swagger-ui.html");
 				sb.append(BREAK_LINE);
 			}
-
+			
+//			sb.append(BREAK_LINE);
 			sb.append(DOUBLEBREAK_LINE);
 		
 			creador.crearArchivo(path(Lists.newArrayList(creador.getDireccionDeCarpeta() + archivo.getProyectoName(), "src", "main", "resources", " ")), 

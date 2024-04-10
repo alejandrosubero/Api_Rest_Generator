@@ -331,8 +331,7 @@ public class CreateServiceImp07 {
                 sv.append("			public List<" + entidad.getNombreClase() + "> findByRelacion" + relacion.getNameClassRelacion() + "(" + relacion.getNameClassRelacion() + " " + relacion.getNameClassRelacion().toLowerCase() + "){" + "\r\n");
                 sv.append("				List<" + entidad.getNombreClase() + "> lista" + entidad.getNombreClase() + " = new ArrayList<" + entidad.getNombreClase() + ">();" + "\r\n");
                 sv.append("				for (" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + " : this.getAll" + entidad.getNombreClase() + "()) {" + "\r\n");
-                sv.append("					if(" + entidad.getNombreClase().toLowerCase() + ".get" + relacion.getNameRelacion() + "().equals" +  "(" + relacion.getNameClassRelacion().toLowerCase() + ")){" + "\r\n");
-//                sv.append("					if(" + entidad.getNombreClase().toLowerCase() + ".get" + relacion.getNameRelacion() + "().equals" + relacion.getNameClassRelacion() + "(" + relacion.getNameClassRelacion().toLowerCase() + ")){" + "\r\n");
+                sv.append("					if(" + entidad.getNombreClase().toLowerCase() + ".get" + relacion.getNameRelacion() + "().equals" + relacion.getNameClassRelacion() + "(" + relacion.getNameClassRelacion().toLowerCase() + ")){" + "\r\n");
                 sv.append("						lista" + entidad.getNombreClase() + ".add(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
                 sv.append("					}" + "\r\n");
                 sv.append("				}" + "\r\n");
@@ -351,8 +350,7 @@ public class CreateServiceImp07 {
                 sv.append(" 			List<" + getNombreClase + "> lista" + getNombreClase + " = new ArrayList<" + getNombreClase + ">();" + "\r\n");
                 sv.append("			for (" + getNombreClase + " " + getNombre + " : this.getAll" + getNombreClase + "()) {" + "\r\n");
                 sv.append("				for (" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + "x : " + getNombre + ".get" + relacion.getNameRelacion() + "()) { " + "\r\n");
-                sv.append("						if("+relacion.getNameRelacion()+"x.equals"+"(" + relacion.getNameRelacion() + ")) {"+ "\r\n");
-//                sv.append("						if("+relacion.getNameRelacion()+"x.equals"+relacion.getNameClassRelacion()+"(" + relacion.getNameRelacion() + ")) {"+ "\r\n");
+                sv.append("						if("+relacion.getNameRelacion()+"x.equals"+relacion.getNameClassRelacion()+"(" + relacion.getNameRelacion() + ")) {"+ "\r\n");
                 sv.append("						lista" + getNombreClase + ".add(" + getNombre + ");	" + "\r\n");
                 sv.append("				}" + "\r\n");
                 sv.append("	  	 	}" + "\r\n");

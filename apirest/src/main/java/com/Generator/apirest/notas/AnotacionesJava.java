@@ -17,6 +17,9 @@ public class AnotacionesJava {
     private ArchivoBaseDatosPojo archivos;
     private Date fecha;
 
+//    private String asociametodo;
+//    private String devuelveMetodo;
+//    private String definicionParametro;
 
     public AnotacionesJava (){ }
     
@@ -59,18 +62,11 @@ public class AnotacionesJava {
         StringBuilder sb5 = new StringBuilder();
         sb5.append("" + "\r\n");
         sb5.append(" /*" + "\r\n");
-//        sb5.append("@author: "+ autor + "\r\n");
-        if(param != null && !param.equals(""))
+        sb5.append("@author: "+ autor + "\r\n");
         sb5.append("@param: " + param +"\r\n");
-
-        if(returm != null && !returm.equals(""))
         sb5.append("@return: "+ returm+ "\r\n");
-
-        if(param != null && !param.equals(""))
         sb5.append("@see: " + see + "\r\n");
-
-        sb5.append("@since:" + this.version+ "\r\n");
-
+        sb5.append("@since:" + "\r\n");
         sb5.append("Create on " +fecha+ "\r\n");
         sb5.append("*/" + "\r\n");
         return sb5;
@@ -103,3 +99,26 @@ public class AnotacionesJava {
 
 }
 
+
+/*
+*@Documented – Hará que la anotación se mencione en el javadoc.
+*@author: Nombre del desarrollador / Nombre autor o autores
+*@deprecated: Indica que el método y que no se recomienda su uso / Descripción
+*@param: Definición de un parámetro de un método, es requerido para todos los parámetros del método/ Nombre de parámetro y descripción
+*@return: Informa de lo que devuelve el método, no se aplica en constructores o métodos "void"/ Descripción del valor de retorno
+*@see: Asocia con otro método o clase / Referencia cruzada referencia (#método(); clase#método(); paquete.clase; paquete.clase#método()).
+*@version: Versión del método o clase.
+* @since JDK1.2"
+* @link: link de referencia en este cas va a ser el link de la codeANA <a href = "http://www.aprenderaprogramar.com" />  ANACODE WEB </a>
+*
+*/
+
+/*
+*
+/**
+ejemplo
+ * Esta clase define objetos que contienen tantos enteros aleatorios entre 0 y 1000 como se le definen al crear un objeto
+ * @author: Mario R. Rancel
+ * @version: 22/09/2016/A
+ * @see <a href = "http://www.aprenderaprogramar.com" />  Didáctica en programación </a>
+ */

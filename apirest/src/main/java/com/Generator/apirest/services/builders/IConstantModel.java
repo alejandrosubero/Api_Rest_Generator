@@ -11,8 +11,8 @@ public interface IConstantModel {
     public String barra = java.nio.file.FileSystems.getDefault().getSeparator();
 
     public final String DOUBLEBREAK_LINE = "\r\n"+"\r\n";
-    public final String TAB = "\t";
-    public final String DOUBLETAB = "\t\t";
+    public final String TAB = "	 ";
+    public final String DOUBLETAB = "		";
     public static final String PUBLIC = "public";
     public static final String CLASS = "class";
     public static final String RETURN = "return";

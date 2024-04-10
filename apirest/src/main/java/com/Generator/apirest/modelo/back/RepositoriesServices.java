@@ -7,7 +7,6 @@ import com.Generator.apirest.pojos.back.AtributoPojo;
 import com.Generator.apirest.pojos.back.EntidadesPojo;
 import com.Generator.apirest.pojos.back.RelacionPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
-import com.Generator.apirest.services.builders.IImportModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import java.util.List;
 
 //@Scope("singleton")
 @Component
-public class RepositoriesServices  implements IImportModel {
+public class RepositoriesServices {
 
 	
 	private ArchivoBaseDatosPojo archivo;
@@ -25,9 +24,10 @@ public class RepositoriesServices  implements IImportModel {
 	private List<EntidadesPojo> entidades;
 	private Creador creador;
 	private String barra = java.nio.file.FileSystems.getDefault().getSeparator();
-
-	//entidad.getNombreClase() + "Pojo"
-
+	
+// private String description;
+//	private int relantizar = SleepRelantizer.RELANTIZER;
+//	private int relantizar2 = SleepRelantizer.RELANTIZERB;
 	private AnotacionesJava anotacionesJava = new AnotacionesJava();
 
 	protected static final Log logger = LogFactory.getLog(RepositoriesServices.class);
@@ -39,13 +39,14 @@ public class RepositoriesServices  implements IImportModel {
 		this.packageNames = archivo.getPackageNames();
 		this.creador = creadors;
 		this.archivo = archivo;
+	//	this.barra = creador.getBarra();
 		this.anotacionesJava.activateAnotacionesJava(archivo);
 
 		try {
 			this.create();
 		} catch (InterruptedException e) {
 			logger.error(" ERROR : " + e);
-			 e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 
@@ -54,10 +55,12 @@ public class RepositoriesServices  implements IImportModel {
 		logger.info("inicia la creacion de la clase ");
 		if (this.entidades.size() > 0) {
 			for (EntidadesPojo entidad : this.entidades) {
+			//	Thread.sleep(relantizar);
 				if (entidad.getIsEntity()) {
 					logger.info("Inicia la creacion de Repository ===>" + " Repository" + entidad.getNombreClase());
 					this.createRepository(entidad);
 					logger.info("Inicia la creacion de Servicio ===>" + " Repository" + entidad.getNombreClase());
+				//	Thread.sleep(relantizar);
 					this.createService(entidad);
 				}
 			}
@@ -67,7 +70,9 @@ public class RepositoriesServices  implements IImportModel {
 	private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb)
 			throws InterruptedException {
 
+	//	Thread.sleep(relantizar);
 		String nameFile = entidad_getNombreClase + ".java";
+		// sb.append("}\r\n");
 		String singleString = sb.toString();
 		String direction = creador.getDireccionDeCarpeta() + proyectoName + barra + "src" + barra + "main" + barra
 				+ "java" + barra + creador.getCom() + barra + creador.getPackageNames1() + barra + creador.getArtifact()
@@ -126,6 +131,7 @@ public class RepositoriesServices  implements IImportModel {
 		sb1.append("\r\n");
 		sb1.append("}\r\n");
 		sb1.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+	//	Thread.sleep(relantizar);
 		this.createFileClass(nameOfClass, "repository", sb1);
 	}
 
@@ -135,11 +141,9 @@ public class RepositoriesServices  implements IImportModel {
 		String cadenaOriginal = "";
 		String atributoName = "";
 		String datoTipo = "";
+
 		List<AtributoPojo> listAtributos = entidad.getAtributos();
 		String nameOfClass = entidad.getNombreClase() + "Service";
-		String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())): entidad.getNombreClase();
-		String returnObjectClassPackage = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()? this.archivo.getCapaPojo().getModelT() : "entitys";
-
 		logger.info("createService" + "  for Entity:  " + entidad.getNombreClase());
 
 		for (AtributoPojo atributoID : entidad.getAtributos()) {
@@ -157,12 +161,11 @@ public class RepositoriesServices  implements IImportModel {
 		sb2.append("\r\n");
 		sb2.append("import java.util.List;");
 		sb2.append("\r\n");
-
 		sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";");
-		sb2.append("import " + packageNames + "." +returnObjectClassPackage + "." + returnObjectClass + ";");
 
 		for (RelacionPojo relacion : entidad.getRelaciones()) {
-			sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
+			sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion()
+					+ ";" + "\r\n");
 		}
 
 		sb2.append("\r\n");
@@ -178,18 +181,9 @@ public class RepositoriesServices  implements IImportModel {
 				String restoDeLaCadena = cadenaOriginal.substring(1);
 				atributoName = primeraLetra + restoDeLaCadena;
 				if (this.archivo.getMethodManager().isMethodFindByOrLoop()) {
-
-					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public ")));
-
-					if(archivo.getCapaPojo().getCreateCapaPojoForEntitys()){
-						sb2.append(stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())));
-					}else{
-						sb2.append(entidad.getNombreClase());
-					}
-
-					sb2.append(stringEnsamble(
-							List.of("  findBy",atributoName,"(",atributos.getTipoDato(), TAB,
-									atributos.getAtributoName(),");", DOUBLEBREAK_LINE)));
+					sb2.append("		public " + entidad.getNombreClase() + "  findBy" + atributoName + "("
+							+ atributos.getTipoDato() + " " + atributos.getAtributoName() + ");" + "\r\n");
+					sb2.append("\r\n");
 				}
 			}
 		}
@@ -201,76 +195,66 @@ public class RepositoriesServices  implements IImportModel {
 				String restoDeLaCadena = cadenaOriginal.substring(1);
 				atributoName = primeraLetra + restoDeLaCadena;
 				if (this.archivo.getMethodManager().isMethodContaining()) {
-					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
-//					String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-					sb2.append(returnObjectClass);
-//					if (this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()){
-//						sb2.append(stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")));
-//					}else{
-//						sb2.append(entidad.getNombreClase());
-//					}
-					sb2.append(stringEnsamble(List.of(">  findBy",atributoName
-							,"Containing(",atributos.getTipoDato(), TAB, atributos.getAtributoName(),");",DOUBLETAB)));
+					sb2.append("		public List<" + entidad.getNombreClase() + ">  findBy" + atributoName
+							+ "Containing(" + atributos.getTipoDato() + " " + atributos.getAtributoName() + ");"
+							+ "\r\n");
+					sb2.append("\r\n");
 				}
 			}
 		}
 
 		if (this.archivo.getMethodManager().isMethodfindById()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
-//			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-			sb2.append(returnObjectClass);
-			sb2.append(stringEnsamble(List.of(" findById" + "(" + datoTipo + " id);",BREAK_LINE)));
+			sb2.append("		public " + entidad.getNombreClase() + " findById" + "(" + datoTipo + " id);" + "\r\n");
 		}
 
 		if (this.archivo.getMethodManager().isMetohdSave()) {
-			sb2.append(DOUBLETAB+ "public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " "
+			sb2.append("		public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " "
 					+ entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
 		}
 
 		if (this.archivo.getMethodManager().isMethodgetAll()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
-//			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-			sb2.append(returnObjectClass);
-			sb2.append(stringEnsamble(List.of("> getAll" + entidad.getNombreClase() + "();", BREAK_LINE)));
+			sb2.append("		public List<" + entidad.getNombreClase() + "> getAll" + entidad.getNombreClase() + "();"
+					+ "\r\n");
 		}
 
-		if (archivo.getMethodManager().isMethodDelete()){
-			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public boolean delete",entidad.getNombreClase(),"(" + datoTipo, " id);", BREAK_LINE)));
+		if (entidad.getDelete()) {
+			sb2.append("		public boolean delete" + entidad.getNombreClase() + "(" + datoTipo + " id);" + "\r\n");
 		}
 
 		if (this.archivo.getMethodManager().isMethodUpdate()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public boolean update",entidad.getNombreClase(),"(" + entidad.getNombreClase() ,TAB,entidad.getNombreClase().toLowerCase(), ");", BREAK_LINE)));
+			sb2.append("		public boolean update" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " "
+					+ entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
 		}
 
 		if (this.archivo.getMethodManager().isMethodsaveOrUpdate()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public boolean saveOrUpdate",entidad.getNombreClase(),"(",entidad.getNombreClase(),
-					TAB,entidad.getNombreClase().toLowerCase(),");", DOUBLEBREAK_LINE)));
+			sb2.append(" 		public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase()
+					+ " " + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
 		}
+		sb2.append("\r\n");
 
 		for (RelacionPojo relacion : entidad.getRelaciones()) {
 
 			if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
 				if (this.archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional()) {
-					sb2.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
-//					String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-					sb2.append(returnObjectClass);
-					sb2.append(stringEnsamble(List.of(">  findBy",relacion.getNameClassRelacion(),"Containing("
-							,relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion(),");", BREAK_LINE)));
+					sb2.append("		public List<" + entidad.getNombreClase() + ">  findBy"
+							+ relacion.getNameClassRelacion() + "Containing(" + relacion.getNameClassRelacion() + " "
+							+ relacion.getNameRelacion() + ");");
+					sb2.append("\r\n");
 				}
 			} else {
 				if (this.archivo.getMethodManager().isMethodContainingRelacion()) {
-					sb2.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
-//					String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-					sb2.append(returnObjectClass);
-					sb2.append(stringEnsamble(List.of(">  findByRelacion",relacion.getNameClassRelacion(),"(",
-							relacion.getNameClassRelacion(),TAB,relacion.getNameClassRelacion().toLowerCase(),");", BREAK_LINE)));
+					sb2.append("		public List<" + entidad.getNombreClase() + ">  findByRelacion"
+							+ relacion.getNameClassRelacion() + "(" + relacion.getNameClassRelacion() + " "
+							+ relacion.getNameClassRelacion().toLowerCase() + ");");
+					sb2.append("\r\n");
 				}
 			}
 
 		}
-		sb2.append(stringEnsamble(List.of("}", BREAK_LINE)));
-		sb2.append(AnotacionesJava.apacheSoftwareLicensed());
-		sb2.append(BREAK_LINE);
+
+		sb2.append("}\r\n");
+		sb2.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+	//	Thread.sleep(relantizar);
 		this.createFileClass(nameOfClass, "service", sb2);
 	}
 

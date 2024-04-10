@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Scope("singleton")
+@Scope("singleton")
 @Component
 public class ArchivoBaseDatosPojo {
 
@@ -43,7 +43,6 @@ public class ArchivoBaseDatosPojo {
 	private MethodManager methodManager;
 	
 	private CapaPojo capaPojo;
-
 
 
 	

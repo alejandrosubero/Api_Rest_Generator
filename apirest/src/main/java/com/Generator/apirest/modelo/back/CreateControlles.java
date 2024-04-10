@@ -336,16 +336,7 @@ public class CreateControlles implements IImportModel {
         		                   +"Service.update" +entidad.getNombreClase()
                                      + "("+entidad.getNombreClase().toLowerCase()+");"
                                        + BREAK_LINE);
-
-        String atributoName = "";
-        for (AtributoPojo atributo:entidad.getAtributos()) {
-            if(atributo.getsId()){
-                atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
-            }
-        }
-
-//        sb7.append("            return "+entidad.getNombreClase().toLowerCase()+".getId(); }"+BREAK_LINE);
-        sb7.append("            return "+entidad.getNombreClase().toLowerCase()+".get" + atributoName +"(); }"+BREAK_LINE);
+        sb7.append("            return "+entidad.getNombreClase().toLowerCase()+".getId(); }"+BREAK_LINE);
         return sb7;
     }
 

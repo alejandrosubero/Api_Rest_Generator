@@ -5,7 +5,6 @@ package com.Generator.apirest.modelo.back;
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AtributoPojo;
-import com.Generator.apirest.pojos.back.CapaPojo;
 import com.Generator.apirest.pojos.back.EntidadesPojo;
 import com.Generator.apirest.pojos.back.RelacionPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
@@ -25,10 +24,9 @@ public class CreateValidation {
     private String packageNames;
     private List<EntidadesPojo> entidades;
     private Creador creador;
-    private ArchivoBaseDatosPojo archivo;
     private String barra =  java.nio.file.FileSystems.getDefault().getSeparator();
 
-    private String clave;
+    private String clave = "pojo";
     private List<EntidadesPojo> toPojos = new ArrayList<>();
     private List<EntidadesPojo> toEntidad = new ArrayList<>();
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
@@ -36,24 +34,21 @@ public class CreateValidation {
     protected static final Log logger = LogFactory.getLog(CreateValidation.class);
 
     public void startCreacion(ArchivoBaseDatosPojo archivo, Creador creadors) {
-        this.archivo = archivo;
+        this.entidades = archivo.getEntidades();
+        this.proyectoName = archivo.getProyectoName();
+        this.packageNames = archivo.getPackageNames();
         this.creador = creadors;
-        this.setData();
-    }
-
-    private void setData(){
-        this.entidades = this.archivo.getEntidades();
-        this.proyectoName = this.archivo.getProyectoName();
-        this.packageNames = this.archivo.getPackageNames();
-        this.clave = this.archivo.getCapaPojo().getModelT();
-        this.anotacionesJava.activateAnotacionesJava(this.archivo);
+       // this.barra = creador.getBarra();
+        this.anotacionesJava.activateAnotacionesJava(archivo);
         this.create(this.entidades);
     }
+
 
     private void create(List<EntidadesPojo> entidadesList) {
 
         if (entidadesList.size() > 0) {
             try {
+               // Thread.sleep(relantizar);
                 this.separateEntidadToPojos(entidadesList);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,7 +59,7 @@ public class CreateValidation {
                     String nameOfClass = entidad.getNombreClase() + "Validation";
                     try {
                         if (entidad.getIsEntity()) {
-                            String escritos = metods(entidad, archivo.getCapaPojo()).toString();
+                            String escritos = metods(entidad).toString();                       
                             createArchivo(escritos, nameOfClass);
                         }
                     } catch (Exception e) {
@@ -88,14 +83,19 @@ public class CreateValidation {
     }
 
 
-    private  StringBuilder metods(EntidadesPojo entidad , CapaPojo capaPojo) throws InterruptedException {
+    private  StringBuilder metods(EntidadesPojo entidad ) throws InterruptedException {
 
         StringBuilder validations = new StringBuilder ();
+       
         validations.append(this.anotacionesJava.creatNotaClase()+"\r\n");
-        validations.append(this.createImport(entidad, capaPojo));
+        validations.append(this.createImport(entidad));
+       
         validations.append(this.cabeceraClase(entidad));
-        validations.append(this.metodoValidad(entidad, capaPojo));
+      
+        validations.append(this.metodoValidad(entidad));
+     
         validations.append(this.metodovalida_id(entidad));
+      
         validations.append(this.metodovalidation(entidad));
         validations.append("}"+"\r\n");
         validations.append(AnotacionesJava.apacheSoftwareLicensed()+"\r\n");
@@ -104,18 +104,21 @@ public class CreateValidation {
 
     private void createArchivo(String escrito, String nameOfClass) {
         try {
+           // Thread.sleep(relantizar);
             String nombreArchivo = nameOfClass+".java";
             String entidad_paquete = "validation";
             String direction = creador.getDireccionDeCarpeta() + proyectoName +barra +"src"+barra+"main"+barra+"java"+barra + creador.getCom()
                     + barra + creador.getPackageNames1() + barra + creador.getArtifact()+ barra +"validation";
+          //  Thread.sleep(relantizar2);
             creador.crearArchivo(direction, escrito, nombreArchivo);
+
         } catch (Exception e) {
             logger.error(e);
         }
     }
 
 
-    private StringBuilder createImport(EntidadesPojo entidad, CapaPojo capaPojo){
+    private StringBuilder createImport(EntidadesPojo entidad){
 
     StringBuilder sb0 = new StringBuilder ();
     logger.info("createService" + "  for Entity:  " + entidad.getNombreClase());
@@ -136,7 +139,7 @@ public class CreateValidation {
     sb0.append("\r\n");
 
     for (EntidadesPojo entidadPojo : toPojos) {
-        String[] clavePojo = entidadPojo.getNombreClase().split(capaPojo.getModelM());
+        String[] clavePojo = entidadPojo.getNombreClase().split("Pojo");
         if (entidad.getNombreClase().equals(clavePojo[0])) {
             sb0.append("import " + packageNames + "." + entidadPojo.getPaquete()+"."+ entidadPojo.getNombreClase() + ";");
         }
@@ -144,7 +147,8 @@ public class CreateValidation {
 
     for (RelacionPojo relacion : entidad.getRelaciones()) {
         sb0.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
-        sb0.append("import " + packageNames + "."+capaPojo.getModelT()+"."+ relacion.getNameClassRelacion() +capaPojo.getModelM()+ ";" + "\r\n");
+        //   String[] clavePojo = pojo.getNombreClase().split("Pojo");
+        sb0.append("import " + packageNames + ".pojo."+ relacion.getNameClassRelacion() +"Pojo"+ ";" + "\r\n");
     }
     return sb0;
 }
@@ -159,16 +163,20 @@ public class CreateValidation {
     sb1.append("    @Service" + "\r\n");
     sb1.append("    public class "+nameClass+" {" + "\r\n");
     sb1.append("\r\n");
+    // sb1.append("private int validados = "+ entidad.getAtributos().size()+"+"+entidad.getRelaciones().size()+";" + "\r\n");
+    // sb1.append("private int contadorValidados = 0;" + "\r\n");
+    // sb1.append("private String fallo = \"\";" + "\r\n");
     return sb1;
 }
 
 
-private StringBuilder metodoValidad(EntidadesPojo entidad, CapaPojo capaPojo){
+private StringBuilder metodoValidad(EntidadesPojo entidad){
 
     StringBuilder sb2 = new StringBuilder ();
     String variable = entidad.getNombreClase().toLowerCase();
-    sb2.append("        public "+entidad.getNombreClase()+capaPojo.getModelM()+" valida("+entidad.getNombreClase()+capaPojo.getModelM()+" "+variable+") {" + "\r\n");
-    sb2.append("        "+entidad.getNombreClase()+capaPojo.getModelM()+" pojo = null;"+"\r\n");
+
+    sb2.append("        public "+entidad.getNombreClase()+"Pojo valida("+entidad.getNombreClase()+"Pojo "+variable+") {" + "\r\n");
+    sb2.append("        "+entidad.getNombreClase()+"Pojo"+" pojo = null;"+"\r\n");
     sb2.append("        try {"+"\r\n");
     sb2.append("             if ("+variable+" != null) {"+"\r\n");
     sb2.append("              if ("+"\r\n");
@@ -176,6 +184,7 @@ private StringBuilder metodoValidad(EntidadesPojo entidad, CapaPojo capaPojo){
 	for (int i = 0; i < entidad.getAtributos().size(); i++) {
 		if (!entidad.getAtributos().get(i).getsId()) {
 			String cadenaOriginal = entidad.getAtributos().get(i).getAtributoName();
+//			String atributoName = cadenaOriginal.substring(0, 1).toUpperCase()+ cadenaOriginal.substring(1).toLowerCase();
 			String atributoName = cadenaOriginal.substring(0, 1).toUpperCase()+ cadenaOriginal.substring(1);
 
 			sb2.append("        " + variable + ".get" + atributoName + "() != null");
