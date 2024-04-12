@@ -22,6 +22,7 @@ public class Developer {
     private Long idDeveloper;
     private String name;
     private String lastName;
+    private String fullName;
     private java.util.Date ingreseDate;
 
 }

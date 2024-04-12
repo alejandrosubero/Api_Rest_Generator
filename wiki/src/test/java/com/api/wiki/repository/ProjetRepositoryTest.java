@@ -21,7 +21,7 @@ import java.util.List;
 import static com.api.wiki.utility.TaskType.TASK;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+//@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class ProjetRepositoryTest {
 
         @Autowired
@@ -110,8 +110,10 @@ public class ProjetRepositoryTest {
 
         @Test
         public void saveProjetAndReturnProjet() {
+            Project project = this.getProyect();
+            project.setIdProject(25l);
             //Act
-            Project pro = projectRepository.save(this.getProyect());
+            Project pro = projectRepository.save(project);
 
             //Assert
             Assertions.assertThat(pro).isNotNull();

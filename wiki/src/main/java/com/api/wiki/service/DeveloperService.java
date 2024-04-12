@@ -10,4 +10,6 @@ public interface DeveloperService {
     public List<DeveloperDTO> findByName(String name);
     public List<DeveloperDTO> findByLastName(String lastName);
     public List<DeveloperDTO> getAll();
+    public Boolean save(DeveloperDTO developerDTO);
+    public String checkDeveloper(String name);
 }
