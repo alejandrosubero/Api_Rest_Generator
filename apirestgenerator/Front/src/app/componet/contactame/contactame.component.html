@@ -1,0 +1,66 @@
+
+
+    <mat-card class="example-card border">
+        <mat-card-content>
+            <div>
+                <h2>{{ 'principal3a.texto' | translate }}</h2>
+            </div>
+            <br>
+            <div class="row" bis_skin_checked="1">
+                <div class="col-md-12 color" bis_skin_checked="1">
+                        <form [formGroup]="meFormGroup" class="col-12" >
+                            <div class="container-fluid">
+                                <div class="row">
+
+                                    <!-- <div class="col-sm-12 m-1">
+                                        <div class="p-2 bd-highlight">
+                                            <mat-form-field>
+                                                <mat-label>{{ 'contacto.texto1' | translate }}</mat-label>
+                                                <input matInput formControlName="nombre" required />
+                                            </mat-form-field>
+                                        </div>
+                    
+                                        <div class="p-2">
+                                            <mat-form-field>
+                                                <mat-label>{{ 'contacto.texto2' | translate }}</mat-label>
+                                                <input matInput placeholder="Autor" formControlName="comentarios" required />
+                                            </mat-form-field>
+                                        </div>
+                    
+                                        <div class="p-2 bd-highlight">
+                                            <mat-form-field>
+                                                <mat-label>{{ 'contacto.texto3' | translate }}</mat-label>
+                                                <input matInput formControlName="comentarios" placeholder="description" required />
+                                            </mat-form-field>
+                                        </div>
+                                    </div> -->
+                                   
+                                    <div class="form-group col-12" bis_skin_checked="1">
+                                        <label for="inputPassword1"> {{ 'contacto.texto1' | translate }}</label>
+                                        <input type="text" formControlName="nombre" class="col-12 form-control" id="nombres"  required>
+                                    </div>
+        
+                                    <div class="form-group col-12" bis_skin_checked="1">
+                                        <label for="exampleInputEmail1">{{ 'contacto.texto2' | translate }} </label>
+                                        <input type="email" formControlName="email" class="form-control col-12" id="exampleInputEmail1"   required>
+                                    </div>
+                                   
+                                    <div class="form-group col-12" bis_skin_checked="1" >
+                                        <textarea  formControlName="comentarios" class="col-12 form-control" name="comentario" id="comentarios" cols="100" rows="10"></textarea>
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <br>
+        </mat-card-content>
+        <mat-card-actions class="btn-group">
+            <button mat-button class="btn btn-primary" (click)="send()"> SEND </button>
+            <button mat-button class="btn btn-danger" (click)="close()">Cancel</button>
+          </mat-card-actions>
+
+    </mat-card>
+
+   

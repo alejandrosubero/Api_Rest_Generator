@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'">
+    <mat-toolbar class="textColor1">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/home">Home</a>
+      <a mat-list-item routerLink="/cliente">Cliente</a>
+      <a mat-list-item routerLink="/code">Code</a>
+      <a mat-list-item routerLink="/consola">Consola</a>
+      <a mat-list-item routerLink="/about">Summary</a>
+      <a mat-list-item routerLink="/panel">Panel</a>
+      <!-- <a mat-list-item [routerLink]="['about']" fragment="ayudaDiv"  target="_blank">Summary</a> -->
+      <!-- <a mat-list-item [routerLink]="['consola']" fragment="ayudaDiv"  target="_blank">routerLink</a> este sale de la app ariendo otra ventana -->
+      <!-- <a mat-list-item routerLink="/about">Consola</a> -->
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="flexSpaceBetween">
+      <div class="d-flex justify-content-start">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+
+        <a class="nav-link textColor1" [routerLink]="[ '/home' ]" routerLinkActive="active">Home</a>
+        <a class="nav-link textColor1" [routerLink]="[ '/cliente' ]" routerLinkActive="active">Cliente</a>
+        <a class="nav-link textColor1" (click)="contactMeDialogTools()">Contac</a>
+      </div>
+
+      <div class="d-flex align-items-center m-1">
+        <a mat-list-item (click)="idioma('en')" class="textColor1" style="margin-right: 2px;">En |</a>
+        <a mat-list-item (click)="idioma('es')" class="textColor1" style="margin-left: 2px; margin-right: 20px;">|
+          Es</a>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

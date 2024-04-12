@@ -1,0 +1,65 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>{{ 'Crearnew' | translate }}</mat-card-title>
+        <mat-card-subtitle>{{ 'Entidad' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <form [formGroup]="firstForm">
+            <div class="container-fluid ">
+                <div class="row  border ancho center">
+                    <div class="col-sm-3 m-1">
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="isEntity" color="primary">{{ 'Entidad' | translate }}</mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="isDelete" color="primary">{{ 'EntidadDelete' | translate }}</mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="isSerializable" color="primary">{{ 'EntidadSerializable' | translate }}</mat-slide-toggle>
+                        </div>
+
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'Clase' | translate }}</mat-label>
+                                <input matInput formControlName="nombreClase" placeholder="nombre Clase"
+                                    (keyup)="escribir(this.firstForm.value.nombreClase)"
+                                    oninput="this.value = this.value.replace(/ /g, '').charAt(0).toUpperCase()+value.replace(/ /g, '').slice(1)"
+                                    required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'NombreTabla' | translate }}</mat-label>
+                                <input matInput placeholder="nombreTabla" formControlName="nombreTabla"
+                                    [(ngModel)]="tabla" required>
+                            </mat-form-field>
+                        </div>
+
+                            <!-- <mat-form-field>
+                                <mat-label>Paquete</mat-label>
+                                <mat-select formControlName="paquete">
+                                    <mat-option *ngFor="let pagt of paquetelist" [value]="pagt">
+                                        {{pagt}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+
+
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions class="center border shadow">
+        <button mat-raised-button class="m-2" (click)="onNoClick()">{{ 'Adicionar' | translate }}</button>
+        <button mat-raised-button class="m-2" (click)="onClose()">{{ 'Cancel' | translate }}</button>
+    </mat-card-actions>
+</mat-card>

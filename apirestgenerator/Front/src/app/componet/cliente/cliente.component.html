@@ -1,0 +1,258 @@
+<br>
+<mat-horizontal-stepper #stepper class="texto-color">
+    <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>{{ 'datos-Proyectos' | translate }}</ng-template>
+
+        <form [formGroup]="firstFormGroup" (ngSubmit)="guardarCambios()" novalidate="novalidate">
+            <div class="container-fluid">
+                <div class="row border ancho center">
+                    <div class="col-sm-3 m-1">
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'proyecto-name' | translate }}</mat-label>
+                                <input matInput formControlName="proyectoName"
+                                     placeholder="proyectoName"
+                                    oninput="this.value = this.value.replace(/ /g, '')" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-form-field>
+                                <mat-label>{{ 'autor' | translate }}</mat-label>
+                                <input matInput placeholder="Autor" formControlName="autor" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'Description' | translate }}</mat-label>
+                                <input matInput formControlName="description" placeholder="description" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'packageNames' | translate }} </mat-label>
+                                <input matInput formControlName="packageNames" [(ngModel)]="packageNamesVal" (keyup)="paqueteedid()"
+                                    placeholder="{{ 'packageNames' | translate }}" required />
+                            </mat-form-field>
+                        </div>
+
+                      
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label> {{ 'JavaVersion' | translate }} </mat-label>
+                                <mat-select formControlName="javaVersion">
+                                    <mat-option *ngFor="let pagt of javaversionlist" [value]="pagt">
+                                        {{ pagt }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <button mat-raised-button (click)="openDialogTools()"> 
+                                {{ 'ToolPanel' | translate }}</button>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-3 m-1">
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Artifac</mat-label>
+                                <input matInput placeholder="context" formControlName="artifact" [(ngModel)]="artifac"
+                                    (keyup)="paqueteNameArtifac()" placeholder="Artifac"
+                                    oninput="this.value = this.value.replace(/ /g, '').toLowerCase()" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'User' | translate }}</mat-label>
+                                <input matInput formControlName="user" placeholder="User" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <section class="examsection">
+                                <mat-checkbox class="exammargin" formControlName="dataBase" [(ngModel)]="dataBaseUse">
+                                    {{ 'UseDatabase' | translate }}</mat-checkbox>
+                            </section>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'DataBase' | translate }}</mat-label>
+                                <mat-select formControlName="tipoDatabase">
+                                    <mat-option *ngFor="let base of dataBaselist" [value]="base.tipoDatabase">
+                                        {{ base.databaseName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- <div class="p-2 bd-highlight">
+                            <section class="examsection">
+                                <mat-checkbox class="exammargin" formControlName="wihtSegurity"
+                                    [(ngModel)]="wihtSegurityVal">{{ 'wiht-Segurity' | translate }}</mat-checkbox>
+                            </section>
+                        </div> -->
+                      
+                    </div>
+
+                    <div class="col-sm-3 m-1">
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'context' | translate }}</mat-label>
+                                <input matInput placeholder="context" [(ngModel)]="contexVa" formControlName="context" 
+                                
+                                    (keyup)="paqueteNameCotex()" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'VersionPrograma' | translate }}</mat-label>
+                                <input matInput placeholder="Versión Programa" [(ngModel)]="versionPrograma"
+                                    formControlName="prograntVersion" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'databaseName' | translate }}</mat-label>
+                                <input matInput formControlName="databaseNames"
+                                    (keyup)="databaseNameValor()"
+                                     placeholder="databaseName"
+                                    oninput="this.value = this.value.replace(/ /g, '')" required />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <section class="examsection">
+                                <mat-checkbox class="exammargin" formControlName="nativeMysql"
+                                    [(ngModel)]="nativeMysqlVal">
+                                    Native Mysql</mat-checkbox>
+                                <mat-checkbox class="exammargin" formControlName="databaseTest"
+                                    [(ngModel)]="databaseTestVal">{{ 'Database Test' | translate }}</mat-checkbox>
+                            </section>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label> {{ 'sprintVersion' | translate }} </mat-label>
+                                <mat-select formControlName="springBootVersion">
+                                    <mat-option *ngFor="let version of sprintVersion" [value]="version">
+                                        {{ version }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                    
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br />
+        <div class="btn-group">
+            <!-- <button mat-raised-button matStepperNext class="m-1" [disabled]="!this.validFormPackage">{{ 'Next' | translate }}</button> -->
+            <button mat-raised-button matStepperNext class="m-1" >{{ 'Next' | translate }}</button>
+        </div>
+    </mat-step>
+
+    <!-- <mat-step [stepControl]="secondFormGroup"> -->
+    <mat-step>
+        <ng-template matStepLabel> {{ 'Entidades-Atributos-Relaciones' | translate }}</ng-template>
+        <div class="container-fluid">
+            <div class="row row-cols-sm-1 row-cols-md-3">
+                <div class="col ancho">
+                    <app-entidad 
+                        [databaseTipoVal]="this.databaseTipoVal" 
+                        (cambioEntidad)="entidadLista($event)"
+                        (cambioEntidades)="onEntidadListaUpdateBorrada($event)">
+                    </app-entidad>
+                </div>
+
+                <div class="col" *ngIf="isAtributo">
+                    <app-atributo 
+                    [databaseTipoVal]="this.databaseTipoVal" 
+                    (cambioAtributo)="updateLista($event)">
+                    </app-atributo>
+                </div>
+
+                <div class="col" *ngIf="isRelacion">
+                    <app-relacion [listaentidades]="this.entidadesList" (cambioRelacion)="updateLista($event)">
+                    </app-relacion>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-1">
+            <button mat-raised-button matStepperPrevious class="m-1">{{ 'Back' | translate }}</button>
+            <button mat-raised-button matStepperNext class="m-1" (click)="generateJson()">
+                {{ 'Next' | translate }}
+            </button>
+        </div>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel> {{ 'Generar-Proyecto' | translate }}</ng-template>
+
+        <p>{{ 'done' | translate }}</p>
+
+        <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#FF0000" type="square-jelly-box"
+            [fullScreen]="true">
+            <p style="color: white">Loading...</p>
+        </ngx-spinner>
+
+        <!-- Mostrar json -->
+
+        <!-- value: {{ firstFormGroup.value | json }} -->
+
+        <mat-drawer-container autosize>
+            <mat-drawer #drawer class="sidenav" mode="side">
+                <div class="col">
+                    <!-- <ace-editor [(text)]="code" mode="sql" [readOnly]="false" (textChanged)="onChange($event)"
+                        style="min-height: 600px; width: 100%; overflow: auto">
+                    </ace-editor> -->
+                    <div class="terminal" >
+                        <textarea  name="doc" id="doc" cols="100" rows="23" id="tex" class="scroll texareaTerminal" spellcheck="false"
+                            [(ngModel)]="jsonArea" (textChanged)="onChange()" 
+                            style="background-color: black; color: white;">
+                        </textarea>
+                    </div>
+                </div>
+            </mat-drawer>
+
+            <div>
+                <div class="col" style="background-color: antiquewhite">
+                    <ngx-json-viewer [json]="jsonValor" [expanded]="false"></ngx-json-viewer>
+                </div>
+            </div>
+        </mat-drawer-container>
+
+        <!-- Generar el Proyecto Editar el Proyecto y Descargarlo  -->
+        <div class="m-2">
+            <button class="m-1" type="button" mat-raised-button (click)="drawer.toggle()">
+               {{ 'Edit' | translate }}
+            </button>
+            <button class="m-1" type="button" mat-raised-button (click)="onEnviar()">
+                 {{ 'Generar' | translate }}
+            </button>
+            <button *ngIf="download" class="m-1" type="button" mat-raised-button (click)="ondownload()">
+                 {{ 'Download' | translate }}
+            </button>
+        </div>
+
+        <div>
+            <button mat-raised-button matStepperPrevious class="m-1" (click)="onResetJson()">
+                 {{ 'Back' | translate }}
+            </button>
+            <button mat-raised-button (click)="stepper.reset()" class="m-1">
+                 {{ 'Reset' | translate }}
+            </button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

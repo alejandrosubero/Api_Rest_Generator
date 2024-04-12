@@ -1,0 +1,7 @@
+<br>
+<div class="container">
+    <div class="container" class="consolestyle border-1">
+        <h6 class="texto" *ngFor="let item of this.consoleHistory">{{item}}</h6>
+        <input #box  type="text"  (keyup.enter)="onEnter(box.value)" class="form-control-lg border-0">
+    </div>
+</div>

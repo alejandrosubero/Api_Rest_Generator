@@ -1,0 +1,68 @@
+<mat-toolbar color="primary" class="mat-elevation-z8 mb-3"><span>Data Base</span></mat-toolbar>
+
+<div class="mat-elevation-z8" style="background-color: rgb(244, 244, 248); color: rgb(5, 5, 5); font-weight: bold;">
+
+    <form [formGroup]="firstFormGroup" novalidate="novalidate" class="texto-color">
+        <div class="container-fluid">
+            <div class="row border ancho center">
+
+                <div class="col-sm-3 mt-4">
+
+                    <div class="p-2 bd-highlight">
+                        <section class="examsection">
+                            <mat-checkbox class="exammargin" formControlName="dataBase" [(ngModel)]="dataBaseUse">
+                                {{ 'UseDatabase' | translate }}
+                            </mat-checkbox>
+                        </section>
+                    </div>
+
+                    <div class="p-2 bd-highlight mt-1">
+                        <section class="examsection">
+                            <mat-checkbox class="exammargin" formControlName="nativeMysql" [(ngModel)]="nativeMysqlVal">
+                                Native Mysql
+                            </mat-checkbox>
+                        </section>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-3 m-1">
+                    <mat-form-field>
+                        <mat-label>{{ 'DataBase' | translate }}</mat-label>
+                        <mat-select formControlName="tipoDatabase">
+                            <mat-option *ngFor="let base of dataBaselist" [value]="base.tipoDatabase">
+                                {{ base.databaseName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>{{ 'databaseName' | translate }}</mat-label>
+                        <input matInput formControlName="databaseNames" (keyup)="databaseNameValor()"
+                            placeholder="databaseName" oninput="this.value = this.value.replace(/ /g, '')" required />
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-3 mt-3">
+                    <div class="p-2 bd-highlight">
+                        <section class="examsection">
+                            <mat-checkbox class="exammargin" formControlName="databaseTest"
+                                [(ngModel)]="databaseTestVal">
+                                {{ 'Database Test' | translate }}
+                            </mat-checkbox>
+                        </section>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<br>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" (click)="onBack()"> {{ 'Back' | translate }} </a>
+</div>
+<br>

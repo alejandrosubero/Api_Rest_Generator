@@ -1,0 +1,85 @@
+<br>
+<h4>CODE JSON CONSOLA</h4>
+    <div class="row" style="height: 80%;">
+
+        <div class="col-sm-2 border">
+            <div class="d-flex flex-column bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <button mat-raised-button class="m-1" (click)="createEntidad()">
+                        Create Entidad
+                    </button>
+                    <button mat-raised-button class="m-1" (click)="createPojo()">
+                        Create Pojo
+                    </button>
+                </div>
+
+                <div class="p-2 bd-highlight" *ngIf="grupoEntidadesPojosList.length>0">
+                    <mat-form-field>
+                        <mat-label>Entidad</mat-label>
+                        <mat-select>
+                            <mat-option *ngFor="let entidad of grupoEntidadesPojosList" [value]="entidad"
+                                (onSelectionChange)="entidadSelecte(entidad)">
+                                {{entidad.nombreClase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="p-2 bd-highlight" *ngIf="showAtributo">
+                    <button mat-raised-button class="m-1" (click)="createAtributo()">Create Atributo</button>
+                </div>
+                <div class="p-2 bd-highlight" *ngIf="showRelaciones">
+                    <button mat-raised-button class="m-1" (click)="generateNewRelacion()">Create Relación</button>
+                </div>
+
+                <div class="m-2">
+                    <button class="m-1" type="button" mat-raised-button (click)="onEnviar()">Generate Proyect</button>
+                    <button *ngIf="download" class="m-1" type="button" mat-raised-button (click)="ondownload()">Download Proyect </button>
+                </div>
+
+            </div>
+        </div>
+
+        
+        <div class="col-sm-4 border">
+
+            <div class="terminal" style="width: 100%;">
+                <textarea  name="doc" id="doc" cols="80" rows="23" id="tex" class="scroll texareaTerminal" spellcheck="false"
+                    [(ngModel)]="jsonArea" (keyup)="onChange()" 
+                    style="background-color: black; color: white;">
+                </textarea>
+            </div>
+
+            <!-- <ace-editor 
+                [(text)]="code" 
+                mode="sql" 
+                [readOnly]="false" 
+                (textChanged)="onChange($event)"
+                style="min-height: 600px; width:100%; overflow: auto; font-size: medium;">
+            </ace-editor> -->
+          
+                <!-- <div ace-editor
+                   [(text)]="code" 
+                   [mode]="'sql'" 
+                   [theme]="'eclipse'"
+                   [options]="options"
+                   [readOnly]="false"
+                   [autoUpdateContent]="true" 
+                   [durationBeforeCallback]="1000" 
+                   (textChanged)="onChange($event)"
+                   style="min-height: 600px; width:100%; overflow: auto;">
+                </div> -->
+        </div>
+
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#FF0000" type = "square-jelly-box" [fullScreen] = "true">
+            <p style="color: white" > Loading... </p>
+        </ngx-spinner>
+        
+        <div class="col-sm-6" style="background-color: antiquewhite; width: 300px;">
+            <ngx-json-viewer [json]="jsonValor" [expanded]="false"></ngx-json-viewer>
+        </div>
+       
+    </div>
+
+
+

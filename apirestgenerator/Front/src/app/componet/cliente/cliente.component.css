@@ -1,0 +1,51 @@
+.ancho{
+    width: 100%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+
+.row-full{
+    width: 100vw;
+    position: relative;
+    margin-left: -50vw;
+    height: 100px;
+    margin-top: 100px;
+    left: 50%;
+   }
+
+   .examsection {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+
+  .exammargin {
+    margin: 0 10px;
+  }
+
+  .jsom{
+    color: aliceblue;
+    margin: 0 10px;
+  }
+
+  
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sidenav {
+    width: 50%;
+  }
+
+  .texto-color{
+    color: black;
+  }

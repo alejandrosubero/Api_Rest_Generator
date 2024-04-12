@@ -1,0 +1,187 @@
+<mat-card class="example-card">
+    <mat-card-header class="bg primary">
+        <mat-card-title>{{ 'Crearnew' | translate }} </mat-card-title>
+        <mat-card-subtitle>{{ 'Attributes' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <form [formGroup]="firstForm">
+            <div class="container-fluid border ">
+                <div class="row ancho center">
+                    <div class="col border">
+
+                        <div class="p-2 bd-highlight" *ngIf="ismodificadorExtra">
+                            <mat-form-field>
+                                <mat-label>{{ 'Extramodifier' | translate }}</mat-label>
+                                <input matInput formControlName="modificadorExtra" placeholder="Modificador Extra"
+                                    [(ngModel)]="modificadorExtrat" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <!-- <mat-form-field>
+                                <mat-label>Tipo Modificador</mat-label>
+                                <input matInput formControlName="tipoModificador" placeholder="Tipo Modificador"
+                                    required>
+                            </mat-form-field> -->
+
+                            <mat-form-field>
+                                <mat-label>{{ 'ModifierType' | translate }}</mat-label>
+                                <mat-select formControlName="tipoModificador">
+                                    <mat-option *ngFor="let mod of tipoModificadorList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+
+                            <mat-form-field>
+                                <mat-label>{{ 'Datatype' | translate }}</mat-label>
+                                <mat-select formControlName="tipoDato">
+                                    <mat-option *ngFor="let mod of tipoDatoList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- <mat-form-field>
+                                <mat-label>Tipo de Dato</mat-label>
+                                <input matInput formControlName="tipoDato" placeholder="Tipo de Dato" required>
+                            </mat-form-field> -->
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'Nameattribute' | translate }}</mat-label>
+                                <input matInput formControlName="atributoName" placeholder="Atributo Name"
+                                    (keyup)="escribir(this.firstForm.value.atributoName)"
+                                    oninput="this.value = value.replace(/ /g, '')" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'ColumName' | translate }}</mat-label>
+                                <input matInput formControlName="nameColum" placeholder="Colum Name"
+                                    [(ngModel)]="onnameColum" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Length</mat-label>
+                                <input matInput formControlName="length" placeholder="Length" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+
+                            <mat-form-field>
+                                <mat-label>{{ 'TypeGeneratedValue' | translate }}</mat-label>
+                                <mat-select formControlName="tipoGeneratedValor">
+                                    <mat-option *ngFor="let mod of tipoGeneratedValorList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- <mat-form-field>
+                                <mat-label>Nombre la Clase</mat-label>
+                                <input matInput formControlName="nombreClase" placeholder="nombre Clase" required>
+                            </mat-form-field> -->
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="issequenceGenerator">
+                            <mat-form-field>
+                                <mat-label>{{ 'SequenseName' | translate }}</mat-label>
+                                <input matInput formControlName="sequenseName" placeholder="Sequense Name" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="issequenceGenerator">
+                            <mat-form-field>
+                                <mat-label>{{'SequenceTablename ' | translate }}</mat-label>
+                                <input matInput formControlName="nameSequenceTable" placeholder="Sequence Table Name"
+                                    required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="issequenceGenerator">
+                            <mat-form-field>
+                                <mat-label>{{ 'InitialValue' | translate }}</mat-label>
+                                <input matInput formControlName="initialValue" placeholder="Initial Value" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="issequenceGenerator">
+                            <mat-form-field>
+                                <mat-label>{{ 'AllocationSize' | translate }}</mat-label>
+                                <input matInput formControlName="allocationSize" placeholder="AllocationSize" required>
+                            </mat-form-field>
+                        </div>
+
+                   
+                    </div>
+
+                    <div class="col border">
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="sId" color="primary">isId
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="ismodificadorExtra" color="primary"
+                                (change)="modificadorExtra()">{{ 'Extramodifier' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="atributoUpdatable" color="primary">
+                                {{ 'Updatabl' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="atributoNullable" color="primary">
+                                {{ 'Nullable' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="generatedValue" color="primary">
+                                {{ 'GeneratedValueId' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="sequenceGenerator" color="primary" (change)="sequense()">
+                                {{ 'SequenceGenerator' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="tipoGenerador" color="primary">
+                                {{ 'GeneratorType' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="transiente" color="primary">
+                                {{ 'Transient' | translate }}
+                            </mat-slide-toggle>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions class="center border shadow">
+        <button mat-raised-button class="m-2" (click)="onNoClick() ">{{ 'Adicionar' | translate }}</button>
+        <button mat-raised-button class="m-2" (click)="onClose()">{{ 'Cancel' | translate }}</button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,68 @@
+<br>
+<div class="paneles">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center "></div>
+        <div class="row" *ngIf="barraControlPanel[0]=='1'">
+            <div class="col-sm col-md-{{this.colunNumber[0]}} col-lg-{{this.colunNumber[1]}}" 
+            *ngIf="activoPanelSuperior[0]=='1'"  
+            (click)="goToProyecto(this.proyectoData)" >
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[0]}}>  
+                    /proyectoData
+                </mat-card> 
+        </div>
+            <div class="col-sm col-md-{{this.colunNumber[0]}} col-lg-{{this.colunNumber[1]}}" 
+            *ngIf="activoPanelSuperior[1]=='1'" 
+            (click)="goToProyecto(this.JavaVersionView)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[1]}}> 
+                    /javaVersion
+                </mat-card> 
+            </div>
+            <div class="col-sm col-md-{{this.colunNumber[0]}} col-lg-{{this.colunNumber[1]}}" 
+            *ngIf="activoPanelSuperior[2]=='1'" 
+            (click)="goToProyecto( this.DatabaseView)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[2]}}>  
+                    /database
+                </mat-card> 
+            </div>
+            <div class="col-sm col-md-{{this.colunNumber[0]}} col-lg-{{this.colunNumber[1]}}" 
+            *ngIf="activoPanelSuperior[3]=='1'" 
+            (click)="goToProyecto(this.seguridad)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[3]}}>  
+                    /seguridad
+                </mat-card> 
+            </div>
+        </div>
+    <!-- ---------------------------------------------------------------------------------- -->
+        <div class="row" *ngIf="barraControlPanel[1]=='1'">
+            <div class="col-sm col-md-{{this.colunNumber[2]}} col-lg-{{this.colunNumber[3]}}" 
+            *ngIf="activoPanelInferior[0]=='1'" 
+            (click)="goToProyecto(this.Arquitectura)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[4]}}>  
+                    /arqutecture
+                </mat-card> 
+        </div>
+            <div class="col-sm col-md-{{this.colunNumber[2]}} col-lg-{{this.colunNumber[3]}}" 
+            *ngIf="activoPanelInferior[1]=='1'" 
+            (click)="goToProyecto(this.ManagerMethods)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[5]}}> 
+                    /managerMethods
+                </mat-card> 
+            </div>
+            <div class="col-sm col-md-{{this.colunNumber[2]}} col-lg-{{this.colunNumber[3]}}" 
+            *ngIf="activoPanelInferior[2]=='1'" 
+            (click)="goToProyecto(this.ManagerTool)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[6]}}>  
+                    /managerTool
+                </mat-card> 
+            </div>
+            <div class="col-sm col-md-{{this.colunNumber[2]}} col-lg-{{this.colunNumber[3]}}" 
+            *ngIf="activoPanelInferior[3]=='1'" 
+            (click)="goToProyecto(this.ManagerTool)">
+                <mat-card class="col-sm caja mt-1 mb-1 mat-elevation-z8" ngClass={{colors[7]}}>  
+                    /managerTool
+                </mat-card> 
+            </div>
+        </div>
+    
+    </div>
+</div>

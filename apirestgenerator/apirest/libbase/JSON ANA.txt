@@ -1,0 +1,47 @@
+{
+    "proyectoName": "AnaPruebaWeb2",
+    "packageNames": "com.ana.AnaPruebaWeba2",
+    "description": "programa de pruebas Ana2",
+    "entidades": [
+        {
+            "nombreTabla": "",
+            "atributoColum": ,
+            "paquete": "",
+            "atributos": [
+                {
+                    "nombreClase": "",
+                    "nombreTabla": "",
+                    "paquete": "",
+                    "sId": ,
+                    "idName": "id",
+                    "modificadorExtra": "",
+                    "tipoModificador": "",
+                    "tipoDato": "",
+                    "atributoName": "",
+                    "nameColum": "",
+                    "generatedValue": ,
+                    "tipoGeneratedValor": "",
+                    "sequenceGenerator": ,
+                }
+            ],
+            "relaciones": [
+                {
+                    "nameClassRelacionar": "",
+                    "mappedBy": "",
+                    "orphanRemoval": ,
+                    "nameClassRelacion": "",
+                    "nameRelacion": "",
+                    "relation": "",
+                    "bidireccional": ,
+                    "joinColumn": ,
+                    "fetchType": ,
+                    "fetchTypes": " ",
+                    "joinColumnName": " ",
+                    "JoinTable": ,
+                    "joinColumnNameReferencedColumnName": "",
+                    "cascadeType": ""
+                }
+            ]
+        }
+    ]
+}
