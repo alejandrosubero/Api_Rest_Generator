@@ -1,30 +1,40 @@
-#spring.application.name=wiki
-
 
 #Aplication configuration
 server:
   port: 8091
 
-#  to see the h2 console http://localhost:8091/h2-console
-##===========================
-## DB
-##=============================
+#spring:
+#  application:
+#     name: "wiki"
+#  jpa:
+#    database-platform: org.hibernate.community.dialect.SQLiteDialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#hibernate:
+#  show_sql: true
+#  use_sql_comments: false
+#  format_sql: false
+#  datasource:
+#    driver-class-name: org.sqlite.JDBC
+#    url: jdbc:sqlite:wikidatabase.sqlite
+#    username:
+#    password:
 
 spring:
   application:
-    name: "my-microservice"
+    name: "wiki"
   datasource:
     url: jdbc:h2:mem:productDB
     username: sa
     password:
     driver-class-name: org.h2.Driver
-
 h2:
   console:
     enabled: true
     path: /h2-console
-
-
+ #  to see the h2 console http://localhost:8091/h2-console
 #===========================
 # JPA/HiBERNATE
 #=============================
@@ -38,6 +48,7 @@ hibernate:
     show_sql: true
     use_sql_comments: false
     format_sql: false
+
 logging:
   pattern:
     console:"%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

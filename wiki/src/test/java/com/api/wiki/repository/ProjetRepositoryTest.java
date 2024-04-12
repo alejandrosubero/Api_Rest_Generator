@@ -3,12 +3,17 @@ package com.api.wiki.repository;
 import com.api.wiki.entitys.*;
 import com.api.wiki.utility.TaskSate;
 import org.assertj.core.api.Assertions;
-import org.hibernate.id.Assigned;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 
 import java.util.Date;
 import java.util.List;
