@@ -1,5 +1,6 @@
 package com.api.wiki.service.implment;
 
+import com.api.wiki.businessrules.TaskBusinessRules;
 import com.api.wiki.dto.TaskDTO;
 import com.api.wiki.entitys.Task;
 import com.api.wiki.mapper.MapperTask;
@@ -14,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TaskServiceImplement implements TaskService {
+public class TaskServiceImplement implements TaskService, TaskBusinessRules {
 
     private TaskRepository taskRepository;
     private MapperTask mapperTask;
@@ -85,17 +86,24 @@ public class TaskServiceImplement implements TaskService {
 
     @Override
     public TaskDTO saveOrUpdate(TaskDTO taskDTO) {
-
         try {
-            if(taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE)){
+
+            taskDTO = this.validTaskSate(taskDTO);
+
+            if(taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
 
-            if(taskDTO.getTaskId() == null && taskDTO.getState() != null || !taskDTO.getState().equals(TaskSate.COMPLETE)){
-              taskDTO.setCreateDate(new Date());
-              taskDTO.setState();
+            if(taskDTO.getTaskId() != null && taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
+
+                ...
                 return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
+
+            if(taskDTO.getTaskId() == null){
+                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
+            }
+
 
         }catch (DataAccessException e){
             e.printStackTrace();
