@@ -21,17 +21,17 @@ public class SubTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSubTask;
     private String titleSubTask;
+    private Long taskReferenceId;
     private Long IdProject;
-    private String state;
     private String taskType;
-    private Long time; // hours
     private String description;
+    private String state;
+    private Long time; // hours
     private String solution;
     private Date createDate;
     private Date endDate;
     private String personCreate;
     private String personWorked;
-    private String taskReference;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_sub_task")

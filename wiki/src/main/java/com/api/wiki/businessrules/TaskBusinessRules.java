@@ -10,6 +10,7 @@ public interface TaskBusinessRules {
 
 
     default public TaskDTO validTaskSate(TaskDTO taskDTO){
+
         if(taskDTO.getTaskId() == null && taskDTO.getState() == null || taskDTO.getState() != null) {
             taskDTO.setState(TaskSate.CREATE.toString());
             taskDTO.setCreateDate(new Date());

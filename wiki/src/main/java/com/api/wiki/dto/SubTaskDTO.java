@@ -19,6 +19,7 @@ public class SubTaskDTO implements Serializable {
     private Long idSubTask;
     private String titleSubTask;
     private Long IdProject;
+    private Long taskReferenceId;
     private String state;
     private String taskType;
     private Long time; // hours

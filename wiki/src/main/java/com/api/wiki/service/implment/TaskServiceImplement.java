@@ -85,33 +85,33 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRules {
     }
 
     @Override
-    public TaskDTO saveOrUpdate(TaskDTO taskDTO) {
+    public TaskDTO saveOrUpdate(TaskDTO taskRecive) {
         try {
-
-            taskDTO = this.validTaskSate(taskDTO);
+            //Validation
+            TaskDTO taskDTO = this.validTaskSate(taskRecive);
+            //Update
+            
 
             if(taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
 
             if(taskDTO.getTaskId() != null && taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
-
-                ...
+                    //TODO: IN THIS POINT START TO CREATE A DOCUMEN OFF TASK AND SUBTASK
                 return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
-
+                //Sve a new
             if(taskDTO.getTaskId() == null){
-                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
+                Task task = taskRepository.save(mapperTask.dtoToEntity(taskDTO));
+                if(task.getSubTasks() != null && task.getSubTasks().size()>0){
+                    task.getSubTasks().stream().forEach(subTask -> subTask.setTaskReferenceId(task.getTaskId()));
+                }
+                return mapperTask.entityToDto(taskRepository.save(task));
             }
-
-
         }catch (DataAccessException e){
             e.printStackTrace();
             return null;
         }
-
-
-
         return null;
     }
 
