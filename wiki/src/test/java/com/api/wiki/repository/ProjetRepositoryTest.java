@@ -77,7 +77,7 @@ public class ProjetRepositoryTest {
                                     .taskNote(List.of(taskNote,taskNote2))
                                     .packages(List.of(PaquetePackage.builder().packageName("Entitys").build()))
                                     .time(23L)
-                                    .taskReference("ABQ-23")
+                                    .taskReferenceId(25L)
                                     .build(),
                             SubTask.builder()
                                     .titleSubTask("subtASK 2 test ")
@@ -91,7 +91,7 @@ public class ProjetRepositoryTest {
                                     .taskNote(List.of(taskNote,taskNote2))
                                     .packages(List.of(PaquetePackage.builder().packageName("Entitys").build()))
                                     .time(23L)
-                                    .taskReference("ABQ-23")
+                                    .taskReferenceId(25L)
                                     .build()
                     ))
                     .build();

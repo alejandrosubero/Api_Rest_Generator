@@ -5,7 +5,7 @@ import com.api.wiki.utility.TaskSate;
 
 import java.util.Date;
 
-public interface TaskBusinessRules {
+public interface TaskBusinessRule {
 
 
 

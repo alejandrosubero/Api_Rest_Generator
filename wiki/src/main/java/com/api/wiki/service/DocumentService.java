@@ -1,6 +1,7 @@
 package com.api.wiki.service;
 
 import com.api.wiki.dto.DocumentDTO;
+import com.api.wiki.dto.TaskDTO;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface DocumentService {
     public List<DocumentDTO> findByActualVersion(String actualVersion);
     public List<DocumentDTO> findByActive(Boolean active);
     public List<DocumentDTO> getAll();
+    public DocumentDTO createDocumentDTOFromTask(TaskDTO taskDTO);
 }

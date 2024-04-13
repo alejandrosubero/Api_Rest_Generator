@@ -1,6 +1,6 @@
 package com.api.wiki.service.implment;
 
-import com.api.wiki.businessrules.TaskBusinessRules;
+import com.api.wiki.businessrules.TaskBusinessRule;
 import com.api.wiki.dto.TaskDTO;
 import com.api.wiki.entitys.Task;
 import com.api.wiki.mapper.MapperTask;
@@ -11,11 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class TaskServiceImplement implements TaskService, TaskBusinessRules {
+public class TaskServiceImplement implements TaskService, TaskBusinessRule {
 
     private TaskRepository taskRepository;
     private MapperTask mapperTask;
@@ -90,7 +89,7 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRules {
             //Validation
             TaskDTO taskDTO = this.validTaskSate(taskRecive);
             //Update
-            
+
 
             if(taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
@@ -98,6 +97,7 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRules {
 
             if(taskDTO.getTaskId() != null && taskDTO.getState().equals(TaskSate.COMPLETE.toString())){
                     //TODO: IN THIS POINT START TO CREATE A DOCUMEN OFF TASK AND SUBTASK
+
                 return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
                 //Sve a new
