@@ -5,10 +5,12 @@ import com.api.wiki.entitys.Task;
 import com.api.wiki.mapper.MapperTask;
 import com.api.wiki.repository.TaskRepository;
 import com.api.wiki.service.TaskService;
+import com.api.wiki.utility.TaskSate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,6 +81,30 @@ public class TaskServiceImplement implements TaskService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public TaskDTO saveOrUpdate(TaskDTO taskDTO) {
+
+        try {
+            if(taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE)){
+               return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
+            }
+
+            if(taskDTO.getTaskId() == null && taskDTO.getState() != null || !taskDTO.getState().equals(TaskSate.COMPLETE)){
+              taskDTO.setCreateDate(new Date());
+              taskDTO.setState();
+                return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
+            }
+
+        }catch (DataAccessException e){
+            e.printStackTrace();
+            return null;
+        }
+
+
+
+        return null;
     }
 
 }

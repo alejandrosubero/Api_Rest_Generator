@@ -11,4 +11,6 @@ public interface TaskService {
     public List<TaskDTO> findByTaskType (String taskType);
     public List<TaskDTO> getAll();
 
+    public TaskDTO saveOrUpdate(TaskDTO taskDTO);
+
 }

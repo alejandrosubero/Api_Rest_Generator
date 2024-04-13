@@ -26,7 +26,7 @@ public class DeveloperController {
 
 
     @PostMapping("/create")
-    private ResponseEntity<EntityRespone> createProject(@Valid @RequestBody DeveloperDTO developerDTO, BindingResult bindingResult) {
+    private ResponseEntity<EntityRespone> createDeveloper(@Valid @RequestBody DeveloperDTO developerDTO, BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
                 EntityRespone entityRespone = mapperEntityRespone.setEntityResponseT(bindingResult.getAllErrors(), "Ocurrio un error", null);
