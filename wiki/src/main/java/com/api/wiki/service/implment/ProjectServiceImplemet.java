@@ -54,6 +54,11 @@ public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRu
         Project projectBase = null;
         try {
             if (project != null) {
+                if (project.getIdProject() == null || project.getVersionControlList() == null
+                        || project.getVersionControlList().size() > 0) {
+                    project.setVersionControlList(new ArrayList<VersionControlDTO>());
+                    project.getVersionControlList().add(this.getNewVersionControl(new ArrayList<DocumentDTO>()));
+                }
                 projectBase = mapperProject.dtoToEntity(project);
                 projectDto = mapperProject.entityToDto(projectRepository.save(projectBase));
             }
