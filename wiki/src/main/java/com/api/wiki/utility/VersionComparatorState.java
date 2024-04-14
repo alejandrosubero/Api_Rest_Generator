@@ -1,5 +1,5 @@
 package com.api.wiki.utility;
 
 public enum VersionComparatorState {
-    OLDER, NEWER, EQUAL
+    OLDER, NEWER, EQUAL, NODE
 }

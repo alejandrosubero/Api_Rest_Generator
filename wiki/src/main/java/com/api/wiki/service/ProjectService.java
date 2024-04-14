@@ -10,7 +10,7 @@ public interface ProjectService {
     public List<ProjectDTO> getAllProjects();
     public ProjectDTO findByName(String name);
     public ProjectDTO saveUpdate( ProjectDTO project);
-    public void buildNewVersionControl(ProjectDTO project);
-    public void addDocument(DocumentDTO documentDTO, String version, ProjectDTO project);
-
+    public void buildNewVersionControl(Long id);
+    public void addDocument(DocumentDTO documentDTO, String version, Long id);
+    public ProjectDTO findProjectById(Long id);
 }

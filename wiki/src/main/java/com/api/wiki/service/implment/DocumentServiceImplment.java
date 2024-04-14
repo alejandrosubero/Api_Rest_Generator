@@ -6,6 +6,7 @@ import com.api.wiki.entitys.Document;
 import com.api.wiki.mapper.MapperDocument;
 import com.api.wiki.repository.DocumentRepository;
 import com.api.wiki.service.DocumentService;
+import com.api.wiki.utility.VersionConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -99,13 +100,17 @@ public class DocumentServiceImplment implements DocumentService {
     @Override
     public DocumentDTO createDocumentDTOFromTask(TaskDTO taskDTO) {
 
+        //TODO: CREAR EL METODO PARA CREAR EL COMENTARIO DE LA DOCUMENTACION
+        // cual es la ruler para referentVersion y cuando se set
+        // generacion del docReferentNumber
+
         DocumentDTO documentDTO =  DocumentDTO.builder()
-                .actualVersion("1.0.0")
-                .title("two doc test")
+                .actualVersion(VersionConstant.NONE_VERSION)
+                .referentVersion(VersionConstant.NONE_VERSION)
+                .title(taskDTO.getTitleTask())
                 .active(true)
-                .content("This is it test of document number 2 for document all program")
+                .content("")
                 .createDate(new Date())
-                .referentVersion("0")
                 .docReferentNumber("h3321-b")
                 .build();
 
