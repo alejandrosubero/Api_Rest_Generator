@@ -20,4 +20,5 @@ public class TaskNote {
     private Long idTaskNote;
     private String note;
     private String titleTaskNote;
+    private Boolean addToDocument;
 }
