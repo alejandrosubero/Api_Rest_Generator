@@ -6,6 +6,7 @@ import com.api.wiki.entitys.Document;
 import com.api.wiki.mapper.MapperDocument;
 import com.api.wiki.repository.DocumentRepository;
 import com.api.wiki.service.DocumentService;
+import com.api.wiki.service.WriteDocumentService;
 import com.api.wiki.utility.VersionConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class DocumentServiceImplment implements DocumentService {
+public class DocumentServiceImplment implements DocumentService, WriteDocumentService {
 
 
     private DocumentRepository documentRepository;
@@ -31,7 +32,7 @@ public class DocumentServiceImplment implements DocumentService {
     public DocumentDTO findByIdDocument(Long id) {
         try {
             return mapperDocument.entityToDto(documentRepository.findById(id).orElse(null));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -41,7 +42,7 @@ public class DocumentServiceImplment implements DocumentService {
     public DocumentDTO findByTitle(String title) {
         try {
             return mapperDocument.entityToDto(documentRepository.findByTitle(title));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -51,7 +52,7 @@ public class DocumentServiceImplment implements DocumentService {
     public List<DocumentDTO> findByDocReferentNumber(String docReferentNumber) {
         try {
             return mapperDocument.listentityToListDTO(documentRepository.findByDocReferentNumber(docReferentNumber));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -61,7 +62,7 @@ public class DocumentServiceImplment implements DocumentService {
     public List<DocumentDTO> findByReferentVersion(String referentVersion) {
         try {
             return mapperDocument.listentityToListDTO(documentRepository.findByReferentVersion(referentVersion));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -71,7 +72,7 @@ public class DocumentServiceImplment implements DocumentService {
     public List<DocumentDTO> findByActualVersion(String actualVersion) {
         try {
             return mapperDocument.listentityToListDTO(documentRepository.findByActualVersion(actualVersion));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -81,7 +82,7 @@ public class DocumentServiceImplment implements DocumentService {
     public List<DocumentDTO> findByActive(Boolean active) {
         try {
             return mapperDocument.listentityToListDTO(documentRepository.findByActive(active));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -91,7 +92,7 @@ public class DocumentServiceImplment implements DocumentService {
     public List<DocumentDTO> getAll() {
         try {
             return mapperDocument.listentityToListDTO(documentRepository.findAll());
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
             return null;
         }
@@ -100,20 +101,21 @@ public class DocumentServiceImplment implements DocumentService {
     @Override
     public DocumentDTO createDocumentDTOFromTask(TaskDTO taskDTO) {
 
-        //TODO: CREAR EL METODO PARA CREAR EL COMENTARIO DE LA DOCUMENTACION
-        // cual es la ruler para referentVersion y cuando se set
-        // generacion del docReferentNumber
+        try {
+            return DocumentDTO.builder()
+                    .actualVersion(VersionConstant.NONE_VERSION)
+                    .referentVersion(VersionConstant.NONE_VERSION)
+                    .title(taskDTO.getTitleTask())
+                    .active(true)
+                    .content(this.createDocumetContentFromTask(taskDTO))
+                    .createDate(new Date())
+                    .docReferentNumber(taskDTO.getTitleTask().trim()+String.valueOf(new Date().getTime())
+                    )
+                    .build();
 
-        DocumentDTO documentDTO =  DocumentDTO.builder()
-                .actualVersion(VersionConstant.NONE_VERSION)
-                .referentVersion(VersionConstant.NONE_VERSION)
-                .title(taskDTO.getTitleTask())
-                .active(true)
-                .content("")
-                .createDate(new Date())
-                .docReferentNumber("h3321-b")
-                .build();
-
-        return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -94,6 +94,7 @@ public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRu
         try {
             ProjectDTO project = mapperProject.entityToDto(projectRepository.findById(id).orElse(null));
             if (project != null && project.getIdProject() != null) {
+
                 project.getVersionControlList().stream().forEach(elementVersionControl -> {
                     if (elementVersionControl.getVersion().equals(version)) {
                         if (elementVersionControl.getDocumentList() != null) {
