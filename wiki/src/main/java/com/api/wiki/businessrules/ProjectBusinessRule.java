@@ -22,8 +22,8 @@ public interface ProjectBusinessRule {
     }
 
     default List<DocumentDTO> documentForNewVersionControl(List<DocumentDTO> documentList){
-        documentList.stream().forEach(documentDTO -> );
-
+        documentList.stream().forEach(documentDTO -> documentDTO.setActualVersion("0.0.0"));
+        return documentList;
     }
 
 }

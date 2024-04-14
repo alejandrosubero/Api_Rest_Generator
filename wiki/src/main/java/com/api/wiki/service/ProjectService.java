@@ -1,5 +1,6 @@
 package com.api.wiki.service;
 
+import com.api.wiki.dto.DocumentDTO;
 import com.api.wiki.dto.ProjectDTO;
 
 import java.util.Date;
@@ -10,5 +11,6 @@ public interface ProjectService {
     public ProjectDTO findByName(String name);
     public ProjectDTO saveUpdate( ProjectDTO project);
     public void buildNewVersionControl(ProjectDTO project);
+    public void addDocument(DocumentDTO documentDTO, String version, ProjectDTO project);
 
 }
