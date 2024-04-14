@@ -106,6 +106,7 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRule {
                 if(task.getSubTasks() != null && task.getSubTasks().size()>0){
                     task.getSubTasks().stream().forEach(subTask -> subTask.setTaskReferenceId(task.getTaskId()));
                 }
+
                 return mapperTask.entityToDto(taskRepository.save(task));
             }
         }catch (DataAccessException e){

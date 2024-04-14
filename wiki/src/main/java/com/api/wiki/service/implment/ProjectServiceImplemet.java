@@ -1,5 +1,6 @@
 package com.api.wiki.service.implment;
 
+import com.api.wiki.businessrules.ProjectBusinessRule;
 import com.api.wiki.dto.ProjectDTO;
 import com.api.wiki.entitys.Project;
 import com.api.wiki.mapper.MapperProject;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProjectServiceImplemet implements ProjectService {
+public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRule {
 
     private ProjectRepository projectRepository;
     private MapperProject mapperProject;
@@ -49,4 +50,14 @@ public class ProjectServiceImplemet implements ProjectService {
         }
         return projectDto;
     }
+
+    @Override
+    public void buildNewVersionControl(ProjectDTO project) {
+
+        this.getNewerVersion(project.getVersionControlList());
+
+
+    }
+
+
 }

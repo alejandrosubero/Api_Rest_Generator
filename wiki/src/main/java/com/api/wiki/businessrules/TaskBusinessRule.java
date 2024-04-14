@@ -1,13 +1,12 @@
 package com.api.wiki.businessrules;
 
 import com.api.wiki.dto.TaskDTO;
+import com.api.wiki.service.ProjectService;
 import com.api.wiki.utility.TaskSate;
 
 import java.util.Date;
 
 public interface TaskBusinessRule {
-
-
 
     default public TaskDTO validTaskSate(TaskDTO taskDTO){
 
