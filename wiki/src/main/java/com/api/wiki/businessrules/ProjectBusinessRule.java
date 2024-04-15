@@ -24,7 +24,7 @@ public interface ProjectBusinessRule {
     }
 
     default List<DocumentDTO> documentForNewVersionControl(List<DocumentDTO> documentList) {
-        if (documentList.size() > 0) {
+        if (documentList != null && documentList.size() > 0) {
             documentList.stream().forEach(documentDTO -> documentDTO.setActualVersion(VersionConstant.NONE_VERSION));
         }
         return documentList;
@@ -37,12 +37,36 @@ public interface ProjectBusinessRule {
         if (documentList != null) {
             if (documentList.size() > 0) {documentListForSet = documentList;}
         } else {
-            documentListForSet = new ArrayList<DocumentDTO>();
+            List<DocumentDTO> docList  = new ArrayList<DocumentDTO>();
+            documentListForSet = docList;
         }
-        return VersionControlDTO.builder()
-                .version(VersionConstant.NONE_VERSION)
-                .description("...")
-                .documentList(this.documentForNewVersionControl(documentListForSet))
-                .build();
+      return getversion(documentListForSet);
+
+//        return VersionControlDTO.builder()
+//                .version(VersionConstant.NONE_VERSION)
+//                .description("...")
+//                .documentList(this.documentForNewVersionControl(documentListForSet))
+//                .build();
     }
+
+
+    private VersionControlDTO getversion(List<DocumentDTO> documentList){
+        VersionControlDTO versionControlList = null;
+
+        if(documentList!= null && documentList.size() > 0){
+            versionControlList =  VersionControlDTO.builder()
+                    .version(VersionConstant.NONE_VERSION)
+                    .description("...")
+                    .documentList(this.documentForNewVersionControl(documentList))
+                    .build();
+        }else {
+            versionControlList =  VersionControlDTO.builder()
+                    .version(VersionConstant.NONE_VERSION)
+                    .description("...")
+                    .documentList(documentList)
+                    .build();
+        }
+        return versionControlList;
+    }
+
 }

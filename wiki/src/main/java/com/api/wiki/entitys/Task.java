@@ -19,6 +19,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long taskId;
     private Long time; // hours
     private String description;
@@ -34,15 +35,15 @@ public class Task {
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_sub_task")
+    @JoinColumn(name = "id_task_note")
     private @Builder.Default List<TaskNote> taskNote = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "id_task_sub_task")
     private @Builder.Default List<SubTask> subTasks = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "id_task_paquete")
     private @Builder.Default List<PaquetePackage> packages = new ArrayList<>();
 
     @Column(name = "project_id_ref")

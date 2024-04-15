@@ -1,0 +1,54 @@
+{
+  "idProject": 1,
+  "time": 0,
+  "description": "task for test",
+  "titleTask": "New Task For test",
+  "state": "",
+  "solution": "",
+  "taskType": "",
+  "createDate": "",
+  "endDate": "",
+  "personCreate": "",
+  "personWorked":"ALEJANDRO",
+  "taskReferenceNumber": "ALEJANDRO",
+  "taskNote": [
+    {
+      "note": "test note A",
+      "titleTaskNote": "THE NOTE TASK TEST",
+      "addToDocument": true
+    }
+  ],
+  "subTasks": [
+    {
+      "taskReferenceId": 1,
+      "IdProject": 1,
+      "titleSubTask": "titleSubTask B",
+      "taskType": "TASK",
+      "description": "SUB TASK PAQUETE B FOR TEST",
+      "state": "",
+      "time": 0,
+      "solution": "",
+      "createDate": "",
+      "endDate": "",
+      "personCreate": "ALEJANDRO",
+      "personWorked": "ALEJANDRO",
+      "taskNote": [
+        {
+          "note": "test note B",
+          "titleTaskNote": "THE NOTE SUB_TASK TEST",
+          "addToDocument": true
+        }
+      ],
+      "packages": [
+        {
+          "packageName": "SUBTASK/PAQUETE/B"
+        }
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "packageName":"SUBTASK/PAQUETE/A"
+    }
+  ]
+}

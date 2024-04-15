@@ -7,6 +7,7 @@ import com.api.wiki.mapper.MapperEntityRespone;
 import com.api.wiki.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,15 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/all")
+    private ResponseEntity<EntityRespone> findByName() {
+        try {
+            EntityRespone entityRespone = mapperEntityRespone.setEntityResponseT(taskService.getAll(), "", null);
+            return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.OK);
+        } catch (DataAccessException e) {
+            EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(null, "Ocurrio un error", e.getMessage());
+            return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

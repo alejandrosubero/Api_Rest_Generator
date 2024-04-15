@@ -115,7 +115,7 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRule {
                     task.getSubTasks().stream().forEach(subTask -> subTask.setTaskReferenceId(task.getTaskId()));
                 }
                 ProjectExternalService.buildNewVersionControl(task.getIdProject());
-                taskRepository.insertIdProjectInTask(task.getIdProject());
+                taskRepository.updateIdProjectInTask(task.getTaskId(), task.getIdProject());
                 return this.validTaskSateOPUT(mapperTask.entityToDto(taskRepository.save(task)));
             }
         } catch (DataAccessException e) {

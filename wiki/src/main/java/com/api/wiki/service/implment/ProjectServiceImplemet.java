@@ -58,6 +58,7 @@ public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRu
                         || project.getVersionControlList().size() > 0) {
                     project.setVersionControlList(new ArrayList<VersionControlDTO>());
                     project.getVersionControlList().add(this.getNewVersionControl(new ArrayList<DocumentDTO>()));
+                    project.setStartDate(new Date());
                 }
                 projectBase = mapperProject.dtoToEntity(project);
                 projectDto = mapperProject.entityToDto(projectRepository.save(projectBase));
@@ -75,18 +76,27 @@ public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRu
         try {
             ProjectDTO project = mapperProject.entityToDto(projectRepository.findById(id).orElse(null));
             if (project != null) {
-                vControl = project.getVersionControlList().stream().filter(versionControlDTO ->
-                                versionControlDTO.getVersion().equals(VersionConstant.NONE_VERSION)).findFirst();
-                if (vControl.isEmpty()) {
-                    VersionControlDTO newVersionControl = this.getNewVersionControl(
-                            this.getNewerVersion(project.getVersionControlList()).getDocumentList());
-                    project.getVersionControlList().add(newVersionControl);
-                    this.saveUpdate(project);
+                if(!this.checkVersionControlNone(project)){
+                    vControl = project.getVersionControlList().stream().filter(versionControlDTO ->
+                            versionControlDTO.getVersion().equals(VersionConstant.NONE_VERSION)).findFirst();
+                    if (vControl.isEmpty()) {
+                        VersionControlDTO newVersionControl = this.getNewVersionControl(
+                                this.getNewerVersion(project.getVersionControlList()).getDocumentList());
+                        project.getVersionControlList().add(newVersionControl);
+                        this.saveUpdate(project);
+                    }
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    // verifier if the version control 0.0.0 was created...
+    private Boolean checkVersionControlNone(ProjectDTO project ){
+        Optional<VersionControlDTO> version = project.getVersionControlList().stream().filter(versionControlDTO -> versionControlDTO.getVersion().equals(VersionConstant.NONE_VERSION)).findFirst();
+      return version.isPresent();
     }
 
     @Override
