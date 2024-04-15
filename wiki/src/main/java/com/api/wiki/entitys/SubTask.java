@@ -15,10 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "sub_task")
 public class SubTask {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_sub_task_ob")
     private Long idSubTask;
     private String titleSubTask;
     private Long taskReferenceId;
