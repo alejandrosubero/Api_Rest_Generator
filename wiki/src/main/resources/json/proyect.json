@@ -1,0 +1,89 @@
+{
+  "idProject": 1,
+  "name": "string",
+  "repositoryLink": "string",
+  "description": "string",
+  "startDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+  "time": 10,
+  "versionControlList": [
+    {
+      "idVersionControl": 1,
+      "version": "string",
+      "description": "string",
+      "documentList": [
+        {
+          "idDocument": 1,
+          "title": "string",
+          "content": "string",
+          "createDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+          "docReferentNumber": "string",
+          "referentVersion": "string",
+          "actualVersion": "string",
+          "active": true
+        }
+      ]
+        }
+      ],
+    "taskList": [
+      {
+        "taskId":1,
+        "time": 10,
+        "description": "string",
+        "titleTask": "string",
+        "state": "string",
+        "solution": "string",
+        "taskType": "string",
+        "createDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+        "endDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+        "personCreate": "string",
+        "personWorked": "string",
+        "taskReferenceNumber": "string",
+        "taskNote": [
+          {
+            "idTaskNote": 1,
+            "note": "string",
+            "titleTaskNote": "string",
+            "addToDocument": true
+          }
+        ],
+        "subTasks": [
+          {
+            "idSubTask": 1,
+            "titleSubTask": "string",
+            "taskReferenceId": 1,
+            "IdProject": 1,
+            "taskType": "string",
+            "description": "string",
+            "state": "string",
+            "time": 8,
+            "solution": "string",
+            "createDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+            "endDate": "YYYY-MM-DDTHH:mm:ss.SSSZ",
+            "personCreate": "string",
+            "personWorked": "string",
+            "taskNote": [
+              {
+                "idTaskNote": 2,
+                "note": "string",
+                "titleTaskNote": "string",
+                "addToDocument": true
+              }
+                ],
+              "packages": [
+                  {
+                    "idPaquetePackage": 2,
+                    "packageName": "string"
+                  }
+              ]
+                }
+        ],
+        "packages": [
+          {
+            "idPaquetePackage": 3,
+            "packageName": "string"
+          }
+        ],
+        "idProject": 1
+      }
+        ]
+}

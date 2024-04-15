@@ -93,8 +93,8 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRule {
         try {
             //Validation
             TaskDTO taskDTO = this.validTaskSate(taskRecive);
-            //Update
 
+            //Update
             if (taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE.toString())) {
                 return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
@@ -109,15 +109,14 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRule {
             }
 
             //Sve a new
-            //TODO: TESTEAR ESTO POR QUE SE COMPLICARA POR JPA Y HIVERMET DEBIDO AL JOINT CAMPO
-
             if (taskDTO.getTaskId() == null) {
                 Task task = taskRepository.save(mapperTask.dtoToEntity(taskDTO));
                 if (task.getSubTasks() != null && task.getSubTasks().size() > 0) {
                     task.getSubTasks().stream().forEach(subTask -> subTask.setTaskReferenceId(task.getTaskId()));
                 }
                 ProjectExternalService.buildNewVersionControl(task.getIdProject());
-                return mapperTask.entityToDto(taskRepository.save(task));
+                taskRepository.insertIdProjectInTask(task.getIdProject());
+                return this.validTaskSateOPUT(mapperTask.entityToDto(taskRepository.save(task)));
             }
         } catch (DataAccessException e) {
             e.printStackTrace();

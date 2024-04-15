@@ -13,8 +13,8 @@ import java.util.Date;
 public interface TaskBusinessRule {
 
     default public TaskDTO validTaskSate(TaskDTO taskDTO){
-        if(taskDTO.getTaskId() != null && taskDTO.getState() == null && taskDTO.getState().equals(TaskSate.CREATE.toString() )
-                || taskDTO.getState().equals(TaskSate.NEW.toString())) {
+        if(taskDTO.getTaskId() != null && taskDTO.getState() != null
+                && taskDTO.getState().equals(TaskSate.CREATE.toString() ) || taskDTO.getState().equals(TaskSate.NEW.toString())) {
             taskDTO.setState(TaskSate.IN_PROGRESS.toString());
             return taskDTO;
         }
