@@ -73,4 +73,24 @@ public class SubTaskImplement implements SubTaskService {
             return null;
         }
     }
+
+    @Override
+    public SubTaskDTO saveOrUpdate(SubTaskDTO subTaskDTO) {
+        SubTaskDTO resposeSubTask = null;
+        try{
+            if(subTaskDTO !=null) {
+                if (subTaskDTO.getIdSubTask() != null) {
+                    resposeSubTask = mapperSubTask.entityToDto(taskRepository.save(mapperSubTask.dtoToEntity(subTaskDTO)));
+                }else {
+                    resposeSubTask = mapperSubTask.entityToDto(taskRepository.save(mapperSubTask.dtoToEntity(subTaskDTO)));
+                    taskRepository.updateIdProjectInTask(subTaskDTO.getIdSubTask(), subTaskDTO.getTaskReferenceId());
+                }
+            }
+
+        }catch (DataAccessException e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
 }

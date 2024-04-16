@@ -93,12 +93,17 @@ public class TaskServiceImplement implements TaskService, TaskBusinessRule {
         try {
             //Validation
             TaskDTO taskDTO = this.validTaskSate(taskRecive);
-
             //Update
             if (taskDTO.getTaskId() != null && !taskDTO.getState().equals(TaskSate.COMPLETE.toString())) {
+                if (taskDTO.getSubTasks() != null && taskDTO.getSubTasks().size() > 0) {
+                    taskDTO.getSubTasks().stream().forEach(subTask -> {
+                        if(subTask.getTaskReferenceId() == null) {
+                            subTask.setTaskReferenceId(taskDTO.getTaskId());
+                        }});
+                }
                 return mapperTask.entityToDto(taskRepository.save(mapperTask.dtoToEntity(taskDTO)));
             }
-
+                //closed task
             if (taskDTO.getTaskId() != null && taskDTO.getState().equals(TaskSate.COMPLETE.toString())) {
                 taskDTO.setState(TaskSate.COMPLETE.toString());
                 Task taskFinal = taskRepository.save(mapperTask.dtoToEntity(taskDTO));

@@ -13,4 +13,5 @@ public interface SubTaskService {
     public List<SubTaskDTO> findByState(String state);
     public List<SubTaskDTO> findByTaskType (String taskType);
     public List<SubTaskDTO> getAll();
+    public SubTaskDTO saveOrUpdate(SubTaskDTO subTaskDTO);
 }
