@@ -3,22 +3,22 @@ package com.api.wiki.repository;
 import com.api.wiki.entitys.*;
 import com.api.wiki.utility.TaskSate;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
+import static com.api.wiki.utility.TaskType.TASK;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 
-import java.util.Date;
-import java.util.List;
-
-import static com.api.wiki.utility.TaskType.TASK;
 
 @DataJpaTest
 //@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -45,8 +45,7 @@ public class ProjetRepositoryTest {
                     .build();
 
             Developer developer = Developer.builder()
-                    .name("alejandro").lastName("subero").ingreseDate(new Date())
-                    .build();
+                    .name("alejandro").lastName("subero").ingreseDate(new Date()).build();
 
             TaskNote taskNote = TaskNote.builder().titleTaskNote("test nota 1").note("test number 1").build();
             TaskNote taskNote2 = TaskNote.builder().titleTaskNote("test nota 2").note("test number 3").build();
@@ -114,7 +113,6 @@ public class ProjetRepositoryTest {
             project.setIdProject(25l);
             //Act
             Project pro = projectRepository.save(project);
-
             //Assert
             Assertions.assertThat(pro).isNotNull();
             Assertions.assertThat(pro.getIdProject()).isGreaterThan(0);

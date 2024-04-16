@@ -35,7 +35,7 @@ public class Task {
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_task_note")
+    @JoinColumn(name = "task_id_note")
     private @Builder.Default List<TaskNote> taskNote = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

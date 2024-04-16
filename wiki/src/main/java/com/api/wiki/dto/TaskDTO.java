@@ -19,6 +19,14 @@ import java.util.List;
 public class TaskDTO implements Serializable {
     private Long taskId;
     private Long time;
+    private String state;
+    private String solution;
+    private Date createDate;
+    private Date endDate;
+
+    private @Builder.Default List<TaskNoteDTO> taskNote = new ArrayList<>();
+    private @Builder.Default List<SubTaskDTO> subTasks = new ArrayList<>();
+    private @Builder.Default List<PaquetePackageDTO> packages = new ArrayList<>();
 
     @NotNull(message = "titleTask cannot be null")
     @NotBlank(message = "titleTask cannot be blank")
@@ -42,13 +50,5 @@ public class TaskDTO implements Serializable {
 
     @NotNull(message = "Description cannot be null")
     private Long idProject;
-
-    private String state;
-    private String solution;
-    private Date createDate;
-    private Date endDate;
-    private @Builder.Default List<TaskNoteDTO> taskNote = new ArrayList<>();
-    private @Builder.Default List<SubTaskDTO> subTasks = new ArrayList<>();
-    private @Builder.Default List<PaquetePackageDTO> packages = new ArrayList<>();
 
 }

@@ -16,8 +16,10 @@ import java.util.List;
 @Builder
 @Entity
 public class Project {
-   @Id
+
+ @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "id_project")
     private Long idProject;
 
     private String name;
