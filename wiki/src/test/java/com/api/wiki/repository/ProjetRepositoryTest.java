@@ -97,6 +97,7 @@ public class ProjetRepositoryTest {
 
 
             return Project.builder()
+                    .idProject(1l)
                     .name("test proyect")
                     .repositoryLink("http:test./repository.com")
                     .description("test of repository")

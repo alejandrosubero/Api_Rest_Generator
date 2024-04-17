@@ -72,6 +72,28 @@ public class DeveloperServiceImplement implements DeveloperService {
         return false;
     }
 
+
+
+    @Override
+    public DeveloperDTO saveOrUpdate(DeveloperDTO developerDTO) {
+        try {
+            developerDTO.setFullName(developerDTO.getName()+ " "+developerDTO.getLastName());
+            Developer developer = developerRepository.save(mapperDeveloper.dtoToEntity(developerDTO));
+
+            if (developer != null && developer.getIdDeveloper() != null){
+                developer.setIngreseDate(new Date());
+                return mapperDeveloper.entityToDto(developerRepository.save(developer));
+            }
+
+        }catch (DataAccessException e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+
+
     @Override
     public String checkDeveloper(String name) {
         try {

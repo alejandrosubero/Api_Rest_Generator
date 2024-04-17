@@ -12,4 +12,5 @@ public interface DeveloperService {
     public List<DeveloperDTO> getAll();
     public Boolean save(DeveloperDTO developerDTO);
     public String checkDeveloper(String name);
+    public DeveloperDTO saveOrUpdate(DeveloperDTO developerDTO);
 }

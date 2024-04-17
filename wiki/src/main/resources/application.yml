@@ -21,8 +21,7 @@ spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: jdbc:sqlite:wikidatabase.sqlite
-#    username:
-#    password:
+
 
 #spring:
 #  application:
