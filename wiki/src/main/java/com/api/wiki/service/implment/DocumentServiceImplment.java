@@ -2,7 +2,6 @@ package com.api.wiki.service.implment;
 
 import com.api.wiki.dto.DocumentDTO;
 import com.api.wiki.dto.TaskDTO;
-import com.api.wiki.entitys.Document;
 import com.api.wiki.mapper.MapperDocument;
 import com.api.wiki.repository.DocumentRepository;
 import com.api.wiki.service.DocumentService;
@@ -100,7 +99,6 @@ public class DocumentServiceImplment implements DocumentService, WriteDocumentSe
 
     @Override
     public DocumentDTO createDocumentDTOFromTask(TaskDTO taskDTO) {
-//TODO: FALTA ADD EL PAQUETE QUE ES AFECTADO EN LA TASK
         try {
             return DocumentDTO.builder()
                     .actualVersion(VersionConstant.NONE_VERSION)
@@ -112,7 +110,6 @@ public class DocumentServiceImplment implements DocumentService, WriteDocumentSe
                     .docReferentNumber(taskDTO.getTitleTask().trim()+String.valueOf(new Date().getTime())
                     )
                     .build();
-
         } catch (Exception e) {
             e.printStackTrace();
             return null;

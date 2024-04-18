@@ -20,6 +20,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     public List<Task> findByTaskType(String taskType);
 
+    public List<Task> findByIdProject (Long idProject);
+
     @Modifying
     @Transactional
     @Query(value = "INSERT INTO task (project_id_task) VALUES (:idproject)", nativeQuery = true)
@@ -29,6 +31,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Transactional
     @Query(value = "UPDATE task SET project_id_task = :idproject WHERE task_id = :id", nativeQuery = true)
     void updateIdProjectInTask(Long idproject, Long id);
+
 
 
     //    @Modifying

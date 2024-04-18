@@ -32,10 +32,8 @@ public class ProjectController {
                 EntityRespone entityRespone = mapperEntityRespone.setEntityResponseT(bindingResult.getAllErrors(), "Ocurrio un error", null);
                 return ResponseEntity.badRequest().body(entityRespone);
             }
-
             EntityRespone entityRespone = mapperEntityRespone.setEntityTobj(projectService.saveUpdate(projectDTO));
             return ResponseEntity.ok(entityRespone);
-//            return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.OK);
         } catch (DataAccessException e) {
             EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(null, "Ocurrio un error", e.getMessage());
             return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.BAD_REQUEST);

@@ -7,6 +7,7 @@ import com.api.wiki.dto.TaskNoteDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.stream.Collectors;
 
 public interface WriteDocumentService {
 
@@ -27,8 +28,16 @@ public interface WriteDocumentService {
     }
 
     default String createDocumetContentFromTask(TaskDTO taskDTO){
-       return this.stringEnsamble( List.of(TITLE, taskDTO.getTitleTask(),BREAK_LINE,
-                "Approach or Description: ",BREAK_LINE, taskDTO.getDescription(), BREAK_LINE
+        String packages = "";
+        if(taskDTO.getPackages() != null && taskDTO.getPackages().size()>0){
+           List<String> paquetesList = taskDTO.getPackages().stream().map(packageDTO -> packageDTO.getPackageName()).collect(Collectors.toList());
+           packages = this.stringEnsamble(List.of("Package or Packages: ", BREAK_LINE, this.stringEnsamble(paquetesList)));
+        }
+
+       return this.stringEnsamble( List.of(
+               TITLE, taskDTO.getTitleTask(),BREAK_LINE,
+                packages,BREAK_LINE,
+               "Approach or Description: ",BREAK_LINE, taskDTO.getDescription(), BREAK_LINE
                 ,"Solution: ", BREAK_LINE, taskDTO.getSolution()
                 ,createDocumetContentFromSubTask(taskDTO.getSubTasks())
                 ,BREAK_LINE, this.getNoteFromNotesTask(taskDTO.getTaskNote())

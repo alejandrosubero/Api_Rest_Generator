@@ -7,40 +7,30 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class MapperTask {
 
     public Task dtoToEntity(TaskDTO dto) {
-//        if (dto != null) {
-//            return new ModelMapper().map(dto, Task.class);
-//        }
-//        return null;
         return dto != null? new ModelMapper().map(dto, Task.class): null;
     }
 
     public TaskDTO entityToDto(Task entity) {
-//        if (entity != null) {
-//           return new ModelMapper().map(entity, TaskDTO.class);
-//        }
-//        return null;
         return entity != null? new ModelMapper().map(entity, TaskDTO.class): null;
     }
 
     public List<Task> listdtoToListEntity(List<TaskDTO> listDto) {
-        List<Task> entitys = new ArrayList<>();
         if (listDto != null && listDto.size() > 0) {
-            listDto.forEach(DTO -> entitys.add(this.dtoToEntity(DTO)));
+            return listDto.stream().map(taskDTO -> this.dtoToEntity(taskDTO)).collect(Collectors.toList());
         }
-        return entitys;
+        return null;
     }
 
-    public List<TaskDTO> listEntityToListdto(List<Task> entityList) {
-        List<TaskDTO> dtoList = new ArrayList<>();
+    public List<TaskDTO> listEntityToListdto(List<Task> entityList) throws Exception {
         if (entityList != null && entityList.size() > 0) {
-            entityList.forEach(entidad -> dtoList.add(this.entityToDto(entidad)));
+            return entityList.stream().map(task -> this.entityToDto(task)).collect(Collectors.toList());
         }
-        return dtoList;
+        return null;
     }
-
 }

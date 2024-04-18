@@ -125,12 +125,11 @@ public class ProjectServiceImplemet implements ProjectService, ProjectBusinessRu
     @Override
     public ProjectDTO findProjectById(Long id) {
         try {
-            this.mapperProject.entityToDto(this.projectRepository.findById(id).orElse(null));
+            return this.mapperProject.entityToDto(this.projectRepository.findById(id).orElse(null));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-        return null;
     }
 
 
