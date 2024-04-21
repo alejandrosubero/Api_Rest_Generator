@@ -32,12 +32,12 @@
             "styles": [
               "src/styles.scss",
               {
-                "input": "node_modules/primeng/resources/themes/md-dark-deeppurple/theme.css",
+                "input": "node_modules/primeng/resources/themes/arya-blue/theme.css",
                 "bundleName": "dark",
                 "inject": false
                 },
                 {
-                "input": "node_modules/primeng/resources/themes/md-light-deeppurple/theme.css",
+                "input": "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
                 "bundleName": "light",
                 "inject": false
                 },
@@ -103,12 +103,12 @@
             "styles": [
               "src/styles.scss",
               {
-                "input": "node_modules/primeng/resources/themes/md-dark-deeppurple/theme.css",
+                "input": "node_modules/primeng/resources/themes/arya-blue/theme.css",
                 "bundleName": "dark",
                 "inject": false
                 },
                 {
-                "input": "node_modules/primeng/resources/themes/md-light-deeppurple/theme.css",
+                "input": "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
                 "bundleName": "light",
                 "inject": false
                 },
