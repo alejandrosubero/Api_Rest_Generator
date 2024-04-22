@@ -1,5 +1,6 @@
 package com.api.wiki.service;
 
+import com.api.wiki.dto.PaquetePackageDTO;
 import com.api.wiki.dto.SubTaskDTO;
 import com.api.wiki.dto.TaskDTO;
 import com.api.wiki.dto.TaskNoteDTO;
@@ -15,7 +16,6 @@ public interface WriteDocumentService {
     public final String BREAK_LINE = "\r\n";
     public final String TAB = "\t";
     public final String DOUBLETAB = "\t\t";
-
     public final String TITLE = "Title: ";
 
 
@@ -27,16 +27,21 @@ public interface WriteDocumentService {
         return newString.toString();
     }
 
-    default String createDocumetContentFromTask(TaskDTO taskDTO){
-        String packages = "";
-        if(taskDTO.getPackages() != null && taskDTO.getPackages().size()>0){
-           List<String> paquetesList = taskDTO.getPackages().stream().map(packageDTO -> packageDTO.getPackageName()).collect(Collectors.toList());
-           packages = this.stringEnsamble(List.of("Package or Packages: ", BREAK_LINE, this.stringEnsamble(paquetesList)));
-        }
 
+    default String getPackages(List<PaquetePackageDTO> packagesDTO){
+        String packages = "";
+        if(packagesDTO != null && packagesDTO.size()>0){
+            List<String> paquetesList = packagesDTO.stream().map(packageDTO -> packageDTO.getPackageName()).collect(Collectors.toList());
+            packages = this.stringEnsamble(List.of("Package or Packages: ", BREAK_LINE, this.stringEnsamble(paquetesList)));
+        }
+        return packages;
+    }
+
+
+    default String createDocumetContentFromTask(TaskDTO taskDTO){
        return this.stringEnsamble( List.of(
                TITLE, taskDTO.getTitleTask(),BREAK_LINE,
-                packages,BREAK_LINE,
+                this.getPackages(taskDTO.getPackages()),BREAK_LINE,
                "Approach or Description: ",BREAK_LINE, taskDTO.getDescription(), BREAK_LINE
                 ,"Solution: ", BREAK_LINE, taskDTO.getSolution()
                 ,createDocumetContentFromSubTask(taskDTO.getSubTasks())
@@ -66,6 +71,7 @@ public interface WriteDocumentService {
             subTaskList.forEach(subTaskDTO -> {
                 contentFromSubTask.add(
                         this.stringEnsamble( List.of(TITLE, subTaskDTO.getTitleSubTask(),BREAK_LINE,
+                                this.getPackages(subTaskDTO.getPackages()),BREAK_LINE,
                                 "Approach or Description: ",BREAK_LINE, subTaskDTO.getDescription(), BREAK_LINE
                                 ,"Solution: ", BREAK_LINE, subTaskDTO.getSolution()
                                 ,BREAK_LINE, this.getNoteFromNotesTask(subTaskDTO.getTaskNote())
