@@ -1,0 +1,73 @@
+
+#Aplication configuration
+server:
+  port: 8091
+  servlet:
+      context-path: /wiki
+
+spring:
+  application:
+     name: "wiki"
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+#    properties:
+#hibernate:
+  show_sql: true
+  use_sql_comments: false
+  format_sql: true
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:wikidatabase.sqlite
+
+
+#spring:
+#  application:
+#    name: "wiki"
+#  datasource:
+#    url: jdbc:h2:mem:productDB
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#h2:
+#  console:
+#    enabled: true
+#    path: /h2-console
+# #  to see the h2 console http://localhost:8091/h2-console
+##===========================
+## JPA/HiBERNATE
+##=============================
+#jpa:
+#  show-sql: true
+#  hibernate:
+#    ddl-auto: update
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    properties:
+#hibernate:
+#    show_sql: true
+#    use_sql_comments: false
+#    format_sql: false
+
+logging:
+  pattern:
+    console:"%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+#logging:
+#  level:
+#    root: INFO
+#  appender:
+#    stdout:
+#      class: ch.qos.logback.core.ConsoleAppender
+#      encoder:
+#        pattern: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n" # Patrón de formato para mensajes de log
+#    file:
+#      class: ch.qos.logback.core.FileAppender
+#      path: /Users/user/Documents/REPOSITORY/Api_Rest_Generator/wiki/src/main/resources/log/file.log # Ruta del archivo de log
+#      append: true
+#      encoder:
+#        pattern: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+
