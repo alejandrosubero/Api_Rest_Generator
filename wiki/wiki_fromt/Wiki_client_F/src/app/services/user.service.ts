@@ -12,6 +12,7 @@ export class UserService {
 
   setActiveUserSignal(user:string){
     this.activeUser.set(user);
+    this.setUserSystem(true);
   }
 
   setUserSystem(isUser:boolean){

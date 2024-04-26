@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './componets/header/header.component';
+import { EntityRespone } from './model/entityResponse.model';
+import { CoreService } from './services/core.service';
 
 
 @Component({
@@ -11,6 +13,17 @@ import { HeaderComponent } from './componets/header/header.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Wiki_client';
+  coreService: CoreService = inject(CoreService);
+  responseTest: EntityRespone | undefined;
+
+  ngOnInit(): void {
+    this.coreService.getHttpService().httpGetCheck().subscribe(x => {
+      this.responseTest = x;
+      console.log(this.responseTest?.mensaje);
+    });
+  }
+
+
 }

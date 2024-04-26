@@ -5,6 +5,7 @@ import com.api.wiki.entitys.Developer;
 import com.api.wiki.mapper.MapperDeveloper;
 import com.api.wiki.repository.DeveloperRepository;
 import com.api.wiki.service.DeveloperService;
+import com.api.wiki.utility.TaskSate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -113,7 +114,7 @@ public class DeveloperServiceImplement implements DeveloperService {
             e.printStackTrace();
             return null;
         }
-        return "THE DEVELODPER IS NO FOUND";
+        return TaskSate.IS_NO_FOUND.toString();
     }
 
     private String filterFirsFullNameOfList(List<DeveloperDTO> developers ){

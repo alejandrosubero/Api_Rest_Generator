@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ThemeService } from '../../services/theme.service';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { UserService } from '../../services/user.service';
+import { CoreService } from '../../services/core.service';
 
 
 @Component({
@@ -18,11 +19,11 @@ import { UserService } from '../../services/user.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+  coreService:CoreService = inject(CoreService);
   checked: boolean = false;
   selectedTheme:string='dark';
   themeService: ThemeService = inject(ThemeService);
-  isUserInSystenService: UserService = inject(UserService);
- 
+  isUserInSystenService: UserService = this.coreService.getUserService();
    
   onIcon_i: string = "pi pi-moon";
   offIcon_i: string = "pi pi-pi-sun";
@@ -30,9 +31,7 @@ export class HeaderComponent implements OnInit {
     
   ngOnInit(): void {
    this.themeService.setTheme(this.selectedTheme);
-
   }
-
 
   onThemeChame(): void {
     let theme = this.themeService.themeSignal();

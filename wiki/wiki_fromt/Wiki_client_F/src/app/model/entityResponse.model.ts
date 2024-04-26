@@ -9,4 +9,6 @@ export class EntityRespone {
         this.mensaje = "";
         this.entidades = new Array<any>();
     }
+
+    
 }

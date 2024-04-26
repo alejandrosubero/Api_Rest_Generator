@@ -3,6 +3,7 @@ package com.api.wiki.Contoller;
 import com.api.wiki.dto.DeveloperDTO;
 import com.api.wiki.dto.EntityRespone;
 import com.api.wiki.dto.ProjectDTO;
+import com.api.wiki.error.DeveloperErrorMenssage;
 import com.api.wiki.mapper.MapperEntityRespone;
 import com.api.wiki.service.DeveloperService;
 import jakarta.validation.Valid;
@@ -18,12 +19,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/developer")
 public class DeveloperController {
 
-    @Autowired
     private DeveloperService developerService;
-
-    @Autowired
     private MapperEntityRespone mapperEntityRespone;
+    private DeveloperErrorMenssage developerErrorMenssage;
 
+    public DeveloperController(DeveloperService developerService, MapperEntityRespone mapperEntityRespone, DeveloperErrorMenssage developerErrorMenssage) {
+        this.developerService = developerService;
+        this.mapperEntityRespone = mapperEntityRespone;
+        this.developerErrorMenssage = developerErrorMenssage;
+    }
 
     @PostMapping("/create")
     private ResponseEntity<EntityRespone> createDeveloper(@Valid @RequestBody DeveloperDTO developerDTO, BindingResult bindingResult) {
@@ -44,11 +48,16 @@ public class DeveloperController {
     private ResponseEntity<EntityRespone> findByCodeEmployee(@PathVariable("developerName") String developerName) {
         try {
             if(developerName == null){
-                EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(null, "the variable is null", "developer = null Error");
+                EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(null, "the variable is null", "400");
                 return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.BAD_REQUEST);
             }
 
-            EntityRespone entityRespone = mapperEntityRespone.setEntityTobj(developerService.checkDeveloper(developerName));
+            String response = developerService.checkDeveloper(developerName);
+            EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(
+                    response,
+                    developerErrorMenssage.builErrorMessage(response),
+                    developerErrorMenssage.noFound(response)
+            );
             return ResponseEntity.ok( entityRespone);
 
         } catch (DataAccessException e) {
