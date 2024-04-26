@@ -10,13 +10,30 @@ input, button {
     margin: 5px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    background-color: #f9f9f9;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+  
 button {
-    background-color: #007bff;
+       background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-button:hover {
+
+ button:hover {
     background-color: #0056b3;
 }
+
+// .btn1{
+// background-color: #4caf50;
+// }
+
+// .btn2{
+// background-color: #e74c3c;
+// }
+
+//  .btn1:hover{
+// background-color: black;
+// }
