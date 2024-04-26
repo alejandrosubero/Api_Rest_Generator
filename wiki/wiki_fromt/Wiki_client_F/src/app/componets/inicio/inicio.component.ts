@@ -1,11 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { Route, Router } from '@angular/router';
 import { CoreService } from '../../services/core.service';
 import { DevUserService } from '../../services/dev-user.service';
 
@@ -26,14 +24,8 @@ export class InicioComponent {
 
   onEnterUser(){
     if(this.name !== ''){
-      if(this.devUserService.checkUser(this.name)){
-        this.coreService.navigateToRoute('dashboar')
-      } else{
-        this.coreService.navigateToRoute('addUser')
-      }
+      this.devUserService.checkUser(this.name)
     }
   }
-
-
 
 }

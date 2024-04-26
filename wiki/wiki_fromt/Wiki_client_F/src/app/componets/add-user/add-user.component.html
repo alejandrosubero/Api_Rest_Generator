@@ -1,26 +1,14 @@
 
     <div class="container">
         <div>
-            <p>add-user works!</p>
+            <p class="texto">Enter Your Name:</p>
         </div>
-        <input type="text" placeholder="Name" [(ngModel)]="name" >
-        <input type="text" placeholder="Last Name" [(ngModel)]="lastName">
-        <div>
-            <button>save</button>
-            <button>Cancel</button>
+        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Name" [(ngModel)]="name" />
+        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Last Name" [(ngModel)]="lastName" />
+        <div class="buttonGroup">
+            <button (click)="onSendUser()">Save</button>
+            <button (click)="onCancel()">Cancel</button>
         </div>
     </div>
 
-
-    <div class="container">
-        <div>
-            <p>add-user works!</p>
-        </div>
-        <input type="text" placeholder="Name" [(ngModel)]="name" >
-        <input type="text" placeholder="Last Name" [(ngModel)]="lastName">
-        <div>
-            <button>save</button>
-            <button>Cancel</button>
-        </div>
-    </div>
 
