@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboar',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './dashboar.component.html',
   styleUrl: './dashboar.component.scss'
 })
-export class DashboarComponent {
+export class DashboarComponent implements OnInit{
+  
+  ngOnInit(): void {
+  
+  }
 
+
+
+  
 }

@@ -1,4 +1,6 @@
-export class EntityRespone {
+import { ResponseObject } from "../interface/response_object";
+
+export class EntityRespone implements ResponseObject{
     
     error: string;
     mensaje: string;
@@ -10,5 +12,5 @@ export class EntityRespone {
         this.entidades = new Array<any>();
     }
 
-    
+
 }

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { EntityRespone } from '../model/entityResponse.model';
+import { ResponseObject } from '../interface/response_object';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class HttpCommunService {
 private readonly _http = inject(HttpClient);
 
   constructor() { }
+
 
   httpGetCheck(): Observable<any>{
     return this._http.get(`${environment.apiUrl}control/wiki/check`);
@@ -37,7 +39,7 @@ private readonly _http = inject(HttpClient);
     return this._http.get(url);
   }
 
-  getData(url:string): Observable<EntityRespone> {
+  getData_EntityRespone(url:string): Observable<EntityRespone> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -45,4 +47,25 @@ private readonly _http = inject(HttpClient);
     };
     return this._http.get<EntityRespone>(url, options);
   }
+
+
+  async getData_ResponseObject(url: string): Promise< ResponseObject | null| undefined>  {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    try {
+      // const response = await this._http.get<ResponseObject>(url, options).toPromise();
+      const response = await lastValueFrom(this._http.get<ResponseObject>(url, options));
+      return response;
+    } catch (error) {
+      console.error('Error:', error);
+      let errorCatch: ResponseObject = new EntityRespone();
+      errorCatch.error = `Error: ${error}`;
+      return errorCatch;
+    }
+  }
+
+  
 }
