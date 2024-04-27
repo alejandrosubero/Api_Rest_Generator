@@ -8,7 +8,7 @@ public class DeveloperErrorMenssage {
 
     private static final String Is400 ="400";
     private static final String menssageNoFound = "The Developer no exist";
-
+    private static final String menssageListNoFound = "No Developers";
     public String noFound(String menssage){
         if (menssage.equals(TaskSate.IS_NO_FOUND.toString())){
             return "400";
@@ -16,10 +16,12 @@ public class DeveloperErrorMenssage {
         return null;
     }
 
-
     public String builErrorMessage(String menssage){
         if(menssage.equals(this.Is400)){
             return menssageNoFound;
+        }
+        if(menssage.equals(TaskSate.IS_NO_FOUND.toString())){
+            return menssageListNoFound;
         }
         return null;
     }

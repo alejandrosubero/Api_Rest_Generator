@@ -1,34 +1,45 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { CoreService } from './core.service';
-import { HttpHeaders } from '@angular/common/http';
-import { ResponseObject } from '../interface/response_object';
 import { environment } from '../../environments/environment.development';
+import { Project } from '../model/project.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
-coreService:CoreService = inject(CoreService);
-
-urlProject:string = `api/project/`; 
-// let completeUrl = `${environment.apiUrl}${this.url}create`;
-
+  coreService: CoreService = inject(CoreService);
+  listProjectSingnal = signal<Array<Project>>(new Array<Project>());
+  urlProject: string = `api/project/`;
+  projectSingnal = signal<Project>(new Project());
+  errorService:any;
+  //let completeUrl = `${environment.apiUrl}${this.urlProject}create`;
 
   async handleClickForCreateProject() {
     try {
-      let completeUrl = `${environment.apiUrl}${this.urlProject}create`;
-      const responseData = await   this.coreService.getHttpService().getData_ResponseObject(completeUrl);
+      let completeUrl = `${environment.apiUrl}${this.urlProject}all`;
+      const responseData = await this.coreService.getHttpService().getData_ResponseObject(completeUrl);
       if (responseData) {
-
-        // Process the response data here (e.g., assign to component property)
-        this.data = responseData;
-
+        console.log('ResponseData => ',responseData);
+        const list: Array<Project> = responseData.entidades;
+          if(list.length > 0){
+            this.setList(list);
+          }
       }
     } catch (error) {
-       // Process the error here 
+      // Process the error here 
+      this.errorService = `Error fetching data: ${error}`;
       console.error('Error fetching data:', error);
     }
   }
- 
+
+  setList(listNew: Array<Project>) {
+    this.listProjectSingnal.set(listNew);
+  }
+
+  updateList(element: Project) {
+    let list: Array<Project> = this.listProjectSingnal();
+    list.push(element);
+    this.setList(list);
+  }
 }

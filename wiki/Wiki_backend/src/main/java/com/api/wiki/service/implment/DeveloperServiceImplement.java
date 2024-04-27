@@ -99,6 +99,7 @@ public class DeveloperServiceImplement implements DeveloperService {
     public String checkDeveloper(String name) {
         try {
             Optional<Developer> developer = developerRepository.findByFullName(name);
+
             if (developer.isEmpty()){
                 List<DeveloperDTO> developers = this.findByName(name);
                 if(developers != null && developers.size() > 0 ){
@@ -109,6 +110,8 @@ public class DeveloperServiceImplement implements DeveloperService {
                         return filterFirsFullNameOfList(developers);
                     }
                 }
+            }else{
+                return developer.get().getFullName();
             }
         }catch (DataAccessException e){
             e.printStackTrace();

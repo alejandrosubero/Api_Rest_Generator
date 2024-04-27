@@ -3,7 +3,7 @@
     <div class="login-form"> 
         <label for="username" >Enter your username to Enter.</label>
         <div id="imp" >
-            <input type="text" pInputText [(ngModel)]="name" />
+            <input type="text" pInputText [(ngModel)]="name" (keyup.enter)="onEnterUser()" />
             <!-- <span class="p-float-label">
                 <input pInputText id="username" [(ngModel)]="value" />
                 <label for="username">Username</label>

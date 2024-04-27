@@ -24,8 +24,9 @@ export class InicioComponent {
 
   onEnterUser(){
     if(this.name !== ''){
-      this.devUserService.checkUser(this.name)
+      this.devUserService.checkUser(this.name);
     }
   }
 
+ 
 }

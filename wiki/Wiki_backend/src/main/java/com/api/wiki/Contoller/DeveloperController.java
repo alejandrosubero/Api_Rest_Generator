@@ -6,13 +6,16 @@ import com.api.wiki.dto.ProjectDTO;
 import com.api.wiki.error.DeveloperErrorMenssage;
 import com.api.wiki.mapper.MapperEntityRespone;
 import com.api.wiki.service.DeveloperService;
+import com.api.wiki.utility.TaskSate;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -57,6 +60,28 @@ public class DeveloperController {
                     response,
                     developerErrorMenssage.builErrorMessage(response),
                     developerErrorMenssage.noFound(response)
+            );
+            return ResponseEntity.ok( entityRespone);
+
+        } catch (DataAccessException e) {
+            EntityRespone entityRespone = mapperEntityRespone.setEntityResponT(null, "Ocurrio un error", e.getMessage());
+            return new ResponseEntity<EntityRespone>(entityRespone, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/all")
+    private ResponseEntity<EntityRespone> findAll() {
+        try {
+            String menssage = "";
+            List<DeveloperDTO> listResponse = developerService.getAll();
+            if(listResponse.size() == 0){
+                menssage = TaskSate.IS_NO_FOUND.toString();
+            }
+
+            EntityRespone entityRespone = mapperEntityRespone.setEntityResponseT(
+                    listResponse,
+                    developerErrorMenssage.builErrorMessage(menssage),
+                    developerErrorMenssage.noFound(menssage)
             );
             return ResponseEntity.ok( entityRespone);
 

@@ -3,11 +3,11 @@
         <div>
             <p class="texto">Enter Your Name:</p>
         </div>
-        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Name" [(ngModel)]="name" />
-        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Last Name" [(ngModel)]="lastName" />
+        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Name" [(ngModel)]="name" tabindex="1"/>
+        <input pInputText type="text" class="p-inputtext-lg change" placeholder="Last Name" [(ngModel)]="lastName" tabindex="2"/>
         <div class="buttonGroup">
-            <button (click)="onSendUser()">Save</button>
-            <button (click)="onCancel()">Cancel</button>
+            <button (click)="onSendUser()" tabindex="3" >Save</button>
+            <button (click)="onCancel()" tabindex="4" >Cancel</button>
         </div>
     </div>
 

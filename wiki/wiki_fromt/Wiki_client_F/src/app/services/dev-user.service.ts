@@ -6,13 +6,13 @@ import { EntityRespone } from '../model/entityResponse.model';
 import { environment } from '../../environments/environment.development';
 import { DeveloperDTO } from '../model/developer_dto.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class DevUserService {
   private url: string = `api/developer/`;
   private coreService: CoreService = inject(CoreService);
-  private userService: UserService = this.coreService.getUserService();
 
   checkUser(name: string): any {
     let completeUrl = `${environment.apiUrl}${this.url}check/${name}`;
@@ -36,12 +36,12 @@ export class DevUserService {
     });
   }
 
-  private routedUser(value: boolean, name: string) {
-    if (value) {
+  private routedUser(value: boolean, name?: string) {
+    if (value && name !== null && name !== undefined ) {
       this.coreService.getUserService().setActiveUserSignal(name);
       this.coreService.navigateToRoute('dashboar')
     } else {
-      this.coreService.navigateToRoute('wiki/hello');
+      this.coreService.navigateToRoute('addUser');
     }
   }
 

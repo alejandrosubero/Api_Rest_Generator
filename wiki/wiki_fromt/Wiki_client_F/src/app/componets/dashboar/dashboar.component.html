@@ -1,1 +1,16 @@
 <p>dashboar works!</p>
+
+
+@if(this.projectList){
+    <div>
+        <h2>Response Data:</h2>
+        <pre>{{ this.projectList }}</pre>
+      </div>
+}
+@if(this.error !==null || error !== undefined){
+    <div>
+        <p class="error">Error: {{ error }}</p>
+      </div>
+}
+
+
