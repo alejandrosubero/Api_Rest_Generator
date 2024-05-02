@@ -1,16 +1,17 @@
-<p>dashboar works!</p>
 
 
-@if(this.projectList){
-    <div>
-        <h2>Response Data:</h2>
-        <pre>{{ this.projectList }}</pre>
-      </div>
-}
-@if(this.error !==null || error !== undefined){
-    <div>
-        <p class="error">Error: {{ error }}</p>
-      </div>
-}
-
+<div class="container">
+  <p>Projects</p>
+  <div class="button_Add">
+    <p-button icon="pi pi-plus" [rounded]="true"></p-button>
+  </div>
+  <div class="form-container">
+    <select [(ngModel)]="selectedOption" class="custom-select" (ngModelChange)="onSelectChange($event)">
+      <option *ngFor="let option of this.projectList" [value]="option.name">{{ option.name }}</option>
+    </select>
+    <div class="button-Container">
+        <button type="submit">Go</button>
+    </div>
+  </div>
+</div>
 

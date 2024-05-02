@@ -20,10 +20,10 @@ export class ProjectsService {
       let completeUrl = `${environment.apiUrl}${this.urlProject}all`;
       const responseData = await this.coreService.getHttpService().getData_ResponseObject(completeUrl);
       if (responseData) {
-        console.log('ResponseData => ',responseData);
         const list: Array<Project> = responseData.entidades;
-          if(list.length > 0){
-            this.setList(list);
+        if(list.length > 0){
+          this.setList(list);
+          console.log('ResponseData in list=> ',list);
           }
       }
     } catch (error) {
