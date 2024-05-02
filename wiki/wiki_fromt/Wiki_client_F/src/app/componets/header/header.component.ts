@@ -8,6 +8,7 @@ import { ThemeService } from '../../services/theme.service';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { UserService } from '../../services/user.service';
 import { CoreService } from '../../services/core.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { CoreService } from '../../services/core.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+  authService: AuthService = inject(AuthService);
   coreService:CoreService = inject(CoreService);
   checked: boolean = false;
   selectedTheme:string='dark';
@@ -32,7 +34,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
    this.themeService.setTheme(this.selectedTheme);
   }
-
+  
   onThemeChame(): void {
     let theme = this.themeService.themeSignal();
     this.selectedTheme = theme;

@@ -1,6 +1,6 @@
 <p-toolbar>
 
-    @if ( isUserInSystenService.userSignal()) {
+    @if ( authService.authUser()) {
         <div class="p-toolbar-group-start">
             <button pButton icon="pi pi-bars" class="mr-2"></button>
         </div>

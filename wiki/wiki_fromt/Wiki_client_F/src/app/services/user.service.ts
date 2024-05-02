@@ -1,22 +1,19 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  authService: AuthService = inject(AuthService);
   activeUser = signal<string>('None');
-
-  userSignal = signal<boolean>(false);
+  userSignal = this.authService.authUser();
 
 
   setActiveUserSignal(user:string){
     this.activeUser.set(user);
-    this.setUserSystem(true);
-  }
-
-  setUserSystem(isUser:boolean){
-    this.userSignal.set(isUser);
+    this.authService.setUserSystem(true);
   }
   
 }
