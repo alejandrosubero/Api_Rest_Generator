@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Flexbox</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Contenedor principal */
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-basis: 500px;
+            max-width: 600px;
+            /* width: 500px; */
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .subcontainer {
+            margin: 50px auto;
+            padding: 30px;
+        }
+
+        .navBar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+            /* border: #007bff solid 1px; */       
+        }
+
+        /* Título */
+        .titulo {
+            display: flex;
+            justify-content: center;
+            flex-grow: 2;
+        }
+
+        .titulo h1 {
+            /* flex-basis: 200px; */
+            align-self: center;
+            font-size: 24px;
+            text-align: center;
+            /* border: red solid 1px; */
+        }
+
+        .boton-agregar {
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            /* transition: background-color 0.3s ease; */
+            flex-grow: 1;
+        }
+
+        .boton-agregar:hover {
+            background-color: #042f5e;
+        }
+
+        /* Campos de formulario */
+        .campos {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .ref{
+            display: flex;
+            justify-content: flex-start;
+            flex-basis: 100%;
+            flex-grow: 1;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .ref, label{
+            align-self: center;
+            font-size: 15px;
+            text-align: center;
+            margin-right: 5px;
+         
+        }
+
+        .campo {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .campo label {
+            width: 100px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .campo input,
+        .campo textarea {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .campo textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        /* Estilos flotantes */
+        .contenedor,
+        .campo input,
+        .campo textarea {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor">
+
+        <div class="navBar">
+            <div class="titulo">
+                <h1>Documento</h1>
+            </div>
+            <div>
+                <button class="boton-agregar">+</button>
+            </div>
+        </div>
+
+            <div class="campos">
+
+                <div class="campo">
+                    <label for="titulo">Title:</label>
+                    <input type="text" id="titulo" name="titulo" width="100%">
+                </div>
+
+                <div class="campo">
+                    <label for="package">Package:</label>
+                    <input type="text" id="package" name="package" placeholder="com.pacakge.so">
+                </div>
+
+                <div class="campo">
+                    <label for="fecha">Date:</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+
+              
+                <div class="campo">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion"></textarea>
+                </div>
+            </div>
+
+            <div class="ref">
+                <label for="docref">Ref:</label>
+                <input type="text" id="docref" name="docref" width="100%" placeholder="Document Number" disabled>
+            </div>
+
+        </div>
+    
+</body>
+
+</html>
