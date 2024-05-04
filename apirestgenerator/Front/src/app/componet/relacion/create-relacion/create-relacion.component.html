@@ -1,0 +1,207 @@
+<mat-card class="example-card">
+    <mat-card-header class="bg primary">
+        <mat-card-title>Crear new </mat-card-title>
+        <mat-card-subtitle>Relación</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <form [formGroup]="firstForm">
+            <div class="container-fluid border ">
+                <div class="row ancho center">
+
+                    <div class="col border">
+
+                        <div class="p-2 bd-highlight" *ngIf="isMappedByRelacion">
+                            <mat-form-field>
+                                <mat-label>MappedBy</mat-label>
+                                <input matInput formControlName="mappedBy" placeholder="MappedBy" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="isFetchType">
+                            <mat-form-field>
+                                <mat-label>fetchTypes</mat-label>
+                                <mat-select formControlName="fetchTypes">
+                                    <mat-option *ngFor="let mod of fetchTypesList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <!-- <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Class</mat-label>
+                                <input matInput formControlName="nameClassRelacionar" placeholder=" Class" required>
+                            </mat-form-field>
+                        </div> -->
+
+                        <!-- <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>class</mat-label>
+                                <mat-select formControlName="nameClassRelacionar">
+                                    <mat-option *ngFor="let mod of entidadList" [value]="mod.nombreClase">
+                                        {{mod.nombreClase}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Relationship class</mat-label>
+                                <mat-select formControlName="nameClassRelacion">
+                                    <mat-option *ngFor="let mod of entidadList" [value]="mod.nombreClase">
+                                        {{mod.nombreClase}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <!-- <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Relationship class </mat-label>
+                                <input matInput formControlName="nameClassRelacion" placeholder="Relationship class"
+                                    required>
+                            </mat-form-field>
+                        </div> -->
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Relationship name</mat-label>
+                                <input matInput formControlName="nameRelacion" placeholder="Relationship name" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>Relationship</mat-label>
+                                <mat-select formControlName="relation" placeholder="Relationship">
+                                    <mat-option *ngFor="let mod of relationList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="isJoinColumn">
+                            <mat-form-field>
+                                <mat-label>joinColumnName</mat-label>
+                                <input matInput formControlName="joinColumnName" placeholder="joinColumnName" required>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="p-2 bd-highlight">
+
+                            <mat-form-field>
+                                <mat-label>cascadeType</mat-label>
+                                <mat-select formControlName="cascadeType">
+                                    <mat-option *ngFor="let mod of cascadeTypeList" [value]="mod">
+                                        {{mod}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div class="p-2 bd-highlight" *ngIf="isIsJoinTable">
+                            <mat-form-field>
+                                <mat-label>join Column Referenced Name</mat-label>
+                                <input matInput formControlName="joinColumnNameReferencedColumnName"
+                                    placeholder="joinColumnNameReferencedColumnName" required>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="p-2 bd-highlight" *ngIf="isIsJoinTable">
+                            <mat-form-field>
+                                <mat-label>Join Table Name</mat-label>
+                                <input matInput formControlName="JoinTableName" placeholder="JoinTableName" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="p-2 bd-highlight" *ngIf="isIsJoinTable">
+                            <mat-form-field>
+                                <mat-label> joinColumnName</mat-label>
+                                <input matInput formControlName="joinColumnName2" placeholder="joinColumnName2"
+                                    required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- boolean gruop -->
+                    <div class="col border">
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="bidireccional" color="primary">Bidireccional relacion
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="mappedByRelacion" color="primary"
+                                (change)="mappedByRelacion()">mappedBy Relacion
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="fetchType" color="primary">fetchType
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="joinColumn" color="primary">joinColumn
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="orphanRemoval" color="primary">orphanRemoval
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2">
+                            <mat-slide-toggle formControlName="isJoinTable" color="primary" (change)="isJoinTable()">
+                                isJoinTable
+                            </mat-slide-toggle>
+                        </div>
+
+                        <div class="p-2" *ngIf="isIsJoinTable">
+                            <mat-slide-toggle formControlName="jointabaleTipo" color="primary">JointabaleTipo
+                            </mat-slide-toggle>
+                        </div>
+
+                    </div>
+
+                    <div class="col border" *ngIf="enviarRelacion">
+
+                        <table class="table table-bordered" style="color: aliceblue; width: 100%;">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Clase Relacionada</th>
+                                    <th scope="col">Relation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of this.entidad.relaciones; let i= index">
+                                    <th scope="row">{{i}}</th>
+                                    <td>{{item.nameClassRelacion}}</td>
+                                    <td>{{item.relation}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </mat-card-content>
+    <mat-card-actions class="center border shadow">
+        <button mat-raised-button class="m-2" (click)="onSave() ">Add</button>
+        <button mat-raised-button class="m-2" (click)="onClose()">Cancel</button>
+    </mat-card-actions>
+</mat-card>

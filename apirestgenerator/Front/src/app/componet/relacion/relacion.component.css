@@ -1,0 +1,12 @@
+.ancho{
+    width: 100%;
+  }
+  
+  .center{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .entidad{
+    color: aliceblue; 
+  }

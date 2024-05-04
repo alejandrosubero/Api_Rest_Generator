@@ -1,0 +1,125 @@
+<mat-toolbar color="primary" class="mat-elevation-z8 mb-3">
+    <span>Proyect Date</span>
+  </mat-toolbar>
+
+<div class="mat-elevation-z8 pantalla" style="background-color: rgb(244, 244, 248); color: rgb(5, 5, 5); font-weight: bold;">
+<br>
+    <!-- <div class="row justify-content-center mt-3">
+        <h3 class="text-center h1"> Proyect Date </h3>
+    </div> -->
+    <!-- <br> -->
+    <br>
+
+    <form [formGroup]="firstFormGroup" novalidate="novalidate" class="ml-5">
+        <div class="justify-content-center">
+            <div class="row ">
+
+                <div class="col-sm m-1">
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'proyecto-name' | translate }}</mat-label>
+                            <input matInput formControlName="proyectoName" placeholder="proyectoName"
+                                oninput="this.value = this.value.replace(/ /g, '')" required />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'context' | translate }}</mat-label>
+                            <input matInput placeholder="context" [(ngModel)]="contexVa" formControlName="context"
+                                (keyup)="paqueteNameCotex()" required />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="p-2">
+                        <mat-form-field>
+                            <mat-label>{{ 'autor' | translate }}</mat-label>
+                            <input matInput placeholder="Autor" formControlName="autor" required />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-sm m-1">
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'VersionPrograma' | translate }}</mat-label>
+                            <input matInput placeholder="Versión Programa" [(ngModel)]="versionPrograma"
+                                formControlName="prograntVersion" required />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>Artifac</mat-label>
+                            <input matInput formControlName="artifact" [(ngModel)]="artifac"
+                                (keyup)="paqueteNameArtifac()" placeholder="Artifac"
+                                oninput="this.value = this.value.replace(/ /g, '').toLowerCase()" required />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'User' | translate }}</mat-label>
+                            <input matInput formControlName="user" placeholder="User" required />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-sm m-1">
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'Description' | translate }}</mat-label>
+                            <input matInput formControlName="description" placeholder="description" required />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="p-2 bd-highlight">
+                        <mat-form-field>
+                            <mat-label>{{ 'packageNames' | translate }} </mat-label>
+                            <input matInput formControlName="packageNames" [(ngModel)]="packageNamesVal"
+                                (keyup)="paqueteedid()" placeholder="{{ 'packageNames' | translate }}" required />
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary mat-elevation-z8" style="color: white;"  (click)="onBack()"> {{ 'Back' | translate }} </a>
+        </div>
+        <br>
+    </form>
+
+</div>
+
+
+<div class="container-fluid border" *ngIf="false">
+    <div class="d-flex justify-content-center">
+        <div>
+            <div class="terminal">
+                <textarea 
+                    name="doc" 
+                    id="doc" 
+                    cols="100" 
+                    rows="10" 
+                    id="tex" 
+                    class="scroll texareaTerminal"
+                    spellcheck="false" 
+                    [(ngModel)]="jsonArea" 
+                    style="background-color: black; color: white;">
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center m-2">
+        <a class="btn btn-primary" (click)="test()"> test </a>
+    </div>
+</div>
+
+
+      <!-- <div class="col-6">
+            <textarea name="" id="" cols="50" rows="10" id="tex" [(ngModel)]="jsonArea"
+                style="background-color: black; color: white;"></textarea>
+        </div> -->

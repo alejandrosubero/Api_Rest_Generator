@@ -1,0 +1,40 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 150px;
+  background-color: rgb(255, 255, 255);
+}
+
+.sidenav .mat-toolbar {
+ /* background: inherit; */
+  background-color: rgb(42, 44, 165);
+}
+
+.mat-toolbar.mat-primary {
+  background-color: rgb(42, 44, 165);
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.textColor1{
+  color: white;
+}
+
+/* p {
+  font-family: Lato;
+} */
+
+.flexExpand {
+  flex: 1 1 auto;
+}
+
+.flexSpaceBetween {
+  justify-content: space-between;
+}
+
+.example-form-field {
+  width: 200px;
+}

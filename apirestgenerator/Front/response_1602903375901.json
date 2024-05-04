@@ -1,0 +1,82 @@
+{
+  "autor": "string",
+  "user": "string",
+  "context": "string",
+  "proyectoName": "string",
+  "packageNames": "string",
+  "description": "string",
+  "createCapaPojoForEntitys": true,
+  "prograntVersion": "string",
+  "wihtSegurity": true,
+  "dataBase": true,
+  "databaseTest": true,
+  "databaseName": "string",
+  "tipoDatabase": 0,
+  "nativeMysql": true,
+  "javaVersion": 0,
+  "entidades": [
+    {
+      "isEntity": true,
+      "nombreClase": "string",
+      "nombreTabla": "string",
+      "paquete": "string",
+      "delete": true,
+      "atributos": [
+        {
+          "sId": true,
+          "idName": "string",
+          "modificadorExtra": "string",
+          "ismodificadorExtra": true,
+          "tipoModificador": "string",
+          "tipoDato": "string",
+          "atributoName": "string",
+          "nameColum": "string",
+          "atributoUpdatable": true,
+          "atributoNullable": true,
+          "length": 0,
+          "generatedValue": true,
+          "tipoGeneratedValor": "string",
+          "sequenceGenerator": true,
+          "tipoGenerador": true,
+          "sequenseName": "string",
+          "nameSequenceTable": "string",
+          "initialValue": 0,
+          "allocationSize": 0,
+          "transiente": true
+        }
+      ],
+      "relaciones": [
+        {
+          "mappedByRelacion": true,
+          "mappedBy": "string",
+          "bidireccional": true,
+          "nameClassRelacionar": "string",
+          "nameClassRelacion": "string",
+          "nameRelacion": "string",
+          "relation": "string",
+          "joinColumn": true,
+          "fetchType": true,
+          "fetchTypes": "string",
+          "joinColumnName": "string",
+          "isJoinTable": true,
+          "jointabaleTipo": true,
+          "joinColumnNameReferencedColumnName": "string",
+          "joinColumnName2": "string",
+          "cascadeType": "string",
+          "orphanRemoval": true,
+          "joinTableName": "string",
+          "joinTable": true
+        }
+      ]
+    }
+  ],
+  "toolClassPojo": {
+    "getPostCreateTool": true,
+    "archivosManamentTool": true,
+    "serverTcp": true,
+    "serverUdp": true,
+    "converterHex": true,
+    "socketClientTcp": true,
+    "socketClientUdp": true
+  }
+}

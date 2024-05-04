@@ -1,0 +1,185 @@
+
+ <mat-card class="ancho">
+
+    <mat-card-content>
+        <div>
+            <div class="row">
+
+              <div class="col-sm-4">
+                <mat-card >
+                    <mat-card-header class="bg primary">
+                        <mat-card-title>{{ 'PROJECTARQUITECTURE' | translate }} </mat-card-title>
+                        <mat-card-subtitle>Arquitectura para el proyecto</mat-card-subtitle>
+                    </mat-card-header>
+                        
+                    <mat-card-content>
+                    <div class="container">
+                        <div class="p-2 m-1" >
+                            <mat-slide-toggle  [(ngModel)]="isChecked11" (change)="onIsChecked11()">MVC WEB CAPAPOJO
+                                <samp class="m-1" [ngStyle]="{'background-color':isChecked11 ? 'green' : 'blue' }">{{isChecked11}}</samp></mat-slide-toggle>
+                        </div>
+                        <div class="p-2 bd-highlight" *ngIf="isChecked11">
+                            <mat-form-field>
+                                <mat-label>{{ 'PROJECTARQUITECTURE_name_modelo_pojo' | translate }}</mat-label>
+                                <input matInput [(ngModel)]="nameModeloPojo"
+                                     placeholder="nameModeloPojo"
+                                    oninput="this.value = this.value.replace(/ /g, '')" required />
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="p-2 m-1" >
+                            <mat-slide-toggle  [(ngModel)]="isChecked12" (change)="onIsChecked12()">MVC WEB Java 1.7
+                                <samp class="m-1" [ngStyle]="{'background-color':isChecked12 ? 'green' : 'blue' }">{{isChecked12}}</samp></mat-slide-toggle>
+                        </div>
+                    </div>
+                
+                    </mat-card-content>
+        
+                </mat-card>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-card>
+                    <mat-card-header class="bg primary">
+                        <mat-card-title>MANAGE METHODS </mat-card-title>
+                        <mat-card-subtitle>Control de los metodos a generar</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                    <div class="container">
+                        <div class="p-2 m-1" >
+                            <mat-slide-toggle  [(ngModel)]="isMethoddefaultValue" (change)="onIsCheckedDefault()">Generate Default Method 
+                                <samp class="m-1" [ngStyle]="{'background-color':isMethoddefaultValue ? 'green' : 'blue' }">{{isMethoddefaultValue}}</samp></mat-slide-toggle>
+                        </div>
+                    </div>
+                        <div class="container">
+                            <div class="d-flex flex-column mb-3">
+                                <div class="p-2 m-1" >
+                                    <mat-slide-toggle  [(ngModel)]="isMethodFindByOrLoop" (change)="findByOrLoop()" [disabled]="isMethoddefaultValue" >Created method find by: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodFindByOrLoop ? 'green' : 'blue' }">{{isMethodFindByOrLoop}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodfindById" (change)="findById()" [disabled]="isMethoddefaultValue">Created method find id:
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodfindById ? 'green' : 'blue' }">{{isMethodfindById}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMetohdSave" (change)="Save()" [disabled]="isMethoddefaultValue">Created method save: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMetohdSave ? 'green' : 'blue' }">{{isMetohdSave}}</samp></mat-slide-toggle>
+                                </div>
+                            
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodgetAll" (change)="getAll()" [disabled]="isMethoddefaultValue">Created method get all: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodgetAll ? 'green' : 'blue' }">{{isMethodgetAll}}</samp></mat-slide-toggle>
+                                </div>
+                            
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodDelete" (change)="deletemethod()" [disabled]="isMethoddefaultValue">Created method delete: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodDelete ? 'green' : 'blue' }">{{isMethodDelete}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodUpdate" (change)="update()" [disabled]="isMethoddefaultValue"> Created method update: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodUpdate ? 'green' : 'blue' }">{{isMethodUpdate}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodsaveOrUpdate" (change)="saveOrUpdate()" [disabled]="isMethoddefaultValue">Created method saveOrUpdate: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodsaveOrUpdate ? 'green' : 'blue' }">{{isMethodsaveOrUpdate}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodContaining" (change)="containing()" [disabled]="isMethoddefaultValue"> Created method Containing for Attributes:
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodContaining ? 'green' : 'blue' }">{{isMethodContaining}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodContainingRelacion" (change)="containingRelacion()" [disabled]="isMethoddefaultValue"> Created methodl containing for Relacion: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodContainingRelacion ? 'green' : 'blue' }">{{isMethodContainingRelacion}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isMethodContainingRelacionNoBiDirectional" (change)="containingRelacionNoBiDirectional()" [disabled]="isMethoddefaultValue"> Created methodl containing No BiDirectional: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isMethodContainingRelacionNoBiDirectional ? 'green' : 'blue' }">{{isMethodContainingRelacionNoBiDirectional}}</samp></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+              </div>
+
+              <div class="col-sm-4">
+                <mat-card>
+                    <mat-card-header class="bg primary">
+                        <mat-card-title>TOOLS FOR YOU PROYECT </mat-card-title>
+                        <mat-card-subtitle>Herramientas para tu proyecto</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                    <div class="container">
+                        <div class="p-2 m-1" >
+                            <mat-slide-toggle  [(ngModel)]="isChecked10" (change)="onIsChecked10()">Active Tools 
+                                <samp class="m-1" [ngStyle]="{'background-color':isChecked10 ? 'green' : 'blue' }">{{isChecked10}}</samp></mat-slide-toggle>
+                        </div>
+                    </div>
+                        <div class="container">
+                            <div class="d-flex flex-column mb-3">
+                                <div class="p-2 m-1" >
+                                    <mat-slide-toggle  [(ngModel)]="isChecked1" (change)="onIsChecked1()" [disabled]="!isChecked10" >Slide to Include Http client tools: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked1 ? 'green' : 'blue' }">{{isChecked1}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked2" (change)="onIsChecked2()" [disabled]="!isChecked10">Slide to Include Manament File Tools:
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked2 ? 'green' : 'blue' }">{{isChecked2}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked3" (change)="onIsChecked3()" [disabled]="!isChecked10">Slide to Include TPC socket server tools: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked3 ? 'green' : 'blue' }">{{isChecked3}}</samp></mat-slide-toggle>
+                                </div>
+                            
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked4" (change)="onIsChecked4()" [disabled]="!isChecked10">Slide to Include UDP socket server tools: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked4 ? 'green' : 'blue' }">{{isChecked4}}</samp></mat-slide-toggle>
+                                </div>
+                            
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked5" (change)="onIsChecked5()" [disabled]="!isChecked10"> Slide to Include socketClient Tcp : 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked5 ? 'green' : 'blue' }">{{isChecked5}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked6" (change)="onIsChecked6()" [disabled]="!isChecked10"> Slide to Include socketClient Udp: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked6 ? 'green' : 'blue' }">{{isChecked6}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked7" (change)="onIsChecked7()" [disabled]="!isChecked10">Slide to Include converter to Hexadecimal: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked7 ? 'green' : 'blue' }">{{isChecked7}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked8" (change)="onIsChecked8()" [disabled]="!isChecked10"> Slide to Include class to read Excel:
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked8 ? 'green' : 'blue' }">{{isChecked8}}</samp></mat-slide-toggle>
+                                </div>
+                                <div class="p-2 m-1">
+                                    <mat-slide-toggle [(ngModel)]="isChecked9" (change)="onIsChecked9()" [disabled]="!isChecked10"> Slide to Include class to create Excel: 
+                                        <samp class="m-1" [ngStyle]="{'background-color':isChecked9 ? 'green' : 'blue' }">{{isChecked9}}</samp></mat-slide-toggle>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+              </div>
+
+            </div>
+          </div>
+    </mat-card-content>
+    <mat-card-actions class="center border shadow d-flex justify-content-center">
+        <button mat-raised-button class="m-2" (click)="onEmitToolSelection()">Add</button>
+        <button mat-raised-button class="m-2" (click)="onClose()">Cancel</button>
+    </mat-card-actions>
+</mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+.form-control-lg{
+    border: 1px solid red;
+    outline: none;
+    color: yellowgreen; 
+    background-color: black;
+    width: 100%;
+}
+
+.consolestyle{
+     width:90%;
+     height: auto;
+     background-color: black;
+     border: 4px solid burlywood;
+}
+.texto{
+    color: white;
+}

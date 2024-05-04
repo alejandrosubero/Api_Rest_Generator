@@ -1,0 +1,21 @@
+.ancho{
+  width: 100%;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+.entidad{
+  color: aliceblue; 
+}
+
+/* mat-dialog-container {
+  position: fixed;
+  left: 20%;
+  top: 0%;
+  background-color: rgb(170, 28, 28);
+  z-index: 3;
+} */
+

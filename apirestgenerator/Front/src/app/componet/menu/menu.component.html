@@ -1,0 +1,71 @@
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+<div id="games" class="pb-5 cuerpo">
+
+    <!-- <mat-card >
+        <div class="row justify-content-center">
+            <h3 class="text-center h1"> {{ 'principal3.texto' | translate }} </h3>
+        </div>
+    </mat-card> -->
+
+    <div class="row mt-2" *ngIf="!consolaActiva">
+        <mat-card class="col-sm mr-2" *ngIf="!consolaActiva">
+            
+            <a  routerLink="/cliente">
+                <img class="img-fluid" alt="Responsive image" src="assets/panel1.png">
+            </a>
+           
+            <div class="card-body">
+                <h5 class="card-title">{{ 'principal4.texto' | translate }}</h5>
+                <p class="card-text">{{ 'principal5.texto' | translate }}</p>
+                <p class="card-text">{{ 'principal6.texto' | translate }}</p>
+            </div>
+            <!-- <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" routerLink="/cliente">{{ 'boton-cliente' | translate }}</a>
+            </div> -->
+        </mat-card>
+
+        <mat-card class="col-sm ml-2" *ngIf="!consolaActiva">
+            <a routerLink="/code">
+                <img class="img-fluid" alt="Responsive image" src="assets/CODE JSON CONSOLA.png">
+            </a>
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ 'principal7.texto' | translate }}</h5>
+                <p class="card-text">{{ 'principal8.texto' | translate }}</p>
+                <p class="card-text"> {{ 'principal9.texto' | translate }}</p>
+            </div>
+            <!-- <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" routerLink="/code">Code Panel</a>
+            </div> -->
+        </mat-card>
+    </div>
+<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+    <div class="row mt-3" *ngIf="!consolaActiva">
+        <mat-card class="col-sm mr-2" *ngIf="consolaActiva">
+            <img class="img-fluid" alt="Responsive image" src="assets/panel1.png">
+            <div class="card-body">
+                <h5 class="card-title">{{ 'principal7.texto' | translate }}</h5>
+                <p class="card-text">{{ 'principal8.texto' | translate }}</p>
+                <p class="card-text">{{ 'principal9.texto' | translate }}</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" routerLink="/cliente">{{ 'boton-cliente' | translate }}</a>
+            </div>
+        </mat-card>
+
+        <mat-card class="col-sm ml-2" *ngIf="consolaActiva">
+            <img class="img-fluid" alt="Responsive image" src="assets/CODE JSON CONSOLA.png">
+            <div class="card-body">
+                <h5 class="card-title">{{ 'principal10.texto' | translate }}</h5>
+                <p class="card-text">{{ 'principal11.texto' | translate }}</p>
+                <p class="card-text">{{ 'principal12.texto' | translate }}</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary" routerLink="/code">Code Panel</a>
+            </div>
+        </mat-card>
+    </div>
+</div>

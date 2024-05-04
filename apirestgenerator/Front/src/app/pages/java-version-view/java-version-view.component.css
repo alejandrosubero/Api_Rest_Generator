@@ -1,0 +1,9 @@
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.pantalla{
+    height: 85%;
+    /* width: 100%; */
+}

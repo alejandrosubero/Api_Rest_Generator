@@ -1,0 +1,55 @@
+.example-card {
+    max-width: 100%;
+  }
+  
+    mat-grid-tile {
+      background: rgb(110, 116, 122);
+    }
+
+    .example-ripple-container {
+      cursor: pointer;
+      text-align: center;
+    
+      width: 300px;
+      height: 300px;
+      line-height: 300px;
+    
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /** Styles to make the demo look better. */
+    .example-ripple-checkbox {
+      margin: 6px 12px 6px 0;
+    }
+    
+    .example-ripple-form-field {
+      margin: 0 12px 0 0;
+    }
+
+    .textColorCar{
+      color: black;
+    }
+
+    .alturaCar{
+      height: 30%;
+    }
+    .alturaCar2{
+      height: 50%;
+      max-height: 50%;
+      background-color: blue;
+    }
+
+        /* .example-header-image {
+      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+      background-size: cover;
+    } */
+
+    /* mat-grid-tile {
+      background: rgb(26, 123, 233);
+    } */

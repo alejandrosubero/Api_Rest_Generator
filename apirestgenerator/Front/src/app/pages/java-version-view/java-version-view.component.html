@@ -1,0 +1,46 @@
+<mat-toolbar color="primary" class="mat-elevation-z8 mb-3">
+    <span>Java Version</span>
+</mat-toolbar>
+
+<div class="mat-elevation-z8" style="background-color: rgb(244, 244, 248); color: rgb(5, 5, 5); font-weight: bold;">
+
+    <form [formGroup]="firstFormGroup" novalidate="novalidate">
+        <div class="container-fluid">
+            <div class="row border ancho center">
+                <!-- <div class="col-sm-3 m-1"> -->
+
+                <div class="p-2 bd-highlight">
+                    <mat-form-field>
+                        <mat-label> {{ 'JavaVersion' | translate }} </mat-label>
+                        <mat-select formControlName="javaVersion">
+                            <mat-option *ngFor="let pagt of javaversionlist" [value]="pagt">
+                                {{ pagt }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="p-2 bd-highlight">
+                </div>
+
+                <div class="p-2 bd-highlight">
+                    <mat-form-field>
+                        <mat-label> {{ 'sprintVersion' | translate }} </mat-label>
+                        <mat-select formControlName="springBootVersion">
+                            <mat-option *ngFor="let version of sprintVersion" [value]="version">
+                                {{ version }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary" (click)="onBack()"> {{ 'Back' | translate }} </a>
+</div>
+<br>

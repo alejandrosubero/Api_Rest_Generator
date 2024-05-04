@@ -1,0 +1,96 @@
+<div class=" border ancho">
+    <mat-card>
+        <h6 class="center">{{ 'Entidad' | translate }}</h6>
+        <!-- <mat-card-title class="center">Entidad</mat-card-title> -->
+    </mat-card>
+    <div class="ancho">
+        <div>
+            <mat-form-field class="container mat-elevation-z8">
+                <mat-label>{{ 'Filtrar' | translate }}</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+            </mat-form-field>
+
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 ancho">
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="nombreTabla">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'NombreTabla' | translate }}</th>
+                    <td mat-cell *matCellDef="let row"> {{row.nombreTabla}} </td>
+                </ng-container>
+
+                <!-- Progress Column -->
+                <ng-container matColumnDef="nombreClase">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Clase' | translate }} </th>
+                    <td mat-cell *matCellDef="let row"> {{row.nombreClase}}</td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="aciones">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'Aciones' | translate }} </th>
+                    <td mat-cell *matCellDef="let row">
+                        <mat-icon (click)="onDeleteRelacion(row)">delete_forever</mat-icon>
+                        <mat-icon (click)="openDialog(row)">create</mat-icon>
+                     </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="border"
+                    (click)="onSelectEntity(row)">
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[6, 10, 25, 100]"></mat-paginator>
+        </div>
+
+
+    </div>
+    <div class="center border shadow">
+        <button mat-raised-button class="m-2" (click)="openDialog()">
+            <mat-icon>add_to_photos</mat-icon> {{ 'Adicionar' | translate }} 
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Entidad</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-drawer-container autosize style="width: 100%;" >
+            <mat-drawer #drawer mode="side" position="end">
+                <div class="container shadow border  m-1">
+                    <p>Futuro menu code works!</p>
+                </div>
+            </mat-drawer>
+            <mat-drawer #drawer2 class="example-sidenav" mode="side">
+                <h1>tabla</h1>
+            </mat-drawer>
+
+            <app-tabla></app-tabla>
+        </mat-drawer-container>
+
+    </mat-card-content>
+
+    <mat-card-actions class="border center">
+        <button mat-raised-button class="m-1">Adicionar</button>
+    </mat-card-actions>
+
+    <mat-card-actions class="center">
+        <button type="button" mat-raised-button (click)="drawer2.toggle()">tree</button>
+        <button type="button" mat-raised-button (click)="drawer.toggle()">Relaciones</button>
+    </mat-card-actions>
+
+</mat-card> -->

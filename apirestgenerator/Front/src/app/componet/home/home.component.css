@@ -1,0 +1,24 @@
+
+.cuerpo{
+    margin: 3%;
+    margin-top: 0;
+}
+
+.color{
+    background-color: brown;
+}
+
+.alto{
+    color: black;
+}
+
+.img{
+    height: 700px;
+}
+
+.cuadro{
+    border: 1px solid white;
+}
+.textoCuadro{
+    margin-left: 8px;
+}
