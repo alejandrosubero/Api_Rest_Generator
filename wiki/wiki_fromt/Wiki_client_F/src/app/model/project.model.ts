@@ -3,25 +3,25 @@ import { VersionControl } from "./version-control.model";
 
 export class Project {
 
-     idProject: number;
-    private  _name: string;
-    private  _repositoryLink: string;
+    idProject: number;
+    private _name: string;
+    private _repositoryLink: string;
     private _startDate: Date;
-     description: string;
-     time: number;
-     versionControlList: Array<VersionControl>;
-     taskList: Array<Task>;
-   
+    private _time: number;
+    private _description: string;
+    private _versionControlList: Array<VersionControl>;
+    private _taskList: Array<Task>;
+
 
     constructor() {
         this.idProject = 0;
         this._name = '';
         this._repositoryLink = '';
-        this.description = '';
-        this.time = 0;
-        this.versionControlList = new Array<VersionControl>();
-        this.taskList = new Array<Task>();
-        this._startDate= new Date();
+        this._description = '';
+        this._time = 0;
+        this._versionControlList = new Array<VersionControl>();
+        this._taskList = new Array<Task>();
+        this._startDate = new Date();
     }
 
     public get startDate(): Date {
@@ -43,48 +43,48 @@ export class Project {
     public set name(value: string) {
         this._name = value;
     }
-    // public get _idProject(): number {
-    //     return this.idProject;
-    // }
-    // public set _idProject(value: number) {
-    //     this.idProject = value;
-    // }
+    public get _idProject(): number {
+        return this.idProject;
+    }
+    public set _idProject(value: number) {
+        this.idProject = value;
+    }
 
-    // public get _description(): string {
-    //     return this.description;
-    // }
-    // public set _description(value: string) {
-    //     this.description = value;
-    // }
+    public get description(): string {
+        return this._description;
+    }
+    public set description(value: string) {
+        this._description = value;
+    }
 
-    // public get _time(): number {
-    //     return this.time;
-    // }
-    // public set _time(value: number) {
-    //     this.time = value;
-    // }
+    public get time(): number {
+        return this._time;
+    }
+    public set time(value: number) {
+        this._time = value;
+    }
 
-    // public get _versionControlList(): Array<VersionControl> {
-    //     return this.versionControlList;
-    // }
+    public get versionControlList(): Array<VersionControl> {
+        return this._versionControlList;
+    }
 
-    // public set _versionControlList(value: Array<VersionControl>) {
-    //     this.versionControlList = value;
-    // }
+    public set versionControlList(value: Array<VersionControl>) {
+        this._versionControlList = value;
+    }
 
-    // public updateVersionControlList(value:VersionControl){
-    //     this.versionControlList.push(value);
-    // }
+    public updateVersionControlList(value:VersionControl){
+        this.versionControlList.push(value);
+    }
 
-    // public get _taskList(): Array<Task> {
-    //     return this.taskList;
-    // }
-    // public set _taskList(value: Array<Task>) {
-    //     this.taskList = value;
-    // }
+    public get taskList(): Array<Task> {
+        return this._taskList;
+    }
+    public set taskList(value: Array<Task>) {
+        this._taskList = value;
+    }
 
-    // public updateTaskList(value:Task){
-    //     this.taskList.push(value);
-    // }
+    public updateTaskList(value:Task){
+        this.taskList.push(value);
+    }
 
 }

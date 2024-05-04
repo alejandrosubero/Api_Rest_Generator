@@ -4,141 +4,141 @@ import { TaskNote } from "./task-note.model";
 
 export class Task {
 
-    private taskId: number;
-    private time: number;
-    private state: string;
-    private solution: string;
-    private createDate: Date;
-    private endDate: Date;
-    private titleTask: string;          // requerd
-    private description: string;       // requerd
-    private taskType: string;          // requerd
-    private personCreate: string;      // requerd
-    private personWorked: string;      // requerd
-    private idProject: number;     // requerd
-    private taskNote: Array<TaskNote>;
-    private subTasks: Array<SubTask>;
-    private packages: Array<PaquetePackage>;
+    private _taskId: number;
+    private _time: number;
+    private _state: string;
+    private _solution: string;
+    private _createDate: Date;
+    private _endDate: Date;
+    private _titleTask: string;          // requerd
+    private _description: string;       // requerd
+    private _taskType: string;          // requerd
+    private _personCreate: string;      // requerd
+    private _personWorked: string;      // requerd
+    private _idProject: number;     // requerd
+    private _taskNote: Array<TaskNote>;
+    private _subTasks: Array<SubTask>;
+    private _packages: Array<PaquetePackage>;
    
     constructor() {
-        this.taskId = 0;
-        this.titleTask= ''; 
-        this.idProject = 0;
-        this.state = '';
-        this.time = 0;
-        this.solution = '';
-        this.createDate = new Date();
-        this.endDate = new Date();
-        this.taskType= ''; 
-        this.description= ''; 
-        this.personCreate= ''; 
-        this.personWorked= '';
-        this.packages= new Array<PaquetePackage>();
-        this.taskNote = new Array<TaskNote>();
-        this.subTasks = new Array<SubTask>();
+        this._taskId = 0;
+        this._titleTask= ''; 
+        this._idProject = 0;
+        this._state = '';
+        this._time = 0;
+        this._solution = '';
+        this._createDate = new Date();
+        this._endDate = new Date();
+        this._taskType= ''; 
+        this._description= ''; 
+        this._personCreate= ''; 
+        this._personWorked= '';
+        this._packages= new Array<PaquetePackage>();
+        this._taskNote = new Array<TaskNote>();
+        this._subTasks = new Array<SubTask>();
     }
 
 
-    public get _packages(): Array<PaquetePackage> {
-        return this.packages;
+    public get packages(): Array<PaquetePackage> {
+        return this._packages;
     }
-    public set _packages(value: Array<PaquetePackage>) {
-        this.packages = value;
-    }
-
-    public get _subTasks(): Array<SubTask> {
-        return this.subTasks;
-    }
-    public set _subTasks(value: Array<SubTask>) {
-        this.subTasks = value;
+    public set packages(value: Array<PaquetePackage>) {
+        this._packages = value;
     }
 
-    public get _taskNote(): Array<TaskNote> {
-        return this.taskNote;
+    public get subTasks(): Array<SubTask> {
+        return this._subTasks;
     }
-    public set _taskNote(value: Array<TaskNote>) {
-        this.taskNote = value;
-    }
-
-    public get _idProject(): number {
-        return this.idProject;
-    }
-    public set _idProject(value: number) {
-        this.idProject = value;
+    public set subTasks(value: Array<SubTask>) {
+        this._subTasks = value;
     }
 
-    public get _personWorked(): string {
-        return this.personWorked;
+    public get taskNote(): Array<TaskNote> {
+        return this._taskNote;
     }
-    public set _personWorked(value: string) {
-        this.personWorked = value;
+    public set taskNote(value: Array<TaskNote>) {
+        this._taskNote = value;
+    }
+
+    public get idProject(): number {
+        return this._idProject;
+    }
+    public set idProject(value: number) {
+        this._idProject = value;
+    }
+
+    public get personWorked(): string {
+        return this._personWorked;
+    }
+    public set personWorked(value: string) {
+        this._personWorked = value;
     }
     
-    public get _personCreate(): string {
-        return this.personCreate;
+    public get personCreate(): string {
+        return this._personCreate;
     }
-    public set _personCreate(value: string) {
-        this.personCreate = value;
-    }
-
-    public get _taskType(): string {
-        return this.taskType;
-    }
-    public set _taskType(value: string) {
-        this.taskType = value;
+    public set personCreate(value: string) {
+        this._personCreate = value;
     }
 
-    public get _description(): string {
-        return this.description;
+    public get taskType(): string {
+        return this._taskType;
     }
-    public set _description(value: string) {
-        this.description = value;
-    }
-
-    public get _titleTask(): string {
-        return this.titleTask;
-    }
-    public set _titleTask(value: string) {
-        this.titleTask = value;
+    public set taskType(value: string) {
+        this._taskType = value;
     }
 
-    public get _state(): string {
-        return this.state;
+    public get description(): string {
+        return this._description;
     }
-    public set _state(value: string) {
-        this.state = value;
-    }
-    public get _taskId(): number {
-        return this.taskId;
-    }
-    public set _taskId(value: number) {
-        this.taskId = value;
+    public set description(value: string) {
+        this._description = value;
     }
 
-    public get _time(): number {
-        return this.time;
+    public get titleTask(): string {
+        return this._titleTask;
     }
-    public set _time(value: number) {
-        this.time = value;
-    }
-
-    public get _solution(): string {
-        return this.solution;
-    }
-    public set _solution(value: string) {
-        this.solution = value;
+    public set titleTask(value: string) {
+        this._titleTask = value;
     }
 
-    public get _createDate(): Date {
-        return this.createDate;
+    public get state(): string {
+        return this._state;
     }
-    public set _createDate(value: Date) {
-        this.createDate = value;
+    public set state(value: string) {
+        this._state = value;
     }
-    public get _endDate(): Date {
-        return this.endDate;
+    public get taskId(): number {
+        return this._taskId;
     }
-    public set _endDate(value: Date) {
-        this.endDate = value;
+    public set taskId(value: number) {
+        this._taskId = value;
+    }
+
+    public get time(): number {
+        return this._time;
+    }
+    public set time(value: number) {
+        this._time = value;
+    }
+
+    public get solution(): string {
+        return this._solution;
+    }
+    public set solution(value: string) {
+        this._solution = value;
+    }
+
+    public get createDate(): Date {
+        return this._createDate;
+    }
+    public set createDate(value: Date) {
+        this._createDate = value;
+    }
+    public get endDate(): Date {
+        return this._endDate;
+    }
+    public set endDate(value: Date) {
+        this._endDate = value;
     }
 }

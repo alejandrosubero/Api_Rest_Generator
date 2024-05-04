@@ -2,49 +2,49 @@
 
 export class TaskNote {
 
-    private idTaskNote: number;
-    private note: string;
-    private titleTaskNote: string;
-    private addToDocument: boolean;
+    private _idTaskNote: number;
+    private _note: string;
+    private _titleTaskNote: string;
+    private _addToDocument: boolean;
   
     constructor() {
-        this.idTaskNote = 0; 
-        this.note = ''; 
-        this.titleTaskNote = ''; 
-        this.addToDocument  = false;
+        this._idTaskNote = 0; 
+        this._note = ''; 
+        this._titleTaskNote = ''; 
+        this._addToDocument  = false;
     }
   
    
-    get _idTaskNote(): number {
-      return this.idTaskNote;
+    get idTaskNote(): number {
+      return this._idTaskNote;
     }
   
-    get _note(): string {
-      return this.note;
+    get note(): string {
+      return this._note;
     }
   
-    get _titleTaskNote(): string {
-      return this.titleTaskNote;
+    get titleTaskNote(): string {
+      return this._titleTaskNote;
     }
   
-    get _addToDocument(): boolean {
-      return this.addToDocument;
+    get addToDocument(): boolean {
+      return this._addToDocument;
     }
   
-    set _idTaskNote(value: number) {
-      this.idTaskNote = value;
+    set idTaskNote(value: number) {
+      this._idTaskNote = value;
     }
   
-    set _note(value: string) {
-      this.note = value;
+    set note(value: string) {
+      this._note = value;
     }
   
-    set _titleTaskNote(value: string) {
-      this.titleTaskNote = value;
+    set titleTaskNote(value: string) {
+      this._titleTaskNote = value;
     }
   
-    set _addToDocument(value: boolean) {
-      this.addToDocument = value;
+    set addToDocument(value: boolean) {
+      this._addToDocument = value;
     }
 
   }

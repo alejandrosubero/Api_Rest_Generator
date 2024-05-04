@@ -1,76 +1,76 @@
 export class Document {
 
-    private idDocument: number;
-    private title: string;
-    private content: string;
-    private reateDate: Date;
-    private docReferentNumber: string;
-    private referentVersion: string;
-    private actualVersion: string;
-    private active: boolean;
+    private _idDocument: number;
+    private _title: string;
+    private _content: string;
+    private _reateDate: Date;
+    private _docReferentNumber: string;
+    private _referentVersion: string;
+    private _actualVersion: string;
+    private _active: boolean;
   
     constructor(){
-        this.active = true;
-        this.idDocument=0;
-        this.actualVersion='';
-        this.content='';
-        this.docReferentNumber='';
-        this.reateDate= new Date();
-        this.title='';
-        this.referentVersion='';
+        this._active = true;
+        this._idDocument=0;
+        this._actualVersion='';
+        this._content='';
+        this._docReferentNumber='';
+        this._reateDate= new Date();
+        this._title='';
+        this._referentVersion='';
     }
 
-    public get _active(): boolean {
-        return this.active;
+    public get active(): boolean {
+        return this._active;
     }
-    public set _active(value: boolean) {
-        this.active = value;
+    public set active(value: boolean) {
+        this._active = value;
     }
-    public get _actualVersion(): string {
-        return this.actualVersion;
+    public get actualVersion(): string {
+        return this._actualVersion;
     }
-    public set _actualVersion(value: string) {
-        this.actualVersion = value;
-    }
-
-    public get _referentVersion(): string {
-        return this.referentVersion;
-    }
-    public set _referentVersion(value: string) {
-        this.referentVersion = value;
-    }
-    public get _docReferentNumber(): string {
-        return this.docReferentNumber;
-    }
-    public set _docReferentNumber(value: string) {
-        this.docReferentNumber = value;
+    public set actualVersion(value: string) {
+        this._actualVersion = value;
     }
 
-    public get _reateDate(): Date {
-        return this.reateDate;
+    public get referentVersion(): string {
+        return this._referentVersion;
     }
-    public set _reateDate(value: Date) {
-        this.reateDate = value;
+    public set referentVersion(value: string) {
+        this._referentVersion = value;
     }
-    public get _content(): string {
-        return this.content;
+    public get docReferentNumber(): string {
+        return this._docReferentNumber;
     }
-    public set _content(value: string) {
-        this.content = value;
-    }
-
-    public get _title(): string {
-        return this.title;
-    }
-    public set _title(value: string) {
-        this.title = value;
+    public set docReferentNumber(value: string) {
+        this._docReferentNumber = value;
     }
 
-    public get _idDocument(): number {
-        return this.idDocument;
+    public get reateDate(): Date {
+        return this._reateDate;
     }
-    public set _idDocument(value: number) {
-        this.idDocument = value;
+    public set reateDate(value: Date) {
+        this._reateDate = value;
+    }
+    public get content(): string {
+        return this._content;
+    }
+    public set content(value: string) {
+        this._content = value;
+    }
+
+    public get title(): string {
+        return this._title;
+    }
+    public set title(value: string) {
+        this._title = value;
+    }
+
+    public get idDocument(): number {
+        return this._idDocument;
+    }
+    public set idDocument(value: number) {
+        this._idDocument = value;
     }
 
 }
