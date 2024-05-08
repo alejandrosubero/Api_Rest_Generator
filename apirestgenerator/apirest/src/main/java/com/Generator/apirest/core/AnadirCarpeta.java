@@ -4,8 +4,6 @@ package com.Generator.apirest.core;
 import com.Generator.apirest.ServiceImpl.ProyectoServiceImpl;
 import com.Generator.apirest.entity.Proyecto;
 
-import com.Generator.apirest.services.mail.EnvioEmailService;
-import com.Generator.apirest.services.mail.MensendService;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -24,21 +22,15 @@ import java.io.IOException;
 @Component
 public class AnadirCarpeta {
 
+	protected static final Log logger = LogFactory.getLog(AnadirCarpeta.class);
+
 	private boolean isEncryptFiles = false;
 	private String password = "12345";
 
-	// private String barra ="\\";
-	
-	protected static final Log logger = LogFactory.getLog(AnadirCarpeta.class);
 
 	@Autowired
 	private ProyectoServiceImpl proyectoServiceImpl;
 
-	@Autowired
-	private MensendService mensendService;
-
-	@Autowired
-	 EnvioEmailService envioEmailService;
 
 	public void folderzip(String carpetaAcomprimir, String direccionDeCarpeta, String nombreArchivoZip) throws Exception {
 		logger.info("Inicia Metodo folderzip()");

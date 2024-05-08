@@ -1,8 +1,8 @@
 package com.Generator.apirest.converter;
 
 
-import com.Generator.apirest.pojos.back.EntidadesPojo;
-import com.Generator.apirest.pojos.back.RelacionPojo;
+import com.Generator.apirest.pojos.back.EntityPojo;
+import com.Generator.apirest.pojos.back.RelationshipPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,18 +23,18 @@ public class ConvertEntityToModelT {
 
     protected static final Log logger = LogFactory.getLog(ConvertEntityToModelT.class);
 
-    public List<EntidadesPojo> startConvertEntityToModelT(ArchivoBaseDatosPojo archivo) {
+    public List<EntityPojo> startConvertEntityToModelT(ArchivoBaseDatosPojo archivo) {
 
-        List<EntidadesPojo> newList = new ArrayList<>();
+        List<EntityPojo> newList = new ArrayList<>();
         model = archivo.getCapaPojo().getModelT();
         modelM =  archivo.getCapaPojo().getModelM();
 
-        for (EntidadesPojo entidad : archivo.getEntidades()) {
+        for (EntityPojo entidad : archivo.getEntidades()) {
 
             logger.info(this.stringEnsamble(List.of("Create the entity: ",entidad+model.toUpperCase())));
 
             if (entidad.getIsEntity()) {
-                EntidadesPojo dto = new EntidadesPojo();
+                EntityPojo dto = new EntityPojo();
                 dto.setIsEntity(false);
                 dto.setNombreClase(this.stringEnsamble(List.of(entidad.getNombreClase(),modelM)));
                 dto.setNombreTabla(entidad.getNombreTabla());
@@ -51,32 +51,32 @@ public class ConvertEntityToModelT {
     }
 
 
-    private List<RelacionPojo> convertRelacion(List<RelacionPojo> relacionList) {
-        List<RelacionPojo> relacionPojoList = new ArrayList<>();
+    private List<RelationshipPojo> convertRelacion(List<RelationshipPojo> relacionList) {
+        List<RelationshipPojo> relationshipPojoList = new ArrayList<>();
 
-        for (RelacionPojo relacion : relacionList) {
-            RelacionPojo relacionPojo = new RelacionPojo();
-            relacionPojo.setNameClassRelacion(this.stringEnsamble(List.of(relacion.getNameClassRelacion(),modelM)));
-            relacionPojo.setNameClassRelacionar(this.stringEnsamble(List.of(relacion.getNameClassRelacionar(),modelM)));
-            relacionPojo.setMappedByRelacion(relacion.getMappedByRelacion());
-            relacionPojo.setMappedBy(relacion.getMappedBy());
-            relacionPojo.setBidireccional(relacion.getBidireccional());
-            relacionPojo.setNameRelacion(relacion.getNameRelacion());
-            relacionPojo.setRelation(relacion.getRelation());
-            relacionPojo.setJoinColumn(relacion.getJoinColumn());
-            relacionPojo.setFetchType(relacion.getFetchType());
-            relacionPojo.setFetchTypes(relacion.getFetchTypes());
-            relacionPojo.setJoinColumnName(relacion.getJoinColumnName());
-            relacionPojo.setIsJoinTable(relacion.getIsJoinTable());
-            relacionPojo.setJointabaleTipo(relacion.getJointabaleTipo());
-            relacionPojo.setJoinColumnNameReferencedColumnName(relacion.getJoinColumnNameReferencedColumnName());
-            relacionPojo.setJoinTableName(relacion.getJoinTableName());
-            relacionPojo.setJoinColumnName2(relacion.getJoinColumnName2());
-            relacionPojo.setCascadeType(relacion.getCascadeType());
-            relacionPojo.setOrphanRemoval(relacion.getOrphanRemoval());
-            relacionPojoList.add(relacionPojo);
+        for (RelationshipPojo relacion : relacionList) {
+            RelationshipPojo relationshipPojo = new RelationshipPojo();
+            relationshipPojo.setNameClassRelacion(this.stringEnsamble(List.of(relacion.getNameClassRelacion(),modelM)));
+            relationshipPojo.setNameClassRelacionar(this.stringEnsamble(List.of(relacion.getNameClassRelacionar(),modelM)));
+            relationshipPojo.setMappedByRelacion(relacion.getMappedByRelacion());
+            relationshipPojo.setMappedBy(relacion.getMappedBy());
+            relationshipPojo.setBidireccional(relacion.getBidireccional());
+            relationshipPojo.setNameRelacion(relacion.getNameRelacion());
+            relationshipPojo.setRelation(relacion.getRelation());
+            relationshipPojo.setJoinColumn(relacion.getJoinColumn());
+            relationshipPojo.setFetchType(relacion.getFetchType());
+            relationshipPojo.setFetchTypes(relacion.getFetchTypes());
+            relationshipPojo.setJoinColumnName(relacion.getJoinColumnName());
+            relationshipPojo.setIsJoinTable(relacion.getIsJoinTable());
+            relationshipPojo.setJointabaleTipo(relacion.getJointabaleTipo());
+            relationshipPojo.setJoinColumnNameReferencedColumnName(relacion.getJoinColumnNameReferencedColumnName());
+            relationshipPojo.setJoinTableName(relacion.getJoinTableName());
+            relationshipPojo.setJoinColumnName2(relacion.getJoinColumnName2());
+            relationshipPojo.setCascadeType(relacion.getCascadeType());
+            relationshipPojo.setOrphanRemoval(relacion.getOrphanRemoval());
+            relationshipPojoList.add(relationshipPojo);
         }
-        return relacionPojoList;
+        return relationshipPojoList;
     }
 
 

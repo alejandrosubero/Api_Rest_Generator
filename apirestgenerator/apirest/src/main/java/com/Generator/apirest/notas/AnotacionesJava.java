@@ -17,10 +17,6 @@ public class AnotacionesJava {
     private ArchivoBaseDatosPojo archivos;
     private Date fecha;
 
-//    private String asociametodo;
-//    private String devuelveMetodo;
-//    private String definicionParametro;
-
     public AnotacionesJava (){ }
     
     

@@ -1,12 +1,11 @@
 package com.Generator.apirest.pojos.master;
 
 
-import com.Generator.apirest.pojos.back.AtributoPojo;
-import com.Generator.apirest.pojos.back.CapaPojo;
-import com.Generator.apirest.pojos.back.EntidadesPojo;
+import com.Generator.apirest.pojos.back.AttributePojo;
+import com.Generator.apirest.pojos.back.LayerPojo;
+import com.Generator.apirest.pojos.back.EntityPojo;
 import com.Generator.apirest.pojos.back.MethodManager;
 import com.Generator.apirest.pojos.tool.ToolClassPojo;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,36 +22,27 @@ public class ArchivoBaseDatosPojo {
 	private String packageNames;
 	private String description;
 	private String springBootVersion;
-
 	private String prograntVersion;
 	private String artifact;
-
-	// para el pomxml
-	private Boolean wihtSegurity; //spring segurity o no
-	private Boolean dataBase; // true o false
-	private Boolean databaseTest; // usar databade test y Database
-	private String databaseName; // nombre de base de datos
+	private Boolean wihtSegurity;
+	private Boolean dataBase;
+	private Boolean databaseTest;
+	private String databaseName;
 	private Integer tipoDatabase; // oracle = 2, Mysql = 1, h2 = 3., viene sql server = 4
-    private Boolean nativeMysql; // usar generador nativo de mysql
+    private Boolean nativeMysql;
 	private Double javaVersion;// 1.7 / 1.8 / 11
-	private List<EntidadesPojo> entidades;
 	private Boolean isToolActive;
+	private Boolean methoddefaultValue;
 	private ToolClassPojo toolClassPojo;
-	
-	private boolean methoddefaultValue;
 	private MethodManager methodManager;
-	
-	private CapaPojo capaPojo;
+	private LayerPojo layerPojo;
+	private List<EntityPojo> entidades;
 
-
-
-	
-	
-    public boolean checkAtributos(EntidadesPojo entidad) {
+    public boolean checkAtributos(EntityPojo entidad) {
       	 List<String> atributosName = new ArrayList<String>();
-      	   for (AtributoPojo atributos : entidad.getAtributos()) {
-                 if (!atributos.getsId()) { 
-                 	atributosName.add(atributos.getAtributoName());
+      	   for (AttributePojo atribute : entidad.getAtributos()) {
+                 if (!atribute.getsId()) {
+                 	atributosName.add(atribute.getAtributoName());
                  	}
              }
       	if(atributosName.size() > 0) {
@@ -62,12 +52,12 @@ public class ArchivoBaseDatosPojo {
       }
     
     
-	public CapaPojo getCapaPojo() {
-		return capaPojo;
+	public LayerPojo getCapaPojo() {
+		return layerPojo;
 	}
 
-	public void setCapaPojo(CapaPojo capaPojo) {
-		this.capaPojo = capaPojo;
+	public void setCapaPojo(LayerPojo layerPojo) {
+		this.layerPojo = layerPojo;
 	}
 
 	public ArchivoBaseDatosPojo() {	}
@@ -96,11 +86,11 @@ public class ArchivoBaseDatosPojo {
 		this.description = description;
 	}
 
-	public List<EntidadesPojo> getEntidades() {
+	public List<EntityPojo> getEntidades() {
 		return entidades;
 	}
 
-	public void setEntidades(List<EntidadesPojo> entidades) {
+	public void setEntidades(List<EntityPojo> entidades) {
 		this.entidades = entidades;
 	}
 

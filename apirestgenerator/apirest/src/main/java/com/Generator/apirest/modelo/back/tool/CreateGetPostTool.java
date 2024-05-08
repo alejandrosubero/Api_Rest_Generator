@@ -14,7 +14,7 @@ public class CreateGetPostTool {
 
     private String proyectoName;
     private String paquete;
-  //  private List<EntidadesPojo> entidades;
+  //  private List<EntityPojo> entidades;
     private Creador creador;
     private String barra =java.nio.file.FileSystems.getDefault().getSeparator();
 //    private int relantizar = SleepRelantizer.RELANTIZER;
