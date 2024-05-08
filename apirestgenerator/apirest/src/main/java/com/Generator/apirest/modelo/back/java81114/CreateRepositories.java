@@ -51,7 +51,9 @@ public class CreateRepositories implements IImportModel {
             this.entidades.stream().forEach(entityPojo -> {
                 try {
                     logger.info("Inicia la creacion de Repository ===>" + " Repository" + entityPojo.getNombreClase());
-                    this.createRepository(entityPojo);
+                    if(entityPojo.getIsEntity()) {
+                        this.createRepository(entityPojo);
+                    }
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

@@ -56,7 +56,9 @@ public class CreateServices implements IImportModel {
 			this.entidades.stream().forEach(entityPojo -> {
                 try {
 					logger.info("Inicia la creacion de Servicio " + entityPojo.getNombreClase());
-                    this.createService(entityPojo);
+					if(entityPojo.getIsEntity()){
+						this.createService(entityPojo);
+					}
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -74,7 +76,14 @@ public class CreateServices implements IImportModel {
 		String datoTipo = "";
 		List<AttributePojo> listAtributos = entidad.getAtributos();
 		String nameOfClass = entidad.getNombreClase() + "Service";
-		String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())): entidad.getNombreClase();
+
+		String returnObjectClass =
+				this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?
+						stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM()))
+						: entidad.getNombreClase();
+//		String returnObjectClass = entidad.getNombreClase();
+
+
 		String returnObjectClassPackage = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()? this.archivo.getCapaPojo().getModelT() : "entitys";
 
 		logger.info("createService" + "  for Entity:  " + entidad.getNombreClase());

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ControllerAna {
 
-	// /ApiREST/Generator/api
+	// /ApiREST/Generator/api/archivosBase
 
 	private  static final Log logger = LogFactory.getLog(ControllerAna.class);
 

@@ -36,11 +36,11 @@ public class GenerateProjectRest implements ServiceGenerateProjectRest, IBaseMod
     @Override
     public boolean executeBase(ArchivoBaseDatosPojo baseFileDataPojo) {
 
-//        String model = archivo.getCapaPojo().getModelT().trim();
-//        String modelM = model.substring(0, 1).toUpperCase() + model.substring(1);
-//        archivo.getCapaPojo().setModelM(modelM);
+        String model = baseFileDataPojo.getCapaPojo().getModelT().trim();
+        String modelM = model.substring(0, 1).toUpperCase() + model.substring(1);
+        baseFileDataPojo.getCapaPojo().setModelM(modelM);
 
-        baseFileDataPojo.getCapaPojo().setModelM(this.capitalizeFirstLetter(baseFileDataPojo.getCapaPojo().getModelT().trim()));
+//        baseFileDataPojo.getCapaPojo().setModelM(this.capitalizeFirstLetter(baseFileDataPojo.getCapaPojo().getModelT().trim()));
         baseFileDataPojo.getMethodManager().validDefault(baseFileDataPojo.isMethoddefaultValue());
 
         if (baseFileDataPojo.getMethodManager().isMethodDelete()) {
@@ -53,8 +53,7 @@ public class GenerateProjectRest implements ServiceGenerateProjectRest, IBaseMod
         this.createBaseFiles.create(baseFileDataPojo, creador);
 
 
-        return this.layerFactory.generateLayer(baseFileDataPojo.getCapaPojo())
-                                                    .createLayer(baseFileDataPojo);
+        return this.layerFactory.generateLayer(baseFileDataPojo.getCapaPojo()).createLayer(baseFileDataPojo);
     }
 
 }
