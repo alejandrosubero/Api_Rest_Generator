@@ -1,6 +1,6 @@
 package com.Generator.apirest.modelo.back.basefile;
 
-import com.Generator.apirest.core.BaseFiles;
+import com.Generator.apirest.core.files.BaseFiles;
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
 import com.Generator.apirest.services.builders.IImportModel;

@@ -2,6 +2,7 @@ package com.Generator.apirest.modelo.back.java81114;
 
 
 import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.core.build.MethodDesign;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AttributePojo;
 import com.Generator.apirest.pojos.back.EntityPojo;
@@ -51,7 +52,7 @@ public class CreateServices implements IImportModel {
 
 	private void create() throws InterruptedException {
 
-		logger.info("inicia la creacion de la clase ");
+        logger.info("inicia la creacion de la clase ");
 		if (this.entidades != null && this.entidades.size() > 0) {
 			this.entidades.stream().forEach(entityPojo -> {
                 try {
@@ -123,6 +124,7 @@ public class CreateServices implements IImportModel {
 				String primeraLetra = cadenaOriginal.substring(0, 1).toUpperCase();
 				String restoDeLaCadena = cadenaOriginal.substring(1);
 				atributoName = primeraLetra + restoDeLaCadena;
+//				atributoName = cadenaOriginal.substring(0, 1).toUpperCase() + cadenaOriginal.substring(1);
 
 				if (this.archivo.getMethodManager().isMethodFindByOrLoop()) {
 					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public ")));
