@@ -1,7 +1,7 @@
 package com.Generator.apirest.mapper;
 
 
-import com.Generator.apirest.ServiceImpl.mail.Mesend;
+
 import com.Generator.apirest.entity.SalveProyect;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
 import com.google.gson.Gson;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// @Scope("singleton")
 @Component
 public class ProyectMapper {
 
@@ -25,7 +24,7 @@ public class ProyectMapper {
 		Gson gson = new Gson();
 		logger.info("serializando a ArchivoPojo");
         String g = new Gson().toJson(archivo);
-		Mesend.jsoncuerpo = g;
+
         logger.info("Mapper to object Archivo");
 		proyect.setAutor(archivo.getAutor());
 		proyect.setUser(archivo.getUser());

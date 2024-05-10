@@ -2,10 +2,10 @@ package com.Generator.apirest.modelo.back.java07;
 
 
 import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.modelo.back.RepositoriesServices;
+import com.Generator.apirest.modelo.back.java81114.CreateServices;
 import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.pojos.back.AtributoPojo;
-import com.Generator.apirest.pojos.back.EntidadesPojo;
+import com.Generator.apirest.pojos.back.AttributePojo;
+import com.Generator.apirest.pojos.back.EntityPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
 import com.Generator.apirest.services.builders.FileCreateService;
 import org.apache.commons.logging.Log;
@@ -26,9 +26,9 @@ public class CreateRepositorie07 {
     private Creador creador;
 	private ArchivoBaseDatosPojo archivo;
     private String packageNames;
-    private List<EntidadesPojo> entidades;
+    private List<EntityPojo> entidades;
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
-    protected static final Log logger = LogFactory.getLog(RepositoriesServices.class);
+    protected static final Log logger = LogFactory.getLog(CreateServices.class);
 
     
     public void startCreacion(ArchivoBaseDatosPojo archivo,Creador creador) {
@@ -52,7 +52,7 @@ public class CreateRepositorie07 {
 
         logger.info("inicia la creacion de la clase Repository");
         if (this.entidades.size() > 0) {
-            for (EntidadesPojo entidad : this.entidades) {
+            for (EntityPojo entidad : this.entidades) {
                 if(entidad.getIsEntity()) {
                     logger.info("Inicia la creacion del Repository " + " "+ entidad.getNombreClase());
                     this.createRepository(entidad);
@@ -62,14 +62,14 @@ public class CreateRepositorie07 {
     }
 
 
-    private  void createRepository(EntidadesPojo entidad) throws InterruptedException {
+    private  void createRepository(EntityPojo entidad) throws InterruptedException {
         StringBuilder sb1 = new StringBuilder("\r\n");
-        List <AtributoPojo> listAtributos = entidad.getAtributos();
+        List <AttributePojo> listAtributos = entidad.getAtributos();
         String nameOfClass = entidad.getNombreClase()+"Repository";
         logger.info("createRepository" + "  for Entity:  " + entidad.getNombreClase());
         String datoTipo = "";
 
-        for (AtributoPojo atributoID : listAtributos) {
+        for (AttributePojo atributoID : listAtributos) {
             if (atributoID.getsId()) {
                 datoTipo = atributoID.getTipoDato();
             }
@@ -91,7 +91,7 @@ public class CreateRepositorie07 {
         sb1.append("\r\n");
 
 
-        for (AtributoPojo atributos : listAtributos) {
+        for (AttributePojo atributos : listAtributos) {
             String cadenaOriginal = atributos.getAtributoName();
             String primeraLetra = cadenaOriginal.substring(0, 1).toUpperCase();
             String restoDeLaCadena = cadenaOriginal.substring(1);
@@ -132,14 +132,14 @@ public class CreateRepositorie07 {
     }
 
 
-    private String metodoSearch(EntidadesPojo entidad) {
+    private String metodoSearch(EntityPojo entidad) {
     	 
     	boolean concat = false;
          List<String> atributosName = new ArrayList<String>();
-    	// List <AtributoPojo> listAtributos = entidad.getAtributos();
+    	// List <AttributePojo> listAtributos = entidad.getAtributos();
         StringBuilder search = new StringBuilder("@Query(value = \"SELECT p FROM "+ entidad.getNombreClase()+" p WHERE CONCAT(");
         
-        for (AtributoPojo atributos : entidad.getAtributos()) {
+        for (AttributePojo atributos : entidad.getAtributos()) {
             if (!atributos.getsId()) { 
             	atributosName.add(atributos.getAtributoName());
             	}

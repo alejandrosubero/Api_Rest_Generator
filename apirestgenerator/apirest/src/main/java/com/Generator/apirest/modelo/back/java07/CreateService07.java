@@ -2,9 +2,9 @@ package com.Generator.apirest.modelo.back.java07;
 
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.pojos.back.AtributoPojo;
-import com.Generator.apirest.pojos.back.EntidadesPojo;
-import com.Generator.apirest.pojos.back.RelacionPojo;
+import com.Generator.apirest.pojos.back.AttributePojo;
+import com.Generator.apirest.pojos.back.EntityPojo;
+import com.Generator.apirest.pojos.back.RelationshipPojo;
 import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
 
 import com.Generator.apirest.services.builders.FileCreateService;
@@ -25,7 +25,7 @@ public class CreateService07 {
 	private Creador creador;
 	private ArchivoBaseDatosPojo archivo;
     private String packageNames;
-    private List<EntidadesPojo> entidades;
+    private List<EntityPojo> entidades;
 
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
     protected static final Log logger = LogFactory.getLog(CreateService07.class);
@@ -58,7 +58,7 @@ public class CreateService07 {
 
         logger.info("inicia la creacion de los servicios07");
         if (this.entidades.size() > 0) {
-            for (EntidadesPojo entidad : this.entidades) {
+            for (EntityPojo entidad : this.entidades) {
                 if(entidad.getIsEntity()) {
                     logger.info("Inicia la creacion de Servicio 07" + entidad.getNombreClase());
                     this.createService(entidad);
@@ -69,18 +69,18 @@ public class CreateService07 {
 
 
 
-    private  void createService(EntidadesPojo entidad ) throws InterruptedException {
+    private  void createService(EntityPojo entidad ) throws InterruptedException {
 
         StringBuilder sb2 = new StringBuilder("\r\n");
         String cadenaOriginal="";
         String atributoName = "";
         String datoTipo = "";
 
-        List <AtributoPojo> listAtributos = entidad.getAtributos();
+        List <AttributePojo> listAtributos = entidad.getAtributos();
         String nameOfClass =entidad.getNombreClase()+"Service";
         logger.info("createService" + "  for Entity:  " + entidad.getNombreClase());
 
-        for (AtributoPojo atributoID : entidad.getAtributos()) {
+        for (AttributePojo atributoID : entidad.getAtributos()) {
             if (atributoID.getsId()) {
                 datoTipo = atributoID.getTipoDato();
             }
@@ -96,7 +96,7 @@ public class CreateService07 {
         sb2.append("\r\n");
         sb2.append("import " + packageNames + "." + entidad.getPaquete()+"."+ entidad.getNombreClase() + ";");
 
-        for (RelacionPojo relacion : entidad.getRelaciones()) {
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
             sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion()+";" +"\r\n");
         }
         sb2.append("\r\n");
@@ -121,7 +121,7 @@ public class CreateService07 {
 		sb2.append("		public List<" + entidad.getNombreClase() + ">  search(String search);"+"\r\n");
         }
      
-        for (AtributoPojo atributos : listAtributos) {
+        for (AttributePojo atributos : listAtributos) {
         	
             if (!atributos.getsId()) {
                 cadenaOriginal = atributos.getAtributoName();
@@ -136,7 +136,7 @@ public class CreateService07 {
         }
 
         
-        for (AtributoPojo atributos : listAtributos) {
+        for (AttributePojo atributos : listAtributos) {
         
             if (!atributos.getsId()) {
                 cadenaOriginal = atributos.getAtributoName();
@@ -158,7 +158,7 @@ public class CreateService07 {
         sb2.append("\r\n");
 
 
-        for (RelacionPojo relacion : entidad.getRelaciones()) {
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
             	 if(this.archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional()) {
                 sb2.append("		public List<"+entidad.getNombreClase()+">  findBy" + relacion.getNameClassRelacion() + "Containing(" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + ");"+"\r\n");

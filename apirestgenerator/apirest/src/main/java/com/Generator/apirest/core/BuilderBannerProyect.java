@@ -1,32 +1,37 @@
 package com.Generator.apirest.core;
 
+import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.services.builders.IImportModel;
+import com.google.common.collect.Lists;
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
-public class BuilderBannerProyect {
+@Component
+public class BuilderBannerProyect implements IImportModel {
 
-    String escrito = "";
-    String direccion="";
-    String nombre="";
-    StringBuilder builder2 = new StringBuilder();
-
-    public BuilderBannerProyect(String direccion, String nombre) {
-        this.direccion = direccion;
-        this.nombre = nombre;
+    public BuilderBannerProyect() {
     }
 
+    public void createBanner(ArchivoBaseDatosPojo archivo, Creador creador) {
+      this.builderBannercreate(
+                path(Lists.newArrayList(creador.getDireccionDeCarpeta() + archivo.getProyectoName(), "src", "main", "resources", " ")),
+                archivo.getProyectoName()
+        );
+    }
 
-    public void builderBannercreate() {
-
+    public void builderBannercreate(String path, String name) {
+        StringBuilder builder = new StringBuilder();
         BufferedImage image = new BufferedImage(144, 32, BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();
         g.setFont(new Font("Dialog", Font.BOLD, 17));
         Graphics2D graphics = (Graphics2D) g;
         graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        graphics.drawString(nombre.toUpperCase(), 5, 24);
+        graphics.drawString(name.toUpperCase(), 5, 24);
         try {
             ImageIO.write(image, "png", new File("text.png"));
         } catch (IOException e) {
@@ -41,17 +46,15 @@ public class BuilderBannerProyect {
             if (sb.toString().trim().isEmpty()) {
                 continue;
             }
-            builder2 .append(sb + "\n");
-            // System.out.println(sb);
+            builder.append(sb + "\n");
         }
-        System.out.println(builder2 );
-        crearArchivo(builder2);
+        crearArchivo(builder, path);
     }
 
 
-    public void crearArchivo( StringBuilder builder) {
+    public void crearArchivo( StringBuilder builder, String path) {
 
-        String carpetas = direccion;
+        String carpetas = path;
         String archivos = "banner.txt";
         String FilePath = carpetas+archivos;
         File create_carpeta = new File(carpetas);

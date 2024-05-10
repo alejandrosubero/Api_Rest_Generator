@@ -43,12 +43,7 @@ public class CreateToolImpl {
     @Autowired
     private ExcelToolCrear excelToolCrear;
 
-   // private String proyectoName;
-   // private String paquete;
- //   private List<EntidadesPojo> entidades;
- //   private String barra = "";
- //   private int relantizar = 100;
- //   private int relantizar2 = 200;
+
     private ArchivoBaseDatosPojo archivo;
     private Creador creador;
     private Boolean isToolGetPost;
@@ -57,11 +52,6 @@ public class CreateToolImpl {
 
     public void inicioCreate(ArchivoBaseDatosPojo archivos, Creador creadors) {
         this.isToolGetPost = archivos.getToolClassPojo().getGetPostCreateTool();
-     //   this.entidades = archivos.getEntidades();
-      //  this.proyectoName = archivos.getProyectoName();
-       // this.paquete = creadors.getPackageNames();
-        // this.barra = creador.getBarra();
-        
         this.creador = creadors;
         this.archivo = archivos;
         this.isArchivosManamentTool = archivos.getToolClassPojo().getArchivosManamentTool();
