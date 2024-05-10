@@ -18,6 +18,12 @@ public interface IConstantModel {
     public static final String RETURN = "return";
     public static final String VOID = "void";
     public static final String AUTOWIRED = "@Autowired";
+    public static final String openParameter = "(";
+    public static final String closeParameter = ")";
+    public static final String openAngleBrackets = "<";
+    public static final String closeAngleBrackets = ">";
+    public static final String space = " ";
+
 
     public final String GSON_IMPORT 										= "import com.google.gson.Gson;"+ BREAK_LINE;
 

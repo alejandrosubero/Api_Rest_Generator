@@ -2,36 +2,67 @@ package com.Generator.apirest.core.build;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
-public class MethodDesign {
+public class MethodDesign implements MethodInterface{
 
     private Modifier modifiers;
     private RetunsType returnsType;
     private String returnsClass;
     private String methodName;
-    private List<String> parameter; // (String args, String args, String args)
     private Boolean curlyBraces;
     private String methodBody;
+    private List<String> parameter = new ArrayList<>(); // (String args, String args, String args)
+    private List<String> annotation = new ArrayList<>();
 
 
+    // SyntaxOfMethod = modifiers + returnsType + methodName+ (parameter) + curlyBraces + methodBody + curlyBraces
     public String buildSyntaxOfMethod() {
-        if (curlyBraces) {
-            String modifiers = this.modifiers.toString().toLowerCase();
+        StringBuilder methodTx = new StringBuilder();
+        final String openParameter = "(";
+        final String closeParameter = ")";
+        String returnType = "";
 
+
+        methodTx.append(this.modifiers.toString().toLowerCase());
+        methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
+
+        //TODO: asegurarse que este en camel case
+        methodTx.append(this.methodName);
+
+        StringBuilder param = new StringBuilder();
+        if (this.parameter.size() > 0) {
+            param.append(openParameter);
+            for (int i = 0; i < this.parameter.size(); i++) {
+                if (i < this.parameter.size() - 1) {
+                    param.append(this.parameter.get(i));
+                    param.append(",");
+                } else {
+                    param.append(this.parameter.get(i));
+                }
+            }
+        } else {
+            param.append(openParameter);
+            param.append(closeParameter);
+        }
+        methodTx.append(param.toString());
+
+        if (curlyBraces) {
             //the Metohod is generated wicht {} and body inside.
+            methodTx.append("{");
+            methodTx.append("\r\n");
             if (methodBody != null) {
                 // inside of body in top and in end BREAK_LINE and
                 //the method Body is generated.
             }
+            methodTx.append("}");
         } else {
-            // put a ( ; ) to the end the Syntax
+            methodTx.append(";");
+            methodTx.append("\r\n");
         }
         return null;
     }
-
 
 
     public String getMethodName() {
@@ -90,17 +121,26 @@ public class MethodDesign {
         this.methodBody = methodBody;
     }
 
+    public List<String> getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(List<String> annotation) {
+        this.annotation = annotation;
+    }
+
     public MethodDesign() {
     }
 
-    public MethodDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, List<String> parameter, Boolean curlyBraces, String methodBody) {
+    public MethodDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, Boolean curlyBraces, String methodBody, List<String> parameter, List<String> annotation) {
         this.modifiers = modifiers;
         this.returnsType = returnsType;
         this.returnsClass = returnsClass;
         this.methodName = methodName;
-        this.parameter = parameter;
         this.curlyBraces = curlyBraces;
         this.methodBody = methodBody;
+        this.parameter = parameter;
+        this.annotation = annotation;
     }
 
     @Override
@@ -108,31 +148,39 @@ public class MethodDesign {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MethodDesign that = (MethodDesign) o;
-        return Objects.equals(methodName, that.methodName) && Objects.equals(modifiers, that.modifiers) && Objects.equals(returnsType, that.returnsType) && Objects.equals(parameter, that.parameter) && Objects.equals(curlyBraces, that.curlyBraces) && Objects.equals(methodBody, that.methodBody);
+        return modifiers == that.modifiers && returnsType == that.returnsType && Objects.equals(returnsClass, that.returnsClass) && Objects.equals(methodName, that.methodName) && Objects.equals(curlyBraces, that.curlyBraces) && Objects.equals(methodBody, that.methodBody) && Objects.equals(parameter, that.parameter) && Objects.equals(annotation, that.annotation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(methodName, modifiers, returnsType, parameter, curlyBraces, methodBody);
+        return Objects.hash(modifiers, returnsType, returnsClass, methodName, curlyBraces, methodBody, parameter, annotation);
     }
 
-    public static MethodDesign.Builder builder(){
-        return  new MethodDesign.Builder();
+    public static MethodDesign.Builder builder() {
+        return new MethodDesign.Builder();
     }
 
     public interface MethodBuilder {
         public Builder methodName(String methodName);
+
         public Builder modifiers(Modifier modifiers);
+
         public Builder returnsType(RetunsType returnsType);
+
         public Builder returnsClass(String returnsClass);
+
         public Builder parameter(List<String> parameter);
+
         public Builder curlyBraces(Boolean curlyBraces);
+
         public Builder methodBody(String methodBody);
+        public Builder annotation(List<String> annotation);
+
         public MethodDesign build();
     }
 
 
-    public static class Builder implements MethodBuilder{
+    public static class Builder implements MethodBuilder {
         private String methodName;
         private Modifier modifiers; // (Modifier.PUBLIC, Modifier.STATIC)  public, private, protected, static, final, abstract, and synchronized.
         private RetunsType returnsType; // void or class
@@ -140,6 +188,7 @@ public class MethodDesign {
         private Boolean curlyBraces;
         private String methodBody;
         private String returnsClass;
+        private List<String> annotation = new ArrayList<>();
 
         @Override
         public Builder methodName(String methodName) {
@@ -184,6 +233,12 @@ public class MethodDesign {
         }
 
         @Override
+        public Builder annotation(List<String> annotation) {
+            this.annotation = annotation;
+            return this;
+        }
+
+        @Override
         public MethodDesign build() {
             MethodDesign method = new MethodDesign();
 
@@ -193,24 +248,24 @@ public class MethodDesign {
             if (this.modifiers != null)
                 method.setReturnsType(this.returnsType);
 
-            if (this.parameter !=null)
+            if (this.parameter != null)
                 method.setParameter(this.parameter);
 
             if (this.curlyBraces != null)
                 method.setCurlyBraces(this.curlyBraces);
 
-            if(returnsClass != null){
+            if (returnsClass != null)
                 method.setReturnsClass(this.returnsClass);
-            }
-            if (this.methodBody !=null)
+
+            if(this.annotation !=null)
+                method.setAnnotation(this.annotation);
+
+            if (this.methodBody != null)
                 method.setMethodBody(this.methodBody);
+
             return method;
         }
     }
-
-
-
-
 
 
 }
