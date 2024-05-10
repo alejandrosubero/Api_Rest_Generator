@@ -2,13 +2,13 @@ package com.Generator.apirest.pojos.back;
 
 public class AtributoPojo {
 
-	private Boolean sId; // el dato es tipo id o no lo es true / false
+	private Boolean sId;
 	private String idName = "id";
 
 	private String modificadorExtra; // static, final
 	private Boolean ismodificadorExtra;
 
-	private String tipoModificador; // private, public, protected
+	private String tipoModificador;
 	private String tipoDato; // Integer, Long, Double, String, Chat, Byte
 	private String atributoName;
 	private String nameColum;
