@@ -3,6 +3,8 @@ package com.Generator.apirest.modelo.back.java81114;
 
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.core.build.MethodDesign;
+import com.Generator.apirest.core.build.Modifier;
+import com.Generator.apirest.core.build.RetunsType;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AttributePojo;
 import com.Generator.apirest.pojos.back.EntityPojo;
@@ -127,20 +129,32 @@ public class CreateServices implements IImportModel {
 //				atributoName = cadenaOriginal.substring(0, 1).toUpperCase() + cadenaOriginal.substring(1);
 
 				if (this.archivo.getMethodManager().isMethodFindByOrLoop()) {
-					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public ")));
+					String returnsClass ="";
+					String methodName ="";
 
+//					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public ")));
 					if(archivo.getCapaPojo().getCreateCapaPojoForEntitys()){
-						sb2.append(stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())));
+						returnsClass = stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM()));
+//						sb2.append(stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())));
 					}else{
-						sb2.append(entidad.getNombreClase());
+						returnsClass = entidad.getNombreClase();
+//						sb2.append(entidad.getNombreClase());
 					}
-					sb2.append(stringEnsamble(
-							List.of(
-									"  findBy",atributoName,
-									"(",atributos.getTipoDato(), TAB,
-									atributos.getAtributoName(),");",
-									DOUBLEBREAK_LINE)
-					));
+					methodName = stringEnsamble(List.of("findBy",atributoName));
+
+					stringEnsamble(List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()));
+
+//					sb2.append(stringEnsamble(List.of("  findBy",atributoName, "(",atributos.getTipoDato(), TAB, atributos.getAtributoName(),");", DOUBLEBREAK_LINE)));
+
+					MethodDesign methodLoop = MethodDesign.builder()
+							.modifiers(Modifier.Public)
+							.returnsType(RetunsType.none)
+							.returnsClass(returnsClass)
+							.methodName(methodName)
+							.parameter(List.of(stringEnsamble(List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()))))
+							.curlyBraces(false)
+							.build();
+					sb2.append(methodLoop.toString());
 				}
 			}
 		}

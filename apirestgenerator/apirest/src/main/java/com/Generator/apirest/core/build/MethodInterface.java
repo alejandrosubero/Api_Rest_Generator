@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface MethodInterface extends IBaseModel {
 
+    // SyntaxOfMethod = annotation + modifiers + returnsType + methodName+ (parameter) + curlyBraces + methodBody + curlyBraces
 
     default public String returnsTypeBuild(RetunsType returnsType, String returnsClass){
         StringBuilder methodTx = new StringBuilder();
-
+        methodTx.append(SPACE);
         if (!returnsType.equals(RetunsType.VOID) && !returnsType.equals(RetunsType.none)) {
-            methodTx.append(stringEnsamble(List.of(
-                    SPACE, returnsType.toString(),openAngleBrackets,returnsClass,closeAngleBrackets)));
+            methodTx.append(stringEnsamble(List.of(returnsType.toString(),openAngleBrackets,returnsClass,closeAngleBrackets)));
         } else {
-            methodTx.append(SPACE + returnsClass.toString());
+            methodTx.append(returnsClass.toString());
         }
         return methodTx.toString();
     }
@@ -22,7 +22,6 @@ public interface MethodInterface extends IBaseModel {
 
     default public String annotationBuild(List<String> annotation){
         StringBuilder methodTx = new StringBuilder();
-
         if (annotation != null && annotation.size() > 0) {
             annotation.stream().forEach(annotationOne ->{
                 methodTx.append(stringEnsamble(List.of(annotationOne,BREAK_LINE)));
@@ -34,9 +33,8 @@ public interface MethodInterface extends IBaseModel {
     }
 
 
-    default public String contexParameter(List<String>parameters){
+    default public String parameterBuildStructure(List<String>parameters){
         StringBuilder contexParameter = new StringBuilder();
-
         if (parameters.size() > 0) {
             contexParameter.append(PARENTHESES_OPEN);
             for (int i = 0; i < parameters.size(); i++) {
@@ -55,7 +53,7 @@ public interface MethodInterface extends IBaseModel {
     }
 
 
-    default public String addBody(Boolean curlyBraces, String methodBody){
+    default public String bodyBuildStructure(Boolean curlyBraces, String methodBody){
         StringBuilder contexmethodBody = new StringBuilder();
         if (curlyBraces) {
             contexmethodBody.append( stringEnsamble(List.of(BRACKET_OPEN,BREAK_LINE)));

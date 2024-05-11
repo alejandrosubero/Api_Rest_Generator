@@ -1,11 +1,10 @@
 package com.Generator.apirest.core.build;
 
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 
-public class MethodDesign implements MethodInterface{
+public class MethodDesign implements MethodInterface {
 
     private Modifier modifiers;
     private RetunsType returnsType;
@@ -15,36 +14,6 @@ public class MethodDesign implements MethodInterface{
     private String methodBody;
     private List<String> parameter = new ArrayList<>(); // (String args, String args, String args)
     private List<String> annotation = new ArrayList<>();
-
-
-    // SyntaxOfMethod = modifiers + returnsType + methodName+ (parameter) + curlyBraces + methodBody + curlyBraces
-    public String buildSyntaxOfMethod() {
-        StringBuilder methodTx = new StringBuilder();
-
-        methodTx.append(this.annotationBuild(this.annotation));
-        methodTx.append(this.modifiers.toString().toLowerCase());
-        methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
-        methodTx.append(this.methodName);
-        methodTx.append(this.contexParameter(this.parameter));
-
-        Boolean curlyBraces
-        String methodBody;
-
-        if (curlyBraces) {
-            //the Metohod is generated wicht {} and body inside.
-            methodTx.append("{");
-            methodTx.append("\r\n");
-            if (methodBody != null) {
-                // inside of body in top and in end BREAK_LINE and
-                //the method Body is generated.
-            }
-            methodTx.append("}");
-        } else {
-            methodTx.append(";");
-            methodTx.append("\r\n");
-        }
-        return null;
-    }
 
 
     public String getMethodName() {
@@ -138,26 +107,36 @@ public class MethodDesign implements MethodInterface{
         return Objects.hash(modifiers, returnsType, returnsClass, methodName, curlyBraces, methodBody, parameter, annotation);
     }
 
+    @Override
+    public String toString() {
+        return buildSyntaxOfMethod();
+    }
+
+    private String buildSyntaxOfMethod() {
+        StringBuilder methodTx = new StringBuilder();
+        methodTx.append(this.annotationBuild(this.annotation));
+        methodTx.append(this.modifiers.toString().toLowerCase());
+        methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
+        methodTx.append(this.methodName);
+        methodTx.append(this.parameterBuildStructure(this.parameter));
+        methodTx.append(this.bodyBuildStructure(this.curlyBraces, methodBody));
+        return methodTx.toString();
+    }
+
+
     public static MethodDesign.Builder builder() {
         return new MethodDesign.Builder();
     }
 
     public interface MethodBuilder {
         public Builder methodName(String methodName);
-
         public Builder modifiers(Modifier modifiers);
-
         public Builder returnsType(RetunsType returnsType);
-
         public Builder returnsClass(String returnsClass);
-
         public Builder parameter(List<String> parameter);
-
         public Builder curlyBraces(Boolean curlyBraces);
-
         public Builder methodBody(String methodBody);
         public Builder annotation(List<String> annotation);
-
         public MethodDesign build();
     }
 
@@ -228,7 +207,13 @@ public class MethodDesign implements MethodInterface{
                 method.setMethodName(this.methodName);
 
             if (this.modifiers != null)
+                method.setModifiers(this.modifiers);
+
+            if (this.returnsType != null)
                 method.setReturnsType(this.returnsType);
+
+            if (returnsClass != null)
+                method.setReturnsClass(this.returnsClass);
 
             if (this.parameter != null)
                 method.setParameter(this.parameter);
@@ -236,10 +221,7 @@ public class MethodDesign implements MethodInterface{
             if (this.curlyBraces != null)
                 method.setCurlyBraces(this.curlyBraces);
 
-            if (returnsClass != null)
-                method.setReturnsClass(this.returnsClass);
-
-            if(this.annotation !=null)
+            if (this.annotation != null)
                 method.setAnnotation(this.annotation);
 
             if (this.methodBody != null)
