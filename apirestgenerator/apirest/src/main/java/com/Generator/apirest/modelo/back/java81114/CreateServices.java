@@ -132,29 +132,25 @@ public class CreateServices implements IImportModel {
 					String returnsClass ="";
 					String methodName ="";
 
-//					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public ")));
 					if(archivo.getCapaPojo().getCreateCapaPojoForEntitys()){
 						returnsClass = stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM()));
-//						sb2.append(stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())));
 					}else{
 						returnsClass = entidad.getNombreClase();
-//						sb2.append(entidad.getNombreClase());
 					}
 					methodName = stringEnsamble(List.of("findBy",atributoName));
 
-					stringEnsamble(List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()));
-
-//					sb2.append(stringEnsamble(List.of("  findBy",atributoName, "(",atributos.getTipoDato(), TAB, atributos.getAtributoName(),");", DOUBLEBREAK_LINE)));
-
-					MethodDesign methodLoop = MethodDesign.builder()
+					sb2.append( MethodDesign.builder()
 							.modifiers(Modifier.Public)
 							.returnsType(RetunsType.none)
 							.returnsClass(returnsClass)
 							.methodName(methodName)
-							.parameter(List.of(stringEnsamble(List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()))))
+							.parameter(List.of(stringEnsamble(
+									List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()
+									))))
 							.curlyBraces(false)
-							.build();
-					sb2.append(methodLoop.toString());
+							.build()
+							.toString()
+					);
 				}
 			}
 		}
@@ -166,35 +162,78 @@ public class CreateServices implements IImportModel {
 				String restoDeLaCadena = cadenaOriginal.substring(1);
 				atributoName = primeraLetra + restoDeLaCadena;
 				if (this.archivo.getMethodManager().isMethodContaining()) {
-					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
-					sb2.append(returnObjectClass);
-					sb2.append(stringEnsamble(
-							List.of(
-									">  findBy",atributoName,"Containing(",
-									atributos.getTipoDato(), TAB, atributos.getAtributoName(),
-									");",DOUBLETAB)
-					));
+
+//					sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
+//					sb2.append(returnObjectClass);
+//					sb2.append(stringEnsamble(
+//							List.of(
+//									">  findBy",atributoName,"Containing(",
+//									atributos.getTipoDato(), TAB, atributos.getAtributoName(),
+//									");",DOUBLETAB)
+//					));
+
+					sb2.append(MethodDesign.builder()
+							.modifiers(Modifier.Public)
+							.returnsType(RetunsType.List)
+							.returnsClass(returnObjectClass)
+							.methodName(stringEnsamble(List.of("findBy",atributoName,"Containing")))
+							.parameter(List.of(stringEnsamble(
+									List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()))))
+							.curlyBraces(false)
+							.build().toString());
+
 				}
 			}
 		}
 
 		if (this.archivo.getMethodManager().isMethodfindById()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
-//			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-			sb2.append(returnObjectClass);
-			sb2.append(stringEnsamble(List.of(" findById" + "(" + datoTipo + " id);",BREAK_LINE)));
+//			sb2.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
+////			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
+//			sb2.append(returnObjectClass);
+//			sb2.append(stringEnsamble(List.of(" findById" + "(" + datoTipo + " id);",BREAK_LINE)));
+
+			sb2.append(MethodDesign.builder()
+					.modifiers(Modifier.Public)
+					.returnsType(RetunsType.List)
+					.returnsClass(returnObjectClass)
+					.methodName(stringEnsamble(List.of("findById")))
+					.parameter(List.of(stringEnsamble(
+							List.of(datoTipo ,TAB, "id"))))
+							.curlyBraces(false)
+					.build());
 		}
 
 		if (this.archivo.getMethodManager().isMetohdSave()) {
-			sb2.append(DOUBLETAB+ "public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " "
-					+ entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+//			sb2.append(DOUBLETAB+ "public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " "
+//					+ entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+
+			sb2.append(MethodDesign.builder()
+					.modifiers(Modifier.Public)
+					.returnsType(RetunsType.none)
+					.curlyBraces(false)
+					.returnsClass("Boolean")
+					.methodName(stringEnsamble(List.of("save",entidad.getNombreClase())))
+							.parameter(List.of(
+									stringEnsamble(List.of(entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase()))
+							))
+					.build().toString());
+
 		}
 
 		if (this.archivo.getMethodManager().isMethodgetAll()) {
-			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
-//			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
-			sb2.append(returnObjectClass);
-			sb2.append(stringEnsamble(List.of("> getAll" + entidad.getNombreClase() + "();", BREAK_LINE)));
+//			sb2.append(stringEnsamble(List.of(DOUBLETAB,"public List<")));
+////			String returnObjectClass = this.archivo.getCapaPojo().getCreateCapaPojoForEntitys()?stringEnsamble(List.of(entidad.getNombreClase(),"Pojo")): entidad.getNombreClase();
+//			sb2.append(returnObjectClass);
+//			sb2.append(stringEnsamble(List.of("> getAll" + entidad.getNombreClase() + "();", BREAK_LINE)));
+
+
+			sb2.append(MethodDesign.builder()
+					.modifiers(Modifier.Public)
+					.returnsType(RetunsType.List)
+					.curlyBraces(false)
+					.returnsClass(returnObjectClass)
+					.methodName(stringEnsamble(List.of("getAll",entidad.getNombreClase())))
+					.build().toString());
 		}
 
 		if (archivo.getMethodManager().isMethodDelete()){

@@ -16,6 +16,7 @@ public interface MethodInterface extends IBaseModel {
         } else {
             methodTx.append(returnsClass.toString());
         }
+        methodTx.append(SPACE);
         return methodTx.toString();
     }
 
@@ -27,7 +28,7 @@ public interface MethodInterface extends IBaseModel {
                 methodTx.append(stringEnsamble(List.of(annotationOne,BREAK_LINE)));
             });
         } else {
-            methodTx.append(" ");
+            methodTx.append(SPACE);
         }
         return methodTx.toString();
     }
@@ -38,17 +39,17 @@ public interface MethodInterface extends IBaseModel {
         if (parameters.size() > 0) {
             contexParameter.append(PARENTHESES_OPEN);
             for (int i = 0; i < parameters.size(); i++) {
+                String parameter = parameters.get(i).replaceAll("\\s{1,2}"," ");
                 if (i < parameters.size() - 1) {
-                    contexParameter.append(stringEnsamble(List.of(parameters.get(i),COMMA)));
+                    contexParameter.append(stringEnsamble(List.of(parameter,COMMA)));
                 } else {
-                    contexParameter.append(parameters.get(i));
+                    contexParameter.append(parameter);
                 }
             }
             contexParameter.append(PARENTHESES_CLOSE );
         } else {
             contexParameter.append(PARENTHESES_OPEN_CLOSE);
         }
-        contexParameter.append(BREAK_LINE);
         return contexParameter.toString();
     }
 

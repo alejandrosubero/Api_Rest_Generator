@@ -29,6 +29,8 @@ public interface IConstantModel {
     public static final String BRACKET_OPEN = "{";
     public static final String BRACKET_CLOSE = "}";
     public static final String BRACKET_OPEN_CLOSE = "{}";
+    public static final String LINE_SPACE_REGEX= "(?m)^( {0,3})";
+    
 
 
 
