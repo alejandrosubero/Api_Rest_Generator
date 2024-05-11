@@ -26,9 +26,6 @@ public interface IBaseModel extends IConstantModel {
 
 	default public String stringEnsamble(List<String> stringPaths) {
 		StringBuilder newString = new StringBuilder();
-//		for (String part : stringPaths) {
-//			newString.append(part);
-//		}
 		stringPaths.stream().forEach(path -> newString.append(path));
 		return newString.toString();
 	}
@@ -48,18 +45,31 @@ public interface IBaseModel extends IConstantModel {
 		if (str == null || str.isEmpty()) {
 			return str;
 		}
-		char firstChar = str.charAt(0);
-		String remainingChars = str.substring(1);
-		StringBuilder builder = new StringBuilder(Character.toUpperCase(firstChar));
-		builder.append(remainingChars);
-		return Character.isUpperCase(firstChar) ? str : builder.toString();
+		String firstCharInString = str.substring(0, 1).toUpperCase();
+		String remainingCharsInString = str.substring(1);
+
+		return stringEnsamble(List.of(firstCharInString,remainingCharsInString));
 	}
 
-	default public String primeraLetraMayuscula(String cadena) {
-		String cadenaN = "";
-		char[] caracteres = cadena.toCharArray();
-		caracteres[0] = Character.toUpperCase(caracteres[0]);
-		for (char c : caracteres) { cadenaN = cadenaN + c; }
-		return cadenaN;
+
+
+	default public String capitalizeOrUncapitalisedFirstLetter(String str, Character action) {
+
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+//		String firstCharInString="";
+//		String remainingCharsInString="";
+		String remainingCharsInString = str.substring(1);
+//
+//		if(action.equals('u')){
+//			firstCharInString = str.substring(0, 1).toUpperCase();
+//		}else {
+//			firstCharInString = str.substring(0, 1).toLowerCase();
+//		}
+//		return stringEnsamble(List.of(firstCharInString,remainingCharsInString));
+
+		return action.equals('u')?stringEnsamble(List.of(str.substring(0, 1).toUpperCase(),remainingCharsInString)):
+				stringEnsamble(List.of(str.substring(0, 1).toLowerCase(),remainingCharsInString));
 	}
 }
