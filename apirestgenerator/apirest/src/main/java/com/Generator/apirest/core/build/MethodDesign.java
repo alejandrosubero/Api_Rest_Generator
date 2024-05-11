@@ -20,33 +20,15 @@ public class MethodDesign implements MethodInterface{
     // SyntaxOfMethod = modifiers + returnsType + methodName+ (parameter) + curlyBraces + methodBody + curlyBraces
     public String buildSyntaxOfMethod() {
         StringBuilder methodTx = new StringBuilder();
-        final String openParameter = "(";
-        final String closeParameter = ")";
-        String returnType = "";
 
-
+        methodTx.append(this.annotationBuild(this.annotation));
         methodTx.append(this.modifiers.toString().toLowerCase());
         methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
-
-        //TODO: asegurarse que este en camel case
         methodTx.append(this.methodName);
+        methodTx.append(this.contexParameter(this.parameter));
 
-        StringBuilder param = new StringBuilder();
-        if (this.parameter.size() > 0) {
-            param.append(openParameter);
-            for (int i = 0; i < this.parameter.size(); i++) {
-                if (i < this.parameter.size() - 1) {
-                    param.append(this.parameter.get(i));
-                    param.append(",");
-                } else {
-                    param.append(this.parameter.get(i));
-                }
-            }
-        } else {
-            param.append(openParameter);
-            param.append(closeParameter);
-        }
-        methodTx.append(param.toString());
+        Boolean curlyBraces
+        String methodBody;
 
         if (curlyBraces) {
             //the Metohod is generated wicht {} and body inside.
