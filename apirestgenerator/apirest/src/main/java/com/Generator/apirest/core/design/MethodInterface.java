@@ -1,5 +1,6 @@
 package com.Generator.apirest.core.design;
 
+import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.core.build.RetunsType;
 import com.Generator.apirest.services.builders.IBaseModel;
 
@@ -35,12 +36,12 @@ public interface MethodInterface extends IBaseModel {
     }
 
 
-    default public String parameterBuildStructure(List<String>parameters){
+    default public String parameterBuildStructure(List<ParameterClassMethod>parameters){
         StringBuilder contexParameter = new StringBuilder();
         if (parameters.size() > 0) {
             contexParameter.append(PARENTHESES_OPEN);
             for (int i = 0; i < parameters.size(); i++) {
-                String parameter = parameters.get(i).replaceAll("\\s{1,2}"," ");
+                String parameter = parameters.get(i).toString().replaceAll("\\s{1,2}"," ");
                 if (i < parameters.size() - 1) {
                     contexParameter.append(stringEnsamble(List.of(parameter,COMMA)));
                 } else {

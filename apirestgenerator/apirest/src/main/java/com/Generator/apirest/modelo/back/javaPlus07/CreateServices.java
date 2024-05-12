@@ -1,7 +1,8 @@
-package com.Generator.apirest.modelo.back.java81114;
+package com.Generator.apirest.modelo.back.javaPlus07;
 
 
 import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.RetunsType;
@@ -132,9 +133,10 @@ public class CreateServices implements IImportModel {
 											entidad.getNombreClase()
 							)
 							.methodName(stringEnsamble(List.of("findBy",atributoName)))
-							.parameter(List.of(stringEnsamble(
-									List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()
-									))))
+							.parameter(List.of(ParameterClassMethod.builder()
+											.atributoClass(atributos.getTipoDato())
+											.atributoName(atributos.getAtributoName())
+									.build()))
 							.curlyBraces(false)
 							.build()
 							.toString()
@@ -153,8 +155,10 @@ public class CreateServices implements IImportModel {
 							.returnsType(RetunsType.List)
 							.returnsClass(returnObjectClass)
 							.methodName(stringEnsamble(List.of("findBy",atributoName,"Containing")))
-							.parameter(List.of(stringEnsamble(
-									List.of(atributos.getTipoDato(), TAB, atributos.getAtributoName()))))
+							.parameter(List.of(ParameterClassMethod.builder()
+											.atributoClass(atributos.getTipoDato())
+											.atributoName(atributos.getAtributoName())
+											.build()))
 							.curlyBraces(false)
 							.build().toString());
 				}
@@ -167,9 +171,11 @@ public class CreateServices implements IImportModel {
 					.returnsType(RetunsType.none)
 					.returnsClass(returnObjectClass)
 					.methodName(stringEnsamble(List.of("findById")))
-					.parameter(List.of(stringEnsamble(
-							List.of(datoTipo ,TAB, "id"))))
-							.curlyBraces(false)
+					.parameter(List.of(ParameterClassMethod.builder()
+									.atributoClass(datoTipo)
+									.atributoName("id")
+									.build()))
+					.curlyBraces(false)
 					.build().toString());
 		}
 
@@ -180,12 +186,11 @@ public class CreateServices implements IImportModel {
 					.curlyBraces(false)
 					.returnsClass(RetunsType.Boolean.toString().toLowerCase())
 					.methodName(stringEnsamble(List.of("save",entidad.getNombreClase())))
-							.parameter(List.of(
-									stringEnsamble(
-											List.of(
-													entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase()))
-							)).build()
-					.toString());
+					.parameter(List.of(ParameterClassMethod.builder()
+											.atributoClass(entidad.getNombreClase())
+											.atributoName( entidad.getNombreClase().toLowerCase())
+											.build()))
+					.build().toString());
 		}
 
 		if (this.archivo.getMethodManager().isMethodgetAll()) {
@@ -206,8 +211,10 @@ public class CreateServices implements IImportModel {
 					.curlyBraces(false)
 					.returnsClass(RetunsType.Boolean.toString().toLowerCase())
 					.methodName(stringEnsamble(List.of("delete",entidad.getNombreClase())))
-					.parameter(List.of(stringEnsamble(
-							List.of(datoTipo ,TAB, "id"))))
+					.parameter(List.of(ParameterClassMethod.builder()
+							.atributoClass(datoTipo)
+							.atributoName("id")
+							.build()))
 					.build().toString());
 		}
 
@@ -219,8 +226,11 @@ public class CreateServices implements IImportModel {
 					.curlyBraces(false)
 					.returnsClass(RetunsType.Boolean.toString().toLowerCase())
 					.methodName(stringEnsamble(List.of("update",entidad.getNombreClase())))
-					.parameter(List.of(
-							stringEnsamble(List.of(entidad.getNombreClase() ,TAB,entidad.getNombreClase().toLowerCase()))))
+					.parameter(
+							List.of(ParameterClassMethod.builder()
+									.atributoClass(entidad.getNombreClase())
+									.atributoName(entidad.getNombreClase().toLowerCase())
+									.build()))
 					.build().toString());
 		}
 
@@ -232,8 +242,11 @@ public class CreateServices implements IImportModel {
 					.curlyBraces(false)
 					.returnsClass(RetunsType.Boolean.toString().toLowerCase())
 					.methodName(stringEnsamble(List.of("saveOrUpdate",entidad.getNombreClase())))
-					.parameter(List.of(
-							stringEnsamble(List.of(entidad.getNombreClase() ,TAB,entidad.getNombreClase().toLowerCase()))))
+					.parameter(
+							List.of(ParameterClassMethod.builder()
+									.atributoClass(entidad.getNombreClase())
+									.atributoName(entidad.getNombreClase().toLowerCase())
+									.build()))
 					.build().toString());
 		}
 
@@ -247,8 +260,10 @@ public class CreateServices implements IImportModel {
 							.curlyBraces(false)
 							.returnsClass(returnObjectClass)
 							.methodName(stringEnsamble(List.of("findBy",relacion.getNameClassRelacion(),"Containing")))
-							.parameter(List.of(
-									stringEnsamble(List.of(relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion()))))
+							.parameter(List.of(ParameterClassMethod.builder()
+											.atributoClass(relacion.getNameClassRelacion())
+											.atributoName(relacion.getNameRelacion())
+											.build()))
 							.build().toString());
 				}
 			} else {
@@ -260,10 +275,10 @@ public class CreateServices implements IImportModel {
 							.curlyBraces(false)
 							.returnsClass(returnObjectClass)
 							.methodName(stringEnsamble(List.of("findByRelacion",relacion.getNameClassRelacion())))
-							.parameter(List.of(
-									stringEnsamble(
-											List.of(relacion.getNameClassRelacion(),TAB,relacion.getNameClassRelacion().toLowerCase()
-											))))
+							.parameter(List.of(ParameterClassMethod.builder()
+											.atributoClass(relacion.getNameClassRelacion())
+											.atributoName(relacion.getNameClassRelacion().toLowerCase())
+											.build()))
 							.build().toString());
 				}
 			}

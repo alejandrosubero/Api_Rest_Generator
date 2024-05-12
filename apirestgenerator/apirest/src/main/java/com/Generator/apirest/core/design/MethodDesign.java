@@ -2,6 +2,7 @@ package com.Generator.apirest.core.design;
 
 
 import com.Generator.apirest.core.build.Modifier;
+import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.core.build.RetunsType;
 
 import java.util.*;
@@ -15,7 +16,7 @@ public class MethodDesign implements MethodInterface {
     private String methodName;
     private Boolean curlyBraces;
     private String methodBody;
-    private List<String> parameter = new ArrayList<>(); // (String args, String args, String args)
+    private List<ParameterClassMethod> parameter = new ArrayList<>(); // (String args, String args, String args)
     private List<String> annotation = new ArrayList<>();
 
 
@@ -51,11 +52,11 @@ public class MethodDesign implements MethodInterface {
         this.returnsClass = returnsClass;
     }
 
-    public List<String> getParameter() {
+    public List<ParameterClassMethod> getParameter() {
         return parameter;
     }
 
-    public void setParameter(List<String> parameter) {
+    public void setParameter(List<ParameterClassMethod> parameter) {
         this.parameter = parameter;
     }
 
@@ -86,7 +87,7 @@ public class MethodDesign implements MethodInterface {
     public MethodDesign() {
     }
 
-    public MethodDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, Boolean curlyBraces, String methodBody, List<String> parameter, List<String> annotation) {
+    public MethodDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, Boolean curlyBraces, String methodBody, List<ParameterClassMethod> parameter, List<String> annotation) {
         this.modifiers = modifiers;
         this.returnsType = returnsType;
         this.returnsClass = returnsClass;
@@ -97,18 +98,6 @@ public class MethodDesign implements MethodInterface {
         this.annotation = annotation;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MethodDesign that = (MethodDesign) o;
-        return modifiers == that.modifiers && returnsType == that.returnsType && Objects.equals(returnsClass, that.returnsClass) && Objects.equals(methodName, that.methodName) && Objects.equals(curlyBraces, that.curlyBraces) && Objects.equals(methodBody, that.methodBody) && Objects.equals(parameter, that.parameter) && Objects.equals(annotation, that.annotation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(modifiers, returnsType, returnsClass, methodName, curlyBraces, methodBody, parameter, annotation);
-    }
 
     @Override
     public String toString() {
@@ -136,7 +125,7 @@ public class MethodDesign implements MethodInterface {
         public Builder modifiers(Modifier modifiers);
         public Builder returnsType(RetunsType returnsType);
         public Builder returnsClass(String returnsClass);
-        public Builder parameter(List<String> parameter);
+        public Builder parameter(List<ParameterClassMethod> parameter);
         public Builder curlyBraces(Boolean curlyBraces);
         public Builder methodBody(String methodBody);
         public Builder annotation(List<String> annotation);
@@ -148,7 +137,7 @@ public class MethodDesign implements MethodInterface {
         private String methodName;
         private Modifier modifiers; // (Modifier.PUBLIC, Modifier.STATIC)  public, private, protected, static, final, abstract, and synchronized.
         private RetunsType returnsType; // void or class
-        private List<String> parameter; // (String args, String args, String args)
+        private List<ParameterClassMethod> parameter; // (String args, String args, String args)
         private Boolean curlyBraces;
         private String methodBody;
         private String returnsClass;
@@ -179,7 +168,7 @@ public class MethodDesign implements MethodInterface {
         }
 
         @Override
-        public Builder parameter(List<String> parameter) {
+        public Builder parameter(List<ParameterClassMethod> parameter) {
             this.parameter = parameter;
             return this;
         }
@@ -201,6 +190,7 @@ public class MethodDesign implements MethodInterface {
             this.annotation = annotation;
             return this;
         }
+
 
         @Override
         public MethodDesign build() {

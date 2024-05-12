@@ -47,7 +47,7 @@ public class ParameterClassMethod {
     public String toString() {
         StringBuilder parameter = new StringBuilder();
         parameter.append(atributoClass);
-        parameter.append(" ");
+        parameter.append("\t");
         parameter.append(atributoName);
         return parameter.toString();
     }
