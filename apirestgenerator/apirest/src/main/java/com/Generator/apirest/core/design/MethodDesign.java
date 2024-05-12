@@ -1,5 +1,8 @@
-package com.Generator.apirest.core.build;
+package com.Generator.apirest.core.design;
 
+
+import com.Generator.apirest.core.build.Modifier;
+import com.Generator.apirest.core.build.RetunsType;
 
 import java.util.*;
 

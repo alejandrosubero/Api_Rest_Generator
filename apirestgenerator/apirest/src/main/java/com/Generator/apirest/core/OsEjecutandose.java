@@ -1,4 +1,4 @@
-package com.Generator.apirest.modelo.back;
+package com.Generator.apirest.core;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,9 +14,9 @@ import java.net.UnknownHostException;
 @Component
 public class OsEjecutandose {
 
-	private static String barra = java.nio.file.FileSystems.getDefault().getSeparator();
+	private static String pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
 	private static String sDirectorioTrabajo = System.getProperty("user.dir");
-	private static String direccionDeCarpeta = sDirectorioTrabajo + barra+ "lib"+ barra;
+	private static String direccionDeCarpeta = sDirectorioTrabajo + pathSeparator+ "lib"+ pathSeparator;
 
 	protected static final Log logger = LogFactory.getLog(OsEjecutandose.class);
 	

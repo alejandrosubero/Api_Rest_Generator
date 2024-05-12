@@ -8,7 +8,7 @@ public interface IConstantModel {
     public static final String PRIVATE = "private";
     public static final String LISTAS = "List<";
     public static final String ARRAY = "[]";
-    public String barra = java.nio.file.FileSystems.getDefault().getSeparator();
+    public String pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
 
     public final String DOUBLEBREAK_LINE = "\r\n"+"\r\n";
     public final String TAB = "\t";

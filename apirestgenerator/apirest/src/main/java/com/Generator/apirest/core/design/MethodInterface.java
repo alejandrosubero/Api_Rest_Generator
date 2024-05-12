@@ -1,5 +1,6 @@
-package com.Generator.apirest.core.build;
+package com.Generator.apirest.core.design;
 
+import com.Generator.apirest.core.build.RetunsType;
 import com.Generator.apirest.services.builders.IBaseModel;
 
 import java.util.List;

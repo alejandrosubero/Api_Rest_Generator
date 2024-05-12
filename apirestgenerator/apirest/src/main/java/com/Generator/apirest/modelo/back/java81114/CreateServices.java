@@ -2,7 +2,7 @@ package com.Generator.apirest.modelo.back.java81114;
 
 
 import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.core.build.MethodDesign;
+import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.RetunsType;
 import com.Generator.apirest.notas.AnotacionesJava;
@@ -122,16 +122,6 @@ public class CreateServices implements IImportModel {
 			if (!atributos.getsId()) {
 				atributoName = this.capitalizeOrUncapitalisedFirstLetter(atributos.getAtributoName(),'u');
 				if (this.archivo.getMethodManager().isMethodFindByOrLoop()) {
-//					String returnsClass ="";
-//					if(archivo.getCapaPojo().getCreateCapaPojoForEntitys()){
-//						returnsClass = stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM()));
-//					}else{
-//						returnsClass = entidad.getNombreClase();
-//					}
-
-//					String returnsClass = archivo.getCapaPojo().getCreateCapaPojoForEntitys()?
-//							stringEnsamble(List.of(entidad.getNombreClase(),this.archivo.getCapaPojo().getModelM())):
-//							entidad.getNombreClase();
 
 					sb2.append( MethodDesign.builder()
 							.modifiers(Modifier.Public)
