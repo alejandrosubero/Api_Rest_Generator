@@ -1,10 +1,13 @@
 package com.Generator.apirest.core.build;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ParameterClassMethod {
     private String atributoClass;
     private String atributoName;
+    private List<String> annotation = new ArrayList<>();
 
     public ParameterClassMethod() {
     }
@@ -12,6 +15,12 @@ public class ParameterClassMethod {
     public ParameterClassMethod(String atributoClass, String atributoName) {
         this.atributoClass = atributoClass;
         this.atributoName = atributoName;
+    }
+
+    public ParameterClassMethod(String atributoClass, String atributoName, List<String> annotation) {
+        this.atributoClass = atributoClass;
+        this.atributoName = atributoName;
+        this.annotation = annotation;
     }
 
     public String getAtributoClass() {
@@ -30,18 +39,27 @@ public class ParameterClassMethod {
         this.atributoName = atributoName;
     }
 
+    public List<String> getAnnotation() {
+        return annotation;
+    }
+
+    public void setAnnotation(List<String> annotation) {
+        this.annotation = annotation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ParameterClassMethod parameterClassMethod = (ParameterClassMethod) o;
-        return Objects.equals(atributoClass, parameterClassMethod.atributoClass) && Objects.equals(atributoName, parameterClassMethod.atributoName);
+        ParameterClassMethod that = (ParameterClassMethod) o;
+        return Objects.equals(atributoClass, that.atributoClass) && Objects.equals(atributoName, that.atributoName) && Objects.equals(annotation, that.annotation);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(atributoClass, atributoName);
     }
+
 
     @Override
     public String toString() {
