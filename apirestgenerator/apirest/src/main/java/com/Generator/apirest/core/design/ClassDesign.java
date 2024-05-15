@@ -7,7 +7,7 @@ import com.Generator.apirest.core.build.TypeInject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDesign {
+public class ClassDesign implements ClassDesignInterface {
 
     private String packagePaht;
     private String packageName;
@@ -22,11 +22,13 @@ public class ClassDesign {
     private List<String> imports = new ArrayList<>();
     private List<String> annotation = new ArrayList<>();
     private List<ParameterClassMethod> classParameterClassMethods = new ArrayList<>();
+    private String content;
+
 
     public ClassDesign() {
     }
 
-    public ClassDesign(String packagePaht, String packageName, String className, ClassType classType, Boolean isClasInheritance, Boolean isClasImplement, String clasInheritance, String clasImplement, Boolean isInject, TypeInject typeInject, List<String> imports, List<String> annotation, List<ParameterClassMethod> classParameterClassMethods) {
+    public ClassDesign(String packagePaht, String packageName, String className, ClassType classType, Boolean isClasInheritance, Boolean isClasImplement, String clasInheritance, String clasImplement, Boolean isInject, TypeInject typeInject, List<String> imports, List<String> annotation, List<ParameterClassMethod> classParameterClassMethods, String content) {
         this.packagePaht = packagePaht;
         this.packageName = packageName;
         this.className = className;
@@ -40,6 +42,7 @@ public class ClassDesign {
         this.imports = imports;
         this.annotation = annotation;
         this.classParameterClassMethods = classParameterClassMethods;
+        this.content = content;
     }
 
     public String getPackagePaht() {
@@ -138,8 +141,25 @@ public class ClassDesign {
         isClasImplement = clasImplement;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public static ClassDesign.Builder builder() {
         return new  ClassDesign.Builder();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buildClassDesign = new StringBuilder();
+        this.packagePahtBuild(this.packagePaht, this.packageName);
+
+
+        return "ClassDesign{}";
     }
 
     public interface ClassDesingBuilder {
@@ -170,6 +190,7 @@ public class ClassDesign {
 
         public Builder classParameterClassMethods(List<ParameterClassMethod> classParameterClassMethods);
 
+        public Builder content(String content);
         public ClassDesign build();
     }
 
@@ -189,7 +210,7 @@ public class ClassDesign {
         private List<String> imports = new ArrayList<>();
         private List<String> annotation = new ArrayList<>();
         private List<ParameterClassMethod> classParameterClassMethods = new ArrayList<>();
-
+        private String content;
 
         @Override
         public Builder packagePaht(String packagePaht) {
@@ -264,6 +285,12 @@ public class ClassDesign {
             return this;
         }
 
+        @Override
+        public Builder content(String content) {
+            this.content = content;
+            return this;
+        }
+
 
         @Override
         public Builder isClasImplement(Boolean isclasImplement) {
@@ -313,6 +340,9 @@ public class ClassDesign {
 
             if (null != this.classParameterClassMethods)
                 classDesign.setClassParameterClassMethods(this.classParameterClassMethods);
+
+            if(this.content != null)
+                classDesign.setContent(this.content);
 
             return classDesign;
         }

@@ -8,9 +8,9 @@ import java.util.List;
 public interface ClassDesignInterface  extends DesingCommunInterface {
 
 
-
-
-
+    default public String packagePahtBuild( String packagePaht,  String packageName ){
+        return stringEnsamble(List.of(PACKAGE_CONST,packagePaht,DOT,packageName,SEMICOLON,BREAK_LINE ));
+    }
 
 
 }

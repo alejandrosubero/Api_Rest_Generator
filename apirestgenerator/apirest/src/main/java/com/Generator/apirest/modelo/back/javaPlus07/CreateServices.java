@@ -3,6 +3,7 @@ package com.Generator.apirest.modelo.back.javaPlus07;
 
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.core.build.ParameterClassMethod;
+import com.Generator.apirest.core.design.ClassDesign;
 import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.RetunsType;
@@ -75,6 +76,8 @@ public class CreateServices implements IImportModel {
 	private void createService(EntityPojo entidad) throws InterruptedException {
 
 		StringBuilder sb2 = new StringBuilder("\r\n");
+		StringBuilder main = new StringBuilder("\r\n");
+
 		String cadenaOriginal = "";
 		String atributoName = "";
 		String datoTipo = "";
@@ -95,29 +98,7 @@ public class CreateServices implements IImportModel {
 				datoTipo = atributoID.getTipoDato();
 			}
 		}
-		sb2.append(this.anotacionesJava.creatNotaClase() + "\r\n");
-		sb2.append("package " + packageNames + ".service ;\r\n"); // nombre del paquete hay
-		sb2.append("\r\n");
-		sb2.append("import java.util.Optional;");
-		sb2.append("import java.util.Date;" + "\r\n");
-		sb2.append("\r\n");
-		sb2.append("import java.util.ArrayList;");
-		sb2.append("\r\n");
-		sb2.append("import java.util.List;");
-		sb2.append("\r\n");
 
-		sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";");
-		sb2.append("import " + packageNames + "." +returnObjectClassPackage + "." + returnObjectClass + ";");
-
-		for (RelationshipPojo relacion : entidad.getRelaciones()) {
-			sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
-		}
-
-		sb2.append("\r\n");
-		sb2.append("\r\n");
-		sb2.append("\r\n");
-		sb2.append("public interface " + nameOfClass + "{\r\n ");
-		sb2.append("\r\n");
 
 		for (AttributePojo atributos : listAtributos) {
 			if (!atributos.getsId()) {
@@ -284,6 +265,33 @@ public class CreateServices implements IImportModel {
 			}
 		}
 
+
+		ClassDesign classTemplate = ClassDesign.builder()
+				.packagePaht(stringEnsamble(List.of("package ", packageNames, ".service",";",BREAK_LINE )))
+				.packageName("service")
+				.className(stringEnsamble(List.of(entidad.getNombreClase(),"Service")))
+				.imports(List.of(
+						BREAK_LINE,
+						this.importGroupServiceClass()
+				))
+				.build();
+		
+
+		sb2.append(this.anotacionesJava.creatNotaClase() + "\r\n");
+		sb2.append("package " + packageNames + ".service ;\r\n"); // nombre del paquete hay
+		sb2.append("\r\n");
+		sb2.append(this.importGroupServiceClass());
+		sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";");
+		sb2.append("import " + packageNames + "." +returnObjectClassPackage + "." + returnObjectClass + ";");
+		for (RelationshipPojo relacion : entidad.getRelaciones()) {
+			sb2.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
+		}
+		sb2.append("\r\n");
+		sb2.append("\r\n");
+		sb2.append("\r\n");
+		sb2.append("public interface " + nameOfClass + "{\r\n ");
+		sb2.append("\r\n");
+		// contex
 		sb2.append(stringEnsamble(List.of("}", BREAK_LINE)));
 		sb2.append(AnotacionesJava.apacheSoftwareLicensed());
 		sb2.append(BREAK_LINE);

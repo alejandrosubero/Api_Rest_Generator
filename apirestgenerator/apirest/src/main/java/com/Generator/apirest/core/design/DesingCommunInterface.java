@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface DesingCommunInterface extends IImportModel {
 
+
     default public String annotationBuild(List<String> annotation){
         StringBuilder methodTx = new StringBuilder();
         if (annotation != null && annotation.size() > 0) {

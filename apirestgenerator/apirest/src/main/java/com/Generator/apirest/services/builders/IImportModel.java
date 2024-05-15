@@ -17,7 +17,15 @@ public interface IImportModel extends IBaseModel {
 		imports.append(UTIL_ARRAY_LIST_IMPORT);
 		return imports.toString();
 	}
-	
+
+	default public String importGroupServiceClass() {
+		StringBuilder imports = new StringBuilder();
+		imports.append(UTIL_OPTIONAL_IMPORT);
+		imports.append(UTIL_DATE_IMPORT);
+		imports.append(UTIL_ARRAY_LIST_IMPORT);
+		imports.append(UTIL_LIST_IMPORT);
+		return imports.toString();
+	}
 	
 	default public String importServerClienteConvertHexTool() {
 		StringBuilder imports = new StringBuilder();
