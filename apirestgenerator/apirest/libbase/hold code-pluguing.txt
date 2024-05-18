@@ -1,0 +1,64 @@
+Me:
+Give me a code example the architecture plugin in java with a simple program for write text in the console and i need the
+code for the plugin, he writed deferent text the main program and i need the form to connect the plugin to the main component
+
+We'll have a main program that loads the plugin dynamically and connects it to the main component.
+
+1. **Plugin Interface** (`TextPlugin.java`):
+```java
+// TextPlugin.java
+public interface TextPlugin {
+    void writeText();
+}
+```
+
+2. **Sample Plugin Implementation** (`SampleTextPlugin.java`):
+```java
+// SampleTextPlugin.java
+public class SampleTextPlugin implements TextPlugin {
+    @Override
+    public void writeText() {
+        System.out.println("Hello from SampleTextPlugin!");
+    }
+}
+```
+
+3. **Main Program** (`MainProgram.java`):
+```java
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+public class MainProgram {
+    public static void main(String[] args) {
+        // Load the plugin dynamically
+        try {
+            File pluginJarFile = new File("path/to/your/plugin.jar"); // Replace with actual path
+            URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{pluginJarFile.toURI().toURL()});
+            Class<?> pluginClass = classLoader.loadClass("SampleTextPlugin"); // Replace with your plugin class name
+
+            // Instantiate the plugin
+            TextPlugin plugin = (TextPlugin) pluginClass.getDeclaredConstructor().newInstance();
+
+            // Use the plugin
+            plugin.writeText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+4. **Creating the Plugin JAR**:
+    - Compile `TextPlugin.java` and `SampleTextPlugin.java`.
+    - Create a JAR file containing both compiled classes.
+    - Ensure the JAR file contains a `META-INF/MANIFEST.MF` file specifying the `Main-Class` as `SampleTextPlugin` (or your actual plugin class).
+
+5. **Connecting the Plugin to the Main Component**:
+    - In your main program, load the plugin JAR dynamically using `URLClassLoader`.
+    - Instantiate the plugin class and call its methods as needed.
+
+Remember to replace `"path/to/your/plugin.jar"` with the actual path to your plugin JAR file. This example demonstrates a basic plugin architecture; you can expand it by adding more plugins and functionality. 🚀

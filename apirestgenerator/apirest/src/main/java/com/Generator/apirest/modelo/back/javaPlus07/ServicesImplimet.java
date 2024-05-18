@@ -25,6 +25,7 @@ public class ServicesImplimet implements IImportModel {
     private String mapperServiceNombreClase;
     private String mapperNombreClaseService;
 
+
     private LayerPojo layerPojo;
     protected static final Log logger = LogFactory.getLog(CreateServices.class);
 
