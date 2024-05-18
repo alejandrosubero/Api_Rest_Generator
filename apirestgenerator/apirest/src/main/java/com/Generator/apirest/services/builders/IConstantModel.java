@@ -2,7 +2,6 @@ package com.Generator.apirest.services.builders;
 
 public interface IConstantModel {
 
-    // public final String BREAK_LINE = "\r\n";
 
     public final String BREAK_LINE = "\r\n";
     public static final String PRIVATE = "private";
@@ -30,8 +29,9 @@ public interface IConstantModel {
     public static final String BRACKET_CLOSE = "}";
     public static final String BRACKET_OPEN_CLOSE = "{}";
     public static final String LINE_SPACE_REGEX = "(?m)^( {0,3})";
-    public static final String PACKAGE_CONST = "package";
     public static final String DOT = ".";
+    public static final String PACKAGE_CONST = "package";
+    public static final String IMPORT_CONST = "import";
 
 
 

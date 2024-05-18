@@ -44,4 +44,71 @@ public interface DesingCommunInterface extends IImportModel {
         }
         return contexParameter.toString();
     }
+
+    default public String structureStringListinColumm(List<String>parameters) {
+        StringBuilder stringColumm = new StringBuilder(BREAK_LINE);
+        if (parameters.size() > 0) {
+            for (String item : parameters) {
+                stringColumm.append(stringEnsamble(List.of(item, BREAK_LINE)));
+            }
+            stringColumm.append(DOUBLEBREAK_LINE);
+        }
+        return stringColumm.toString();
+    }
+
+
+    private String metodo(StringBuilder sb, String nameOfClass, String numeral) {
+        sb.append("		if (fileOptional" + numeral + ".isPresent()) {" + "\r\n");
+        sb.append("\r\n");
+        sb.append("		try {" + "\r\n");
+        sb.append("\r\n");
+        sb.append("	logger.info(\"the proyect be updated\");" + "\r\n");
+        sb.append("\r\n");
+        sb.append("		" + nameOfClass + " proyectoBDA" + numeral + " = fileOptional.get();" + "\r\n");
+        sb.append("\r\n");
+        sb.append("		return proyectoBDA" + numeral + "; " + "\r\n");
+        sb.append("		} catch (DataAccessException e) {  " + "\r\n");
+        sb.append("		logger.error(\" ERROR : \" + e); " + "\r\n");
+        sb.append("		}" + "\r\n");
+        sb.append("  	}else { " + "\r\n");
+        sb.append("		return new " + nameOfClass + "(); " + "\r\n");
+        sb.append("		}" + "\r\n");
+        sb.append("\r\n");
+        return sb.toString();
+    }
+
+    private String metodTrycath(StringBuilder sb, String operacion, String operacionElse) {
+        sb.append("		try {" + "\r\n");
+        sb.append("\r\n");
+        sb.append(operacion);
+        sb.append("\r\n");
+        sb.append("		} catch (DataAccessException e) {" + "\r\n");
+        sb.append("		logger.error(\" ERROR : \" + e);" + "\r\n");
+        sb.append(operacionElse);
+        sb.append("\r\n");
+        return sb.toString();
+    }
+
+    private String metodoGeneric(StringBuilder sb, String nameOfClass, String numeral, String operacion,
+                                 String operacionElse) {
+
+        sb.append("		if (fileOptional" + numeral + ".isPresent()) {" + "\r\n");
+        sb.append("\r\n");
+        sb.append("		try {" + "\r\n");
+        sb.append("\r\n");
+        sb.append("	logger.info(\"the proyect be updated\");" + "\r\n");
+        sb.append("\r\n");
+        sb.append("		" + nameOfClass + " proyectoBDA" + numeral + " = fileOptional" + numeral + ".get();" + "\r\n");
+        sb.append("\r\n");
+        sb.append(operacion);
+        sb.append("		} catch (DataAccessException e) {  " + "\r\n");
+        sb.append("		logger.error(\" ERROR : \" + e); " + "\r\n");
+        sb.append("		}" + "\r\n");
+        sb.append("  	}else { " + "\r\n");
+        sb.append(operacionElse);
+        sb.append("		}" + "\r\n");
+        sb.append("\r\n");
+        return sb.toString();
+    }
+
 }

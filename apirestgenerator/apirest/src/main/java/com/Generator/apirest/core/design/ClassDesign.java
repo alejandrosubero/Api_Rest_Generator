@@ -1,6 +1,7 @@
 package com.Generator.apirest.core.design;
 
 import com.Generator.apirest.core.build.ClassType;
+import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.core.build.TypeInject;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class ClassDesign implements ClassDesignInterface {
 
+    private Modifier modifier;
     private String packagePaht;
     private String packageName;
     private String className;
@@ -149,6 +151,14 @@ public class ClassDesign implements ClassDesignInterface {
         this.content = content;
     }
 
+    public Modifier getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(Modifier modifier) {
+        this.modifier = modifier;
+    }
+
     public static ClassDesign.Builder builder() {
         return new  ClassDesign.Builder();
     }
@@ -156,10 +166,10 @@ public class ClassDesign implements ClassDesignInterface {
     @Override
     public String toString() {
         StringBuilder buildClassDesign = new StringBuilder();
-        this.packagePahtBuild(this.packagePaht, this.packageName);
-
-
-        return "ClassDesign{}";
+        buildClassDesign.append(this.packagePahtBuild(this.packagePaht, this.packageName));
+        buildClassDesign.append(this.structureStringListinColumm(this.imports));
+        buildClassDesign.append(classSignatuerAndContent(this));
+        return buildClassDesign.toString();
     }
 
     public interface ClassDesingBuilder {
@@ -191,6 +201,9 @@ public class ClassDesign implements ClassDesignInterface {
         public Builder classParameterClassMethods(List<ParameterClassMethod> classParameterClassMethods);
 
         public Builder content(String content);
+
+        public Builder modifier(Modifier modifier);
+
         public ClassDesign build();
     }
 
@@ -211,6 +224,7 @@ public class ClassDesign implements ClassDesignInterface {
         private List<String> annotation = new ArrayList<>();
         private List<ParameterClassMethod> classParameterClassMethods = new ArrayList<>();
         private String content;
+        private Modifier modifier;
 
         @Override
         public Builder packagePaht(String packagePaht) {
@@ -291,6 +305,12 @@ public class ClassDesign implements ClassDesignInterface {
             return this;
         }
 
+        @Override
+        public Builder modifier(Modifier modifier) {
+            this.modifier = modifier;
+            return this;
+        }
+
 
         @Override
         public Builder isClasImplement(Boolean isclasImplement) {
@@ -343,6 +363,9 @@ public class ClassDesign implements ClassDesignInterface {
 
             if(this.content != null)
                 classDesign.setContent(this.content);
+
+            if(this.modifier != null)
+                classDesign.setModifier(this.modifier);
 
             return classDesign;
         }

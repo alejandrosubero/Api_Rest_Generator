@@ -1,7 +1,12 @@
 package com.Generator.apirest.services.builders;
 
+import java.util.List;
+
 public interface IImportModel extends IBaseModel {
 
+	default public String importPahtBuild( String packagePaht, String objectClassPackage,  String objectClass ){
+		return stringEnsamble(List.of(IMPORT_CONST,SPACE,packagePaht,DOT,objectClassPackage,DOT,objectClass,SEMICOLON,BREAK_LINE ));
+	}
 
 	default public String importAutowiredAnnotation() {
 		StringBuilder autowiredAnnotation = new StringBuilder();
@@ -123,16 +128,7 @@ public interface IImportModel extends IBaseModel {
 		return imports.toString();
 	}
 
-	/*
-	 String direction = 
-	    this.path(
-	         Lists.newArrayList(direccionDeCarpeta + proyectoName, "src" , "main", "java",this.getCom(),this.getPackageNames1(),this.getArtifact()," ")
-	    );
-										
-		String direction = direccionDeCarpeta + proyectoName + barra + "src" + barra + "main" + barra + "java" + barra + this.getCom() 
-		+ barra + this.getPackageNames1() + barra + this.getArtifact() + barra;
 
-	 * */
 
 			
 			

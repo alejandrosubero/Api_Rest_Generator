@@ -11,7 +11,7 @@
 
 	<groupId>com.Generator</groupId>
 	<artifactId>apirest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>war</packaging>
 	<name>ApiRestGenerator</name>
 	<description>Java Api Rest Generator project</description>
