@@ -2,6 +2,11 @@ package com.Generator.apirest.modelo.back.javaPlus07;
 
 
 import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.core.build.Modifier;
+import com.Generator.apirest.core.build.ParameterClassMethod;
+import com.Generator.apirest.core.build.RetunsType;
+import com.Generator.apirest.core.design.BodyMethodDesign;
+import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AttributePojo;
 import com.Generator.apirest.pojos.back.LayerPojo;
@@ -13,6 +18,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -162,28 +168,28 @@ public class ServicesImplimet implements IImportModel {
 
 
     public StringBuilder createImport(String packageNames, String serviceName, String repositorieName, EntityPojo entidad) {
+        List<String> importList = new ArrayList<>();
         StringBuilder sb = new StringBuilder("\r\n");
 
         sb.append("package " + packageNames + ".serviceImplement ;\r\n");
         sb.append("\r\n");
+
+        importList.add(this.importPahtBuild(packageNames,"service",serviceName));
+        importList.add(this.importPahtBuild(packageNames,"repository",repositorieName));
+        importList.add(this.importGroupServiceClassImplement());
+        importList.add(this.importPahtBuild(packageNames,entidad.getPaquete(),entidad.getNombreClase()));
+        importList.add(this.importPahtBuild(packageNames,returnObjectClassPackage,returnObjectClass));
+
+
         sb.append("import " + packageNames + ".service." + serviceName + ";\r\n");
         sb.append("import " + packageNames + ".repository." + repositorieName + ";\r\n");
-
-        sb.append("import java.util.Optional;" + "\r\n");
-        sb.append("import java.util.ArrayList;" + "\r\n");
-        sb.append("import java.util.List;" + "\r\n");
-        sb.append("import java.util.Date;" + "\r\n");
-        sb.append("import org.apache.commons.logging.Log;" + "\r\n");
-        sb.append("import org.apache.commons.logging.LogFactory;" + "\r\n");
-        sb.append("import org.springframework.beans.factory.annotation.Autowired;" + "\r\n");
-        sb.append("import org.springframework.dao.DataAccessException;" + "\r\n");
-        sb.append("import org.springframework.stereotype.Service;" + "\r\n");
-
+        sb.append(this.importGroupServiceClassImplement());
         sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";" + "\r\n");
         sb.append("import " + packageNames + "." + returnObjectClassPackage + "." + returnObjectClass + ";" + BREAK_LINE);
 
         if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
             sb.append(stringEnsamble(List.of("import ", packageNames, ".mapper", ".", mapperNombreClaseService, ";", BREAK_LINE)));
+            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
             sb.append(BREAK_LINE);
         }
 
@@ -191,7 +197,19 @@ public class ServicesImplimet implements IImportModel {
             sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
             sb.append(BREAK_LINE);
             sb.append(stringEnsamble(List.of("import ", packageNames,".", this.layerPojo.getModelT().trim(),".", relacion.getNameClassRelacion(), this.layerPojo.getModelM(),";",BREAK_LINE)));
-            sb.append(DOUBLEBREAK_LINE);}
+            sb.append(DOUBLEBREAK_LINE);
+            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+        }
+
+        //        sb.append("import java.util.Optional;" + "\r\n");
+//        sb.append("import java.util.ArrayList;" + "\r\n");
+//        sb.append("import java.util.List;" + "\r\n");
+//        sb.append("import java.util.Date;" + "\r\n");
+//        sb.append("import org.apache.commons.logging.Log;" + "\r\n");
+//        sb.append("import org.apache.commons.logging.LogFactory;" + "\r\n");
+//        sb.append("import org.springframework.beans.factory.annotation.Autowired;" + "\r\n");
+//        sb.append("import org.springframework.dao.DataAccessException;" + "\r\n");
+//        sb.append("import org.springframework.stereotype.Service;" + "\r\n");
 
         return sb;
     }
@@ -231,25 +249,30 @@ public class ServicesImplimet implements IImportModel {
         for (AttributePojo atributos : listAtributos) {
             int cont = 1;
             if (!atributos.getsId()) {
-                String atributoName = atributos.getAtributoName().substring(0, 1).toUpperCase() + atributos.getAtributoName().substring(1);
                 String numeraly = String.valueOf(cont);
-                String operacionu = stringEnsamble(List.of(DOUBLETAB, TAB, entidad.getNombreClase().toLowerCase(), "Entity = fileOptional", numeraly, ".get();" + BREAK_LINE));
+                
+                BodyMethodDesign bodyMethod = BodyMethodDesign.builder().build();
+                bodyMethod.addItem(bodyMethod.buildLoggerInfo(stringEnsamble(List.of("Starting get",entidad.getNombreClase()))));
+                bodyMethod.addItem(bodyMethod.createNewObject(entidad.getNombreClase()));
+                bodyMethod.addItem(stringEnsamble(List.of(
+                        bodyMethod.createOptionalEqual(entidad.getNombreClase(),"fileOptional", numeraly),
+                        bodyMethod.callRepository(repositorieNameOjecte, "findBy",atributos.getAtributoName())
+                )));
+                String operacionu = stringEnsamble(List.of(entidad.getNombreClase().toLowerCase(), "Entity = fileOptional", numeraly, ".get();"));
+                bodyMethod.addItem(bodyMethod.createIfBlock(stringEnsamble(List.of("fileOptional", numeraly)), ".isPresent()",
+                        bodyMethod.metodTrycath(operacionu, "e.printStackTrace();", "DataAccessException")));
+                bodyMethod.addItem(
+                        stringEnsamble(
+                                List.of("return", TAB, mapperServiceNombreClase, ".entityToPojo", "(", entidad.getNombreClase().toLowerCase(), "Entity", ");"))
+                );
 
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
-                sbp.append(stringEnsamble(List.of(returnObjectClass)));
-                sbp.append(stringEnsamble(List.of(TAB, "findBy", atributoName, "(", atributos.getTipoDato(), TAB, atributos.getAtributoName(), "){", DOUBLEBREAK_LINE)));
+                sbp.append(MethodDesign.builder()
+                        .annotation(List.of("@Override")).modifiers(Modifier.Public).returnsType(RetunsType.none).returnsClass(returnObjectClass)
+                        .methodName(stringEnsamble(List.of("findBy",capitalizeOrUncapitalisedFirstLetter(atributos.getAtributoName(), 'u'))))
+                        .parameter(List.of(ParameterClassMethod.builder()
+                                .atributoClass(atributos.getTipoDato()).atributoName(atributos.getAtributoName()).build()))
+                        .curlyBraces(true).methodBody(bodyMethod.toString()).build().toString());
 
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "logger.info(\"Starting get", entidad.getNombreClase(), "\");", BREAK_LINE)));
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase(), "Entity = new ", entidad.getNombreClase(), "();" + BREAK_LINE)));
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "Optional<", entidad.getNombreClase(), "> fileOptional", numeraly, " = ", repositorieNameOjecte, ".findBy", atributoName, "(", atributos.getAtributoName(), ");", BREAK_LINE)));
-                sbp.append(BREAK_LINE);
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "if (fileOptional", numeraly, ".isPresent()) { ", BREAK_LINE)));
-                sbp.append(this.metodTrycath(operacionu, BREAK_LINE));
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "}" + BREAK_LINE)));
-                sbp.append(stringEnsamble(List.of(DOUBLETAB, "return", TAB, mapperServiceNombreClase, ".entityToPojo", "(", entidad.getNombreClase().toLowerCase(), "Entity", ");")));
-
-                sbp.append(stringEnsamble(List.of(TAB, "}", BREAK_LINE)));
                 cont += 1;
             }
         }

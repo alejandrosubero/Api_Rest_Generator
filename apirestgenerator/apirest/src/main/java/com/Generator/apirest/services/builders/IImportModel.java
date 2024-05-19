@@ -31,7 +31,24 @@ public interface IImportModel extends IBaseModel {
 		imports.append(UTIL_LIST_IMPORT);
 		return imports.toString();
 	}
-	
+
+	default public String importGroupServiceClassImplement() {
+		StringBuilder imports = new StringBuilder();
+		imports.append(UTIL_OPTIONAL_IMPORT);
+		imports.append(UTIL_DATE_IMPORT);
+		imports.append(UTIL_ARRAY_LIST_IMPORT);
+		imports.append(UTIL_LIST_IMPORT);
+		imports.append(APACHE_LOG_IMPORT);
+		imports.append(APACHE_LOG_FACTORY_IMPORT);
+		imports.append(SPRING_AUTOWIRED_IMPORT);
+		imports.append(SPRING_DATAACCESS_EXCEPTION_IMPORT);
+		imports.append(SPRING_STEREOTYPE_SERVICE_IMPORT);
+
+		return imports.toString();
+	}
+
+
+
 	default public String importServerClienteConvertHexTool() {
 		StringBuilder imports = new StringBuilder();
 		imports.append(NET_IMPORT);

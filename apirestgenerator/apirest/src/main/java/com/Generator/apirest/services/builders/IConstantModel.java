@@ -32,8 +32,12 @@ public interface IConstantModel {
     public static final String DOT = ".";
     public static final String PACKAGE_CONST = "package";
     public static final String IMPORT_CONST = "import";
-
-
+    public static final String TRY = "try";
+    public static final String CATCH = "catch";
+    public static final String EQUAL_ ="=";
+    public static final String NOT_NULL =" != null";
+    public static final String IF_STAMENT ="if";
+    public static final String ELSE_STAMENT="else";
 
 
     public final String GSON_IMPORT 										= "import com.google.gson.Gson;"+ BREAK_LINE;
@@ -57,6 +61,7 @@ public interface IConstantModel {
     public final String UTIL_ITERATOR 										= "import java.util.Iterator;" + BREAK_LINE;
     public final String UTIL_LOGGIN_LEVEL_IMPORT 							= "import java.util.logging.Level;"+ BREAK_LINE;
     public final String UTIL_LOGGIN_LOGGER_IMPORT 							= "import java.util.logging.Logger;"+ BREAK_LINE;
+
 
     public final String SPRING_ANNOTATION_IMPORT      						= "import org.springframework.web.bind.annotation.*;"+ BREAK_LINE;
     public final String SPRING_ANNOTATION_CrossOrigin_IMPORT  				= "import org.springframework.web.bind.annotation.CrossOrigin;" + BREAK_LINE;
