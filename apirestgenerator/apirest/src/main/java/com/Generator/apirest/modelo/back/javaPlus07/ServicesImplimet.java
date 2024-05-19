@@ -168,6 +168,7 @@ public class ServicesImplimet implements IImportModel {
         sb.append("\r\n");
         sb.append("import " + packageNames + ".service." + serviceName + ";\r\n");
         sb.append("import " + packageNames + ".repository." + repositorieName + ";\r\n");
+
         sb.append("import java.util.Optional;" + "\r\n");
         sb.append("import java.util.ArrayList;" + "\r\n");
         sb.append("import java.util.List;" + "\r\n");
@@ -177,6 +178,7 @@ public class ServicesImplimet implements IImportModel {
         sb.append("import org.springframework.beans.factory.annotation.Autowired;" + "\r\n");
         sb.append("import org.springframework.dao.DataAccessException;" + "\r\n");
         sb.append("import org.springframework.stereotype.Service;" + "\r\n");
+
         sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";" + "\r\n");
         sb.append("import " + packageNames + "." + returnObjectClassPackage + "." + returnObjectClass + ";" + BREAK_LINE);
 
@@ -237,6 +239,7 @@ public class ServicesImplimet implements IImportModel {
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
                 sbp.append(stringEnsamble(List.of(returnObjectClass)));
                 sbp.append(stringEnsamble(List.of(TAB, "findBy", atributoName, "(", atributos.getTipoDato(), TAB, atributos.getAtributoName(), "){", DOUBLEBREAK_LINE)));
+
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, "logger.info(\"Starting get", entidad.getNombreClase(), "\");", BREAK_LINE)));
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase(), "Entity = new ", entidad.getNombreClase(), "();" + BREAK_LINE)));
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, "Optional<", entidad.getNombreClase(), "> fileOptional", numeraly, " = ", repositorieNameOjecte, ".findBy", atributoName, "(", atributos.getAtributoName(), ");", BREAK_LINE)));
@@ -245,6 +248,7 @@ public class ServicesImplimet implements IImportModel {
                 sbp.append(this.metodTrycath(operacionu, BREAK_LINE));
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, "}" + BREAK_LINE)));
                 sbp.append(stringEnsamble(List.of(DOUBLETAB, "return", TAB, mapperServiceNombreClase, ".entityToPojo", "(", entidad.getNombreClase().toLowerCase(), "Entity", ");")));
+
                 sbp.append(stringEnsamble(List.of(TAB, "}", BREAK_LINE)));
                 cont += 1;
             }
@@ -292,6 +296,8 @@ public class ServicesImplimet implements IImportModel {
         if (entidad.getDelete()) {
             sbt.append("		@Override" + "\r\n");
             sbt.append("		public boolean delete" + entidad.getNombreClase() + "( " + this.idTipoDato(entidad) + " id){" + "\r\n");
+
+
             sbt.append("		logger.info(\"Delete Proyect\");" + "\r\n");
             sbt.append("		boolean clave = false;\r\n");
             sbt.append("\r\n");
@@ -299,6 +305,7 @@ public class ServicesImplimet implements IImportModel {
             String operacionElseA = "				clave = false;\r\n";
             sbt.append(this.metodTrycath(operacionA, operacionElseA));
             sbt.append("		return clave;\r\n");
+
             sbt.append("	}\r\n");
         }
         return sbt;
