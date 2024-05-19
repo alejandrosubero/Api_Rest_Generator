@@ -56,6 +56,7 @@ public class ServicesImplimet implements IImportModel {
     private void createServiceImpl(ArchivoBaseDatosPojo archivo, Creador creadors, EntityPojo entidad) throws InterruptedException {
 
         StringBuilder sbh = new StringBuilder(BREAK_LINE);
+        StringBuilder main = new StringBuilder(BREAK_LINE);
 
         String nameOfClass = entidad.getNombreClase() + "ServiceImplement";
         String repositorieName = entidad.getNombreClase() + "Repository";
@@ -78,6 +79,7 @@ public class ServicesImplimet implements IImportModel {
                     .atributoClass(mapperServiceNombreClase)
                     .atributoName(mapperNombreClaseService)
                     .annotations(List.of("@Autowired"))
+                     .modifier(Modifier.Private)
                     .build();
 
         }
@@ -122,11 +124,11 @@ public class ServicesImplimet implements IImportModel {
                 .content(new FormatText().reformat(sbh.toString()))
                 .isClassIsImplement(true)
                 .classImplement(serviceName)
-                .classParameterClassMethods(List.of(classParametersRepositories))
+                .classParameterClassMethods(List.of(classParametersRepositories,classParametersMapper))
                 .build();
+        main.append(classTemplate.toString());
 
-
-        this.createFileClass(nameOfClass, "serviceImplement", sbh, creadors, archivo.getProyectoName());
+        this.createFileClass(nameOfClass, "serviceImplement", main, creadors, archivo.getProyectoName());
     }
 
 
