@@ -1,5 +1,7 @@
 package com.Generator.apirest.core.design;
 
+import com.Generator.apirest.core.build.ClassModifier;
+import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.services.builders.IImportModel;
 
@@ -16,11 +18,35 @@ public interface ClassDesignInterface extends DesingCommunInterface {
         StringBuilder classTemplate = null;
         if (classDesign != null) {
             classTemplate = new StringBuilder();
+
             classTemplate.append(stringEnsamble(List.of(
                     classDesign.getModifier().toString().toLowerCase(), SPACE,
                     classDesign.getClassType().toString().toLowerCase(), SPACE,
-                    classDesign.getClassName(), SPACE,
-                    TAB, BRACKET_OPEN, BREAK_LINE)));
+                    classDesign.getClassName())));
+
+            if (classDesign.getClassIsImplement()) {
+                classTemplate.append(stringEnsamble(
+                        List.of(TAB,
+                                ClassModifier.IMPLEMENTS.toString().toLowerCase(),
+                                TAB, classDesign.getClasImplement()
+                        )));
+            }
+
+            if (classDesign.getClassIsInheritance()) {
+                classTemplate.append(stringEnsamble(
+                        List.of(TAB,
+                                ClassModifier.EXTENDS.toString().toLowerCase(),
+                                TAB, classDesign.getClassInheritance()
+                        )));
+            }
+
+            if(classDesign.getClassParameterClassMethods().size() > 0){
+              for(ParameterClassMethod parameterClass :  classDesign.getClassParameterClassMethods()){
+                  classTemplate.append(parameterClass.toString());
+              }
+            }
+
+            classTemplate.append(stringEnsamble(List.of(TAB, BRACKET_OPEN, BREAK_LINE)));
             if (classDesign.getContent() != null) {
                 classTemplate.append(classDesign.getContent());
             }

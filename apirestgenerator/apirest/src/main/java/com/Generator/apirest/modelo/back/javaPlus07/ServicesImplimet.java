@@ -2,10 +2,9 @@ package com.Generator.apirest.modelo.back.javaPlus07;
 
 
 import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.core.build.Modifier;
-import com.Generator.apirest.core.build.ParameterClassMethod;
-import com.Generator.apirest.core.build.RetunsType;
+import com.Generator.apirest.core.build.*;
 import com.Generator.apirest.core.design.BodyMethodDesign;
+import com.Generator.apirest.core.design.ClassDesign;
 import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AttributePojo;
@@ -69,11 +68,18 @@ public class ServicesImplimet implements IImportModel {
 
         sbh.append(new AnotacionesJava(archivo).creatNotaClase().toString());
         sbh.append(BREAK_LINE);
-        sbh.append(this.createImport(archivo.getPackageNames(), serviceName, repositorieName, entidad));
+//        sbh.append(this.createImport(archivo.getPackageNames(), serviceName, repositorieName, entidad));
         sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
 
+        ParameterClassMethod classParametersMapper = null;
         if (archivo.getCapaPojo().getCreateCapaPojoForEntitys()) {
             sbh.append(this.createAutowiredMapper(entidad));
+             classParametersMapper = ParameterClassMethod.builder()
+                    .atributoClass(mapperServiceNombreClase)
+                    .atributoName(mapperNombreClaseService)
+                    .annotations(List.of("@Autowired"))
+                    .build();
+
         }
 
         if (archivo.getMethodManager().isMethodFindByOrLoop()) {
@@ -82,6 +88,43 @@ public class ServicesImplimet implements IImportModel {
 
         sbh.append(this.metods(archivo, entidad, repositorieNameOjecte, entidad.getNombreClase()));
         sbh.append(AnotacionesJava.apacheSoftwareLicensed() + BREAK_LINE);
+
+
+
+        List<String> importList = new ArrayList<>();
+        importList.add(this.importPahtBuild(archivo.getPackageNames(),"service",serviceName));
+        importList.add(this.importPahtBuild(archivo.getPackageNames(),"repository",repositorieName));
+        importList.add(this.importGroupServiceClassImplement());
+        importList.add(this.importPahtBuild(archivo.getPackageNames(),entidad.getPaquete(),entidad.getNombreClase()));
+        importList.add(this.importPahtBuild(archivo.getPackageNames(),returnObjectClassPackage,returnObjectClass));
+
+        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
+            importList.add(this.importPahtBuild(archivo.getPackageNames(),"mapper",mapperNombreClaseService));
+        }
+
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+            importList.add(this.importPahtBuild(archivo.getPackageNames(),this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+        }
+
+        ParameterClassMethod classParametersRepositories = ParameterClassMethod.builder()
+                .atributoClass(repositorieName)
+                .atributoName(repositorieNameOjecte)
+                .annotations(List.of("@Autowired"))
+                .build();
+
+        ClassDesign classTemplate = ClassDesign.builder()
+                .packagePaht(archivo.getPackageNames())
+                .packageName("serviceImplement")
+                .imports(importList)
+                .modifier(Modifier.Public)
+                .className(nameOfClass)
+                .classType(ClassType.CLASS)
+                .content(new FormatText().reformat(sbh.toString()))
+                .isClassIsImplement(true)
+                .classImplement(serviceName)
+                .classParameterClassMethods(List.of(classParametersRepositories))
+                .build();
+
 
         this.createFileClass(nameOfClass, "serviceImplement", sbh, creadors, archivo.getProyectoName());
     }
@@ -168,17 +211,27 @@ public class ServicesImplimet implements IImportModel {
 
 
     public StringBuilder createImport(String packageNames, String serviceName, String repositorieName, EntityPojo entidad) {
-        List<String> importList = new ArrayList<>();
         StringBuilder sb = new StringBuilder("\r\n");
 
         sb.append("package " + packageNames + ".serviceImplement ;\r\n");
         sb.append("\r\n");
 
+        List<String> importList = new ArrayList<>();
         importList.add(this.importPahtBuild(packageNames,"service",serviceName));
         importList.add(this.importPahtBuild(packageNames,"repository",repositorieName));
         importList.add(this.importGroupServiceClassImplement());
         importList.add(this.importPahtBuild(packageNames,entidad.getPaquete(),entidad.getNombreClase()));
         importList.add(this.importPahtBuild(packageNames,returnObjectClassPackage,returnObjectClass));
+
+        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
+            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
+        }
+
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+        }
+
+
 
 
         sb.append("import " + packageNames + ".service." + serviceName + ";\r\n");
@@ -232,10 +285,12 @@ public class ServicesImplimet implements IImportModel {
         sb1.append("@Service" + "\r\n");
         sb1.append("public class " + nameOfClass + " implements " + serviceName + " {" + "\r\n");
         sb1.append("\r\n");
+        //TODO: UBICAR EL LUGAR CORRECTO PARA ESTA LINIEA DE CODIGO
         sb1.append("protected static final Log logger = LogFactory.getLog(" + nameOfClass + ".class);");
         sb1.append("\r\n");
         sb1.append("@Autowired" + "\r\n");
         sb1.append("private " + repositorieName + " " + repositorieNameOjecte + ";" + "\r\n");
+
 
         return sb1;
     }

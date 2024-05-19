@@ -65,9 +65,9 @@ public interface DesingCommunInterface extends IImportModel {
     }
 
     default public String buildLoggerError(String text, String error) {
-        if (text == null)
+        if (text == null){
             text = "";
-
+        }
         if (error == null) {
             error = "";
         } else {

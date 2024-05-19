@@ -1,5 +1,7 @@
 package com.Generator.apirest.core.build;
 
+import com.Generator.apirest.services.builders.IConstantModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +11,8 @@ public class ParameterClassMethod {
     private String atributoName;
     private List<String> annotation = new ArrayList<>();
 
+//TODO: COLOCAR UN NUEVO PARAMETRO  =  private Modifier modifier;
+    
     public ParameterClassMethod() {
     }
 
@@ -64,9 +68,26 @@ public class ParameterClassMethod {
     @Override
     public String toString() {
         StringBuilder parameter = new StringBuilder();
+        StringBuilder internal = new StringBuilder(IConstantModel.BREAK_LINE);
+        if(this.annotation.size() > 0){
+            for (String anntationParameter : this.annotation){
+                internal.append(anntationParameter);
+//                internal.append("\r\n");
+                internal.append(IConstantModel.BREAK_LINE);
+            }
+        }
+        parameter.append(internal.toString());
         parameter.append(atributoClass);
-        parameter.append("\t");
+        parameter.append(IConstantModel.TAB);
+//        parameter.append("\t");
         parameter.append(atributoName);
+
+        if(this.annotation !=null && this.annotation.size() > 0){
+            parameter.append(IConstantModel.SEMICOLON);
+            parameter.append(IConstantModel.BREAK_LINE);
+//            parameter.append(";");
+        }
+
         return parameter.toString();
     }
 
@@ -77,13 +98,14 @@ public class ParameterClassMethod {
     public interface ParameterBuilder{
         public Builder atributoClass(String atributoClass);
         public Builder atributoName(String atributoName);
+        public Builder annotations(List<String> annotation);
         public ParameterClassMethod build();
     }
 
     public static class Builder implements ParameterBuilder{
         private String atributoClass;
         private String atributoName;
-
+        private List<String> annotation = new ArrayList<>();
 
         @Override
         public Builder atributoClass(String atributoClass) {
@@ -98,6 +120,12 @@ public class ParameterClassMethod {
         }
 
         @Override
+        public Builder annotations(List<String> annotation) {
+            this.annotation = annotation;
+            return this;
+        }
+
+        @Override
         public ParameterClassMethod build() {
             ParameterClassMethod parameterClassMethod = new ParameterClassMethod();
 
@@ -106,6 +134,10 @@ public class ParameterClassMethod {
 
             if (this.atributoClass != null)
                 parameterClassMethod.setAtributoClass(this.atributoClass);
+
+            if(this.annotation !=null){
+                parameterClassMethod.setAnnotation(this.annotation);
+            }
 
             return parameterClassMethod;
         }

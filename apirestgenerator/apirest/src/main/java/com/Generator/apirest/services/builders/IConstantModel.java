@@ -3,7 +3,7 @@ package com.Generator.apirest.services.builders;
 public interface IConstantModel {
 
 
-    public final String BREAK_LINE = "\r\n";
+    public final static String BREAK_LINE = "\r\n";
     public static final String PRIVATE = "private";
     public static final String LISTAS = "List<";
     public static final String ARRAY = "[]";

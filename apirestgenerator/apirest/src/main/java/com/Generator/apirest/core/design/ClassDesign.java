@@ -18,6 +18,7 @@ public class ClassDesign implements ClassDesignInterface {
     private Boolean isClasInheritance;
     private Boolean isClasImplement;
     private String clasInheritance;
+    //TODO: CHANGE TO LIST OF INTERFACE
     private String clasImplement;
     private Boolean isInject;
     private TypeInject typeInject;
@@ -79,25 +80,33 @@ public class ClassDesign implements ClassDesignInterface {
         this.classType = classType;
     }
 
-    public Boolean getClasInheritance() {
+
+    public Boolean getClassIsInheritance() {
         return isClasInheritance;
     }
-
-    public void setClasInheritance(String clasInheritance) {
-        this.clasInheritance = clasInheritance;
-    }
-
-    public void setClasInheritance(Boolean clasInheritance) {
+    public void setClassIsInheritance(Boolean clasInheritance) {
         isClasInheritance = clasInheritance;
     }
-
-    public Boolean getClasImplement() {
-        return isClasImplement;
+    public void setClassInheritance(String clasInheritance) {
+        this.clasInheritance = clasInheritance;
+    }
+    public String getClassInheritance() {
+        return clasInheritance;
     }
 
+    public String getClasImplement() {
+        return clasImplement;
+    }
     public void setClasImplement(String clasImplement) {
         this.clasImplement = clasImplement;
     }
+    public Boolean getClassIsImplement() {
+        return isClasImplement;
+    }
+    public void setClassIsImplement(Boolean clasImplement) {
+        isClasImplement = clasImplement;
+    }
+
 
     public Boolean getInject() {
         return isInject;
@@ -139,9 +148,6 @@ public class ClassDesign implements ClassDesignInterface {
         this.classParameterClassMethods = classParameterClassMethods;
     }
 
-    public void setClasImplement(Boolean clasImplement) {
-        isClasImplement = clasImplement;
-    }
 
     public String getContent() {
         return content;
@@ -182,13 +188,13 @@ public class ClassDesign implements ClassDesignInterface {
 
         public Builder classType(ClassType classType);
 
-        public Builder clasInheritance(String clasInheritance);
+        public Builder classInheritance(String clasInheritance);
 
-        public Builder isClasInheritance(Boolean clasInheritance);
+        public Builder isClassIsInheritance(Boolean clasInheritance);
 
-        public Builder isClasImplement(String clasImplement);
+        public Builder classImplement(String clasImplement);
 
-        public Builder isClasImplement(Boolean clasImplement);
+        public Builder isClassIsImplement(Boolean clasImplement);
 
         public Builder inject(Boolean inject);
 
@@ -251,20 +257,20 @@ public class ClassDesign implements ClassDesignInterface {
         }
 
         @Override
-        public Builder clasInheritance(String clasInheritance) {
+        public Builder classInheritance(String clasInheritance) {
             this.clasInheritance = clasInheritance;
             return this;
         }
 
         @Override
-        public Builder isClasInheritance(Boolean clasInheritance) {
+        public Builder isClassIsInheritance(Boolean clasInheritance) {
             this.isClasInheritance = clasInheritance;
             return this;
         }
 
 
         @Override
-        public Builder isClasImplement(String clasImplement) {
+        public Builder classImplement(String clasImplement) {
             this.clasImplement = clasImplement;
             return this;
         }
@@ -313,7 +319,7 @@ public class ClassDesign implements ClassDesignInterface {
 
 
         @Override
-        public Builder isClasImplement(Boolean isclasImplement) {
+        public Builder isClassIsImplement(Boolean isclasImplement) {
             this.isClasImplement = isclasImplement;
             return this;
         }
@@ -335,13 +341,13 @@ public class ClassDesign implements ClassDesignInterface {
                 classDesign.setClassType(this.classType);
 
             if (null != this.isClasInheritance)
-                classDesign.setClasInheritance(this.isClasInheritance);
+                classDesign.setClassIsInheritance(this.isClasInheritance);
 
             if (null != this.isClasImplement)
-                classDesign.setClasImplement(this.isClasImplement);
+                classDesign.setClassIsImplement(this.isClasImplement);
 
             if (null != this.clasInheritance)
-                classDesign.setClasInheritance(this.clasInheritance);
+                classDesign.setClassInheritance(this.clasInheritance);
 
             if (null != this.clasImplement)
                 classDesign.setClasImplement(this.clasImplement);
