@@ -275,6 +275,8 @@ public class CreateServices implements IImportModel {
 				.className(nameOfClass)
 				.classType(ClassType.INTERFACE)
 				.content(new FormatText().reformat(sb2.toString()))
+				.isClassIsImplement(false)
+				.isClassIsInheritance(false)
 				.build();
 
 

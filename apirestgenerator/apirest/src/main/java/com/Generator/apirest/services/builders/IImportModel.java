@@ -5,7 +5,16 @@ import java.util.List;
 public interface IImportModel extends IBaseModel {
 
 	default public String importPahtBuild( String packagePaht, String objectClassPackage,  String objectClass ){
-		return stringEnsamble(List.of(IMPORT_CONST,SPACE,packagePaht,DOT,objectClassPackage,DOT,objectClass,SEMICOLON,BREAK_LINE ));
+		return stringEnsamble(
+				List.of(
+						IMPORT_CONST,
+						SPACE,
+						packagePaht,
+						DOT,
+						objectClassPackage,
+						DOT,
+						objectClass,
+						SEMICOLON,BREAK_LINE ));
 	}
 
 	default public String importAutowiredAnnotation() {

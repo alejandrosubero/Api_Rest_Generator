@@ -60,6 +60,19 @@ public interface DesingCommunInterface extends IImportModel {
         return stringColumm.toString();
     }
 
+    default public String structureStringListinColummAnotation(List<String> parameters) {
+        StringBuilder stringColumm = new StringBuilder(BREAK_LINE);
+        if (parameters != null && parameters.size() > 0) {
+            for (int i = 0; i < parameters.size(); i++ ){
+                stringColumm.append(stringEnsamble(List.of(parameters.get(i))));
+                if(i < parameters.size()){
+                    stringColumm.append(BREAK_LINE);
+                }
+            }
+        }
+        return stringColumm.toString();
+    }
+
     default public String buildLoggerInfo(String text) {
         return stringEnsamble(List.of(DOUBLETAB, "logger.info(\"", text, "\");"));
     }

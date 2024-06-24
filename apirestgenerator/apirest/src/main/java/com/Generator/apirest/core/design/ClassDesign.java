@@ -18,7 +18,7 @@ public class ClassDesign implements ClassDesignInterface {
     private Boolean isClasInheritance;
     private Boolean isClasImplement;
     private String clasInheritance;
-    //TODO: CHANGE TO LIST OF INTERFACE
+    // TODO: CHANGE TO LIST OF INTERFACE
     private String clasImplement;
     private Boolean isInject;
     private TypeInject typeInject;
@@ -174,6 +174,7 @@ public class ClassDesign implements ClassDesignInterface {
         StringBuilder buildClassDesign = new StringBuilder();
         buildClassDesign.append(this.packagePahtBuild(this.packagePaht, this.packageName));
         buildClassDesign.append(this.structureStringListinColumm(this.imports));
+        buildClassDesign.append(this.structureStringListinColummAnotation(this.annotation));
         buildClassDesign.append(classSignatuerAndContent(this));
         return buildClassDesign.toString();
     }

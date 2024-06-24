@@ -11,6 +11,7 @@ public class ParameterClassMethod {
     private String atributoName;
     private List<String> annotation = new ArrayList<>();
     private Modifier modifier;
+    private String parameterSignatuer;
 
 //TODO: COLOCAR UN NUEVO PARAMETRO  =  private Modifier modifier;
 
@@ -27,6 +28,14 @@ public class ParameterClassMethod {
         this.atributoName = atributoName;
         this.annotation = annotation;
         this.modifier = modifier;
+    }
+
+    public ParameterClassMethod(String atributoClass, String atributoName, List<String> annotation, Modifier modifier, String parameterSignatuer) {
+        this.atributoClass = atributoClass;
+        this.atributoName = atributoName;
+        this.annotation = annotation;
+        this.modifier = modifier;
+        this.parameterSignatuer = parameterSignatuer;
     }
 
     public String getAtributoClass() {
@@ -61,17 +70,25 @@ public class ParameterClassMethod {
         this.modifier = modifier;
     }
 
+    public String getParameterSignatuer() {
+        return parameterSignatuer;
+    }
+
+    public void setParameterSignatuer(String parameterSignatuer) {
+        this.parameterSignatuer = parameterSignatuer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ParameterClassMethod)) return false;
         ParameterClassMethod that = (ParameterClassMethod) o;
-        return Objects.equals(atributoClass, that.atributoClass) && Objects.equals(atributoName, that.atributoName) && Objects.equals(annotation, that.annotation) && modifier == that.modifier;
+        return Objects.equals(atributoClass, that.atributoClass) && Objects.equals(atributoName, that.atributoName) && Objects.equals(annotation, that.annotation) && modifier == that.modifier && Objects.equals(parameterSignatuer, that.parameterSignatuer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(atributoClass, atributoName, annotation, modifier);
+        return Objects.hash(atributoClass, atributoName, annotation, modifier, parameterSignatuer);
     }
 
     @Override
@@ -80,29 +97,35 @@ public class ParameterClassMethod {
         StringBuilder parameter = new StringBuilder();
         StringBuilder internal = new StringBuilder(IConstantModel.BREAK_LINE);
 
-        if (this.modifier != null) {
-            internal.append(this.modifier.toString().toLowerCase());
-            internal.append(IConstantModel.BREAK_LINE);
-        }
-
-        if (this.annotation.size() > 0) {
+        if (this.annotation !=null && this.annotation.size() > 0) {
             for (String anntationParameter : this.annotation) {
                 internal.append(anntationParameter);
-//                internal.append("\r\n");
                 internal.append(IConstantModel.BREAK_LINE);
             }
         }
-        parameter.append(internal.toString());
-        parameter.append(atributoClass);
-        parameter.append(IConstantModel.TAB);
-        parameter.append(atributoName);
-//        parameter.append("\t");
 
+        if (this.modifier != null) {
+            internal.append(this.modifier.toString().toLowerCase());
+            internal.append(IConstantModel.SPACE);
+        }
+
+        if(atributoClass != null && atributoName != null){
+            parameter.append(internal.toString());
+            parameter.append(atributoClass);
+            parameter.append(IConstantModel.SPACE);
+            parameter.append(atributoName);
+        }
+
+////        parameter.append("\t");
         if (this.annotation != null && this.annotation.size() > 0) {
             parameter.append(IConstantModel.SEMICOLON);
             parameter.append(IConstantModel.BREAK_LINE);
-//            parameter.append(";");
         }
+
+        if(parameterSignatuer != null && atributoClass == null && atributoName == null){
+            parameter.append(parameterSignatuer);
+        }
+
         return parameter.toString();
     }
 
@@ -119,7 +142,10 @@ public class ParameterClassMethod {
 
         public Builder modifier(Modifier modifier);
 
+        public Builder parameterSignatuer(String parameterSignatuer);
+
         public ParameterClassMethod build();
+
     }
 
     public static class Builder implements ParameterBuilder {
@@ -127,6 +153,7 @@ public class ParameterClassMethod {
         private String atributoName;
         private List<String> annotation = new ArrayList<>();
         private Modifier modifier;
+        private String parameterSignatuer;
 
         @Override
         public Builder atributoClass(String atributoClass) {
@@ -153,6 +180,12 @@ public class ParameterClassMethod {
         }
 
         @Override
+        public Builder parameterSignatuer(String parameterSignatuer) {
+            this.parameterSignatuer = parameterSignatuer;
+            return this;
+        }
+
+        @Override
         public ParameterClassMethod build() {
             ParameterClassMethod parameterClassMethod = new ParameterClassMethod();
 
@@ -169,6 +202,11 @@ public class ParameterClassMethod {
             if (this.modifier != null) {
                 parameterClassMethod.setModifier(this.modifier);
             }
+
+            if(this.parameterSignatuer !=null){
+                parameterClassMethod.setParameterSignatuer(this.parameterSignatuer);
+            }
+
             return parameterClassMethod;
         }
     }

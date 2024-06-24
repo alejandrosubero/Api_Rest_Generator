@@ -58,39 +58,32 @@ public class ServicesImplimet implements IImportModel {
         StringBuilder sbh = new StringBuilder(BREAK_LINE);
         StringBuilder main = new StringBuilder(BREAK_LINE);
 
+
         String nameOfClass = entidad.getNombreClase() + "ServiceImplement";
         String repositorieName = entidad.getNombreClase() + "Repository";
         String repositorieNameOjecte = repositorieName.toLowerCase();
         String serviceName = entidad.getNombreClase() + "Service";
         returnObjectClass = archivo.getCapaPojo().getCreateCapaPojoForEntitys() ? stringEnsamble(List.of(entidad.getNombreClase(), archivo.getCapaPojo().getModelM())) : entidad.getNombreClase();
         returnObjectClassPackage = archivo.getCapaPojo().getCreateCapaPojoForEntitys() ? archivo.getCapaPojo().getModelT() : "entitys";
+
         mapperServiceNombreClase = stringEnsamble(List.of(entidad.getNombreClase().toLowerCase(), "Mapper"));
-        mapperNombreClaseService = stringEnsamble(List.of(entidad.getNombreClase(), "Mapper", TAB));
+        mapperNombreClaseService =  stringEnsamble(List.of(entidad.getNombreClase(), "Mapper", TAB));
 
-        sbh.append(new AnotacionesJava(archivo).creatNotaClase().toString());
-        sbh.append(BREAK_LINE);
+
+
 //        sbh.append(this.createImport(archivo.getPackageNames(), serviceName, repositorieName, entidad));
-        sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
+//        sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
 
-        ParameterClassMethod classParametersMapper = null;
-        if (archivo.getCapaPojo().getCreateCapaPojoForEntitys()) {
-            sbh.append(this.createAutowiredMapper(entidad));
-             classParametersMapper = ParameterClassMethod.builder()
-                    .atributoClass(mapperServiceNombreClase)
-                    .atributoName(mapperNombreClaseService)
-                    .annotations(List.of("@Autowired"))
-                     .modifier(Modifier.Private)
-                    .build();
 
-        }
+//        if (archivo.getCapaPojo().getCreateCapaPojoForEntitys()) {
+//            sbh.append(this.createAutowiredMapper(entidad));
+//        }
 
         if (archivo.getMethodManager().isMethodFindByOrLoop()) {
             sbh.append(this.crearMetodoloop(entidad, repositorieNameOjecte));
         }
 
         sbh.append(this.metods(archivo, entidad, repositorieNameOjecte, entidad.getNombreClase()));
-        sbh.append(AnotacionesJava.apacheSoftwareLicensed() + BREAK_LINE);
-
 
 
         List<String> importList = new ArrayList<>();
@@ -101,32 +94,63 @@ public class ServicesImplimet implements IImportModel {
         importList.add(this.importPahtBuild(archivo.getPackageNames(),returnObjectClassPackage,returnObjectClass));
 
         if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
-            importList.add(this.importPahtBuild(archivo.getPackageNames(),"mapper",mapperNombreClaseService));
+            importList.add(
+                    this.importPahtBuild(archivo.getPackageNames(), "mapper", stringEnsamble(List.of(entidad.getNombreClase(), "Mapper", SPACE))));
         }
 
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
-            importList.add(this.importPahtBuild(archivo.getPackageNames(),this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+            importList.add(
+                    this.importPahtBuild(archivo.getPackageNames(), this.layerPojo.getModelT().trim(),
+                            stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))
+                    ));
+            importList.add(this.importPahtBuild(archivo.getPackageNames(),entidad.getPaquete(),relacion.getNameClassRelacion()));
         }
 
+        importList.add(BREAK_LINE);
+        importList.add(new AnotacionesJava(archivo).creatNotaClase().toString());
+        importList.add(BREAK_LINE);
+
+
+        ParameterClassMethod classParameterLogger = ParameterClassMethod.builder()
+                .parameterSignatuer("protected static final Log logger = LogFactory.getLog(" + nameOfClass + ".class);")
+                .build();
+
+
+        ParameterClassMethod classParametersMapper = ParameterClassMethod.builder()
+                .annotations(List.of("@Autowired"))
+                .modifier(Modifier.Private)
+                .atributoClass(stringEnsamble(List.of(entidad.getNombreClase(), "Mapper", SPACE)))
+                .atributoName(stringEnsamble(List.of(entidad.getNombreClase().toLowerCase(), "Mapper")))
+                .build();
+
+
         ParameterClassMethod classParametersRepositories = ParameterClassMethod.builder()
+                .annotations(List.of("@Autowired"))
+                .modifier(Modifier.Private)
                 .atributoClass(repositorieName)
                 .atributoName(repositorieNameOjecte)
-                .annotations(List.of("@Autowired"))
                 .build();
 
         ClassDesign classTemplate = ClassDesign.builder()
                 .packagePaht(archivo.getPackageNames())
                 .packageName("serviceImplement")
                 .imports(importList)
+                .annotation(List.of("@Service"))
                 .modifier(Modifier.Public)
                 .className(nameOfClass)
                 .classType(ClassType.CLASS)
-                .content(new FormatText().reformat(sbh.toString()))
                 .isClassIsImplement(true)
+                .isClassIsInheritance(false)
                 .classImplement(serviceName)
-                .classParameterClassMethods(List.of(classParametersRepositories,classParametersMapper))
+                .content(new FormatText().reformatMethod(
+                        sbh.toString()
+                ))
+                .classParameterClassMethods(List.of(classParametersRepositories,classParametersMapper,classParameterLogger))
                 .build();
+
         main.append(classTemplate.toString());
+        main.append(DOUBLEBREAK_LINE);
+        main.append(AnotacionesJava.apacheSoftwareLicensed() + BREAK_LINE);
 
         this.createFileClass(nameOfClass, "serviceImplement", main, creadors, archivo.getProyectoName());
     }
@@ -134,7 +158,7 @@ public class ServicesImplimet implements IImportModel {
 
     private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb, Creador creador, String proyectoName) throws InterruptedException {
         String barra = java.nio.file.FileSystems.getDefault().getSeparator();
-        sb.append(stringEnsamble(List.of("}", BREAK_LINE)));
+//        sb.append(stringEnsamble(List.of("}", BREAK_LINE)));
         String singleString = sb.toString();
         String direction = stringEnsamble(List.of(creador.getDireccionDeCarpeta(), proyectoName, barra
                 , "src", barra, "main", barra, "java", barra, creador.getCom()
@@ -146,43 +170,40 @@ public class ServicesImplimet implements IImportModel {
 
 
     private StringBuilder metods(ArchivoBaseDatosPojo archivo, EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-
-        StringBuilder sb = new StringBuilder(DOUBLEBREAK_LINE);
+        List<StringBuilder> metodosStringBuilder = new ArrayList<>();
+        StringBuilder sb = new StringBuilder(BREAK_LINE);
 
         if (archivo.getMethodManager().isMethodgetAll())
-            sb.append(metodgetAll(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(metodgetAll(entidad, repositorieNameOjecte, entidadNombre));
 
         if (archivo.getMethodManager().isMetohdSave())
-            sb.append(this.metodSave(entidad, repositorieNameOjecte, entidadNombre));
+            metodosStringBuilder.add(this.metodSave(entidad, repositorieNameOjecte, entidadNombre));
 
-        sb.append(BREAK_LINE);
         if (archivo.getMethodManager().isMethodDelete())
-            sb.append(this.metodDelete(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.metodDelete(entidad, repositorieNameOjecte, entidadNombre));
+
 
         if (archivo.getMethodManager().isMethodUpdate())
-		sb.append(this.metodUpdate(entidad, repositorieNameOjecte, entidadNombre));
-            sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.metodUpdate(entidad, repositorieNameOjecte, entidadNombre));
+
 
         if (archivo.getMethodManager().isMethodfindById())
-            sb.append(this.metodfindById(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.metodfindById(entidad, repositorieNameOjecte, entidadNombre));
+
 
         if (archivo.getMethodManager().isMethodsaveOrUpdate())
-            sb.append(this.metodsaveOrUpdate(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.metodsaveOrUpdate(entidad, repositorieNameOjecte, entidadNombre));
 
         if (archivo.getMethodManager().isMethodContaining())
-            sb.append(this.metodContaining(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.metodContaining(entidad, repositorieNameOjecte, entidadNombre));
 
         if (archivo.getMethodManager().isMethodContainingRelacion())
-            sb.append(this.ContainingRelacion(entidad, repositorieNameOjecte, entidadNombre));
-        sb.append(BREAK_LINE);
+            metodosStringBuilder.add(this.ContainingRelacion(entidad, repositorieNameOjecte, entidadNombre));
 
         if (archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional())
-            sb.append(this.ContainingRelacionNoBiDirectional(entidad, repositorieNameOjecte, entidadNombre, archivo.getCapaPojo()));
+            metodosStringBuilder.add(this.ContainingRelacionNoBiDirectional(entidad, repositorieNameOjecte, entidadNombre, archivo.getCapaPojo()));
+
+        metodosStringBuilder.forEach(metodo-> sb.append(metodo.toString()));
         sb.append(BREAK_LINE);
         return sb;
     }
@@ -202,12 +223,12 @@ public class ServicesImplimet implements IImportModel {
 
     private String metodTrycath(String operacion, String operacionElse) {
         StringBuilder sb2 = new StringBuilder("\r\n");
-        sb2.append("				try {" + "\r\n");
+        sb2.append("try {" + "\r\n");
         sb2.append(operacion);
-        sb2.append("				} catch (DataAccessException e) {" + "\r\n");
-        sb2.append("				logger.error(\" ERROR : \" + e);" + "\r\n");
+        sb2.append("} catch (DataAccessException e) {" + "\r\n");
+        sb2.append("logger.error(\" ERROR : \" + e);" + "\r\n");
         sb2.append(operacionElse);
-        sb2.append("				}\r\n");
+        sb2.append("}\r\n");
         return sb2.toString();
     }
 
@@ -256,19 +277,8 @@ public class ServicesImplimet implements IImportModel {
             importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
         }
 
-        //        sb.append("import java.util.Optional;" + "\r\n");
-//        sb.append("import java.util.ArrayList;" + "\r\n");
-//        sb.append("import java.util.List;" + "\r\n");
-//        sb.append("import java.util.Date;" + "\r\n");
-//        sb.append("import org.apache.commons.logging.Log;" + "\r\n");
-//        sb.append("import org.apache.commons.logging.LogFactory;" + "\r\n");
-//        sb.append("import org.springframework.beans.factory.annotation.Autowired;" + "\r\n");
-//        sb.append("import org.springframework.dao.DataAccessException;" + "\r\n");
-//        sb.append("import org.springframework.stereotype.Service;" + "\r\n");
-
         return sb;
     }
-
 
     private StringBuilder createAutowiredMapper(EntityPojo entidad) {
         StringBuilder sb1 = new StringBuilder(BREAK_LINE);
@@ -329,7 +339,6 @@ public class ServicesImplimet implements IImportModel {
                         .parameter(List.of(ParameterClassMethod.builder()
                                 .atributoClass(atributos.getTipoDato()).atributoName(atributos.getAtributoName()).build()))
                         .curlyBraces(true).methodBody(bodyMethod.toString()).build().toString());
-
                 cont += 1;
             }
         }
@@ -341,17 +350,17 @@ public class ServicesImplimet implements IImportModel {
 
         StringBuilder ty = new StringBuilder(DOUBLEBREAK_LINE);
         String getNombreClase = entidad.getNombreClase();
-        ty.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-        ty.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
+        ty.append(stringEnsamble(List.of( "@Override", BREAK_LINE)));
+        ty.append(stringEnsamble(List.of( "public List<")));
         ty.append(stringEnsamble(List.of(returnObjectClass)));
         ty.append(stringEnsamble(List.of("> getAll", getNombreClase, "(){")));
         ty.append(BREAK_LINE);
         ty.append(stringEnsamble(List.of("		logger.info(\"execute", "> getAll", getNombreClase, "Get allProyect\");", BREAK_LINE)));
-        ty.append(stringEnsamble(List.of(DOUBLETAB, TAB, "List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
-        ty.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, repositorieNameOjecte, ".findAll().forEach(", getNombreClase.toLowerCase(), " -> lista", getNombreClase)));
+        ty.append(stringEnsamble(List.of( "List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
+        ty.append(stringEnsamble(List.of(  repositorieNameOjecte, ".findAll().forEach(", getNombreClase.toLowerCase(), " -> lista", getNombreClase)));
         ty.append(stringEnsamble(List.of(".add(", mapperServiceNombreClase, ".entityToPojo", "(", getNombreClase.toLowerCase(), ")));", BREAK_LINE)));
-        ty.append(stringEnsamble(List.of(DOUBLETAB, TAB, "return lista" + getNombreClase, ";", BREAK_LINE)));
-        ty.append(stringEnsamble(List.of(TAB, "}", BREAK_LINE)));
+        ty.append(stringEnsamble(List.of( "return lista" + getNombreClase, ";", BREAK_LINE)));
+        ty.append(stringEnsamble(List.of( "}", BREAK_LINE)));
         return ty;
     }
 
@@ -359,14 +368,14 @@ public class ServicesImplimet implements IImportModel {
     private StringBuilder metodSave(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
 
         StringBuilder sbg = new StringBuilder("\r\n");
-        sbg.append("		@Override" + "\r\n");
-        sbg.append("		public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + "){" + "\r\n");
-        sbg.append("		logger.info(\"Save Proyect\");" + "\r\n");
+        sbg.append("@Override" + "\r\n");
+        sbg.append("public boolean save" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + "){" + "\r\n");
+        sbg.append("logger.info(\"Save Proyect\");" + "\r\n");
         sbg.append("\r\n");
-        String operacion = "				" + repositorieNameOjecte + ".save(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n" + "				return true;\r\n";
-        String operacionElse = "				return false;\r\n";
+        String operacion = "" + repositorieNameOjecte + ".save(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n" + "				return true;\r\n";
+        String operacionElse = "return false;\r\n";
         sbg.append(this.metodTrycath(operacion, operacionElse));
-        sbg.append("		}\r\n");
+        sbg.append("}\r\n");
         return sbg;
     }
 
@@ -374,15 +383,13 @@ public class ServicesImplimet implements IImportModel {
     private StringBuilder metodDelete(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
         StringBuilder sbt = new StringBuilder("\r\n");
         if (entidad.getDelete()) {
-            sbt.append("		@Override" + "\r\n");
-            sbt.append("		public boolean delete" + entidad.getNombreClase() + "( " + this.idTipoDato(entidad) + " id){" + "\r\n");
-
-
-            sbt.append("		logger.info(\"Delete Proyect\");" + "\r\n");
-            sbt.append("		boolean clave = false;\r\n");
+            sbt.append("@Override" + "\r\n");
+            sbt.append("public boolean delete" + entidad.getNombreClase() + "( " + this.idTipoDato(entidad) + " id){" + "\r\n");
+            sbt.append("logger.info(\"Delete Proyect\");" + "\r\n");
+            sbt.append("boolean clave = false;\r\n");
             sbt.append("\r\n");
-            String operacionA = "				" + repositorieNameOjecte + ".deleteById(id);" + "\r\n" + "				clave = true;\r\n";
-            String operacionElseA = "				clave = false;\r\n";
+            String operacionA = "" + repositorieNameOjecte + ".deleteById(id);" + "\r\n" + "				clave = true;\r\n";
+            String operacionElseA = "clave = false;\r\n";
             sbt.append(this.metodTrycath(operacionA, operacionElseA));
             sbt.append("		return clave;\r\n");
 
@@ -395,33 +402,34 @@ public class ServicesImplimet implements IImportModel {
     private StringBuilder metodUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
         StringBuilder sf = new StringBuilder(BREAK_LINE);
         sf.append(BREAK_LINE);
-        sf.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, "public boolean update", entidad.getNombreClase(), "(" + entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase(), " ){", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, TAB, "logger.info(\"Update ENTITY\");", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, TAB, "boolean clave = false;", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("@Override", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("public boolean update", entidad.getNombreClase(), "(" + entidad.getNombreClase(), TAB, entidad.getNombreClase().toLowerCase(), " ){", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of( "logger.info(\"Update ENTITY\");", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("boolean clave = false;", BREAK_LINE)));
 
         String atributoName = atributoName(entidad.getAtributos());
 
-        sf.append(stringEnsamble(List.of(DOUBLETAB, entidad.getNombreClase(), " empre = ", repositorieNameOjecte)));
+        sf.append(stringEnsamble(List.of( entidad.getNombreClase(), " empre = ", repositorieNameOjecte)));
         sf.append(stringEnsamble(List.of(".findById(", entidad.getNombreClase().toLowerCase(), ".get", atributoName,"()",").get();", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, TAB, "empre = ", entidad.getNombreClase().toLowerCase(), ";", BREAK_LINE)));
-        String operacionc = stringEnsamble(List.of(DOUBLETAB, TAB, repositorieNameOjecte, ".save(empre);", BREAK_LINE, DOUBLETAB, DOUBLETAB, DOUBLETAB, "clave = true;", BREAK_LINE));
-        String operacionElsec = stringEnsamble(List.of(DOUBLETAB, TAB, "clave = false;", BREAK_LINE));
+        sf.append(stringEnsamble(List.of( "empre = ", entidad.getNombreClase().toLowerCase(), ";", BREAK_LINE)));
+        String operacionc = stringEnsamble(List.of( repositorieNameOjecte, ".save(empre);", BREAK_LINE, DOUBLETAB, DOUBLETAB, DOUBLETAB, "clave = true;", BREAK_LINE));
+        String operacionElsec = stringEnsamble(List.of("clave = false;", BREAK_LINE));
         sf.append(this.metodTrycath(operacionc, operacionElsec));
         sf.append(BREAK_LINE);
-        sf.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, TAB, "return clave;", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(TAB, "}" + BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("return clave;", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("}" + BREAK_LINE)));
+
         return sf;
     }
 
     private StringBuilder metodfindById(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
         StringBuilder sf = new StringBuilder(DOUBLEBREAK_LINE);
-        sf.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, "public", TAB)));
+        sf.append(stringEnsamble(List.of("@Override", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("public", TAB)));
         sf.append(stringEnsamble(List.of(returnObjectClass)));
         sf.append(stringEnsamble(List.of(" findById( ", this.idTipoDato(entidad), " id){", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "return  ", mapperServiceNombreClase, ".entityToPojo", "(", repositorieNameOjecte, ".findById(id).get());", BREAK_LINE)));
-        sf.append(stringEnsamble(List.of(DOUBLETAB, "}", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of( "return  ", mapperServiceNombreClase, ".entityToPojo", "(", repositorieNameOjecte, ".findById(id).get());", BREAK_LINE)));
+        sf.append(stringEnsamble(List.of("}", BREAK_LINE)));
         return sf;
     }
 
@@ -439,25 +447,25 @@ public class ServicesImplimet implements IImportModel {
     private StringBuilder metodsaveOrUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
         StringBuilder sf = new StringBuilder(DOUBLEBREAK_LINE);
 
-        sf.append("		@Override" + BREAK_LINE);
-        sf.append("		public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + "  " + entidad.getNombreClase().toLowerCase() + " ){" + "\r\n");
-        sf.append("			logger.info(\"Update Proyect\");" + "\r\n");
-        sf.append("			boolean clave = false;\r\n");
+        sf.append("@Override" + BREAK_LINE);
+        sf.append("public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + "  " + entidad.getNombreClase().toLowerCase() + " ){" + "\r\n");
+        sf.append("logger.info(\"Update Proyect\");" + "\r\n");
+        sf.append("boolean clave = false;\r\n");
         String numeraly = String.valueOf(2);
         String atributoName = atributoName(entidad.getAtributos());
 
         sf.append(stringEnsamble(List.of(TAB, "Optional<", entidad.getNombreClase(), "> fileOptional", numeraly, " = ", repositorieNameOjecte
                 , ".findById(", entidad.getNombreClase().toLowerCase(), ".get", atributoName, "());", BREAK_LINE)));
 
-        sf.append("			if (fileOptional" + numeraly + ".isPresent()) { " + "\r\n");
-        sf.append("				clave = this.update" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
-        sf.append("				logger.info(\" is update\");" + "\r\n");
-        sf.append("			} else {" + "\r\n");
-        sf.append("					clave = this.save" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
-        sf.append("					logger.info(\" is save\");" + "\r\n");
-        sf.append(" 				}\r\n");
-        sf.append(" 		return clave;\r\n");
-        sf.append("		}" + "\r\n");
+        sf.append("if (fileOptional" + numeraly + ".isPresent()) { " + "\r\n");
+        sf.append("clave = this.update" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+        sf.append("logger.info(\" is update\");" + "\r\n");
+        sf.append("} else {" + "\r\n");
+        sf.append("clave = this.save" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+        sf.append("logger.info(\" is save\");" + "\r\n");
+        sf.append("}\r\n");
+        sf.append("return clave;\r\n");
+        sf.append("}" + "\r\n");
         return sf;
     }
 
@@ -480,22 +488,22 @@ public class ServicesImplimet implements IImportModel {
         String getNombreClase = entidadNombre;
         String getNombre = entidad.getNombreClase().toLowerCase();
         logger.info("  " + entidad.getNombreClase());
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
+        sbw.append(stringEnsamble(List.of("@Override", BREAK_LINE)));
+        sbw.append(stringEnsamble(List.of("public List<")));
         sbw.append(stringEnsamble(List.of(returnObjectClass)));
         sbw.append(stringEnsamble(List.of("> findBy", relacion.getNameClassRelacion(), "Containing(", relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion(), "){", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "logger.info(\"EXECUTE ", relacion.getNameClassRelacion(), " Containing \");", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, TAB, "for (", returnObjectClass, TAB, getNombre, " : this.getAll", getNombreClase, "()) {", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "for (", relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion(), "x : ", getNombre, ".get", relacion.getNameRelacion(), "()) { ", BREAK_LINE)));
-        sbw.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "if(", getNombreClase, ".get", relacion.getNameRelacion(), "().contains(", relacion.getNameRelacion(), ".get", relacion.getNameRelacion(), "())) {	", BREAK_LINE)));
-        sbw.append("					lista" + getNombreClase + ".add(" + getNombre + "x);	" + "\r\n");
-        sbw.append("				}" + "\r\n");
-        sbw.append("	  	 	}" + "\r\n");
-        sbw.append("		}" + "\r\n");
-        sbw.append("					return lista" + getNombreClase + ";	" + "\r\n");
+        sbw.append(stringEnsamble(List.of("logger.info(\"EXECUTE ", relacion.getNameClassRelacion(), " Containing \");", BREAK_LINE)));
+        sbw.append(stringEnsamble(List.of("List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
+        sbw.append(stringEnsamble(List.of("for (", returnObjectClass, TAB, getNombre, " : this.getAll", getNombreClase, "()) {", BREAK_LINE)));
+        sbw.append(stringEnsamble(List.of( "for (", relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion(), "x : ", getNombre, ".get", relacion.getNameRelacion(), "()) { ", BREAK_LINE)));
+        sbw.append(stringEnsamble(List.of("if(", getNombreClase, ".get", relacion.getNameRelacion(), "().contains(", relacion.getNameRelacion(), ".get", relacion.getNameRelacion(), "())) {	", BREAK_LINE)));
+        sbw.append("lista" + getNombreClase + ".add(" + getNombre + "x);	" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("return lista" + getNombreClase + ";	" + "\r\n");
         sbw.append("\r\n");
-        sbw.append("	}" + "\r\n");
+        sbw.append("}" + "\r\n");
         return sbw;
     }
 
@@ -507,20 +515,20 @@ public class ServicesImplimet implements IImportModel {
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
                 sv.append(BREAK_LINE);
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
+                sv.append(stringEnsamble(List.of( "@Override", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "public List<")));
                 sv.append(stringEnsamble(List.of(returnObjectClass)));
                 sv.append(stringEnsamble(List.of("> findByRelacion", relacion.getNameClassRelacion(), "(" + relacion.getNameClassRelacion(), TAB, relacion.getNameClassRelacion().toLowerCase(), "){", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "logger.info(\" Execute ", relacion.getNameClassRelacion(), " findByRelacion\" );")));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "List<", returnObjectClass, "> lista", entidad.getNombreClase(), " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "for (" + returnObjectClass, TAB, entidad.getNombreClase().toLowerCase(), " : this.getAll", entidad.getNombreClase(), "()) {", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(TAB, "if(", entidad.getNombreClase().toLowerCase(), ".get", relacion.getNameRelacion(), "().equals", "(", relacion.getNameClassRelacion().toLowerCase(), ")){", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "logger.info(\" Execute ", relacion.getNameClassRelacion(), " findByRelacion\" );",BREAK_LINE )));
+                sv.append(stringEnsamble(List.of( "List<", returnObjectClass, "> lista", entidad.getNombreClase(), " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "for (" + returnObjectClass, TAB, entidad.getNombreClase().toLowerCase(), " : this.getAll", entidad.getNombreClase(), "()) {", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "if(", entidad.getNombreClase().toLowerCase(), ".get", relacion.getNameRelacion(), "().equals", "(", relacion.getNameClassRelacion().toLowerCase(), ")){", BREAK_LINE)));
 
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "						lista" + entidad.getNombreClase() + ".add(" + entidad.getNombreClase().toLowerCase() + ");", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "					}", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "				}", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "				return lista" + entidad.getNombreClase() + ";", BREAK_LINE)));
-                sv.append("			}\r\n");
+                sv.append(stringEnsamble(List.of( "lista" + entidad.getNombreClase() + ".add(" + entidad.getNombreClase().toLowerCase() + ");", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "}", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "}", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "return lista" + entidad.getNombreClase() + ";", BREAK_LINE)));
+                sv.append("}\r\n");
 
             }
 
@@ -529,22 +537,22 @@ public class ServicesImplimet implements IImportModel {
                 String getNombre = entidad.getNombreClase().toLowerCase();
 
                 sv.append(DOUBLEBREAK_LINE);
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
+                sv.append(stringEnsamble(List.of("@Override", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "public List<")));
                 sv.append(stringEnsamble(List.of(returnObjectClass)));
                 sv.append(stringEnsamble(List.of("> findBy", relacion.getNameClassRelacion(), "Containing(", relacion.getNameClassRelacion(), TAB, relacion.getNameRelacion(), "){", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "logger.info(\" Execute ", relacion.getNameClassRelacion(), " Containing \");")));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "for (", returnObjectClass, TAB, getNombre, " : this.getAll", getNombreClase, "()) {", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "for (", relacion.getNameClassRelacion(), layerPojo.getModelM(), TAB, relacion.getNameRelacion(), "x : ")));
+                sv.append(stringEnsamble(List.of( "logger.info(\" Execute ", relacion.getNameClassRelacion(), " Containing \");",BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "List<", returnObjectClass, "> lista", getNombreClase, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of("for (", returnObjectClass, TAB, getNombre, " : this.getAll", getNombreClase, "()) {", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of("for (", relacion.getNameClassRelacion(), layerPojo.getModelM(), TAB, relacion.getNameRelacion(), "x : ")));
                 sv.append(stringEnsamble(List.of(getNombre, ".get", relacion.getNameRelacion(), "()) { ", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, DOUBLETAB, "if(", relacion.getNameRelacion(), "x.equals", "(", relacion.getNameRelacion(), ")) {", BREAK_LINE)));
-                sv.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, DOUBLETAB, "lista", getNombreClase, ".add(", getNombre, ");	", BREAK_LINE)));
-                sv.append("				}\r\n");
-                sv.append("	  	 	}\r\n");
-                sv.append("		}\r\n");
-                sv.append(stringEnsamble(List.of(DOUBLETAB, "return lista", getNombreClase, ";	", DOUBLEBREAK_LINE)));
-                sv.append("	}\r\n");
+                sv.append(stringEnsamble(List.of( "if(", relacion.getNameRelacion(), "x.equals", "(", relacion.getNameRelacion(), ")) {", BREAK_LINE)));
+                sv.append(stringEnsamble(List.of( "lista", getNombreClase, ".add(", getNombre, ");	", BREAK_LINE)));
+                sv.append("}\r\n");
+                sv.append("}\r\n");
+                sv.append("}\r\n");
+                sv.append(stringEnsamble(List.of( "return lista", getNombreClase, ";	", DOUBLEBREAK_LINE)));
+                sv.append("}\r\n");
             }
         }
         return sv;
@@ -558,18 +566,18 @@ public class ServicesImplimet implements IImportModel {
 
             if (!atributo.getsId()) {
                 sbx.append(DOUBLEBREAK_LINE);
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "@Override", BREAK_LINE)));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "public List<")));
+                sbx.append(stringEnsamble(List.of("@Override", BREAK_LINE)));
+                sbx.append(stringEnsamble(List.of("public List<")));
                 sbx.append(stringEnsamble(List.of(returnObjectClass)));
                 sbx.append(stringEnsamble(List.of("> findBy", atributoName, "Containing(", atributo.getTipoDato(), TAB, atributoName.toLowerCase(), "){", BREAK_LINE)));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "logger.info(\"Execute ", atributoName, " Containing\" );")));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "List<", returnObjectClass, "> lista", entidadNombre, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "List<", entidad.getNombreClase(), "> listaS", entidadNombre, " = ")));
+                sbx.append(stringEnsamble(List.of("logger.info(\"Execute ", atributoName, " Containing\" );", BREAK_LINE)));
+                sbx.append(stringEnsamble(List.of("List<", returnObjectClass, "> lista", entidadNombre, " = new ArrayList<", returnObjectClass, ">();", BREAK_LINE)));
+                sbx.append(stringEnsamble(List.of( "List<", entidad.getNombreClase(), "> listaS", entidadNombre, " = ")));
                 sbx.append(stringEnsamble(List.of(repositorieNameOjecte, ".findBy", atributoName, "Containing(", atributoName.toLowerCase(), ");", BREAK_LINE)));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, "listaS" + entidadNombre + ".forEach(", entidadNombre.toLowerCase(), "x", " -> lista", entidadNombre)));
+                sbx.append(stringEnsamble(List.of( "listaS" + entidadNombre + ".forEach(", entidadNombre.toLowerCase(), "x", " -> lista", entidadNombre)));
                 sbx.append(stringEnsamble(List.of(".add(", mapperServiceNombreClase, ".entityToPojo", "(", entidadNombre.toLowerCase(), "x", ")));", BREAK_LINE)));
-                sbx.append(stringEnsamble(List.of(DOUBLETAB, DOUBLETAB, "return lista", entidadNombre, ";", BREAK_LINE)));
-                sbx.append("		}\r\n");
+                sbx.append(stringEnsamble(List.of("return lista", entidadNombre, ";", BREAK_LINE)));
+                sbx.append("}\r\n");
             }
         }
         return sbx;

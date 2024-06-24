@@ -1,6 +1,7 @@
 package com.Generator.apirest.core.design;
 
 import com.Generator.apirest.core.build.ClassModifier;
+import com.Generator.apirest.core.build.FormatText;
 import com.Generator.apirest.core.build.Modifier;
 import com.Generator.apirest.core.build.ParameterClassMethod;
 import com.Generator.apirest.services.builders.IImportModel;
@@ -19,37 +20,36 @@ public interface ClassDesignInterface extends DesingCommunInterface {
         if (classDesign != null) {
             classTemplate = new StringBuilder();
 
-            classTemplate.append(stringEnsamble(List.of(
+            classTemplate.append( stringEnsamble(List.of(
                     classDesign.getModifier().toString().toLowerCase(), SPACE,
                     classDesign.getClassType().toString().toLowerCase(), SPACE,
                     classDesign.getClassName())));
 
             if (classDesign.getClassIsImplement()) {
-                classTemplate.append(stringEnsamble(
-                        List.of(TAB,
-                                ClassModifier.IMPLEMENTS.toString().toLowerCase(),
-                                TAB, classDesign.getClasImplement()
-                        )));
+                classTemplate.append( stringEnsamble(List.of(
+                        SPACE, ClassModifier.IMPLEMENTS.toString().toLowerCase(),
+                        SPACE, classDesign.getClasImplement())));
             }
 
             if (classDesign.getClassIsInheritance()) {
-                classTemplate.append(stringEnsamble(
-                        List.of(TAB,
-                                ClassModifier.EXTENDS.toString().toLowerCase(),
-                                TAB, classDesign.getClassInheritance()
-                        )));
+                classTemplate.append(stringEnsamble(List.of(
+                                SPACE, ClassModifier.EXTENDS.toString().toLowerCase(),
+                                SPACE, classDesign.getClassInheritance())));
             }
+
+            classTemplate.append(stringEnsamble(List.of(SPACE, BRACKET_OPEN, BREAK_LINE)));
 
             if(classDesign.getClassParameterClassMethods().size() > 0){
               for(ParameterClassMethod parameterClass :  classDesign.getClassParameterClassMethods()){
-                  classTemplate.append(parameterClass.toString());
+                  classTemplate.append( new FormatText().reformat(parameterClass.toString()));
               }
             }
 
-            classTemplate.append(stringEnsamble(List.of(TAB, BRACKET_OPEN, BREAK_LINE)));
+
             if (classDesign.getContent() != null) {
                 classTemplate.append(classDesign.getContent());
             }
+
             classTemplate.append(BREAK_LINE);
             classTemplate.append(stringEnsamble(List.of(BRACKET_CLOSE, BREAK_LINE)));
         }
