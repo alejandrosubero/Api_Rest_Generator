@@ -6,31 +6,45 @@ public interface IBaseModel extends IConstantModel {
 
 
 	default public String path(List<String> paths) {
-		String newPath="";
-		String  barra = java.nio.file.FileSystems.getDefault().getSeparator();
+//		String newPath="";
+//		String  pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
+		StringBuilder newPathBuilder = new StringBuilder();
+
 		for (int i = 0; paths.size() > i; i++) {
 				if(i != 0 && i+1 != paths.size() && paths.get(i) != " ") {
-					newPath += barra + paths.get(i);
+//					newPath += barra + paths.get(i);
+					newPathBuilder.append(stringEnsamble(List.of(pathSeparator, paths.get(i))));
 				}else if (paths.get(i) != " " && i+1 == paths.size()) {
-					newPath += barra + paths.get(i);
+//					newPath += pathSeparator + paths.get(i);
+					newPathBuilder.append(stringEnsamble(List.of(pathSeparator, paths.get(i))));
 				}else if (paths.get(i) != " ") {
-					newPath += paths.get(i);
+//					newPath += paths.get(i);
+					newPathBuilder.append(paths.get(i));
 				}
 			if (paths.get(i) == " ") {
-				newPath += barra;
+//				newPath += pathSeparator;
+				newPathBuilder.append(pathSeparator);
 			}	
 		}
-		return newPath;
+//		return newPath;
+		return newPathBuilder.toString();
 	}
 
 
 	default public String stringEnsamble(List<String> stringPaths) {
 		StringBuilder newString = new StringBuilder();
-		for (String part : stringPaths) {
-			newString.append(part);
-		}
-//		stringPaths.stream().forEach(path -> newString.append(path));
+		stringPaths.stream().forEach(path -> newString.append(path));
 		return newString.toString();
+	}
+
+
+	default public String capitalizeOrUncapitalisedFirstLetter(String str, Character action) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		String remainingCharsInString = str.substring(1);
+		return action.equals('u')?stringEnsamble(List.of(str.substring(0, 1).toUpperCase(),remainingCharsInString)):
+				stringEnsamble(List.of(str.substring(0, 1).toLowerCase(),remainingCharsInString));
 	}
 
 
@@ -48,18 +62,13 @@ public interface IBaseModel extends IConstantModel {
 		if (str == null || str.isEmpty()) {
 			return str;
 		}
-		char firstChar = str.charAt(0);
-		String remainingChars = str.substring(1);
-		StringBuilder builder = new StringBuilder(Character.toUpperCase(firstChar));
-		builder.append(remainingChars);
-		return Character.isUpperCase(firstChar) ? str : builder.toString();
+		String firstCharInString = str.substring(0, 1).toUpperCase();
+		String remainingCharsInString = str.substring(1);
+
+		return stringEnsamble(List.of(firstCharInString,remainingCharsInString));
 	}
 
-	default public String primeraLetraMayuscula(String cadena) {
-		String cadenaN = "";
-		char[] caracteres = cadena.toCharArray();
-		caracteres[0] = Character.toUpperCase(caracteres[0]);
-		for (char c : caracteres) { cadenaN = cadenaN + c; }
-		return cadenaN;
-	}
+
+
+
 }

@@ -2,13 +2,12 @@ package com.Generator.apirest.services.builders;
 
 public interface IConstantModel {
 
-    // public final String BREAK_LINE = "\r\n";
 
-    public final String BREAK_LINE = "\r\n";
+    public final static String BREAK_LINE = "\r\n";
     public static final String PRIVATE = "private";
     public static final String LISTAS = "List<";
     public static final String ARRAY = "[]";
-    public String barra = java.nio.file.FileSystems.getDefault().getSeparator();
+    public String pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
 
     public final String DOUBLEBREAK_LINE = "\r\n"+"\r\n";
     public final String TAB = "\t";
@@ -18,6 +17,28 @@ public interface IConstantModel {
     public static final String RETURN = "return";
     public static final String VOID = "void";
     public static final String AUTOWIRED = "@Autowired";
+    public static final String PARENTHESES_OPEN = "(";
+    public static final String PARENTHESES_CLOSE = ")";
+    public static final String PARENTHESES_OPEN_CLOSE = "()";
+    public static final String openAngleBrackets = "<";
+    public static final String closeAngleBrackets = ">";
+    public static final String SPACE = " ";
+    public static final String COMMA = ",";
+    public static final String SEMICOLON = ";";
+    public static final String BRACKET_OPEN = "{";
+    public static final String BRACKET_CLOSE = "}";
+    public static final String BRACKET_OPEN_CLOSE = "{}";
+    public static final String LINE_SPACE_REGEX = "(?m)^( {0,3})";
+    public static final String DOT = ".";
+    public static final String PACKAGE_CONST = "package";
+    public static final String IMPORT_CONST = "import";
+    public static final String TRY = "try";
+    public static final String CATCH = "catch";
+    public static final String EQUAL_ ="=";
+    public static final String NOT_NULL =" != null";
+    public static final String IF_STAMENT ="if";
+    public static final String ELSE_STAMENT="else";
+
 
     public final String GSON_IMPORT 										= "import com.google.gson.Gson;"+ BREAK_LINE;
 
@@ -40,6 +61,7 @@ public interface IConstantModel {
     public final String UTIL_ITERATOR 										= "import java.util.Iterator;" + BREAK_LINE;
     public final String UTIL_LOGGIN_LEVEL_IMPORT 							= "import java.util.logging.Level;"+ BREAK_LINE;
     public final String UTIL_LOGGIN_LOGGER_IMPORT 							= "import java.util.logging.Logger;"+ BREAK_LINE;
+
 
     public final String SPRING_ANNOTATION_IMPORT      						= "import org.springframework.web.bind.annotation.*;"+ BREAK_LINE;
     public final String SPRING_ANNOTATION_CrossOrigin_IMPORT  				= "import org.springframework.web.bind.annotation.CrossOrigin;" + BREAK_LINE;

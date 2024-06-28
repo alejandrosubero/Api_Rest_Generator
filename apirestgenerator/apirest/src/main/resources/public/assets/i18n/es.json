@@ -21,6 +21,7 @@
     "User":"Usuario",
     "UseDatabase" : "selecione Base de Datos",
     "DataBase":"Base de Datos",
+    "TypeDataModel":"Type Model DTO",
     "JavaVersion":"Java Versión",
     "sprintVersion":"sprint Boot Version",
     "context":"Contexto",

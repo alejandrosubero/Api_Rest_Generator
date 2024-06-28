@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 @Component
 public class Creador {
 
+
+    //TODO: CREAR LA INTERFACE QUE EXTEND FROM IBaseModel PARA EL MANEJO DE LOS PATH Y LAS CONSTANTES DE ESTA CLASE
     protected static final Log logger = LogFactory.getLog(Creador.class);
 
     private static final char DOT = '.';

@@ -91,7 +91,17 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-
+                       
+                        <!-- <div class="p-2 bd-highlight" *ngIf="this.createCapaPojoForEntitys">
+                            <mat-form-field>
+                                <mat-label>{{ 'TypeDataModel' | translate }}</mat-label>
+                                <mat-select formControlName="modelT">
+                                    <mat-option *ngFor="let base of modelTList" [value]="base">
+                                        {{ base }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
                         <!-- <div class="p-2 bd-highlight">
                             <section class="examsection">
                                 <mat-checkbox class="exammargin" formControlName="wihtSegurity"

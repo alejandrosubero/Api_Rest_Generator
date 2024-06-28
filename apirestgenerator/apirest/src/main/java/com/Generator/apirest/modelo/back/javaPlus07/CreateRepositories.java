@@ -1,4 +1,4 @@
-package com.Generator.apirest.modelo.back.java81114;
+package com.Generator.apirest.modelo.back.javaPlus07;
 
 import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.notas.AnotacionesJava;
@@ -102,12 +102,10 @@ public class CreateRepositories implements IImportModel {
             String atributoName = primeraLetra + restoDeLaCadena;
 
             if (!atributos.getsId()) {
-                sb1.append("		public Optional<" + entidad.getNombreClase() + "> findBy" + atributoName + "("
-                        + atributos.getTipoDato() + " " + atributos.getAtributoName() + ");");
+                sb1.append("		public Optional<" + entidad.getNombreClase() + "> findBy" + atributoName + "(" + atributos.getTipoDato() + " " + atributos.getAtributoName() + ");");
                 sb1.append("\r\n");
 
-                sb1.append("		public List<" + entidad.getNombreClase() + "> findBy" + atributoName + "Containing("
-                        + atributos.getTipoDato() + " " + atributos.getAtributoName() + ");");
+                sb1.append("		public List<" + entidad.getNombreClase() + "> findBy" + atributoName + "Containing(" + atributos.getTipoDato() + " " + atributos.getAtributoName() + ");");
                 sb1.append("\r\n");
             }
         }

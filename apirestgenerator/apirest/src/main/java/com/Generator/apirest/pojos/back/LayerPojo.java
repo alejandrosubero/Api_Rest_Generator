@@ -34,12 +34,15 @@ public class LayerPojo {
 	public Boolean getCreateCapaPojoForEntitys() {
 		return createCapaPojoForEntitys;
 	}
+
 	public void setCreateCapaPojoForEntitys(Boolean createCapaPojoForEntitys) {
 		this.createCapaPojoForEntitys = createCapaPojoForEntitys;
 	}
+
 	public Boolean getCreateCapaJavaBase7() {
 		return createCapaJavaBase7;
 	}
+
 	public void setCreateCapaJavaBase7(Boolean createCapaJavaBase7) {
 		this.createCapaJavaBase7 = createCapaJavaBase7;
 	}

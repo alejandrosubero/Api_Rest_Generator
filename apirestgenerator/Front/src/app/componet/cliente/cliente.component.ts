@@ -40,36 +40,36 @@ import { CapaPojo } from 'src/Model/capapojo.model';
 })
 export class ClienteComponent implements OnInit {
 
-  jsonArea = '';
+  public jsonArea = '';
   private _code: any;
-  save: SaveService = new SaveService();
-  ace: any;
-  isLinear = false;
-  isEntidad = true;
-  isAtributo = false;
-  isRelacion = false;
-  download = false;
-  useTools = false;
-  methoddefaultValue: boolean = true;
-  methodManager: MethodManager = new MethodManager();
+  public save: SaveService = new SaveService();
+  public ace: any;
+  public isLinear = false;
+  public isEntidad = true;
+  public isAtributo = false;
+  public isRelacion = false;
+  public download = false;
+  public useTools = false;
+  public methoddefaultValue: boolean = true;
+  public methodManager: MethodManager = new MethodManager();
 
-  firstFormGroup: FormGroup;
+  public firstFormGroup: FormGroup;
 
-  archivo: ArchivoBaseDatosPojo = new ArchivoBaseDatosPojo();
-  entidadesList: Array<Entidades> = new Array<Entidades>();
-  atributosList: Array<Atributo> = new Array<Atributo>();
-  relacionList: Array<Relacion> = new Array<Relacion>();
-  ListEntidadesFinal: Array<Entidades> = new Array<Entidades>();
+  public archivo: ArchivoBaseDatosPojo = new ArchivoBaseDatosPojo();
+  public entidadesList: Array<Entidades> = new Array<Entidades>();
+  public atributosList: Array<Atributo> = new Array<Atributo>();
+  public relacionList: Array<Relacion> = new Array<Relacion>();
+  public ListEntidadesFinal: Array<Entidades> = new Array<Entidades>();
 
-  dataBaselist: Database[] = [
+  public dataBaselist: Database[] = [
     { databaseName: 'oracle', tipoDatabase: 2 },
     { databaseName: 'Mysql', tipoDatabase: 1 },
     { databaseName: 'h2', tipoDatabase: 3 },
     { databaseName: 'SQL_Server', tipoDatabase: 4 }
   ];
 
+  public modelTList: Array<string> = ['Model', 'Pojo', 'DTO'];
   public sprintVersion: Array<string> = [];
-
   public sprintVersionCapaPojo: Array<string> = [
     '2.2.6.RELEASE', '2.3.11.RELEASE', '2.3.12.BUILD-SNAPSHOT',
     '2.4.6', '2.4.7-SNAPSHOT', '2.5.0', '2.5.1-SNAPSHOT'
@@ -79,47 +79,46 @@ export class ClienteComponent implements OnInit {
     '1.5.22.RELEASE'
   ];
 
-  javaversionListCapaPojo: number[] = [1.8, 11, 14];
-  javaversionListCapa07: number[] = [1.7];
-  javaversionlist: number[] = [];
+  public javaversionListCapaPojo: number[] = [1.8, 11, 14];
+  public javaversionListCapa07: number[] = [1.7];
+  public javaversionlist: number[] = [];
 
-  dataBaseUse = true;
-  createCapaPojoForEntitys = true;
-  createCapaJavaBase7 = false;
-  wihtSegurityVal = false;
-  nativeMysqlVal = false;
-  databaseTestVal = true;
-  packageNamesVal = 'com.';
-  contexVa = '';
-  databaseNameVal = '';
-  databaseTipoVal: number;
-  jsonValor: Object;
-  proyecto: string;
-  versionPrograma: string = '1.0.0.0';
-  artifac = '';
-  paqueteValid = false;
+  public dataBaseUse = true;
+  public createCapaPojoForEntitys = true;
+  public createCapaJavaBase7 = false;
+  public wihtSegurityVal = false;
+  public nativeMysqlVal = false;
+  public databaseTestVal = true;
+  public packageNamesVal = 'com.';
+  public contexVa = '';
+  public databaseNameVal = '';
+  public databaseTipoVal: number;
+  public jsonValor: Object;
+  public proyecto: string;
+  public versionPrograma: string = '1.0.0.0';
+  public artifac = '';
+  public paqueteValid = false;
   public validFormPackage = false;
 
-  artifacts: string = '';
-  autor = '';
-  user = '';
-  proyectoName = '';
-  packageNames = '';
-  description = '';
-  wihtSegurity = '';
-  databaseTest = '';
-  nativeMysql = '';
-  build: boolean = false;
-  modelT: string;
+  public artifacts: string = '';
+  public autor = '';
+  public user = '';
+  public proyectoName = '';
+  public packageNames = '';
+  public description = '';
+  public wihtSegurity = '';
+  public databaseTest = '';
+  public nativeMysql = '';
+  public build: boolean = false;
+  public modelT: string;
 
   @ViewChild(EntidadComponent, { static: false }) entidadRef: EntidadComponent;
   @ViewChild(AtributoComponent, { static: false }) atributiRef: AtributoComponent;
   @ViewChild(RelacionComponent, { static: true }) relacionRef: RelacionComponent;
 
-  listTools: ToolClassPojo = new ToolClassPojo();
-
+  public listTools: ToolClassPojo = new ToolClassPojo();
   public activeLang = 'es';
-  idio: Observable<string>;
+  public idio: Observable<string>;
 
   constructor(private _formBuilder: FormBuilder,
     private servicesEntidad: EntidadService,
@@ -211,8 +210,6 @@ export class ClienteComponent implements OnInit {
       tipoDatabase: [this.dataBaselist[1].tipoDatabase, Validators.required],
       artifact: [this.artifacts, Validators.required],
       prograntVersion: [this.versionPrograma],
-
-
       // verificar si se requiere database separado del tipo o solo el tipo
       // entidades: ['', Validators.required], // este hay que colocarlo en un array de formGroup
     });
@@ -413,7 +410,15 @@ export class ClienteComponent implements OnInit {
     this.archivo.toolClassPojo = this.listTools;
     this.archivo.capaPojo.createCapaPojoForEntitys = this.createCapaPojoForEntitys;
     this.archivo.capaPojo.createCapaJavaBase7 = this.createCapaJavaBase7;
-    this.archivo.capaPojo.modelT = this.modelT;
+
+    if (this.modelT === null || this.modelT === undefined) {
+      this.setModelDefault();
+    }
+
+    if (this.createCapaPojoForEntitys && !this.createCapaJavaBase7) {
+      this.archivo.capaPojo.modelT = this.modelT;
+    }
+
     this.archivo.isToolActive = this.useTools;
     // this.archivo.entidades = this.ListEntidadesFinal;
     this.archivo.methoddefaultValue = this.methoddefaultValue;
@@ -465,8 +470,8 @@ export class ClienteComponent implements OnInit {
 
     this.createCapaPojoForEntitys = archivo.capaPojo.createCapaPojoForEntitys;
     this.createCapaJavaBase7 = archivo.capaPojo.createCapaJavaBase7;
-    this.entidadesList = archivo.entidades;
     this.modelT = archivo.capaPojo.modelT;
+    this.entidadesList = archivo.entidades;
 
     this.entidadRef.entidadLista = this.entidadesList;
     this.entidadRef.updateDataSource(this.entidadRef.entidadLista);
@@ -474,6 +479,10 @@ export class ClienteComponent implements OnInit {
     this.isRelacion = true;
   }
 
+  setModelDefault() {
+    this.modelT = 'Pojo';
+    this.archivo.capaPojo.modelT = this.modelT;
+  }
 
 
   onEnviar() {
@@ -536,14 +545,22 @@ export class ClienteComponent implements OnInit {
         this.archivo.isToolActive = tools.isToolActive;
         this.archivo.capaPojo.createCapaPojoForEntitys = tools.capaPojo.createCapaPojoForEntitys;
         this.archivo.capaPojo.createCapaJavaBase7 = tools.capaPojo.createCapaJavaBase7;
-        this.modelT = tools.capaPojo.modelT;
-        this.archivo.capaPojo.modelT = this.modelT;
+        this.createCapaJavaBase7 = tools.capaPojo.createCapaJavaBase7;
+        this.createCapaPojoForEntitys = tools.capaPojo.createCapaPojoForEntitys;
+
+
+         if( tools.capaPojo.modelT === null ||  tools.capaPojo.modelT === undefined ||  tools.capaPojo.modelT === ''){
+          this.setModelDefault();
+         }else{
+          this.modelT = tools.capaPojo.modelT;
+          this.archivo.capaPojo.modelT = this.modelT;
+         }
+
+        
         this.methoddefaultValue = tools.methoddefaultValue;
         this.methodManager = tools.methodManager;
         this.listTools = tools.toolClassPojo;
         this.useTools = tools.isToolActive;
-        this.createCapaJavaBase7 = tools.capaPojo.createCapaJavaBase7;
-        this.createCapaPojoForEntitys = tools.capaPojo.createCapaPojoForEntitys;
         this.setSprinAndJavaVersionList();
       }
     });

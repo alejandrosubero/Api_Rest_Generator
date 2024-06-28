@@ -29,12 +29,14 @@ public class CreateMapper implements IImportModel {
 
 
     private String returnObjectClassPackage;
+    private String modelM;
 
 
     public void initiarCreateMapper(ArchivoBaseDatosPojo archivo, Creador creadors) {
-        toPojos = new ArrayList<EntityPojo>();
-        toEntidad = new ArrayList<EntityPojo>();
-        returnObjectClassPackage = archivo.getCapaPojo().getModelT();
+        this.toPojos = new ArrayList<EntityPojo>();
+        this.toEntidad = new ArrayList<EntityPojo>();
+        this.returnObjectClassPackage = archivo.getCapaPojo().getModelT();
+        this.modelM = archivo.getCapaPojo().getModelM();
         this.separateEntidadToPojos(archivo.getEntidades());
         this.createMapper(archivo, creadors );
     }

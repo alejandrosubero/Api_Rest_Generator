@@ -29,7 +29,6 @@ public class ControllerAna {
 	private ServiceGenerateProjectRest serviceGenerateProjectRest;
 
 
-
 	@Autowired
 	private ServiceValidation serviceValid;
 
