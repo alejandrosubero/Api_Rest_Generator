@@ -232,80 +232,79 @@ public class ServicesImplimet implements IImportModel {
         return sb2.toString();
     }
 
+//    public StringBuilder createImport(String packageNames, String serviceName, String repositorieName, EntityPojo entidad) {
+//        StringBuilder sb = new StringBuilder("\r\n");
+//
+//        sb.append("package " + packageNames + ".serviceImplement ;\r\n");
+//        sb.append("\r\n");
+//
+//        List<String> importList = new ArrayList<>();
+//        importList.add(this.importPahtBuild(packageNames,"service",serviceName));
+//        importList.add(this.importPahtBuild(packageNames,"repository",repositorieName));
+//        importList.add(this.importGroupServiceClassImplement());
+//        importList.add(this.importPahtBuild(packageNames,entidad.getPaquete(),entidad.getNombreClase()));
+//        importList.add(this.importPahtBuild(packageNames,returnObjectClassPackage,returnObjectClass));
+//
+//        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
+//            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
+//        }
+//
+//        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+//            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+//        }
+//
+//
+//
+//
+//        sb.append("import " + packageNames + ".service." + serviceName + ";\r\n");
+//        sb.append("import " + packageNames + ".repository." + repositorieName + ";\r\n");
+//        sb.append(this.importGroupServiceClassImplement());
+//        sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";" + "\r\n");
+//        sb.append("import " + packageNames + "." + returnObjectClassPackage + "." + returnObjectClass + ";" + BREAK_LINE);
+//
+//        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
+//            sb.append(stringEnsamble(List.of("import ", packageNames, ".mapper", ".", mapperNombreClaseService, ";", BREAK_LINE)));
+//            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
+//            sb.append(BREAK_LINE);
+//        }
+//
+//        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+//            sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
+//            sb.append(BREAK_LINE);
+//            sb.append(stringEnsamble(List.of("import ", packageNames,".", this.layerPojo.getModelT().trim(),".", relacion.getNameClassRelacion(), this.layerPojo.getModelM(),";",BREAK_LINE)));
+//            sb.append(DOUBLEBREAK_LINE);
+//            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
+//        }
+//
+//        return sb;
+//    }
 
-    public StringBuilder createImport(String packageNames, String serviceName, String repositorieName, EntityPojo entidad) {
-        StringBuilder sb = new StringBuilder("\r\n");
+//    private StringBuilder createAutowiredMapper(EntityPojo entidad) {
+//        StringBuilder sb1 = new StringBuilder(BREAK_LINE);
+//        sb1.append(DOUBLETAB + "@Autowired");
+//        sb1.append(BREAK_LINE);
+//        sb1.append(stringEnsamble(List.of(DOUBLETAB, "private", TAB, mapperNombreClaseService, mapperServiceNombreClase, ";")));
+//        sb1.append(DOUBLEBREAK_LINE);
+//        return sb1;
+//    }
 
-        sb.append("package " + packageNames + ".serviceImplement ;\r\n");
-        sb.append("\r\n");
-
-        List<String> importList = new ArrayList<>();
-        importList.add(this.importPahtBuild(packageNames,"service",serviceName));
-        importList.add(this.importPahtBuild(packageNames,"repository",repositorieName));
-        importList.add(this.importGroupServiceClassImplement());
-        importList.add(this.importPahtBuild(packageNames,entidad.getPaquete(),entidad.getNombreClase()));
-        importList.add(this.importPahtBuild(packageNames,returnObjectClassPackage,returnObjectClass));
-
-        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
-            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
-        }
-
-        for (RelationshipPojo relacion : entidad.getRelaciones()) {
-            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
-        }
-
-
-
-
-        sb.append("import " + packageNames + ".service." + serviceName + ";\r\n");
-        sb.append("import " + packageNames + ".repository." + repositorieName + ";\r\n");
-        sb.append(this.importGroupServiceClassImplement());
-        sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";" + "\r\n");
-        sb.append("import " + packageNames + "." + returnObjectClassPackage + "." + returnObjectClass + ";" + BREAK_LINE);
-
-        if (mapperServiceNombreClase != null && !mapperServiceNombreClase.equals("")) {
-            sb.append(stringEnsamble(List.of("import ", packageNames, ".mapper", ".", mapperNombreClaseService, ";", BREAK_LINE)));
-            importList.add(this.importPahtBuild(packageNames,"mapper",mapperNombreClaseService));
-            sb.append(BREAK_LINE);
-        }
-
-        for (RelationshipPojo relacion : entidad.getRelaciones()) {
-            sb.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
-            sb.append(BREAK_LINE);
-            sb.append(stringEnsamble(List.of("import ", packageNames,".", this.layerPojo.getModelT().trim(),".", relacion.getNameClassRelacion(), this.layerPojo.getModelM(),";",BREAK_LINE)));
-            sb.append(DOUBLEBREAK_LINE);
-            importList.add(this.importPahtBuild(packageNames,this.layerPojo.getModelT().trim(),stringEnsamble(List.of(relacion.getNameClassRelacion(), this.layerPojo.getModelM()))));
-        }
-
-        return sb;
-    }
-
-    private StringBuilder createAutowiredMapper(EntityPojo entidad) {
-        StringBuilder sb1 = new StringBuilder(BREAK_LINE);
-        sb1.append(DOUBLETAB + "@Autowired");
-        sb1.append(BREAK_LINE);
-        sb1.append(stringEnsamble(List.of(DOUBLETAB, "private", TAB, mapperNombreClaseService, mapperServiceNombreClase, ";")));
-        sb1.append(DOUBLEBREAK_LINE);
-        return sb1;
-    }
-
-    private StringBuilder createTitulo(String nameOfClass, String serviceName, String repositorieName, String repositorieNameOjecte) {
-
-        StringBuilder sb1 = new StringBuilder("\r\n");
-        sb1.append("\r\n");
-        sb1.append("\r\n");
-        sb1.append("@Service" + "\r\n");
-        sb1.append("public class " + nameOfClass + " implements " + serviceName + " {" + "\r\n");
-        sb1.append("\r\n");
-        //TODO: UBICAR EL LUGAR CORRECTO PARA ESTA LINIEA DE CODIGO
-        sb1.append("protected static final Log logger = LogFactory.getLog(" + nameOfClass + ".class);");
-        sb1.append("\r\n");
-        sb1.append("@Autowired" + "\r\n");
-        sb1.append("private " + repositorieName + " " + repositorieNameOjecte + ";" + "\r\n");
-
-
-        return sb1;
-    }
+//    private StringBuilder createTitulo(String nameOfClass, String serviceName, String repositorieName, String repositorieNameOjecte) {
+//
+//        StringBuilder sb1 = new StringBuilder("\r\n");
+//        sb1.append("\r\n");
+//        sb1.append("\r\n");
+//        sb1.append("@Service" + "\r\n");
+//        sb1.append("public class " + nameOfClass + " implements " + serviceName + " {" + "\r\n");
+//        sb1.append("\r\n");
+//        //TODO: UBICAR EL LUGAR CORRECTO PARA ESTA LINIEA DE CODIGO
+//        sb1.append("protected static final Log logger = LogFactory.getLog(" + nameOfClass + ".class);");
+//        sb1.append("\r\n");
+//        sb1.append("@Autowired" + "\r\n");
+//        sb1.append("private " + repositorieName + " " + repositorieNameOjecte + ";" + "\r\n");
+//
+//
+//        return sb1;
+//    }
 
 
     private StringBuilder crearMetodoloop(EntityPojo entidad, String repositorieNameOjecte) {
