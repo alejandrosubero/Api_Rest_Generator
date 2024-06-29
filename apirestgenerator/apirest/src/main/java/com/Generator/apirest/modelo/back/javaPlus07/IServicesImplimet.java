@@ -1,9 +1,9 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
-import com.Generator.apirest.pojos.back.EntityPojo;
-import com.Generator.apirest.pojos.back.LayerPojo;
-import com.Generator.apirest.pojos.back.RelationshipPojo;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.back.EntityPojo;
+import com.Generator.apirest.core.pojos.back.LayerPojo;
+import com.Generator.apirest.core.pojos.back.RelationshipPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 
 public interface IServicesImplimet {
 

@@ -1,8 +1,8 @@
 package com.Generator.apirest.ServiceImpl.builders;
 
 
-import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.services.builders.FileCreateService;
+import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.interfaces.FileCreateService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;

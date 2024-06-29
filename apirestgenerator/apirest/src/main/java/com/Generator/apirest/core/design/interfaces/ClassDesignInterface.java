@@ -40,7 +40,7 @@ public interface ClassDesignInterface extends DesingCommunInterface {
 
             if(classDesign.getClassParameterClassMethods().size() > 0){
               for(ParameterClassMethod parameterClass :  classDesign.getClassParameterClassMethods()){
-                  classTemplate.append( new FormatText().reformat(parameterClass.toString()));
+                  classTemplate.append( parameterClass.toString());
               }
             }
 

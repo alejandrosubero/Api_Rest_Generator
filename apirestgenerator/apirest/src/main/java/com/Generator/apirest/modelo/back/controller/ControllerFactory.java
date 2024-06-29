@@ -1,8 +1,6 @@
 package com.Generator.apirest.modelo.back.controller;
 
-import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.pojos.back.LayerPojo;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.back.LayerPojo;
 import org.springframework.stereotype.Component;
 
 @Component

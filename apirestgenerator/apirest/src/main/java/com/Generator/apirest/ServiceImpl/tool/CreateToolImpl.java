@@ -1,15 +1,14 @@
 package com.Generator.apirest.ServiceImpl.tool;
 
 
-import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.files.Creador;
 import com.Generator.apirest.modelo.back.server.*;
 import com.Generator.apirest.modelo.back.tool.*;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Scope("singleton")
+//@Scope("singleton")
 @Component
 public class CreateToolImpl {
 

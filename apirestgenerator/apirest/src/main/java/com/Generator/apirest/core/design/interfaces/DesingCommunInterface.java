@@ -2,7 +2,7 @@ package com.Generator.apirest.core.design.interfaces;
 
 import com.Generator.apirest.core.design.ParameterClassMethod;
 import com.Generator.apirest.core.design.reference.RetunsType;
-import com.Generator.apirest.services.builders.IImportModel;
+import com.Generator.apirest.core.interfaces.IImportModel;
 
 import java.util.List;
 

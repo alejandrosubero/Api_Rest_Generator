@@ -1,6 +1,6 @@
 package com.Generator.apirest.notas;
 
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;

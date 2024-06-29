@@ -1,11 +1,11 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
-import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.files.Creador;
 import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.pojos.back.AttributePojo;
-import com.Generator.apirest.pojos.back.EntityPojo;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
-import com.Generator.apirest.services.builders.IImportModel;
+import com.Generator.apirest.core.pojos.back.AttributePojo;
+import com.Generator.apirest.core.pojos.back.EntityPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.interfaces.IImportModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

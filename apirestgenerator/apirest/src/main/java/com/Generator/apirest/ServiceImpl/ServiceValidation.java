@@ -2,7 +2,7 @@ package com.Generator.apirest.ServiceImpl;
 
 
 import com.Generator.apirest.mapper.ProyectMapper;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import com.Generator.apirest.services.SalveProyectService;
 import com.Generator.apirest.services.ValidateService;
 import org.apache.commons.logging.Log;

@@ -3,9 +3,9 @@ package com.Generator.apirest.modelo.back.layer;
 
 import com.Generator.apirest.ServiceImpl.layers.CreateCapaPojoForEntitys;
 import com.Generator.apirest.ServiceImpl.layers.CreateClasesProyecto;
-import com.Generator.apirest.core.files.AnadirCarpeta;
-import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.files.AnadirCarpeta;
+import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

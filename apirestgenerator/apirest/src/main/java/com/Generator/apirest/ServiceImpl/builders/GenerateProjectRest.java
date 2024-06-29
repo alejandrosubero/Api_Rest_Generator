@@ -3,12 +3,12 @@ package com.Generator.apirest.ServiceImpl.builders;
 
 import com.Generator.apirest.ServiceImpl.layers.CreateBaseFiles;
 import com.Generator.apirest.converter.ConvertEntityToModelT;
-import com.Generator.apirest.core.files.AnadirCarpeta;
-import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.files.AnadirCarpeta;
+import com.Generator.apirest.files.Creador;
 import com.Generator.apirest.modelo.back.layer.LayerFactory;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
-import com.Generator.apirest.services.builders.IBaseModel;
-import com.Generator.apirest.services.builders.ServiceGenerateProjectRest;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.interfaces.IBaseModel;
+import com.Generator.apirest.core.interfaces.ServiceGenerateProjectRest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,6 @@ public class GenerateProjectRest implements ServiceGenerateProjectRest, IBaseMod
         String modelM = model.substring(0, 1).toUpperCase() + model.substring(1);
         baseFileDataPojo.getCapaPojo().setModelM(modelM);
 
-//        baseFileDataPojo.getCapaPojo().setModelM(this.capitalizeFirstLetter(baseFileDataPojo.getCapaPojo().getModelT().trim()));
         baseFileDataPojo.getMethodManager().validDefault(baseFileDataPojo.isMethoddefaultValue());
 
         if (baseFileDataPojo.getMethodManager().isMethodDelete()) {

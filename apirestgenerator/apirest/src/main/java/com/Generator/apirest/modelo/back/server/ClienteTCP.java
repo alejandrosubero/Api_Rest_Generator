@@ -2,10 +2,10 @@ package com.Generator.apirest.modelo.back.server;
 
 
 
-import com.Generator.apirest.core.Creador;
+import com.Generator.apirest.files.Creador;
 import com.Generator.apirest.modelo.back.tool.CreateGetPostTool;
 import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

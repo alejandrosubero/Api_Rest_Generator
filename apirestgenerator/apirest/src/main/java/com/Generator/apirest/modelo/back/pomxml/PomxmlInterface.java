@@ -1,7 +1,7 @@
 package com.Generator.apirest.modelo.back.pomxml;
 
-import com.Generator.apirest.core.Creador;
-import com.Generator.apirest.pojos.master.ArchivoBaseDatosPojo;
+import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 
 public interface PomxmlInterface {
 
