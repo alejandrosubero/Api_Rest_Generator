@@ -63,7 +63,7 @@ public class CreateServiceImp07 {
 
     private void createServiceImpl(EntityPojo entidad) throws InterruptedException {
 
-        StringBuilder sbh = new StringBuilder("\r\n");
+        StringBuffer sbh = new StringBuffer("\r\n");
         String entidadNombre = entidad.getNombreClase();
         String nameOfClass = entidad.getNombreClase() + "ServiceImplement";
         String repositorieName = entidad.getNombreClase() + "Repository";
@@ -86,8 +86,8 @@ public class CreateServiceImp07 {
 
 
 
-    public StringBuilder createImport(String serviceName, String repositorieName, EntityPojo entidad) {
-        StringBuilder sb = new StringBuilder("\r\n");
+    public StringBuffer createImport(String serviceName, String repositorieName, EntityPojo entidad) {
+        StringBuffer sb = new StringBuffer("\r\n");
 
         sb.append("package " + packageNames + ".serviceImplement ;\r\n");
         sb.append("\r\n");
@@ -111,9 +111,9 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder createTitulo(String nameOfClass, String serviceName, String repositorieName, String repositorieNameOjecte) {
+    private StringBuffer createTitulo(String nameOfClass, String serviceName, String repositorieName, String repositorieNameOjecte) {
 
-        StringBuilder sb1 = new StringBuilder("\r\n");
+        StringBuffer sb1 = new StringBuffer("\r\n");
         // logger.info("createServiceImplement" + " paso 3 clase titulo  for Entity:  " + nameOfClass);
         sb1.append("\r\n");
         sb1.append("\r\n");
@@ -128,10 +128,10 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder crearMetodoloop(EntityPojo entidad, String repositorieNameOjecte) {
+    private StringBuffer crearMetodoloop(EntityPojo entidad, String repositorieNameOjecte) {
         logger.info(" inicia la creacion del metodo loop for Entity:  " + entidad.getNombreClase());
 
-        StringBuilder sbp = new StringBuilder("\r\n");
+        StringBuffer sbp = new StringBuffer("\r\n");
         List<AttributePojo> listAtributos = entidad.getAtributos();
 
         for (AttributePojo atributos : listAtributos) {
@@ -160,9 +160,9 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder metods(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+    private StringBuffer metods(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
 
-        StringBuilder sb = new StringBuilder("\r\n");
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("**createServiceImplement  metodos  for Entity:  " + entidad.getNombreClase() + "**");
         
         sb.append("\r\n");
@@ -210,9 +210,9 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder metodgetAll(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+    private StringBuffer metodgetAll(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
 
-        StringBuilder ty = new StringBuilder("\r\n");
+        StringBuffer ty = new StringBuffer("\r\n");
         String getNombreClase = entidad.getNombreClase();
         ty.append("\r\n");
         ty.append("		@Override" + "\r\n");
@@ -226,9 +226,9 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder metodSave(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+    private StringBuffer metodSave(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
 
-        StringBuilder sbg = new StringBuilder("\r\n");
+        StringBuffer sbg = new StringBuffer("\r\n");
         sbg.append("		@Override" + "\r\n");
         sbg.append("		public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + "){" + "\r\n");
         sbg.append("		logger.info(\"Save Proyect\");" + "\r\n");
@@ -241,9 +241,9 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder metodDelete(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+    private StringBuffer metodDelete(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
 
-        StringBuilder sbt = new StringBuilder("\r\n");
+        StringBuffer sbt = new StringBuffer("\r\n");
 
         if (entidad.getDelete()) {
             sbt.append("		@Override" + "\r\n");
@@ -261,8 +261,8 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder metodfindById(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-        StringBuilder sf = new StringBuilder("\r\n");
+    private StringBuffer metodfindById(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
         sf.append("\r\n");
         sf.append("		@Override" + "\r\n");
         sf.append("		public " + entidad.getNombreClase() + " findById( " + this.idTipoDato(entidad) + " id){" + "\r\n");
@@ -273,8 +273,8 @@ public class CreateServiceImp07 {
 
     
 	    
-    private StringBuilder metodSearch(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-        StringBuilder sf = new StringBuilder("\r\n");
+    private StringBuffer metodSearch(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
         sf.append("\r\n");
         sf.append("		@Override" + "\r\n");
         sf.append("		public List<" + entidad.getNombreClase() + "> search(String search ){" + "\r\n");
@@ -284,8 +284,8 @@ public class CreateServiceImp07 {
     }
     
     
-    private StringBuilder ContainingRelacion(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-        StringBuilder sbx = new StringBuilder();
+    private StringBuffer ContainingRelacion(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sbx = new StringBuffer();
         String getNombreClase = entidadNombre;
         String getNombre = entidad.getNombreClase().toLowerCase();
         logger.info("  " + entidad.getNombreClase());
@@ -300,8 +300,8 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder Relacionx(EntityPojo entidad, String entidadNombre, RelationshipPojo relacion) {
-        StringBuilder sbw = new StringBuilder();
+    private StringBuffer Relacionx(EntityPojo entidad, String entidadNombre, RelationshipPojo relacion) {
+        StringBuffer sbw = new StringBuffer();
         String getNombreClase = entidadNombre;
         String getNombre = entidad.getNombreClase().toLowerCase();
         sbw.append("\r\n");
@@ -322,8 +322,8 @@ public class CreateServiceImp07 {
     }
 
 
-    private StringBuilder ContainingRelacionNoBiDirectional(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-        StringBuilder sv = new StringBuilder();
+    private StringBuffer ContainingRelacionNoBiDirectional(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sv = new StringBuffer();
         for (RelationshipPojo relacion: entidad.getRelaciones()) {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
                 sv.append("\r\n");
@@ -366,8 +366,8 @@ public class CreateServiceImp07 {
 
 
 
-    private StringBuilder metodContaining(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-        StringBuilder sbx = new StringBuilder();
+    private StringBuffer metodContaining(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sbx = new StringBuffer();
         String getNombreClase = entidadNombre;
        // String getNombre = entidad.getNombreClase().toLowerCase();
         List<AttributePojo> listAtributos = entidad.getAtributos();
@@ -407,7 +407,7 @@ public class CreateServiceImp07 {
 
 
     private String metodTrycath(String operacion, String operacionElse) {
-        StringBuilder sb2 = new StringBuilder("\r\n");
+        StringBuffer sb2 = new StringBuffer("\r\n");
         sb2.append("				try {" + "\r\n");
         sb2.append(operacion);
         sb2.append("				} catch (DataAccessException e) {" + "\r\n");
@@ -419,8 +419,8 @@ public class CreateServiceImp07 {
 
 
     @SuppressWarnings("unused")
- 	private StringBuilder metodSaveOrUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-         StringBuilder sf = new StringBuilder("\r\n");
+ 	private StringBuffer metodSaveOrUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+         StringBuffer sf = new StringBuffer("\r\n");
          String numeraly = String.valueOf(2);
          sf.append("\r\n");
          sf.append("		@Override" + "\r\n");
@@ -442,8 +442,8 @@ public class CreateServiceImp07 {
     
     
     @SuppressWarnings("unused")
-  	private StringBuilder metodUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
-          StringBuilder sf = new StringBuilder("\r\n");
+  	private StringBuffer metodUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+          StringBuffer sf = new StringBuffer("\r\n");
           sf.append("\r\n");
           sf.append("		@Override" + "\r\n");
           sf.append("		public boolean update" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + "  " + entidad.getNombreClase().toLowerCase() + " ){" + "\r\n");

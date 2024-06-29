@@ -61,8 +61,8 @@ public class ExcelToolCrear {
     }
 
 
-    private StringBuilder metods() {
-        StringBuilder sb = new StringBuilder("\r\n");
+    private StringBuffer metods() {
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create excel metodo de leer converter metodos ");
         try {
            // Thread.sleep(relantizar);
@@ -91,8 +91,8 @@ public class ExcelToolCrear {
     }
 
 
-    private StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
 
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import com.google.gson.Gson;" + "\r\n");
@@ -119,8 +119,8 @@ public class ExcelToolCrear {
         return sb1;
     }
 
-    private StringBuilder createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private StringBuffer createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
         sb2.append("" + "\r\n");
         //  sb2.append("@Component" + "\r\n");
         sb2.append("public class ExcelToolCrear {" + "\r\n");
@@ -135,8 +135,8 @@ public class ExcelToolCrear {
     }
 
 
-    private StringBuilder createContructor() {
-        StringBuilder sb3 = new StringBuilder();
+    private StringBuffer createContructor() {
+        StringBuffer sb3 = new StringBuffer();
         sb3.append("" + "\r\n");
         sb3.append(" public ExcelToolCrear(String nombreArchivo, String rutaArchivo,String hoja ){" + "\r\n");
         sb3.append(" this.nombreArchivo = nombreArchivo;" + "\r\n");
@@ -149,8 +149,8 @@ public class ExcelToolCrear {
     }
 
 
-    private StringBuilder createClass() {
-        StringBuilder sb4 = new StringBuilder();
+    private StringBuffer createClass() {
+        StringBuffer sb4 = new StringBuffer();
         sb4.append(" private void crearFicheros() {" + "\r\n");
         sb4.append("   try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {" + "\r\n");
 

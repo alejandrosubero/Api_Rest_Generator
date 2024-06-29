@@ -66,9 +66,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder metods(EntityPojo entidad, Creador creadors, ArchivoBaseDatosPojo archivo) {
+    private StringBuffer metods(EntityPojo entidad, Creador creadors, ArchivoBaseDatosPojo archivo) {
 
-        StringBuilder sb = new StringBuilder(BREAK_LINE);
+        StringBuffer sb = new StringBuffer(BREAK_LINE);
         logger.info("Create Controller metodos  for Entity:  " + entidad.getNombreClase());
 
         try { 
@@ -160,9 +160,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createImport(EntityPojo entidad, String paquete, LayerPojo layerPojo) {
+    private StringBuffer createImport(EntityPojo entidad, String paquete, LayerPojo layerPojo) {
 
-        StringBuilder sb1 = new StringBuilder();
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".controller;");
         sb1.append(BREAK_LINE);
         sb1.append("import " + paquete + ".entitys." + entidad.getNombreClase() + ";");
@@ -216,9 +216,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createTituloClass(EntityPojo entidad) {
+    private StringBuffer createTituloClass(EntityPojo entidad) {
 
-        StringBuilder sb2a = new StringBuilder();
+        StringBuffer sb2a = new StringBuffer();
 
         sb2a.append("@RestController");
         sb2a.append(BREAK_LINE);
@@ -231,9 +231,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
         return sb2a;
     }
 
-    private StringBuilder createAutoWire(EntityPojo entidad){
+    private StringBuffer createAutoWire(EntityPojo entidad){
 
-        StringBuilder sb2 = new StringBuilder(BREAK_LINE);
+        StringBuffer sb2 = new StringBuffer(BREAK_LINE);
         String validationAutowiredName ="";
         String mapperAutowiredName ="";
 
@@ -279,9 +279,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
         return sb2;
     }
 
-    private StringBuilder createLoop(EntityPojo entidad) {
+    private StringBuffer createLoop(EntityPojo entidad) {
 
-        StringBuilder sb3 = new StringBuilder();
+        StringBuffer sb3 = new StringBuffer();
         List<AttributePojo> listAtributos = entidad.getAtributos();
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         for (AttributePojo atributos : listAtributos) {
@@ -319,8 +319,8 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
     
-    private StringBuilder createLoopContain(EntityPojo entidad) {
-        StringBuilder sb3b = new StringBuilder();
+    private StringBuffer createLoopContain(EntityPojo entidad) {
+        StringBuffer sb3b = new StringBuffer();
         for (AttributePojo atributo : entidad.getAtributos()) {
             String atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
             String atrubutoObjeto = atributo.getAtributoName().toLowerCase();
@@ -356,9 +356,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     
 
 
-    private StringBuilder createfindId(EntityPojo entidad) {
+    private StringBuffer createfindId(EntityPojo entidad) {
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
-        StringBuilder sb4 = new StringBuilder();
+        StringBuffer sb4 = new StringBuffer();
         sb4.append(BREAK_LINE);
         sb4.append(DOUBLETAB+"@GetMapping(\"/Get" + entidad.getNombreClase() + "/{id}\")");
         sb4.append(BREAK_LINE);
@@ -375,8 +375,8 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createfindAll(EntityPojo entidad) {
-        StringBuilder sb5 = new StringBuilder();
+    private StringBuffer createfindAll(EntityPojo entidad) {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append(BREAK_LINE);
         sb5.append(DOUBLETAB+"@GetMapping(\"/GetAll" + entidad.getNombreClase() + "\")");
         sb5.append(BREAK_LINE);
@@ -391,8 +391,8 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createSave(EntityPojo entidad, LayerPojo layerPojo) {
-        StringBuilder sb6 = new StringBuilder();
+    private StringBuffer createSave(EntityPojo entidad, LayerPojo layerPojo) {
+        StringBuffer sb6 = new StringBuffer();
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
         String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + entidad.getNombreClase().toLowerCase() + "))";
@@ -409,11 +409,11 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createUpdate(EntityPojo entidad, LayerPojo layerPojo) {
+    private StringBuffer createUpdate(EntityPojo entidad, LayerPojo layerPojo) {
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
         String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + entidad.getNombreClase().toLowerCase() + "))";
-        StringBuilder sb7 = new StringBuilder();
+        StringBuffer sb7 = new StringBuffer();
         sb7.append(BREAK_LINE);
         sb7.append(DOUBLETAB+"@PostMapping(\"/Update\")");
         sb7.append(BREAK_LINE);
@@ -435,11 +435,11 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createsaveOrUpdate(EntityPojo entidad, LayerPojo layerPojo) {
+    private StringBuffer createsaveOrUpdate(EntityPojo entidad, LayerPojo layerPojo) {
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         String mapperService = entidad.getNombreClase().toLowerCase() + "Mapper";
         String contenido = mapperService + ".pojoToEntity(" + validationService + ".valida(" + entidad.getNombreClase().toLowerCase() + "))";
-        StringBuilder sb8 = new StringBuilder();
+        StringBuffer sb8 = new StringBuffer();
         sb8.append(BREAK_LINE);
         sb8.append(DOUBLETAB+"@PostMapping(\"/saveOrUpdate\")");
         sb8.append(BREAK_LINE);
@@ -453,8 +453,8 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
     }
 
 
-    private StringBuilder createDelete(EntityPojo entidad) {
-        StringBuilder sb9 = new StringBuilder();
+    private StringBuffer createDelete(EntityPojo entidad) {
+        StringBuffer sb9 = new StringBuffer();
         String validationService = entidad.getNombreClase().toLowerCase() + "ValidationService";
         sb9.append(BREAK_LINE);
         sb9.append(DOUBLETAB+"@DeleteMapping(\"/delete" + entidad.getNombreClase() + "/{id}\")" );
@@ -467,8 +467,8 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
         return sb9;
     }
 
-    private StringBuilder findByRelacion(EntityPojo entidad, LayerPojo layerPojo) {
-        StringBuilder sb61 = new StringBuilder(BREAK_LINE);
+    private StringBuffer findByRelacion(EntityPojo entidad, LayerPojo layerPojo) {
+        StringBuffer sb61 = new StringBuffer(BREAK_LINE);
 
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             String validationService = relacion.getNameClassRelacion().toLowerCase() + "ValidationService";
@@ -489,9 +489,9 @@ public class CreateControllerCapaPojo implements IImportModel, ControllerInterfa
         return sb61;
     }
 
-    private StringBuilder findByRelacionNoBidirecional(EntityPojo entidad, LayerPojo layerPojo) {
+    private StringBuffer findByRelacionNoBidirecional(EntityPojo entidad, LayerPojo layerPojo) {
 
-        StringBuilder sb61 = new StringBuilder();
+        StringBuffer sb61 = new StringBuffer();
 
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {

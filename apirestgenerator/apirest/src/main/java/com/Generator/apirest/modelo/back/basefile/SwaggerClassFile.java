@@ -18,7 +18,7 @@ public class SwaggerClassFile implements IImportModel {
     public void createSwaggerClass(ArchivoBaseDatosPojo archivo, Creador creador){
         try {
 
-            StringBuilder sb = new StringBuilder();
+            StringBuffer sb = new StringBuffer();
             sb.append("package " + creador.getPackageNames() + ".configurations;"+BREAK_LINE);
             sb.append(BREAK_LINE);
             sb.append(importSwagger());

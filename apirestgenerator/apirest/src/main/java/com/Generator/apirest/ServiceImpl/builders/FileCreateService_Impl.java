@@ -66,7 +66,7 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 	
 	
 	@Override
-	public  void createFileClassJava(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb, String directions) {
+	public  void createFileClassJava(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb, String directions) {
 		try {
 			Thread.sleep(relantizar);
 			String nameFile = entidad_getNombreClase + ".java";
@@ -83,7 +83,7 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 
 	
 	@Override
-	public void createFileClassJavaNoAddres(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb) {
+	public void createFileClassJavaNoAddres(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb) {
 		try {
 			Thread.sleep(relantizar);
 			String nameFile = entidad_getNombreClase + ".java";
@@ -98,7 +98,7 @@ public class FileCreateService_Impl extends Creador implements FileCreateService
 	}
 	
 	@Override
-	public void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb, String directions, String extencion) {
+	public void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb, String directions, String extencion) {
 		try {
 
 			Thread.sleep(relantizar);

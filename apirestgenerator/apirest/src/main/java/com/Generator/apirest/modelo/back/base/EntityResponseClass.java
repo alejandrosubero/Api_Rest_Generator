@@ -67,10 +67,10 @@ public class EntityResponseClass {
         }
     }
 
-    private  StringBuilder metodPojo(ArchivoBaseDatosPojo archivo, Creador creador) {
+    private  StringBuffer metodPojo(ArchivoBaseDatosPojo archivo, Creador creador) {
         Random rand = new Random();
         long rand_lub1 = rand.nextLong();
-        StringBuilder sb1 = new StringBuilder();
+        StringBuffer sb1 = new StringBuffer();
         
 //        AnotacionesJava anotacionesJava = new AnotacionesJava(archivo);
 //        sb1.append(anotacionesJava.creatNotaClase());
@@ -130,9 +130,9 @@ public class EntityResponseClass {
 
 
 
-    private  StringBuilder metodMapper(ArchivoBaseDatosPojo archivo, Creador creador) {
+    private  StringBuffer metodMapper(ArchivoBaseDatosPojo archivo, Creador creador) {
   	  		
-        StringBuilder sb2 = new StringBuilder();
+        StringBuffer sb2 = new StringBuffer();
         
 //      AnotacionesJava anotacionesJava = new AnotacionesJava(archivo);
 //      sb2.append(anotacionesJava.creatNotaClase());    

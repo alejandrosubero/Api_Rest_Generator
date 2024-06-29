@@ -1,9 +1,9 @@
 package com.Generator.apirest.core.design;
 
 
-import com.Generator.apirest.core.build.Modifier;
-import com.Generator.apirest.core.build.ParameterClassMethod;
-import com.Generator.apirest.core.build.RetunsType;
+import com.Generator.apirest.core.design.reference.Modifier;
+import com.Generator.apirest.core.design.reference.RetunsType;
+import com.Generator.apirest.core.design.interfaces.MethodInterface;
 
 import java.util.*;
 

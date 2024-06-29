@@ -56,8 +56,8 @@ public class ServersocketTCP {
         }
     }
 
-    private StringBuilder metods() {
-    StringBuilder sb = new StringBuilder("\r\n");
+    private StringBuffer metods() {
+    StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create Server socket TCP metodos ");
         try {
 
@@ -89,8 +89,8 @@ public class ServersocketTCP {
 }
 
 
-    private  StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private  StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import com.google.gson.Gson;" + "\r\n");
         sb1.append("import org.slf4j.Logger;" + "\r\n");
@@ -106,8 +106,8 @@ public class ServersocketTCP {
         return sb1;
     }
 
-    private  StringBuilder createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private  StringBuffer createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
 
         sb2.append("" + "\r\n");
       //  sb2.append("@Component" + "\r\n");
@@ -121,8 +121,8 @@ public class ServersocketTCP {
         return sb2;
     }
 
-    private  StringBuilder createStart() {
-        StringBuilder sb3 = new StringBuilder();
+    private  StringBuffer createStart() {
+        StringBuffer sb3 = new StringBuffer();
         sb3.append(" public void start(int port) {" + "\r\n");
         sb3.append("try {" + "\r\n");
         sb3.append("  serverSocket = new ServerSocket(port);" + "\r\n");
@@ -141,8 +141,8 @@ public class ServersocketTCP {
         return sb3;
     }
 
-    private  StringBuilder createStop() {
-        StringBuilder sb4 = new StringBuilder();
+    private  StringBuffer createStop() {
+        StringBuffer sb4 = new StringBuffer();
         sb4.append("" + "\r\n");
         sb4.append(" public void stop() {" + "\r\n");
         sb4.append(" try {" + "\r\n");
@@ -157,8 +157,8 @@ public class ServersocketTCP {
     }
 
 
-    private  StringBuilder createThreadClass() {
-        StringBuilder sb5 = new StringBuilder();
+    private  StringBuffer createThreadClass() {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append("" + "\r\n");
         sb5.append(" private static class ClientHandler extends Thread {" + "\r\n");
         sb5.append(" private static final Logger logger = LoggerFactory.getLogger(ClientHandler.class);" + "\r\n");
@@ -174,8 +174,8 @@ public class ServersocketTCP {
 
 
 
-    private  StringBuilder createsendPosta() {
-        StringBuilder sb6 = new StringBuilder();
+    private  StringBuffer createsendPosta() {
+        StringBuffer sb6 = new StringBuffer();
         sb6.append("" + "\r\n");
         sb6.append(" public void run() {" + "\r\n");
         sb6.append("try {" + "\r\n");

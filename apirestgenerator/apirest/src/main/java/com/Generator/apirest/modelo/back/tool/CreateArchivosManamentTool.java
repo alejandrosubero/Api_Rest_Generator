@@ -54,9 +54,9 @@ public class CreateArchivosManamentTool {
         }
     }
 
-    private StringBuilder metods(ArchivoBaseDatosPojo archivo) {
+    private StringBuffer metods(ArchivoBaseDatosPojo archivo) {
 
-        StringBuilder sb = new StringBuilder("\r\n");
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create create Archivos Manament Tool ");
         try {
             
@@ -102,8 +102,8 @@ public class CreateArchivosManamentTool {
     }
 
 
-    private  StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private  StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import net.lingala.zip4j.core.ZipFile; " + "\r\n");
         sb1.append("import net.lingala.zip4j.exception.ZipException; " + "\r\n");
@@ -129,8 +129,8 @@ public class CreateArchivosManamentTool {
     }
 
 
-    private  StringBuilder  createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private  StringBuffer  createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
         sb2.append("" + "\r\n");
         sb2.append("@Component" + "\r\n");
         sb2.append("public class ArchivosManament {" + "\r\n");
@@ -144,8 +144,8 @@ public class CreateArchivosManamentTool {
     }
 
 
-    private  StringBuilder createX3() {
-        StringBuilder sb3 = new StringBuilder();
+    private  StringBuffer createX3() {
+        StringBuffer sb3 = new StringBuffer();
         sb3.append("    public void crearArchivo(String direccion, String escrito, String nombreArchivo) {" + "\r\n");
         sb3.append("         String carpetas = direccion;" + "\r\n");
         sb3.append("         String archivos = barra + nombreArchivo;" + "\r\n");
@@ -172,8 +172,8 @@ public class CreateArchivosManamentTool {
         return sb3;
     }
 
-    private  StringBuilder createX4() {
-        StringBuilder sb4 = new StringBuilder();
+    private  StringBuffer createX4() {
+        StringBuffer sb4 = new StringBuffer();
 
         sb4.append("" + "\r\n");
         sb4.append("    public static byte[] readBytesFromFile(String filePaths) {");
@@ -201,8 +201,8 @@ public class CreateArchivosManamentTool {
         return sb4;
     }
 
-    private  StringBuilder createX5() {
-        StringBuilder sb5 = new StringBuilder();
+    private  StringBuffer createX5() {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append("" + "\r\n");
         sb5.append(" public void borrarFolder(String directorio) {" );
         sb5.append("    File f = new File(directorio);");
@@ -212,8 +212,8 @@ public class CreateArchivosManamentTool {
         return sb5;
     }
 
-    private  StringBuilder createX6() {
-        StringBuilder sb6 = new StringBuilder();
+    private  StringBuffer createX6() {
+        StringBuffer sb6 = new StringBuffer();
         sb6.append("" + "\r\n");
         sb6.append("    private void borrarcarpetas(File fileDel) {");
         sb6.append("     if (fileDel.isDirectory()) {");
@@ -234,8 +234,8 @@ public class CreateArchivosManamentTool {
         return sb6;
     }
 
-    private  StringBuilder createX7() {
-        StringBuilder sb7 = new StringBuilder();
+    private  StringBuffer createX7() {
+        StringBuffer sb7 = new StringBuffer();
 
         sb7.append("" + "\r\n");
         sb7.append("     public void folderzip(String carpetaAcomprimir, String direccionDeCarpeta, String nombreArchivoZip) throws Exception {" + "\r\n");
@@ -261,8 +261,8 @@ public class CreateArchivosManamentTool {
         sb7.append("" + "\r\n");
         return sb7;
     }
-    private  StringBuilder createX8() {
-        StringBuilder sb8 = new StringBuilder();
+    private  StringBuffer createX8() {
+        StringBuffer sb8 = new StringBuffer();
         sb8.append("   " + "\r\n");
         sb8.append(" public String OsEjecutandose() {" + "\r\n");
         sb8.append(" String usar = \"\";" + "\r\n");

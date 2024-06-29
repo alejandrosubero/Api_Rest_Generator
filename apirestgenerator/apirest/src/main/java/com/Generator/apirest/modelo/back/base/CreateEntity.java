@@ -37,7 +37,7 @@ public class CreateEntity implements IImportModel {
             for (EntityPojo entidad : archivo.getEntidades()) {
 
                 logger.info("Inicia la creacion de: " + "Es una entidad: " + entidad.getIsEntity() + "  NOMBRE = " + entidad.getNombreClase());
-                StringBuilder sb = new StringBuilder(BREAK_LINE);
+                StringBuffer sb = new StringBuffer(BREAK_LINE);
                 sb.append(new AnotacionesJava(archivo).creatNotaClase());
                 
                 this.createImport(entidad, sb, archivo.getPackageNames());
@@ -52,7 +52,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb, ArchivoBaseDatosPojo archivo, Creador creador) throws InterruptedException {
+    private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb, ArchivoBaseDatosPojo archivo, Creador creador) throws InterruptedException {
     	
     	sb.append("}");
         sb.append(BREAK_LINE);
@@ -65,7 +65,7 @@ public class CreateEntity implements IImportModel {
         creador.crearArchivo(direction, sb.toString(), entidad_getNombreClase + ".java");
     }
 
-    private void createTitleClass(EntityPojo entidad , StringBuilder sb) throws InterruptedException {
+    private void createTitleClass(EntityPojo entidad , StringBuffer sb) throws InterruptedException {
 
         if (entidad.getIsEntity()) {
             sb.append(DOUBLEBREAK_LINE);
@@ -91,7 +91,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    private void createImport(EntityPojo entidad, StringBuilder sb, String packageNames) {
+    private void createImport(EntityPojo entidad, StringBuffer sb, String packageNames) {
         sb.append("package " + packageNames + "." + entidad.getPaquete() + ";");
         sb.append(DOUBLEBREAK_LINE);
         sb.append(JAVAX_PERSISTENCE_IMPORT);
@@ -110,7 +110,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    private void generateAtributosRelaciones(EntityPojo entidad, StringBuilder sb, Creador creador, ArchivoBaseDatosPojo archivo) throws InterruptedException {
+    private void generateAtributosRelaciones(EntityPojo entidad, StringBuffer sb, Creador creador, ArchivoBaseDatosPojo archivo) throws InterruptedException {
         Boolean isEntity = entidad.getIsEntity();
         String nombreEntidad = entidad.getNombreClase();
         if (entidad.getAtributos().size() > 0) {
@@ -125,7 +125,7 @@ public class CreateEntity implements IImportModel {
         }
     }
 
-    private void generateAtributo(AttributePojo atributo, Boolean entidad_getIsEntity, StringBuilder sb, String nombreEntidad, Creador creador, ArchivoBaseDatosPojo archivo) throws InterruptedException {
+    private void generateAtributo(AttributePojo atributo, Boolean entidad_getIsEntity, StringBuffer sb, String nombreEntidad, Creador creador, ArchivoBaseDatosPojo archivo) throws InterruptedException {
 
     	atributo.isNullArray();
     	atributo.isNullList();    
@@ -213,7 +213,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    private void generateRelacion(RelationshipPojo relacion, Boolean entidad_getIsEntity, StringBuilder sb) throws InterruptedException {
+    private void generateRelacion(RelationshipPojo relacion, Boolean entidad_getIsEntity, StringBuffer sb) throws InterruptedException {
 
         logger.info("Inicia la creacion de GenerateRelaciones" + "  NOMBRE = " + relacion.getNameRelacion());
         if (entidad_getIsEntity) {
@@ -299,7 +299,7 @@ public class CreateEntity implements IImportModel {
         sb.append(DOUBLEBREAK_LINE);
     }
 
-    private void generateSetterGetter(EntityPojo entidad, StringBuilder sb) throws InterruptedException {
+    private void generateSetterGetter(EntityPojo entidad, StringBuffer sb) throws InterruptedException {
         if (entidad.getAtributos().size() > 0) {
             for (AttributePojo atributo : entidad.getAtributos()) {
                 this.setterGetterAtributo(atributo, sb);
@@ -314,7 +314,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    private void setterGetterAtributo(AttributePojo atributo, StringBuilder sb) {
+    private void setterGetterAtributo(AttributePojo atributo, StringBuffer sb) {
     	 String atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
         sb.append(DOUBLETAB+"public " + atributo.getTipoDato() + " get" + atributoName + "() { ");
         sb.append(BREAK_LINE);
@@ -330,7 +330,7 @@ public class CreateEntity implements IImportModel {
     }
 
 
-    public void setterGetterRelacion(RelationshipPojo relacions, StringBuilder sb) {
+    public void setterGetterRelacion(RelationshipPojo relacions, StringBuffer sb) {
         if (relacions.getRelation().equals("OneToOne") || relacions.getRelation().equals("ManyToOne")) {
             sb.append(DOUBLETAB+"public " + relacions.getNameClassRelacion() + " get" + relacions.getNameRelacion() + "() { ");
             sb.append(BREAK_LINE);
@@ -359,7 +359,7 @@ public class CreateEntity implements IImportModel {
         }
     }
 
-    private void generateEqualsmetodo(EntityPojo entidad, StringBuilder sb) throws InterruptedException {
+    private void generateEqualsmetodo(EntityPojo entidad, StringBuffer sb) throws InterruptedException {
       
 //        sb.append(DOUBLETAB+"public boolean equals" + entidad.getNombreClase() + "(Object o) {");
         sb.append(DOUBLETAB+"public boolean equals" + "(Object o) {");

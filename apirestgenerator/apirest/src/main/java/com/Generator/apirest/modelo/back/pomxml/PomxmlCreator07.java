@@ -28,7 +28,7 @@ public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
 
     private void createPomxml(ArchivoBaseDatosPojo archivo, Creador creador){
 
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
         String ax2="";
         String ax1="";
 

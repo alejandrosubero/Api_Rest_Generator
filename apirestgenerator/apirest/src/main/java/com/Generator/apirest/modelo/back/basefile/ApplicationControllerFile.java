@@ -16,7 +16,7 @@ public class ApplicationControllerFile implements IImportModel {
     public void createApplicationController(ArchivoBaseDatosPojo archivo, Creador creador) {
         try {
 
-            StringBuilder controller = new StringBuilder();
+            StringBuffer controller = new StringBuffer();
 
             controller.append("package " +creador.getPackageNames() + ".controller;"+ BREAK_LINE);
             controller.append(importApplicationController());

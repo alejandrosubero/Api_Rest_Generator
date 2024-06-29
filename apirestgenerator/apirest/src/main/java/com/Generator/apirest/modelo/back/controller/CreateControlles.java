@@ -47,9 +47,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
 
 
 
-    private StringBuilder metods(ArchivoBaseDatosPojo archivo, EntityPojo entidad, Creador creadors) {
+    private StringBuffer metods(ArchivoBaseDatosPojo archivo, EntityPojo entidad, Creador creadors) {
 
-        StringBuilder sb = new StringBuilder(BREAK_LINE);
+        StringBuffer sb = new StringBuffer(BREAK_LINE);
         logger.info("Create Controller metodos  for Entity:  " + entidad.getNombreClase());
         try {
               	
@@ -136,9 +136,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private  StringBuilder createImport(Creador creador, EntityPojo entidad) {
+    private  StringBuffer createImport(Creador creador, EntityPojo entidad) {
 
-        StringBuilder sb1 = new StringBuilder();
+        StringBuffer sb1 = new StringBuffer();
             sb1.append("package " + creador.getPackageNames() + ".controller;");
             sb1.append(BREAK_LINE);
             sb1.append("import "+creador.getPackageNames()+".entitys."+entidad.getNombreClase()+";");
@@ -158,9 +158,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private  StringBuilder createTituloClass(EntityPojo entidad){
+    private  StringBuffer createTituloClass(EntityPojo entidad){
 
-    StringBuilder sb2 = new StringBuilder();
+    StringBuffer sb2 = new StringBuffer();
         sb2.append("@RestController\r\n");
         sb2.append("@CrossOrigin(origins = \"*\")\r\n");
         sb2.append("@RequestMapping(\"/"+entidad.getNombreClase().toLowerCase()+"\")");
@@ -176,9 +176,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private StringBuilder createLoop(EntityPojo entidad){
+    private StringBuffer createLoop(EntityPojo entidad){
 
-        StringBuilder sb3 = new StringBuilder();
+        StringBuffer sb3 = new StringBuffer();
         List<AttributePojo> listAtributos = entidad.getAtributos();
 
         for (AttributePojo atributos : listAtributos) {
@@ -222,9 +222,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
 
     
     
-    private StringBuilder createLoopContain(EntityPojo entidad){
+    private StringBuffer createLoopContain(EntityPojo entidad){
 
-        StringBuilder sb3b = new StringBuilder();
+        StringBuffer sb3b = new StringBuffer();
 
         for (AttributePojo atributo : entidad.getAtributos()) {
             String atributoName = atributo.getAtributoName().substring(0, 1).toUpperCase() + atributo.getAtributoName().substring(1);
@@ -247,8 +247,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
     
     
-    private StringBuilder createfindId(EntityPojo entidad){
-        StringBuilder sb4 = new StringBuilder();
+    private StringBuffer createfindId(EntityPojo entidad){
+        StringBuffer sb4 = new StringBuffer();
                 sb4.append(BREAK_LINE);
                 
                 sb4.append("        @GetMapping(\"/Get" + entidad.getNombreClase() + "/{id}\")" + BREAK_LINE);
@@ -262,8 +262,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
 
 
 
-    private StringBuilder createfindAll(EntityPojo entidad){
-        StringBuilder sb5 = new StringBuilder();
+    private StringBuffer createfindAll(EntityPojo entidad){
+        StringBuffer sb5 = new StringBuffer();
                 sb5.append(BREAK_LINE);
                 sb5.append("        @GetMapping(\"/GetAll" + entidad.getNombreClase() + "\")" + BREAK_LINE);
                 sb5.append("        private  List<" + entidad.getNombreClase() + "> getAll"+entidad.getNombreClase()+"(){" + BREAK_LINE);
@@ -273,8 +273,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private StringBuilder createSalve(EntityPojo entidad){
-        StringBuilder sb6 = new StringBuilder();
+    private StringBuffer createSalve(EntityPojo entidad){
+        StringBuffer sb6 = new StringBuffer();
                 sb6.append(BREAK_LINE);
                 sb6.append("        @PostMapping(\"/save\")" + BREAK_LINE);
                 sb6.append("        private Boolean  save" + entidad.getNombreClase() + "(@RequestBody "+entidad.getNombreClase()+" "+entidad.getNombreClase().toLowerCase() +"){ " + BREAK_LINE);
@@ -285,8 +285,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private StringBuilder findByRelacion(EntityPojo entidad){
-        StringBuilder sb61 = new StringBuilder(BREAK_LINE);
+    private StringBuffer findByRelacion(EntityPojo entidad){
+        StringBuffer sb61 = new StringBuffer(BREAK_LINE);
         for (RelationshipPojo relacion: entidad.getRelaciones()) {
 //            if (relacion.getBidireccional()) {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
@@ -302,8 +302,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private StringBuilder findByRelacionNoBidirecional(EntityPojo entidad){
-        StringBuilder sb61 = new StringBuilder(BREAK_LINE);
+    private StringBuffer findByRelacionNoBidirecional(EntityPojo entidad){
+        StringBuffer sb61 = new StringBuffer(BREAK_LINE);
         for (RelationshipPojo relacion: entidad.getRelaciones()) {
                
         	if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
@@ -328,8 +328,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
 
 
 
-    private StringBuilder createUpdate(EntityPojo entidad){
-        StringBuilder sb7 = new StringBuilder();
+    private StringBuffer createUpdate(EntityPojo entidad){
+        StringBuffer sb7 = new StringBuffer();
         sb7.append(BREAK_LINE);
         sb7.append("        @PostMapping(\"/Update\")" + BREAK_LINE);
         sb7.append("        private "+idTipoDato(entidad)+" Update" + entidad.getNombreClase() + "(@RequestBody "
@@ -353,9 +353,9 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
     }
 
 
-    private StringBuilder createsaveOrUpdate(EntityPojo entidad){
+    private StringBuffer createsaveOrUpdate(EntityPojo entidad){
 
-        StringBuilder sb8 = new StringBuilder();
+        StringBuffer sb8 = new StringBuffer();
         sb8.append(BREAK_LINE);
         sb8.append("        @PostMapping(\"/saveOrUpdate\")");
         sb8.append(BREAK_LINE);
@@ -380,8 +380,8 @@ public class CreateControlles implements IImportModel  ,ControllerInterface {
 
 
 
-    private StringBuilder createDelete(EntityPojo entidad){
-        StringBuilder sb9 = new StringBuilder();
+    private StringBuffer createDelete(EntityPojo entidad){
+        StringBuffer sb9 = new StringBuffer();
         sb9.append(BREAK_LINE);
         sb9.append("        @DeleteMapping(\"/delete"); 
         sb9.append( entidad.getNombreClase()); 

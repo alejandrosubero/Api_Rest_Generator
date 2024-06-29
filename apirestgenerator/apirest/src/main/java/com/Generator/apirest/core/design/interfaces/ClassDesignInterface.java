@@ -1,10 +1,9 @@
-package com.Generator.apirest.core.design;
+package com.Generator.apirest.core.design.interfaces;
 
-import com.Generator.apirest.core.build.ClassModifier;
+import com.Generator.apirest.core.design.reference.ClassModifier;
 import com.Generator.apirest.core.build.FormatText;
-import com.Generator.apirest.core.build.Modifier;
-import com.Generator.apirest.core.build.ParameterClassMethod;
-import com.Generator.apirest.services.builders.IImportModel;
+import com.Generator.apirest.core.design.ParameterClassMethod;
+import com.Generator.apirest.core.design.ClassDesign;
 
 import java.util.List;
 

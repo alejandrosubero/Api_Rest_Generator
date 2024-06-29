@@ -16,7 +16,7 @@ public class ServletInitializerFile implements IImportModel {
     public void createServletInitializer(ArchivoBaseDatosPojo archivo, Creador creador) {
         try {
             String claseName = archivo.getProyectoName() + "Application";
-            StringBuilder as = new StringBuilder();
+            StringBuffer as = new StringBuffer();
 
             as.append("package " + creador.getPackageNames() + ";" + DOUBLEBREAK_LINE);
 //			as.append(BREAK_LINE);

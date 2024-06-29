@@ -3,11 +3,11 @@ package com.Generator.apirest.services.builders;
 public interface IConstantModel {
 
 
-    public final static String BREAK_LINE = "\r\n";
+    public final static String BREAK_LINE = System.lineSeparator();
+    public String pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
     public static final String PRIVATE = "private";
     public static final String LISTAS = "List<";
     public static final String ARRAY = "[]";
-    public String pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
 
     public final String DOUBLEBREAK_LINE = "\r\n"+"\r\n";
     public final String TAB = "\t";

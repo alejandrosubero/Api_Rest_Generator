@@ -32,8 +32,16 @@ public interface IBaseModel extends IConstantModel {
 
 
 	default public String stringEnsamble(List<String> stringPaths) {
-		StringBuilder newString = new StringBuilder();
+		StringBuffer newString = new StringBuffer();
 		stringPaths.stream().forEach(path -> newString.append(path));
+		return newString.toString();
+	}
+
+	default public String stringEnsamble(String ...stringPaths) {
+		StringBuffer newString = new StringBuffer();
+		for (String path : stringPaths) {
+			newString.append(path);
+		}
 		return newString.toString();
 	}
 

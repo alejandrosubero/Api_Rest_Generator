@@ -5,6 +5,10 @@ import com.Generator.apirest.core.Creador;
 import com.Generator.apirest.core.build.*;
 import com.Generator.apirest.core.design.ClassDesign;
 import com.Generator.apirest.core.design.MethodDesign;
+import com.Generator.apirest.core.design.ParameterClassMethod;
+import com.Generator.apirest.core.design.reference.ClassType;
+import com.Generator.apirest.core.design.reference.Modifier;
+import com.Generator.apirest.core.design.reference.RetunsType;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.pojos.back.AttributePojo;
 import com.Generator.apirest.pojos.back.EntityPojo;
@@ -79,8 +83,8 @@ public class CreateServices implements IImportModel {
 
 	private void createService(EntityPojo entidad) throws InterruptedException {
 
-		StringBuilder main = new StringBuilder("\r\n");
-		StringBuilder sb2 = new StringBuilder("\r\n");
+		StringBuffer main = new StringBuffer("\r\n");
+		StringBuffer sb2 = new StringBuffer("\r\n");
 		List<String> importList = new ArrayList<>();
 
 		String atributoName = "";
@@ -289,7 +293,7 @@ public class CreateServices implements IImportModel {
 	}
 
 
-	private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb)
+	private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb)
 			throws InterruptedException {
 		String nameFile = entidad_getNombreClase + ".java";
 		String singleString = sb.toString();

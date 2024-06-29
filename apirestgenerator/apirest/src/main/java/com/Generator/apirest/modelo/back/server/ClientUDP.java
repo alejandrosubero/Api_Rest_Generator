@@ -57,8 +57,8 @@ public class ClientUDP {
     }
 
 
-    private StringBuilder metods() {
-        StringBuilder sb = new StringBuilder("\r\n");
+    private StringBuffer metods() {
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create cliente socket UDP metodos ");
         try {
 
@@ -83,8 +83,8 @@ public class ClientUDP {
     }
 
 
-    private  StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private  StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import com.google.gson.Gson;" + "\r\n");
         sb1.append("import org.slf4j.Logger;" + "\r\n");
@@ -98,8 +98,8 @@ public class ClientUDP {
         return sb1;
     }
 
-    private  StringBuilder createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private  StringBuffer createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
 
         sb2.append("" + "\r\n");
         //  sb2.append("@Component" + "\r\n");
@@ -118,8 +118,8 @@ public class ClientUDP {
     }
 
 
-    private  StringBuilder createCostructor() {
-        StringBuilder sb3 = new StringBuilder();
+    private  StringBuffer createCostructor() {
+        StringBuffer sb3 = new StringBuffer();
 
         sb3.append(" public static void starmain(Integer portServer, String ip, String mensaje) {" + "\r\n");
         sb3.append("    loger.info(\"Iniciado el Cliente-TCP\");" + "\r\n");

@@ -65,7 +65,7 @@ public class CreateRepositories implements IImportModel {
 
 
     private void createRepository(EntityPojo entidad) throws InterruptedException {
-        StringBuilder sb1 = new StringBuilder("\r\n");
+        StringBuffer sb1 = new StringBuffer("\r\n");
         List<AttributePojo> listAtributos = entidad.getAtributos();
         String nameOfClass = entidad.getNombreClase() + "Repository";
         logger.info("createRepository" + "  for Entity:  " + entidad.getNombreClase());
@@ -116,7 +116,7 @@ public class CreateRepositories implements IImportModel {
     }
 
 
-    private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuilder sb)
+    private void createFileClass(String entidad_getNombreClase, String entidad_paquete, StringBuffer sb)
             throws InterruptedException {
 
         String nameFile = entidad_getNombreClase + ".java";

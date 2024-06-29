@@ -71,7 +71,7 @@ public class CreateService07 {
 
     private  void createService(EntityPojo entidad ) throws InterruptedException {
 
-        StringBuilder sb2 = new StringBuilder("\r\n");
+        StringBuffer sb2 = new StringBuffer("\r\n");
         String cadenaOriginal="";
         String atributoName = "";
         String datoTipo = "";

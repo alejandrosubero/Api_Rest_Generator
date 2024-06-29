@@ -15,7 +15,7 @@ public class ApplicationPropetiesFile implements IImportModel {
 
     public void createApplicationPropeties(ArchivoBaseDatosPojo archivo, Creador creador) {
         try {
-            StringBuilder sb = new StringBuilder();
+            StringBuffer sb = new StringBuffer();
             String ax = "";
 
             int tipoDatabase= archivo.getTipoDatabase();

@@ -1,7 +1,7 @@
-package com.Generator.apirest.core.design;
+package com.Generator.apirest.core.design.interfaces;
 
-import com.Generator.apirest.core.build.ParameterClassMethod;
-import com.Generator.apirest.core.build.RetunsType;
+import com.Generator.apirest.core.design.ParameterClassMethod;
+import com.Generator.apirest.core.design.reference.RetunsType;
 import com.Generator.apirest.services.builders.IImportModel;
 
 import java.util.List;

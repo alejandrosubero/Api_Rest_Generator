@@ -63,7 +63,7 @@ public class CreateRepositorie07 {
 
 
     private  void createRepository(EntityPojo entidad) throws InterruptedException {
-        StringBuilder sb1 = new StringBuilder("\r\n");
+        StringBuffer sb1 = new StringBuffer("\r\n");
         List <AttributePojo> listAtributos = entidad.getAtributos();
         String nameOfClass = entidad.getNombreClase()+"Repository";
         logger.info("createRepository" + "  for Entity:  " + entidad.getNombreClase());
@@ -137,7 +137,7 @@ public class CreateRepositorie07 {
     	boolean concat = false;
          List<String> atributosName = new ArrayList<String>();
     	// List <AttributePojo> listAtributos = entidad.getAtributos();
-        StringBuilder search = new StringBuilder("@Query(value = \"SELECT p FROM "+ entidad.getNombreClase()+" p WHERE CONCAT(");
+        StringBuffer search = new StringBuffer("@Query(value = \"SELECT p FROM "+ entidad.getNombreClase()+" p WHERE CONCAT(");
         
         for (AttributePojo atributos : entidad.getAtributos()) {
             if (!atributos.getsId()) { 

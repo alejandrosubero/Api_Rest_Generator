@@ -80,9 +80,9 @@ public class CreateMapper implements IImportModel {
     }
 
     
-    private StringBuilder metods(ArchivoBaseDatosPojo archivo, Creador creador, EntityPojo entidad) {
+    private StringBuffer metods(ArchivoBaseDatosPojo archivo, Creador creador, EntityPojo entidad) {
 
-        StringBuilder sb = new StringBuilder(BREAK_LINE);
+        StringBuffer sb = new StringBuffer(BREAK_LINE);
         logger.info("Create Mapper metodos  for Entity:  " + entidad.getNombreClase());
         try {
             sb.append(BREAK_LINE);
@@ -99,9 +99,9 @@ public class CreateMapper implements IImportModel {
         return sb;
     }
 
-    private StringBuilder createImport(ArchivoBaseDatosPojo archivo, Creador creadors, EntityPojo entidads) {
+    private StringBuffer createImport(ArchivoBaseDatosPojo archivo, Creador creadors, EntityPojo entidads) {
 
-        StringBuilder sb1 = new StringBuilder();        
+        StringBuffer sb1 = new StringBuffer();        
         sb1.append(new AnotacionesJava(archivo).creatNotaClase().toString()+BREAK_LINE);
         sb1.append("package " + creadors.getPackageNames() + ".mapper;" + BREAK_LINE);
         sb1.append("import " + creadors.getPackageNames() + ".entitys." + entidads.getNombreClase() + ";" + BREAK_LINE);
@@ -124,8 +124,8 @@ public class CreateMapper implements IImportModel {
         return sb1;
     }
 
-    private StringBuilder createTituloClass(EntityPojo entidad) {
-        StringBuilder sb2 = new StringBuilder();
+    private StringBuffer createTituloClass(EntityPojo entidad) {
+        StringBuffer sb2 = new StringBuffer();
         sb2.append("    @Component"+BREAK_LINE);
         sb2.append("    public class " + entidad.getNombreClase() + "Mapper {"+BREAK_LINE);
         sb2.append(BREAK_LINE);
@@ -140,9 +140,9 @@ public class CreateMapper implements IImportModel {
     }
 
 
-    private StringBuilder createEntityToPojoMapper(EntityPojo entity, LayerPojo layerPojo) {
+    private StringBuffer createEntityToPojoMapper(EntityPojo entity, LayerPojo layerPojo) {
 		
-    	 StringBuilder sb3 = new StringBuilder();
+    	 StringBuffer sb3 = new StringBuffer();
          String entidadReturn = stringEnsamble(List.of(entity.getNombreClase(), layerPojo.getModelM()));
 
     	 sb3.append("    public " + entidadReturn + " entityToPojo(" + entity.getNombreClase() + " entity) {");
@@ -165,9 +165,9 @@ public class CreateMapper implements IImportModel {
     }
     
     
-    private StringBuilder  createPojoToEntityMapper(EntityPojo entity, LayerPojo layerPojo) {
+    private StringBuffer  createPojoToEntityMapper(EntityPojo entity, LayerPojo layerPojo) {
 		
-   	 StringBuilder sb7 = new StringBuilder();
+   	 StringBuffer sb7 = new StringBuffer();
    	 sb7.append("    public " + entity.getNombreClase() + " pojoToEntity(" + entity.getNombreClase() + layerPojo.getModelM()+" pojo) {");
    	 sb7.append(BREAK_LINE);
    	 sb7.append("		ModelMapper modelMapper = new ModelMapper();");
@@ -190,9 +190,9 @@ public class CreateMapper implements IImportModel {
     
     
     
-    private StringBuilder createEntityToPojo(EntityPojo entity, LayerPojo layerPojo) throws InterruptedException {
+    private StringBuffer createEntityToPojo(EntityPojo entity, LayerPojo layerPojo) throws InterruptedException {
         
-   	 StringBuilder sb3 = new StringBuilder();
+   	 StringBuffer sb3 = new StringBuffer();
 
            for (EntityPojo pojo : toPojos) {
                String[] clavePojo = pojo.getNombreClase().split("Pojo");
@@ -247,9 +247,9 @@ public class CreateMapper implements IImportModel {
    }
 
 
-   private StringBuilder createPojoToEntity(EntityPojo entity) {
+   private StringBuffer createPojoToEntity(EntityPojo entity) {
       
-   	 StringBuilder sb4 = new StringBuilder();
+   	 StringBuffer sb4 = new StringBuffer();
        for (EntityPojo pojo : toPojos) {
            String[] clavePojo = pojo.getNombreClase().split("Pojo");
            if (entity.getNombreClase().equals(clavePojo[0])) {

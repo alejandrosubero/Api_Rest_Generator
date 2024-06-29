@@ -68,9 +68,9 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder metods(EntityPojo entidad) {
+    private StringBuffer metods(EntityPojo entidad) {
 
-        StringBuilder sb = new StringBuilder(BREAK_LINE);
+        StringBuffer sb = new StringBuffer(BREAK_LINE);
         logger.info("Create Controller metodos  for Entity:  " + entidad.getNombreClase());
         try {
 
@@ -146,8 +146,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createImport(EntityPojo entidad) {
-        StringBuilder sb1 = new StringBuilder();
+    private StringBuffer createImport(EntityPojo entidad) {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append(stringEnsamble(Lists.newArrayList("package ", paquete, ".controller;")));
         sb1.append(DOUBLEBREAK_LINE);
         sb1.append(stringEnsamble(Lists.newArrayList("import ", paquete, ".entitys.", entidad.getNombreClase(), ";")));
@@ -163,8 +163,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createTituloClass(EntityPojo entidad) {
-        StringBuilder sb2 = new StringBuilder();
+    private StringBuffer createTituloClass(EntityPojo entidad) {
+        StringBuffer sb2 = new StringBuffer();
         sb2.append(stringEnsamble(Lists.newArrayList("@RestController", BREAK_LINE)));
         sb2.append(stringEnsamble(Lists.newArrayList("@CrossOrigin(origins = \"*\")", BREAK_LINE)));
         sb2.append(stringEnsamble(Lists.newArrayList("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")", BREAK_LINE)));
@@ -175,9 +175,9 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createLoop(EntityPojo entidad) {
+    private StringBuffer createLoop(EntityPojo entidad) {
 
-        StringBuilder sb3 = new StringBuilder();
+        StringBuffer sb3 = new StringBuffer();
         List<AttributePojo> listAtributos = entidad.getAtributos();
 
         for (AttributePojo atributos : listAtributos) {
@@ -196,9 +196,9 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder creatContain(EntityPojo entidad) {
+    private StringBuffer creatContain(EntityPojo entidad) {
 
-        StringBuilder sb3 = new StringBuilder();
+        StringBuffer sb3 = new StringBuffer();
         List<AttributePojo> listAtributo = entidad.getAtributos();
 
         for (AttributePojo atributo : listAtributo) {
@@ -216,8 +216,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createfindId(EntityPojo entidad) {
-        StringBuilder sb4 = new StringBuilder();
+    private StringBuffer createfindId(EntityPojo entidad) {
+        StringBuffer sb4 = new StringBuffer();
         sb4.append(BREAK_LINE);
         sb4.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE)));
         sb4.append(stringEnsamble(Lists.newArrayList("          private ", entidad.getNombreClase(), " findById", "(@PathVariable(\"id\") ", idTipoDato(entidad), " id) {", BREAK_LINE)));
@@ -227,8 +227,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createfindAll(EntityPojo entidad) {
-        StringBuilder sb5 = new StringBuilder();
+    private StringBuffer createfindAll(EntityPojo entidad) {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append(BREAK_LINE);
         sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE)));
         sb5.append(stringEnsamble(Lists.newArrayList("        private  List<", entidad.getNombreClase(), "> getAll", entidad.getNombreClase(), "(){", BREAK_LINE)));
@@ -238,8 +238,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createFinBySearch(EntityPojo entidad) {
-        StringBuilder sb5 = new StringBuilder();
+    private StringBuffer createFinBySearch(EntityPojo entidad) {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append(BREAK_LINE);
         sb5.append(stringEnsamble(Lists.newArrayList("        @GetMapping(\"/Search\")", BREAK_LINE)));
         sb5.append(stringEnsamble(Lists.newArrayList("        private  List<", entidad.getNombreClase(), "> finBySearch(@RequestParam(value = \"search\") String search){", BREAK_LINE)));
@@ -249,8 +249,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createSalve(EntityPojo entidad) {
-        StringBuilder sb6 = new StringBuilder();
+    private StringBuffer createSalve(EntityPojo entidad) {
+        StringBuffer sb6 = new StringBuffer();
         sb6.append(BREAK_LINE);
         sb6.append(stringEnsamble(Lists.newArrayList("        @PostMapping(\"/saveOrUpdate\")", BREAK_LINE)));
         sb6.append(stringEnsamble(Lists.newArrayList("        private Boolean  saveOrUpdate", entidad.getNombreClase(), "(@RequestBody ", entidad.getNombreClase(), " ", entidad.getNombreClase().toLowerCase(), "){ ", BREAK_LINE)));
@@ -260,8 +260,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder findByRelacion(EntityPojo entidad) {
-        StringBuilder sb61 = new StringBuilder(BREAK_LINE);
+    private StringBuffer findByRelacion(EntityPojo entidad) {
+        StringBuffer sb61 = new StringBuffer(BREAK_LINE);
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
                 sb61.append(BREAK_LINE);
@@ -275,8 +275,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder findByRelacionNoBidirecional(EntityPojo entidad) {
-        StringBuilder sb61 = new StringBuilder(BREAK_LINE);
+    private StringBuffer findByRelacionNoBidirecional(EntityPojo entidad) {
+        StringBuffer sb61 = new StringBuffer(BREAK_LINE);
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
                 sb61.append(BREAK_LINE);
@@ -292,8 +292,8 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuilder createDelete(EntityPojo entidad) {
-        StringBuilder sb9 = new StringBuilder();
+    private StringBuffer createDelete(EntityPojo entidad) {
+        StringBuffer sb9 = new StringBuffer();
         sb9.append(BREAK_LINE);
         sb9.append(stringEnsamble(Lists.newArrayList("        @DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")", BREAK_LINE)));
         sb9.append(stringEnsamble(Lists.newArrayList("            private boolean delete", entidad.getNombreClase(), "(@PathVariable(\"id\") ", idTipoDato(entidad), " id) {" + BREAK_LINE)));

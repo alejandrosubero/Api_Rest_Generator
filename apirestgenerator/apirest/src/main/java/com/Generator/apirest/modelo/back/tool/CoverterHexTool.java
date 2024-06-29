@@ -61,8 +61,8 @@ public class CoverterHexTool {
     }
 
 
-    private StringBuilder metods() {
-        StringBuilder sb = new StringBuilder("\r\n");
+    private StringBuffer metods() {
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create hex converter metodos ");
         try {
            
@@ -100,8 +100,8 @@ public class CoverterHexTool {
     }
 
 
-    private  StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private  StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import com.google.gson.Gson;" + "\r\n");
         sb1.append("import org.slf4j.Logger;" + "\r\n");
@@ -120,8 +120,8 @@ public class CoverterHexTool {
         return sb1;
     }
 
-    private  StringBuilder createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private  StringBuffer createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
 
         sb2.append("" + "\r\n");
         sb2.append("public class CoverterHex {" + "\r\n");
@@ -135,12 +135,12 @@ public class CoverterHexTool {
     }
 
 
-    private  StringBuilder createhexToAscii() {
-        StringBuilder sb3 = new StringBuilder();
+    private  StringBuffer createhexToAscii() {
+        StringBuffer sb3 = new StringBuffer();
 
         sb3.append("" + "\r\n");
         sb3.append(" private static String hexToAscii(String hexStr) {" + "\r\n");
-        sb3.append(" StringBuilder output = new StringBuilder(\"\");" + "\r\n");
+        sb3.append(" StringBuffer output = new StringBuffer(\"\");" + "\r\n");
         sb3.append(" for (int i = 0; i < hexStr.length(); i += 2) {" + "\r\n");
         sb3.append(" String str = hexStr.substring(i, i + 2);" + "\r\n");
         sb3.append("output.append((char) Integer.parseInt(str, 16));" + "\r\n");
@@ -153,11 +153,11 @@ public class CoverterHexTool {
     }
 
 
-    private  StringBuilder createasciiToHex() {
-        StringBuilder sb4 = new StringBuilder();
+    private  StringBuffer createasciiToHex() {
+        StringBuffer sb4 = new StringBuffer();
         sb4.append(" private static String asciiToHex(String asciiStr) {" + "\r\n");
         sb4.append(" char[] chars = asciiStr.toCharArray();" + "\r\n");
-        sb4.append(" StringBuilder hex = new StringBuilder();" + "\r\n");
+        sb4.append(" StringBuffer hex = new StringBuffer();" + "\r\n");
         sb4.append("  for (char ch : chars) {" + "\r\n");
         sb4.append("  hex.append(Integer.toHexString((int) ch));" + "\r\n");
         sb4.append(" }" + "\r\n");
@@ -169,10 +169,10 @@ public class CoverterHexTool {
 
 
 
-    private  StringBuilder createmetodoAsc() {
-        StringBuilder sb5 = new StringBuilder();
+    private  StringBuffer createmetodoAsc() {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append(" private void metodoAsc(String hex){" + "\r\n");
-        sb5.append("StringBuilder output = new StringBuilder();" + "\r\n");
+        sb5.append("StringBuffer output = new StringBuffer();" + "\r\n");
         sb5.append("  for (int i = 0; i < hex.length(); i+=2) { " + "\r\n");
         sb5.append(" String str = hex.substring(i, i+2);" + "\r\n");
         sb5.append(" output.append((char)Integer.parseInt(str, 16));" + "\r\n");
@@ -186,8 +186,8 @@ public class CoverterHexTool {
 
 
 
-    private  StringBuilder createascii_To_Hex() {
-        StringBuilder sb6 = new StringBuilder();
+    private  StringBuffer createascii_To_Hex() {
+        StringBuffer sb6 = new StringBuffer();
         sb6.append("" + "\r\n");
         sb6.append(" private static String ascii_To_Hex(String asciiStr) {" + "\r\n");
         sb6.append("byte[] s = DatatypeConverter.parseHexBinary(asciiStr);" + "\r\n");

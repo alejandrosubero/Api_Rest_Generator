@@ -1,6 +1,8 @@
 package com.Generator.apirest.core.design;
 
-import com.Generator.apirest.core.build.BuildFileClass;
+
+
+import com.Generator.apirest.core.design.interfaces.DesingCommunInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,7 @@ public class BodyMethodDesign implements DesingCommunInterface {
 
     @Override
     public String toString() {
-//        List<String> toStringbodyLines = new ArrayList<>();
-//        toStringbodyLines = bodyLines.stream().map(line -> stringEnsamble(List.of(line,BREAK_LINE))).collect(Collectors.toList());
-        return stringEnsamble(bodyLines.stream().map(line -> stringEnsamble(List.of(line, BREAK_LINE))).collect(Collectors.toList()));
+        return stringEnsamble(bodyLines.stream().map(line -> stringEnsamble(line, BREAK_LINE)).collect(Collectors.toList()));
     }
 
     public static BodyMethodDesign.Builder builder() {

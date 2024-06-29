@@ -1,5 +1,6 @@
-package com.Generator.apirest.core.build;
+package com.Generator.apirest.core.design;
 
+import com.Generator.apirest.core.design.reference.Modifier;
 import com.Generator.apirest.services.builders.IConstantModel;
 
 import java.util.ArrayList;

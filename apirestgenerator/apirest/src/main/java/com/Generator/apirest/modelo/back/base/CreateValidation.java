@@ -88,9 +88,9 @@ public class CreateValidation {
     }
 
 
-    private  StringBuilder metods(EntityPojo entidad , LayerPojo layerPojo) throws InterruptedException {
+    private  StringBuffer metods(EntityPojo entidad , LayerPojo layerPojo) throws InterruptedException {
 
-        StringBuilder validations = new StringBuilder ();
+        StringBuffer validations = new StringBuffer ();
         validations.append(this.anotacionesJava.creatNotaClase()+"\r\n");
         validations.append(this.createImport(entidad, layerPojo));
         validations.append(this.cabeceraClase(entidad));
@@ -115,9 +115,9 @@ public class CreateValidation {
     }
 
 
-    private StringBuilder createImport(EntityPojo entidad, LayerPojo layerPojo){
+    private StringBuffer createImport(EntityPojo entidad, LayerPojo layerPojo){
 
-    StringBuilder sb0 = new StringBuilder ();
+    StringBuffer sb0 = new StringBuffer ();
     logger.info("createService" + "  for Entity:  " + entidad.getNombreClase());
 
     sb0.append("package " + packageNames + ".validation ;\r\n");
@@ -150,8 +150,8 @@ public class CreateValidation {
 }
 
 
-    private StringBuilder cabeceraClase(EntityPojo entidad){
-    StringBuilder sb1 = new StringBuilder ();
+    private StringBuffer cabeceraClase(EntityPojo entidad){
+    StringBuffer sb1 = new StringBuffer ();
     String nameClass = entidad.getNombreClase()+"Validation";
     sb1.append("\r\n");
     sb1.append("\r\n");
@@ -163,9 +163,9 @@ public class CreateValidation {
 }
 
 
-private StringBuilder metodoValidad(EntityPojo entidad, LayerPojo layerPojo){
+private StringBuffer metodoValidad(EntityPojo entidad, LayerPojo layerPojo){
 
-    StringBuilder sb2 = new StringBuilder ();
+    StringBuffer sb2 = new StringBuffer ();
     String variable = entidad.getNombreClase().toLowerCase();
     sb2.append("        public "+entidad.getNombreClase()+ layerPojo.getModelM()+" valida("+entidad.getNombreClase()+ layerPojo.getModelM()+" "+variable+") {" + "\r\n");
     sb2.append("        "+entidad.getNombreClase()+ layerPojo.getModelM()+" pojo = null;"+"\r\n");
@@ -199,10 +199,10 @@ private StringBuilder metodoValidad(EntityPojo entidad, LayerPojo layerPojo){
 }
 
 
-    private StringBuilder metodovalida_id(EntityPojo entidad){
+    private StringBuffer metodovalida_id(EntityPojo entidad){
 
         String datoTipo ="";
-        StringBuilder sb3 = new StringBuilder ();
+        StringBuffer sb3 = new StringBuffer ();
         String variable = entidad.getNombreClase().toLowerCase();
         for (AttributePojo atributoID : entidad.getAtributos()) {
             if (atributoID.getsId()) { datoTipo = atributoID.getTipoDato(); }
@@ -234,9 +234,9 @@ private StringBuilder metodoValidad(EntityPojo entidad, LayerPojo layerPojo){
         return sb3;
     }
 
-    private StringBuilder metodovalidation(EntityPojo entidad){
+    private StringBuffer metodovalidation(EntityPojo entidad){
 
-        StringBuilder sb4 = new StringBuilder ();
+        StringBuffer sb4 = new StringBuffer ();
         sb4.append("    public <T> Object validation(T t) {"+"\r\n");
         sb4.append("         T elemento = null;"+"\r\n");
         sb4.append("        try {"+"\r\n");

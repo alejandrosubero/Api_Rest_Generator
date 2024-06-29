@@ -17,7 +17,7 @@ public class ApplicationFile implements IImportModel {
     public void createApplication(ArchivoBaseDatosPojo archivo, Creador creador) {
 
         try {
-            StringBuilder sb = new StringBuilder();
+            StringBuffer sb = new StringBuffer();
             String proyectoName = archivo.getProyectoName();
             sb.append("package " + creador.getPackageNames() + ";");
             sb.append(DOUBLEBREAK_LINE);

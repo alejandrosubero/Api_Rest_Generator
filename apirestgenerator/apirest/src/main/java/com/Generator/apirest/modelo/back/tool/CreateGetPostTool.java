@@ -64,9 +64,9 @@ public class CreateGetPostTool {
         }
     }
 
-    private StringBuilder metods() {
+    private StringBuffer metods() {
 
-        StringBuilder sb = new StringBuilder("\r\n");
+        StringBuffer sb = new StringBuffer("\r\n");
         logger.info("Create Apache Http Client metodos ");
         try {
          //   Thread.sleep(relantizar);
@@ -99,8 +99,8 @@ public class CreateGetPostTool {
         return sb;
     }
 
-    private  StringBuilder createImport() {
-        StringBuilder sb1 = new StringBuilder();
+    private  StringBuffer createImport() {
+        StringBuffer sb1 = new StringBuffer();
         sb1.append("package " + paquete + ".serviceImplement;" + "\r\n");
         sb1.append("import com.google.gson.Gson;" + "\r\n");
         sb1.append("import org.apache.http.client.methods.CloseableHttpResponse;" + "\r\n");
@@ -121,8 +121,8 @@ public class CreateGetPostTool {
     }
 
 
-    private  StringBuilder createTituloClass() {
-        StringBuilder sb2 = new StringBuilder();
+    private  StringBuffer createTituloClass() {
+        StringBuffer sb2 = new StringBuffer();
         sb2.append("" + "\r\n");
         sb2.append("@Component" + "\r\n");
         sb2.append("public class GenericApacheHttpClient {" + "\r\n");
@@ -139,8 +139,8 @@ public class CreateGetPostTool {
     }
 
 
-    private  StringBuilder createSend() {
-        StringBuilder sb3 = new StringBuilder();
+    private  StringBuffer createSend() {
+        StringBuffer sb3 = new StringBuffer();
         sb3.append("    public <T> void send(String envio, String url, T t) {" + "\r\n");
         sb3.append("        if (envio.equals(\"GET\")) {" + "\r\n");
         sb3.append("            try {" + "\r\n");
@@ -162,8 +162,8 @@ public class CreateGetPostTool {
         return sb3;
     }
 
-    private  StringBuilder createsendGET() {
-        StringBuilder sb4 = new StringBuilder();
+    private  StringBuffer createsendGET() {
+        StringBuffer sb4 = new StringBuffer();
         sb4.append("" + "\r\n");
         sb4.append("    private void sendGET() throws IOException {" + "\r\n");
         sb4.append("        String inputLine;" + "\r\n");
@@ -188,8 +188,8 @@ public class CreateGetPostTool {
         return sb4;
     }
 
-    private  StringBuilder createsendPost() {
-        StringBuilder sb5 = new StringBuilder();
+    private  StringBuffer createsendPost() {
+        StringBuffer sb5 = new StringBuffer();
         sb5.append("    private <T> void sendPOST(T t) throws IOException {" + "\r\n");
         sb5.append("        Gson gson = new Gson();" + "\r\n");
         sb5.append("        CloseableHttpClient httpClient = HttpClients.createDefault();" + "\r\n");

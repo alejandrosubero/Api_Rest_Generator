@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api")
-public class ControllerAna {
+public class ControllerApiRest {
 
 	// /ApiREST/Generator/api/archivosBase
 
-	private  static final Log logger = LogFactory.getLog(ControllerAna.class);
+	private  static final Log logger = LogFactory.getLog(ControllerApiRest.class);
 
 	@Autowired
 	private SalveProyectService salveProyectService;

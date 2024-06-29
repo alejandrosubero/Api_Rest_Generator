@@ -1,9 +1,9 @@
 package com.Generator.apirest.core.design;
 
-import com.Generator.apirest.core.build.ClassType;
-import com.Generator.apirest.core.build.Modifier;
-import com.Generator.apirest.core.build.ParameterClassMethod;
-import com.Generator.apirest.core.build.TypeInject;
+import com.Generator.apirest.core.design.reference.ClassType;
+import com.Generator.apirest.core.design.reference.Modifier;
+import com.Generator.apirest.core.design.reference.TypeInject;
+import com.Generator.apirest.core.design.interfaces.ClassDesignInterface;
 
 import java.util.ArrayList;
 import java.util.List;
