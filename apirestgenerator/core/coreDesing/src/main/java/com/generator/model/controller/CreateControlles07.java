@@ -110,13 +110,6 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
             sb.append(BREAK_LINE);
 
 
-//            sb.append(this.createUpdate(entidad));
-//            sb.append("\r\n");
-//
-
-//            sb.append(this.createsaveOrUpdate(entidad));
-//            sb.append("\r\n");
-
             if (archivo.checkAtributos(entidad)) {
                 sb.append(this.createFinBySearch(entidad));
                 sb.append(BREAK_LINE);
@@ -213,10 +206,26 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
             String atrubutoObjeto = atributo.getAtributoName().toLowerCase();
             if (!atributo.getsId()) {
                 sb3.append(BREAK_LINE);
-                sb3.append(stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")", BREAK_LINE));
-                sb3.append(stringEnsamble("private List<", entidad.getNombreClase(), "> findBy", atributoName, "Contain(@PathVariable(\"", atrubutoObjeto, "\") ", atributo.getTipoDato(), "  ", atrubutoObjeto, ") {", BREAK_LINE));
-                sb3.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "Containing(", atrubutoObjeto, ");", BREAK_LINE));
-                sb3.append(stringEnsamble("}", BREAK_LINE));
+                sb3.append(
+                        MethodDesign.builder()
+                                .annotation(List.of("@GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")", BREAK_LINE))
+                                .modifiers(Modifier.Private)
+                                .returnsType(RetunsType. List)
+                                .returnsClass(entidad.getNombreClase())
+                                .methodName(stringEnsamble(" findBy", atributoName, "Contain"))
+                                .parameter(List.of(
+                                        ParameterClassMethod.builder()
+                                                .atributoClass(stringEnsamble("@PathVariable(\"", atrubutoObjeto, "\") ",
+                                                        atributo.getTipoDato()))
+                                                .atributoName(atrubutoObjeto).build()))
+                                .methodBody(BodyMethodDesign.builder()
+                                        .bodyLines(List.of(
+                                                "return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName,
+                                                "Containing(", atrubutoObjeto, ");", BREAK_LINE)
+                                        ).build().toString()
+                                ).build().toString());
+
+
             }
         }
         return sb3;
@@ -226,10 +235,23 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     private StringBuffer createfindId(EntityPojo entidad) {
         StringBuffer sb4 = new StringBuffer();
         sb4.append(BREAK_LINE);
-        sb4.append(stringEnsamble("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE));
-        sb4.append(stringEnsamble("private ", entidad.getNombreClase(), " findById", "(@PathVariable(\"id\") ", idTipoDato(entidad), " id) {", BREAK_LINE));
-        sb4.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findById(id);", BREAK_LINE));
-        sb4.append(stringEnsamble("}", BREAK_LINE));
+        sb4.append(
+                MethodDesign.builder()
+                        .annotation(List.of("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
+                        .modifiers(Modifier.Private)
+                        .returnsType(RetunsType. List)
+                        .returnsClass(entidad.getNombreClase())
+                        .methodName(stringEnsamble("findById", entidad.getNombreClase()))
+                        .parameter(List.of(
+                                ParameterClassMethod.builder()
+                                        .atributoClass(stringEnsamble("(@PathVariable(\"id\") ", idTipoDato(entidad)))
+                                        .atributoName("id").build()))
+                        .methodBody(BodyMethodDesign.builder()
+                                .bodyLines(List.of(
+                                        "return ", entidad.getNombreClase().toLowerCase(), "Service.findById(id);", BREAK_LINE,
+                                        BREAK_LINE)
+                                ).build().toString()
+                        ).build().toString());
         return sb4;
     }
 
@@ -237,10 +259,21 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     private StringBuffer createfindAll(EntityPojo entidad) {
         StringBuffer sb5 = new StringBuffer();
         sb5.append(BREAK_LINE);
-        sb5.append(stringEnsamble("@GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE));
-        sb5.append(stringEnsamble("private  List<", entidad.getNombreClase(), "> getAll", entidad.getNombreClase(), "(){", BREAK_LINE));
-        sb5.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.getAll", entidad.getNombreClase(), "();}", BREAK_LINE));
-        sb5.append(BREAK_LINE);
+        sb5.append(
+                MethodDesign.builder()
+                        .annotation(List.of("@GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE))
+                        .modifiers(Modifier.Private)
+                        .returnsType(RetunsType. List)
+                        .returnsClass(entidad.getNombreClase())
+                        .methodName(stringEnsamble("getAll", entidad.getNombreClase()))
+                        .parameter(null)
+                        .methodBody(BodyMethodDesign.builder()
+                                .bodyLines(List.of(
+                                        "return ", entidad.getNombreClase().toLowerCase(), "Service.getAll", entidad.getNombreClase(), "();",
+                                        BREAK_LINE)
+                                ).build().toString()
+                        ).build().toString());
+
         return sb5;
     }
 
@@ -248,21 +281,55 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     private StringBuffer createFinBySearch(EntityPojo entidad) {
         StringBuffer sb5 = new StringBuffer();
         sb5.append(BREAK_LINE);
-        sb5.append(stringEnsamble("@GetMapping(\"/Search\")", BREAK_LINE));
-        sb5.append(stringEnsamble("private  List<", entidad.getNombreClase(), "> finBySearch(@RequestParam(value = \"search\") String search){", BREAK_LINE));
-        sb5.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.search(search);}", BREAK_LINE));
-        sb5.append(BREAK_LINE);
+        sb5.append(
+                MethodDesign.builder()
+                        .annotation(List.of("@GetMapping(\"/Search\")", BREAK_LINE))
+                        .modifiers(Modifier.Private)
+                        .returnsType(RetunsType. List)
+                        .returnsClass(entidad.getNombreClase())
+                        .methodName(stringEnsamble("finBySearch", entidad.getNombreClase()))
+                        .parameter(List.of(
+                                ParameterClassMethod.builder()
+                                        .atributoClass(stringEnsamble("@RequestParam(value = \"search\") String"))
+                                        .atributoName("search").build()))
+                        .methodBody(BodyMethodDesign.builder()
+                                .bodyLines(List.of(
+                                        "return ",
+                                        entidad.getNombreClase().toLowerCase(),
+                                        "Service.search(search);",
+                                        BREAK_LINE)
+                                ).build().toString()
+                        ).build().toString());
+
         return sb5;
     }
 
 
     private StringBuffer createSalve(EntityPojo entidad) {
         StringBuffer sb6 = new StringBuffer();
-        sb6.append(BREAK_LINE);
-        sb6.append(stringEnsamble("@PostMapping(\"/saveOrUpdate\")", BREAK_LINE));
-        sb6.append(stringEnsamble("private Boolean  saveOrUpdate", entidad.getNombreClase(), "(@RequestBody ", entidad.getNombreClase(), " ", entidad.getNombreClase().toLowerCase(), "){ ", BREAK_LINE));
-        sb6.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.saveOrUpdate", entidad.getNombreClase(), "(", entidad.getNombreClase().toLowerCase(), "); }", BREAK_LINE));
-        sb6.append(BREAK_LINE);
+
+        sb6.append(
+                MethodDesign.builder()
+                        .annotation(List.of("@PostMapping(\"/saveOrUpdate\")", BREAK_LINE))
+                        .modifiers(Modifier.Private)
+                        .returnsType(RetunsType.none)
+                        .returnsClass("Boolean")
+                        .methodName(stringEnsamble("saveOrUpdate", entidad.getNombreClase()))
+                        .parameter(List.of(
+                                ParameterClassMethod.builder()
+                                        .atributoClass(stringEnsamble("@RequestBody ", entidad.getNombreClase()))
+                                        .atributoName(entidad.getNombreClase().toLowerCase()).build()))
+                        .methodBody(BodyMethodDesign.builder()
+                                .bodyLines(List.of(
+                                        "return ",
+                                        entidad.getNombreClase().toLowerCase(),
+                                        "Service.saveOrUpdate", entidad.getNombreClase(),
+                                        "(", entidad.getNombreClase().toLowerCase(), ");",
+                                        BREAK_LINE)
+                                ).build().toString()
+                        ).build().toString());
+
+
         return sb6;
     }
 
@@ -271,11 +338,24 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
         StringBuffer sb61 = new StringBuffer(BREAK_LINE);
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
-                sb61.append(BREAK_LINE);
-                sb61.append(stringEnsamble("@PostMapping(\"/Get_", relacion.getNameRelacion(), "_contain/\")", "\r\n"));
-                sb61.append(stringEnsamble("private List<", entidad.getNombreClase(), "> findBy", relacion.getNameClassRelacion(), "(@RequestBody ", relacion.getNameClassRelacion(), " ", relacion.getNameClassRelacion().toLowerCase(), "){ ", BREAK_LINE));
-                sb61.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", relacion.getNameClassRelacion(), "Containing(", relacion.getNameClassRelacion().toLowerCase(), "); }", BREAK_LINE));
-                sb61.append(BREAK_LINE);
+                sb61.append(
+                        MethodDesign.builder()
+                                .annotation(List.of("@PostMapping(\"/Get_", relacion.getNameRelacion(), "_contain/\")"))
+                                .modifiers(Modifier.Private)
+                                .returnsType(RetunsType.List)
+                                .returnsClass(entidad.getNombreClase())
+                                .methodName(stringEnsamble(" findBy", relacion.getNameClassRelacion()))
+                                .parameter(List.of(
+                                        ParameterClassMethod.builder()
+                                                .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
+                                                .atributoName(relacion.getNameClassRelacion().toLowerCase()).build()))
+                                .methodBody(BodyMethodDesign.builder()
+                                        .bodyLines(List.of(
+                                                "return ", entidad.getNombreClase().toLowerCase(),
+                                                "Service.findBy", relacion.getNameClassRelacion(),
+                                                "Containing(", relacion.getNameClassRelacion().toLowerCase(), ");", BREAK_LINE)
+                                        ).build().toString()
+                                ).build().toString());
             }
         }
         return sb61;
