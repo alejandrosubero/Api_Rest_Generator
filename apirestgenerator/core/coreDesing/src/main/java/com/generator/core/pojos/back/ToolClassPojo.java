@@ -1,4 +1,4 @@
-package com.generator.core.pojos.tool;
+package com.generator.core.pojos.back;
 
 public class ToolClassPojo {
 

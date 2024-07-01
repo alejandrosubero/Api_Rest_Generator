@@ -1,17 +1,17 @@
 package com.generator.model.pomxml;
 
 
-import com.Generator.apirest.core.interfaces.IImportModel;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.files.Creador;
-import com.google.common.collect.Lists;
+
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.back.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
-@Component
+
 public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
 
     protected static final Log logger = LogFactory.getLog(PomxmlCreator07.class);
@@ -33,11 +33,12 @@ public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
         String ax1="";
 
         try {
-            sb.append(stringEnsamble(Lists.newArrayList("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", BREAK_LINE
+            sb.append(stringEnsamble("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", BREAK_LINE
                     , "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",BREAK_LINE
                     , "	xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">",BREAK_LINE
                     , "	<modelVersion>4.0.0</modelVersion>",BREAK_LINE
-                    , BREAK_LINE)));
+                    , BREAK_LINE));
+
             sb.append( stringEnsamble(List.of(
                       TAB, "<parent>", BREAK_LINE
                     ,DOUBLETAB, "<groupId>org.springframework.boot</groupId>", BREAK_LINE
@@ -47,6 +48,7 @@ public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
                     ,DOUBLETAB, "<!-- lookup parent from repository -->", BREAK_LINE
                     ,TAB, "</parent>", BREAK_LINE
                     ,DOUBLETAB, DOUBLEBREAK_LINE)));
+
            sb.append(stringEnsamble(List.of(
                     DOUBLETAB,"<groupId>", creador.getCom(), ".",creador.getPackageNames1(),"</groupId>",BREAK_LINE
                    ,DOUBLETAB, "	<artifactId>",creador.getArtifact(),"</artifactId>",BREAK_LINE
@@ -280,7 +282,8 @@ public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
             String escrito = sb.toString();
             String nombreArchivos = "pom.xml";
             String direccion = creador.getDireccionDeCarpeta() + archivo.getProyectoName();     
-            creador.crearArchivo(direccion, escrito, nombreArchivos);
+
+            // todo; return String;
             
         } catch (Exception e) {
             logger.error(e);

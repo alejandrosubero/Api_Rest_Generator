@@ -1,24 +1,23 @@
 package com.generator.model.java07;
 
-import com.Generator.apirest.core.interfaces.FileCreateService;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.files.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
+
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.back.AttributePojo;
+import com.generator.core.pojos.back.Creador;
+import com.generator.core.pojos.back.EntityPojo;
+import com.generator.core.pojos.back.RelationshipPojo;
+import com.generator.core.pojos.notas.AnotacionesJava;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 import java.util.List;
 
 
-@Component
 public class CreateService07 {
 
-	@Autowired
+
 	private FileCreateService fileCreateService;
 	
 	private Creador creador;
@@ -171,8 +170,8 @@ public class CreateService07 {
         
         sb2.append("}"+"\r\n");
         sb2.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
-        fileCreateService.createFileClassJava(nameOfClass, "service",sb2, this.creador.directionForJava());   
-       // fileCreateService.createFileClassJavaNoAddres(nameOfClass, "service",sb2); 
+//        fileCreateService.createFileClassJava(nameOfClass, "service",sb2, this.creador.directionForJava());
+
     }
    
 }
