@@ -1,5 +1,7 @@
 package com.generator.core.interfaces;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public interface IBaseModel extends IConstantModel {
@@ -43,6 +45,11 @@ public interface IBaseModel extends IConstantModel {
 			newString.append(path);
 		}
 		return newString.toString();
+	}
+
+	default public List<String> toList(String ...StringPaths){
+		List<String> stringList = new ArrayList<>(Arrays.asList(StringPaths));
+		return stringList;
 	}
 
 

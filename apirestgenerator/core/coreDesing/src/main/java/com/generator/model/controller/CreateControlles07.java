@@ -3,6 +3,7 @@ package com.generator.model.controller;
 
 
 import com.generator.core.design.BodyMethodDesign;
+import com.generator.core.design.ClassDesign;
 import com.generator.core.design.MethodDesign;
 import com.generator.core.design.ParameterClassMethod;
 import com.generator.core.design.reference.Modifier;
@@ -19,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,13 +83,34 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
         logger.info("Create Controller metodos  for Entity:  " + entidad.getNombreClase());
         try {
 
-            sb.append(new AnotacionesJava(archivo).creatNotaClase());
-            sb.append(BREAK_LINE);
-            sb.append(this.createImport(entidad));
+
+
 
             sb.append(BREAK_LINE);
             sb.append(this.createTituloClass(entidad));
             sb.append(BREAK_LINE);
+
+
+            ClassDesign classTemplate = ClassDesign.builder()
+                    .packagePaht(archivo.getPackageNames())
+                    .packageName("serviceImplement")
+                    .imports(this.createImport(entidad))
+                    .annotation(List.of("@Service"))
+                    .modifier(Modifier.Public)
+                    .className(nameOfClass)
+                    .classType(ClassType.CLASS)
+                    .isClassIsImplement(true)
+                    .isClassIsInheritance(false)
+                    .classImplement(serviceName)
+                    .content(new Formatter().simpleFormat(sbh.toString()))
+                    .classParameterClassMethods(List.of(classParametersRepositories,classParametersMapper,classParameterLogger))
+                    .build();
+
+
+
+
+
+
 
             if (this.archivo.getMethodManager().isMethodFindByOrLoop())
                 sb.append(this.createLoop(entidad));
@@ -146,31 +169,41 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuffer createImport(EntityPojo entidad) {
-        StringBuffer sb1 = new StringBuffer();
-        sb1.append(stringEnsamble("package ", paquete, ".controller;"));
-        sb1.append(DOUBLEBREAK_LINE);
-        sb1.append(stringEnsamble("import ", paquete, ".entitys.", entidad.getNombreClase(), ";"));
-        sb1.append(BREAK_LINE);
-        sb1.append(stringEnsamble("import ", paquete, ".service.", entidad.getNombreClase(), "Service;"));
-        sb1.append(BREAK_LINE);
-        sb1.append(importController07());
+    private List<String> createImport(EntityPojo entidad) {
+        List<String> importList = new ArrayList<>();
+
+        importList.add(new AnotacionesJava(archivo).creatNotaClase().toString());
+        importList.add(BREAK_LINE);
+
+        importList.add(stringEnsamble("package ", paquete, ".controller;"));
+
+        importList.add(stringEnsamble("import ", paquete, ".entitys.", entidad.getNombreClase(), ";"));
+
+        importList.add(stringEnsamble("import ", paquete, ".service.", entidad.getNombreClase(), "Service;"));
+
+        importList.add(importController07());
         for (RelationshipPojo relacion : entidad.getRelaciones()) {
-            sb1.append(stringEnsamble("import ", paquete, ".", entidad.getPaquete(), ".", relacion.getNameClassRelacion(), ";"));
+            importList.add(stringEnsamble("import ", paquete, ".", entidad.getPaquete(), ".", relacion.getNameClassRelacion(), ";"));
         }
-        sb1.append(BREAK_LINE);
-        return sb1;
+
+        return importList;
     }
 
 
     private StringBuffer createTituloClass(EntityPojo entidad) {
         StringBuffer sb2 = new StringBuffer();
-        sb2.append(stringEnsamble("@RestController", BREAK_LINE));
-        sb2.append(stringEnsamble("@CrossOrigin(origins = \"*\")", BREAK_LINE));
-        sb2.append(stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")", BREAK_LINE));
-        sb2.append(stringEnsamble("public class ", entidad.getNombreClase(), "Controller {", BREAK_LINE));
-        sb2.append(stringEnsamble(AUTOWIRED, BREAK_LINE));
-        sb2.append(stringEnsamble(entidad.getNombreClase(), "Service ", entidad.getNombreClase().toLowerCase(), "Service;", DOUBLEBREAK_LINE));
+
+        sb2.append( BodyMethodDesign.builder()
+                .bodyLines(
+                        toList(
+                                stringEnsamble("@RestController"),
+                                stringEnsamble("@CrossOrigin(origins = \"*\")"),
+                                stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")"),
+                                stringEnsamble("public class ", entidad.getNombreClase(), "Controller {"),
+                                stringEnsamble(AUTOWIRED),
+                                stringEnsamble(entidad.getNombreClase(), "Service ", entidad.getNombreClase().toLowerCase(), "Service;")
+                        )).build().toString());
+
         return sb2;
     }
 
@@ -185,11 +218,15 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
             String atrubutoObjeto = atributos.getAtributoName().toLowerCase();
 
             if (!atributos.getsId()) {
-                sb3.append(BREAK_LINE);
-                sb3.append(stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")", BREAK_LINE));
-                sb3.append(stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {", BREAK_LINE));
-                sb3.append(stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");", BREAK_LINE));
-                sb3.append(stringEnsamble("}", BREAK_LINE));
+
+                sb3.append( BodyMethodDesign.builder()
+                        .bodyLines(
+                                toList(BREAK_LINE, stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")"),
+                                    stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {"),
+                                    stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");"),
+                                    stringEnsamble("}")
+                                )
+                        ).build().toString());
             }
         }
         return sb3;
@@ -224,8 +261,6 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                                                 "Containing(", atrubutoObjeto, ");", BREAK_LINE)
                                         ).build().toString()
                                 ).build().toString());
-
-
             }
         }
         return sb3;
