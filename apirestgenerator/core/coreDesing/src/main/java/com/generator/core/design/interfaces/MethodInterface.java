@@ -26,6 +26,7 @@ public interface MethodInterface extends DesingCommunInterface {
 
     default public String bodyBuildStructure(Boolean curlyBraces, String methodBody){
         StringBuilder contexmethodBody = new StringBuilder();
+
         if (curlyBraces) {
             contexmethodBody.append( stringEnsamble(List.of(BRACKET_OPEN,BREAK_LINE)));
             if (methodBody != null) {
@@ -37,5 +38,6 @@ public interface MethodInterface extends DesingCommunInterface {
         }
         return contexmethodBody.toString();
     }
+
 
 }

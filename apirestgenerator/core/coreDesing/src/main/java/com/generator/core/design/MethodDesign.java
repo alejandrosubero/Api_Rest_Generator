@@ -1,8 +1,6 @@
 package com.generator.core.design;
 
 
-
-
 import com.generator.core.design.interfaces.MethodInterface;
 import com.generator.core.design.reference.Modifier;
 import com.generator.core.design.reference.RetunsType;
@@ -109,12 +107,28 @@ public class MethodDesign implements MethodInterface {
 
     private String buildSyntaxOfMethod() {
         StringBuilder methodTx = new StringBuilder();
-        methodTx.append(this.annotationBuild(this.annotation));
-        methodTx.append(this.modifiers.toString().toLowerCase());
-        methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
-        methodTx.append(this.methodName);
-        methodTx.append(this.parameterBuildStructure(this.parameter));
-        methodTx.append(this.bodyBuildStructure(this.curlyBraces, methodBody));
+
+        if (this.annotation != null)
+            methodTx.append(this.annotationBuild(this.annotation));
+
+        if (this.modifiers != null)
+            methodTx.append(this.modifiers.toString().toLowerCase());
+
+        if (this.returnsType != null && this.returnsClass != null)
+            methodTx.append(this.returnsTypeBuild(this.returnsType, this.returnsClass));
+
+        if (this.methodName != null)
+            methodTx.append(this.methodName);
+
+        if (this.parameter != null)
+            methodTx.append(this.parameterBuildStructure(this.parameter));
+
+        if (this.curlyBraces != null && this.methodBody != null)
+            methodTx.append(this.bodyBuildStructure(this.curlyBraces, methodBody));
+
+        if (this.curlyBraces == null && this.methodBody != null)
+            methodTx.append(methodBody);
+
         return methodTx.toString();
     }
 
@@ -125,13 +139,21 @@ public class MethodDesign implements MethodInterface {
 
     public interface MethodBuilder {
         public Builder methodName(String methodName);
+
         public Builder modifiers(Modifier modifiers);
+
         public Builder returnsType(RetunsType returnsType);
+
         public Builder returnsClass(String returnsClass);
+
         public Builder parameter(List<ParameterClassMethod> parameter);
+
         public Builder curlyBraces(Boolean curlyBraces);
+
         public Builder methodBody(String methodBody);
+
         public Builder annotation(List<String> annotation);
+
         public MethodDesign build();
     }
 
