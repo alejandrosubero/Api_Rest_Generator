@@ -1,166 +1,153 @@
 package com.generator.model.controller;
 
 
-
+import com.generator.core.build.interfaces.IModelBuilder;
 import com.generator.core.design.BodyMethodDesign;
 import com.generator.core.design.ClassDesign;
 import com.generator.core.design.MethodDesign;
 import com.generator.core.design.ParameterClassMethod;
+import com.generator.core.design.reference.ClassType;
 import com.generator.core.design.reference.Modifier;
 import com.generator.core.design.reference.RetunsType;
-import com.generator.core.interfaces.FileCreateService;
-import com.generator.core.interfaces.IImportModel;
+import com.generator.core.format.formatter.Formatter;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.pojos.back.AttributePojo;
-import com.generator.core.pojos.back.Creador;
-import com.generator.core.pojos.back.EntityPojo;
-import com.generator.core.pojos.back.RelationshipPojo;
-import com.generator.core.pojos.notas.AnotacionesJava;
+import com.generator.core.build.ModelOup;
+import com.generator.core.pojos.AttributePojo;
+import com.generator.core.pojos.Creador;
+import com.generator.core.pojos.EntityPojo;
+import com.generator.core.pojos.RelationshipPojo;
+import com.generator.core.pojos.AnotacionesJava;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
-public class CreateControlles07 implements IImportModel, ControllerInterface {
+public class CreateControlles07 implements IModelBuilder {
 
     private static final Log logger = LogFactory.getLog(CreateControlles07.class);
 
-    private FileCreateService fileCreateService;
-    private Creador creador;
     private ArchivoBaseDatosPojo archivo;
     private String paquete;
     private List<EntityPojo> entidades;
+    private  static CreateControlles07 instance;
 
-
-    public CreateControlles07(FileCreateService fileCreateService) {
-        this.fileCreateService = fileCreateService;
+    private CreateControlles07() {
     }
 
+    public static CreateControlles07 getInstance(){
+        if(instance == null){
+            return new CreateControlles07();
+        }else {
+            return instance;
+        }
+    }
 
-
-    public void initCreateController(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
-        this.creador = creator;
+    @Override
+    public Set<ModelOup> createModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
         this.entidades = archivo.getEntidades();
         this.paquete = archivo.getPackageNames();
         this.archivo = baseFilePojo;
-        this.createController(entidades);
+        return this.createController(entidades, creator);
     }
 
-    public void startCreacionControlles(ArchivoBaseDatosPojo archivo, Creador creador) {
-        this.creador = creador;
-        this.entidades = archivo.getEntidades();
-        this.paquete = archivo.getPackageNames();
-        this.archivo = archivo;
-        this.createController(entidades);
-    }
 
-    private void createController(List<EntityPojo> entidadesList) {
+
+    private  Set<ModelOup> createController(List<EntityPojo> entidadesList, Creador creator) {
+        Set<ModelOup> response = new HashSet<>();
 
         for (EntityPojo entidad : entidadesList) {
-            String nameOfClass = entidad.getNombreClase() + "Controller";
             try {
                 if (entidad.getIsEntity()) {
-                    fileCreateService.createFileClassJava(
-                            nameOfClass,
-                            "controller",
-                            metods(entidad),
-                            this.creador.directionForJava()
-                    );
+                    String keynameOfClass = stringEnsamble(entidad.getNombreClase(), "Controller");
+                    response.add(ModelOup.builder().packageNane("controller").nameOfClass(keynameOfClass)
+                            .classInString(metods(entidad)).directoryForJava(creator.directionForJava()).build());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return response;
     }
 
 
-    private StringBuffer metods(EntityPojo entidad) {
+    private String metods(EntityPojo entidad) {
+        List<String> listContentLines = new ArrayList<>();
+        ClassDesign classTemplate = null;
 
-        StringBuffer sb = new StringBuffer(BREAK_LINE);
         logger.info("Create Controller metodos  for Entity:  " + entidad.getNombreClase());
+
         try {
 
+            ParameterClassMethod servicePrameter =
+                    ParameterClassMethod.builder()
+                            .modifier(Modifier.Private)
+                            .annotations(List.of(AUTOWIRED))
+                            .parameterSignatuer(
+                                    stringEnsamble(
+                                            entidad.getNombreClase(),
+                                            "Service ",
+                                            entidad.getNombreClase().toLowerCase(),
+                                            "Service;"
+                                    )).build();
 
 
+            if (this.archivo.getMethodManager().isMethodFindByOrLoop()) {
+                listContentLines.add(this.createLoop(entidad).toString());
+            }
 
-            sb.append(BREAK_LINE);
-            sb.append(this.createTituloClass(entidad));
-            sb.append(BREAK_LINE);
+            if (this.archivo.getMethodManager().isMethodContaining()) {
+                listContentLines.add(this.creatContain(entidad).toString());
+            }
 
+            if (this.archivo.getMethodManager().isMethodfindById()) {
+                listContentLines.add(this.createfindId(entidad).toString());
+            }
 
-            ParameterClassMethod servicePrameter =  ParameterClassMethod.builder().modifier(Modifier.Private).annotations(List.of(AUTOWIRED))
-                    .parameterSignatuer(
-                            stringEnsamble(entidad.getNombreClase(), "Service ", entidad.getNombreClase().toLowerCase(), "Service;")).build();
+            if (this.archivo.getMethodManager().isMethodgetAll()) {
+                listContentLines.add(this.createfindAll(entidad).toString());
+            }
 
-
-            stringEnsamble("@RestController"),
-                    stringEnsamble("@CrossOrigin(origins = \"*\")"),
-                    stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")"),
-                    stringEnsamble("public class ", entidad.getNombreClase(), "Controller {")
-            
-
-            ClassDesign classTemplate = ClassDesign.builder()
-                    .packagePaht(archivo.getPackageNames())
-                    .packageName("serviceImplement")
-                    .imports(this.createImport(entidad))
-                    .annotation(List.of("@Service"))
-                    .modifier(Modifier.Public)
-                    .classParameterClassMethods(List.of(servicePrameter))
-                    .className(nameOfClass)
-                    .classType(ClassType.CLASS)
-                    .isClassIsImplement(true)
-                    .isClassIsInheritance(false)
-                    .classImplement(serviceName)
-                    .content(new Formatter().simpleFormat(sbh.toString()))
-                    .build();
-
-
-
-
-            if (this.archivo.getMethodManager().isMethodFindByOrLoop())
-                sb.append(this.createLoop(entidad));
-            sb.append(BREAK_LINE);
-
-            if (this.archivo.getMethodManager().isMethodContaining())
-                sb.append(this.creatContain(entidad));
-            sb.append(BREAK_LINE);
-
-            if (this.archivo.getMethodManager().isMethodfindById())
-                sb.append(this.createfindId(entidad));
-            sb.append(BREAK_LINE);
-
-            if (this.archivo.getMethodManager().isMethodgetAll())
-                sb.append(this.createfindAll(entidad));
-            sb.append(BREAK_LINE);
-
-            if (this.archivo.getMethodManager().isMetohdSave())
-                sb.append(this.createSalve(entidad));
-            sb.append(BREAK_LINE);
+            if (this.archivo.getMethodManager().isMetohdSave()) {
+                listContentLines.add(this.createSalve(entidad).toString());
+            }
 
             if (archivo.checkAtributos(entidad)) {
-                sb.append(this.createFinBySearch(entidad));
-                sb.append(BREAK_LINE);
+                listContentLines.add(this.createFinBySearch(entidad).toString());
             }
 
             if (entidad.getDelete()) {
-                sb.append(this.createDelete(entidad));
+                listContentLines.add(this.createDelete(entidad).toString());
             }
 
             if (this.archivo.getMethodManager().isMethodContainingRelacion())
-                sb.append(this.findByRelacion(entidad));
+                listContentLines.add(this.findByRelacion(entidad).toString());
 
             if (this.archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional())
-                sb.append(this.findByRelacionNoBidirecional(entidad));
+                listContentLines.add(this.findByRelacionNoBidirecional(entidad).toString());
+
+            listContentLines.add(new AnotacionesJava(archivo).apacheSoftwareLicensed().toString());
+
+            classTemplate = ClassDesign.builder()
+                    .packagePaht(archivo.getPackageNames())
+                    .packageName("serviceImplement")
+                    .imports(this.createImport(entidad))
+                    .annotation(List.of("@RestController", "@CrossOrigin(origins = \"*\")", "@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")"))
+                    .modifier(Modifier.Public)
+                    .className(stringEnsamble(entidad.getNombreClase(), "Controller"))
+                    .classType(ClassType.CLASS)
+                    .classParameterClassMethods(List.of(servicePrameter))
+                    .isClassIsImplement(false)
+                    .isClassIsInheritance(false)
+                    .classImplement(null)
+                    .content(new Formatter().simpleFormat(this.listStringStructureToColummString(listContentLines)))
+                    .build();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sb.append("}" + BREAK_LINE);
-        sb.append(new AnotacionesJava(archivo).apacheSoftwareLicensed() + BREAK_LINE);
-        return sb;
+        return classTemplate.toString();
     }
 
 
@@ -194,22 +181,6 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
     }
 
 
-    private StringBuffer createTituloClass(EntityPojo entidad) {
-        StringBuffer sb2 = new StringBuffer();
-
-        sb2.append(BodyMethodDesign.builder()
-                .bodyLines(
-                        toList(
-                                stringEnsamble("@RestController"),
-                                stringEnsamble("@CrossOrigin(origins = \"*\")"),
-                                stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")"),
-                                stringEnsamble("public class ", entidad.getNombreClase(), "Controller {")
-                        )).build().toString());
-
-        return sb2;
-    }
-
-
     private StringBuffer createLoop(EntityPojo entidad) {
 
         StringBuffer sb3 = new StringBuffer();
@@ -221,12 +192,12 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
 
             if (!atributos.getsId()) {
 
-                sb3.append( BodyMethodDesign.builder()
+                sb3.append(BodyMethodDesign.builder()
                         .bodyLines(
                                 toList(BREAK_LINE, stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")"),
-                                    stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {"),
-                                    stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");"),
-                                    stringEnsamble("}")
+                                        stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {"),
+                                        stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");"),
+                                        stringEnsamble("}")
                                 )
                         ).build().toString());
             }
@@ -249,7 +220,7 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                         MethodDesign.builder()
                                 .annotation(List.of("@GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")", BREAK_LINE))
                                 .modifiers(Modifier.Private)
-                                .returnsType(RetunsType. List)
+                                .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
                                 .methodName(stringEnsamble(" findBy", atributoName, "Contain"))
                                 .parameter(List.of(
@@ -276,7 +247,7 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                 MethodDesign.builder()
                         .annotation(List.of("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
                         .modifiers(Modifier.Private)
-                        .returnsType(RetunsType. List)
+                        .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("findById", entidad.getNombreClase()))
                         .parameter(List.of(
@@ -300,7 +271,7 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                 MethodDesign.builder()
                         .annotation(List.of("@GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE))
                         .modifiers(Modifier.Private)
-                        .returnsType(RetunsType. List)
+                        .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("getAll", entidad.getNombreClase()))
                         .parameter(null)
@@ -322,7 +293,7 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                 MethodDesign.builder()
                         .annotation(List.of("@GetMapping(\"/Search\")", BREAK_LINE))
                         .modifiers(Modifier.Private)
-                        .returnsType(RetunsType. List)
+                        .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("finBySearch", entidad.getNombreClase()))
                         .parameter(List.of(
@@ -415,10 +386,10 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                                                 .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
                                                 .atributoName(relacion.getNameClassRelacion().toLowerCase()).build()))
                                 .methodBody(BodyMethodDesign.builder()
-                                        .bodyLines(List.of("return ",entidad.getNombreClase().toLowerCase()
-                                                        ,"Service.findByRelacion", relacion.getNameClassRelacion(),
-                                                        "(", relacion.getNameClassRelacion().toLowerCase(), ");")
-                                                ).build().toString()
+                                        .bodyLines(List.of("return ", entidad.getNombreClase().toLowerCase()
+                                                , "Service.findByRelacion", relacion.getNameClassRelacion(),
+                                                "(", relacion.getNameClassRelacion().toLowerCase(), ");")
+                                        ).build().toString()
                                 ).build().toString());
             }
         }
@@ -427,7 +398,7 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
 
 
     private StringBuffer createDelete(EntityPojo entidad) {
-        return  new StringBuffer(
+        return new StringBuffer(
                 MethodDesign.builder()
                         .annotation(List.of("@DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
                         .modifiers(Modifier.Private)
@@ -437,18 +408,19 @@ public class CreateControlles07 implements IImportModel, ControllerInterface {
                         .parameter(List.of(
                                 ParameterClassMethod.builder()
                                         .atributoClass(
-                                          stringEnsamble("@PathVariable(\"id\")", SPACE,idTipoDato(entidad))
+                                                stringEnsamble("@PathVariable(\"id\")", SPACE, idTipoDato(entidad))
                                         )
-                                .atributoName("id").build()))
+                                        .atributoName("id").build()))
                         .methodBody(
                                 BodyMethodDesign.builder()
                                         .bodyLines(List.of(
-                                                "return ",entidad.getNombreClase().toLowerCase(),
+                                                "return ", entidad.getNombreClase().toLowerCase(),
                                                 "Service.delete", entidad.getNombreClase(),
                                                 "(id); }", BREAK_LINE)
                                         ).build().toString()
                         ).build().toString()
         );
     }
+
 
 }

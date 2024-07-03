@@ -1,4 +1,4 @@
-package com.generator.core.pojos.back;
+package com.generator.core.pojos;
 
 import java.util.ArrayList;
 import java.util.List;

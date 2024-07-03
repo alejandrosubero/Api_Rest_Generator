@@ -4,7 +4,7 @@ package com.generator.model.pomxml;
 
 import com.generator.core.interfaces.IImportModel;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.pojos.back.Creador;
+import com.generator.core.pojos.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

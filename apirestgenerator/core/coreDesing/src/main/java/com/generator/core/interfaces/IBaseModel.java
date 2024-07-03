@@ -7,28 +7,21 @@ import java.util.List;
 public interface IBaseModel extends IConstantModel {
 
 
-	default public String path(List<String> paths) {
-//		String newPath="";
-//		String  pathSeparator = java.nio.file.FileSystems.getDefault().getSeparator();
-		StringBuilder newPathBuilder = new StringBuilder();
 
+	default public String path(List<String> paths) {
+		StringBuilder newPathBuilder = new StringBuilder();
 		for (int i = 0; paths.size() > i; i++) {
 				if(i != 0 && i+1 != paths.size() && paths.get(i) != " ") {
-//					newPath += barra + paths.get(i);
 					newPathBuilder.append(stringEnsamble(List.of(pathSeparator, paths.get(i))));
 				}else if (paths.get(i) != " " && i+1 == paths.size()) {
-//					newPath += pathSeparator + paths.get(i);
 					newPathBuilder.append(stringEnsamble(List.of(pathSeparator, paths.get(i))));
 				}else if (paths.get(i) != " ") {
-//					newPath += paths.get(i);
 					newPathBuilder.append(paths.get(i));
 				}
 			if (paths.get(i) == " ") {
-//				newPath += pathSeparator;
 				newPathBuilder.append(pathSeparator);
 			}	
 		}
-//		return newPath;
 		return newPathBuilder.toString();
 	}
 
@@ -50,6 +43,20 @@ public interface IBaseModel extends IConstantModel {
 	default public List<String> toList(String ...StringPaths){
 		List<String> stringList = new ArrayList<>(Arrays.asList(StringPaths));
 		return stringList;
+	}
+
+
+	default public String listStringStructureToColummString(List<String> parameters) {
+		StringBuilder stringColumm = new StringBuilder(BREAK_LINE);
+		if (parameters != null && parameters.size() > 0) {
+			for (int i = 0; i < parameters.size(); i++ ){
+				stringColumm.append(stringEnsamble(List.of(parameters.get(i))));
+				if(i < parameters.size()){
+					stringColumm.append(BREAK_LINE);
+				}
+			}
+		}
+		return stringColumm.toString();
 	}
 
 

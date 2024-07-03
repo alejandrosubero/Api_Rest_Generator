@@ -1,6 +1,8 @@
-package com.generator.core.pojos.back;
+package com.generator.core.pojos;
 
-public class Creador {
+import com.generator.core.interfaces.IBaseModel;
+
+public class Creador implements IBaseModel {
 
     private static final char DOT = '.';
     private String context;
@@ -16,6 +18,14 @@ public class Creador {
 
 
     public Creador() {
+    }
+
+    public String directionForJava() {
+        String direction = this.path(
+                toList(stringEnsamble(direccionDeCarpeta,proyectoName),
+                        "src", "main", "java",this.getCom(), this.getPackageNames1(),this.getArtifact(), " ")
+        );
+        return direction;
     }
 
     public String getContext() {

@@ -1,7 +1,6 @@
 package com.Generator.apirest.core.design.interfaces;
 
 import com.Generator.apirest.core.design.reference.ClassModifier;
-import com.Generator.apirest.core.build.FormatText;
 import com.Generator.apirest.core.design.ParameterClassMethod;
 import com.Generator.apirest.core.design.ClassDesign;
 

@@ -8,7 +8,7 @@ import com.Generator.apirest.files.Creador;
 import com.Generator.apirest.modelo.back.layer.LayerFactory;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import com.Generator.apirest.core.interfaces.IBaseModel;
-import com.Generator.apirest.core.interfaces.ServiceGenerateProjectRest;
+import com.Generator.apirest.services.ServiceGenerateProjectRest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;

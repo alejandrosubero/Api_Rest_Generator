@@ -1,8 +1,6 @@
-package com.generator.core.pojos.notas;
+package com.generator.core.pojos;
 
 
-
-import com.generator.core.pojos.ArchivoBaseDatosPojo;
 
 import java.util.Date;
 

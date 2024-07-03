@@ -3,12 +3,6 @@ package com.generator.core.pojos;
 
 
 
-import com.generator.core.pojos.back.AttributePojo;
-import com.generator.core.pojos.back.EntityPojo;
-import com.generator.core.pojos.back.LayerPojo;
-import com.generator.core.pojos.back.MethodManager;
-import com.generator.core.pojos.back.ToolClassPojo;
-
 import java.util.ArrayList;
 import java.util.List;
 

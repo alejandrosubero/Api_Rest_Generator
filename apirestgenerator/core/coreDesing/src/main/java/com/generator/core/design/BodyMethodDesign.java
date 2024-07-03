@@ -17,6 +17,7 @@ public class BodyMethodDesign implements DesingCommunInterface {
     public BodyMethodDesign() {
     }
 
+
     public List<String> getBodyLines() {
         return bodyLines;
     }

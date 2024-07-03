@@ -3,11 +3,11 @@ package com.generator.model.java07;
 
 import com.generator.core.interfaces.FileCreateService;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.pojos.back.AttributePojo;
-import com.generator.core.pojos.back.Creador;
-import com.generator.core.pojos.back.EntityPojo;
-import com.generator.core.pojos.back.RelationshipPojo;
-import com.generator.core.pojos.notas.AnotacionesJava;
+import com.generator.core.pojos.AttributePojo;
+import com.generator.core.pojos.Creador;
+import com.generator.core.pojos.EntityPojo;
+import com.generator.core.pojos.RelationshipPojo;
+import com.generator.core.pojos.AnotacionesJava;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
