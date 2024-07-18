@@ -1,6 +1,8 @@
 package com.generator.model.java07;
 
 
+import com.generator.core.build.ModelOup;
+import com.generator.core.build.interfaces.IModelBuilder;
 import com.generator.core.interfaces.FileCreateService;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.pojos.AttributePojo;
@@ -13,9 +15,10 @@ import org.apache.commons.logging.LogFactory;
 
 
 import java.util.List;
+import java.util.Set;
 
 
-public class CreateService07 {
+public class CreateService07 implements IModelBuilder {
 
 
 	private FileCreateService fileCreateService;
@@ -27,13 +30,13 @@ public class CreateService07 {
 
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
     protected static final Log logger = LogFactory.getLog(CreateService07.class);
-    
-//    // private String description;
-//    private String proyectoName;
-  
-//    private String barra = "";
-//    private int relantizar2 = SleepRelantizer.RELANTIZERB;
-    
+
+
+    @Override
+    public Set<ModelOup> createModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
+        return Set.of();
+    }
+
 
     public void startCreacion(ArchivoBaseDatosPojo archivo, Creador creador) {
 
@@ -173,6 +176,7 @@ public class CreateService07 {
 //        fileCreateService.createFileClassJava(nameOfClass, "service",sb2, this.creador.directionForJava());
 
     }
-   
+
+
 }
 

@@ -12,8 +12,8 @@ public class PomxmlFactory {
 
     private PomxmlCreator07 pomxmlCreator07;
 
-    public PomxmlFactory(PomxmlCreator07 pomxmlCreator07) {
-        this.pomxmlCreator07 = pomxmlCreator07;
+    public PomxmlFactory() {
+        this.pomxmlCreator07 = new PomxmlCreator07();
     }
 
     public PomxmlInterface getPomxml(ArchivoBaseDatosPojo archivo) {

@@ -16,11 +16,6 @@ public class PomxmlCreator07 implements IImportModel, PomxmlInterface {
 
     protected static final Log logger = LogFactory.getLog(PomxmlCreator07.class);
 
-    public void iniciarPomxml2(ArchivoBaseDatosPojo archivo, Creador creadors) {
-    	 this.createPomxml(archivo, creadors);
-    }
-
-
     @Override
     public void initPomxml(ArchivoBaseDatosPojo archivo, Creador creadors) {
         this.createPomxml(archivo, creadors);
