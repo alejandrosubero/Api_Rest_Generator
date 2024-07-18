@@ -27,7 +27,12 @@ import java.util.Set;
 
 public class CreateRepositorie07 implements IModelBuilder {
 
-
+    private Creador creador;
+    private ArchivoBaseDatosPojo archivo;
+    private String packageNames;
+    private List<EntityPojo> entidades;
+    private AnotacionesJava anotacionesJava = new AnotacionesJava();
+    protected static final Log logger = LogFactory.getLog(CreateRepositorie07.class);
     private static CreateRepositorie07 instance;
 
     private CreateRepositorie07() {
@@ -40,15 +45,6 @@ public class CreateRepositorie07 implements IModelBuilder {
             return instance;
         }
     }
-
-    private FileCreateService fileCreateService;
-
-    private Creador creador;
-    private ArchivoBaseDatosPojo archivo;
-    private String packageNames;
-    private List<EntityPojo> entidades;
-    private AnotacionesJava anotacionesJava = new AnotacionesJava();
-    protected static final Log logger = LogFactory.getLog(CreateRepositorie07.class);
 
 
     @Override

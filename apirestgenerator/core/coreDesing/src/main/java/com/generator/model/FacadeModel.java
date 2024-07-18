@@ -7,6 +7,7 @@ import com.generator.core.build.ModelOup;
 import com.generator.core.pojos.Creador;
 import com.generator.model.controller.CreateControlles07;
 import com.generator.model.java07.CreateRepositorie07;
+import com.generator.model.java07.CreateService07;
 
 import java.util.LinkedList;
 
@@ -24,6 +25,7 @@ public class FacadeModel implements IFacadeModel {
 
         listModels.addAll(CreateControlles07.getInstance().createModel(baseFilePojo, creator));
         listModels.addAll(CreateRepositorie07.getInstance().createModel(baseFilePojo, creator));
+        listModels.addAll( new CreateService07().createModel(baseFilePojo, creator));
 
 
 
