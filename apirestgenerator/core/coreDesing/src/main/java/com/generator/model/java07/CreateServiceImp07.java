@@ -2,6 +2,10 @@ package com.generator.model.java07;
 
 
 
+import com.generator.core.build.ModelOup;
+import com.generator.core.build.interfaces.IModelBuilder;
+import com.generator.core.design.BodyMethodDesign;
+import com.generator.core.format.formatter.Formatter;
 import com.generator.core.interfaces.FileCreateService;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.pojos.AttributePojo;
@@ -13,14 +17,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class CreateServiceImp07 {
+public class CreateServiceImp07 implements IModelBuilder {
 
 
-    FileCreateService fileCreateService;
-	
-	private ArchivoBaseDatosPojo archivo;
+    protected static final Log logger = LogFactory.getLog(CreateServiceImp07.class);
+//    FileCreateService fileCreateService;
+
+    private ArchivoBaseDatosPojo archivo;
     private String proyectoName;
     private String packageNames;
     private List<EntityPojo> entidades;
@@ -29,7 +36,17 @@ public class CreateServiceImp07 {
 
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
 
-    protected static final Log logger = LogFactory.getLog(CreateServiceImp07.class);
+
+
+
+    @Override
+    public Set<ModelOup> createModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
+
+//        BodyMethodDesign.builder().bodyLines(body).build().toString()
+
+        return Set.of();
+    }
+
 
 
     public void startCreacionImplement07(ArchivoBaseDatosPojo archivo, Creador creador) {
@@ -47,18 +64,24 @@ public class CreateServiceImp07 {
     }
 
 
-    private void crearImplemet() throws InterruptedException {
+    private Set<ModelOup> getListModel(ArchivoBaseDatosPojo archivo, Creador creador) throws InterruptedException {
+
+        logger.info("start build list of Module");
+        Set<ModelOup> response = new HashSet<>();
+
         for (EntityPojo entidad : entidades) {
             if (entidad.getIsEntity()) {
-                logger.info("Inicia la creacion de  Implementacion de Servicio" + " Entidad Nombre: " + entidad.getNombreClase());
+                logger.info("start create the module implement Service 07" + entidad.getNombreClase());
                 this.createServiceImpl(entidad);
 
             }
+
+//            "serviceImplement"
         }
     }
 
 
-    private void createServiceImpl(EntityPojo entidad) throws InterruptedException {
+    private String createServiceImpl(EntityPojo entidad) throws InterruptedException {
 
         StringBuffer sbh = new StringBuffer("\r\n");
         String entidadNombre = entidad.getNombreClase();
@@ -66,6 +89,7 @@ public class CreateServiceImp07 {
         String repositorieName = entidad.getNombreClase() + "Repository";
         String repositorieNameOjecte = repositorieName.toLowerCase();
         String serviceName = entidad.getNombreClase() + "Service";
+
         sbh.append(this.anotacionesJava.creatNotaClase() + "\r\n");
         sbh.append(this.createImport(serviceName, repositorieName, entidad));
         sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
@@ -77,8 +101,18 @@ public class CreateServiceImp07 {
         sbh.append(this.metods(entidad, repositorieNameOjecte, entidadNombre));
         sbh.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
         
-//       fileCreateService.createFileClassJava(nameOfClass, "serviceImplement",sbh, this.creador.directionForJava());
+//       fileCreateService.createFileClassJava(nameOfClass,,sbh, this.creador.directionForJava());
       //  fileCreateService.createFileClassJavaNoAddres(nameOfClass, "serviceImplement",sbh);
+
+
+        ModelOup.builder()
+                .packageNane("serviceImplement")
+                .nameOfClass(nameOfClass)
+                .classInString(new Formatter().simpleFormat(sb2.toString()))
+                .directoryForJava(javaDirectory)
+                .build();
+
+        return sbh.toString();
     }
 
 
@@ -456,5 +490,6 @@ public class CreateServiceImp07 {
           sf.append("	}\r\n");
           return sf;
       }
-    
+
+
 }
