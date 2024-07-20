@@ -1,4 +1,4 @@
-package com.Generator.apirest.core;
+package com.Generator.apirest.core.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

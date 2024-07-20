@@ -1,13 +1,15 @@
 
 package com.generator.model;
 
-import com.generator.core.build.interfaces.IFacadeModel;
+import com.generator.core.build.interfaces.models.IFacadeModel;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.build.ModelOup;
+import com.generator.core.build.models.ModelOup;
 import com.generator.core.pojos.Creador;
-import com.generator.model.controller.CreateControlles07;
-import com.generator.model.java07.CreateRepositorie07;
-import com.generator.model.java07.CreateService07;
+import com.generator.model.tempate.controller.TemplateControllers;
+import com.generator.model.tempate.repositories.TemplateRepository;
+import com.generator.model.tempate.service.TemplateService;
+import com.generator.model.tempate.implement.TemplateServiceImplement;
+import com.generator.model.tempate.pomxml.TemplatePomxml;
 
 import java.util.LinkedList;
 
@@ -23,11 +25,11 @@ public class FacadeModel implements IFacadeModel {
 
         LinkedList<ModelOup> listModels = new LinkedList<>();
 
-        listModels.addAll(CreateControlles07.getInstance().createModel(baseFilePojo, creator));
-        listModels.addAll(CreateRepositorie07.getInstance().createModel(baseFilePojo, creator));
-        listModels.addAll( new CreateService07().createModel(baseFilePojo, creator));
-
-
+        listModels.addAll(TemplateControllers.getInstance().createModel(baseFilePojo, creator));
+        listModels.addAll(TemplateRepository.getInstance().createModel(baseFilePojo, creator));
+        listModels.addAll( new TemplateService().createModel(baseFilePojo, creator));
+        listModels.addAll( new TemplateServiceImplement().createModel(baseFilePojo, creator));
+        listModels.addAll( new TemplatePomxml().createModel(baseFilePojo, creator));
 
         return listModels;
     }

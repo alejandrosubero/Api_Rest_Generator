@@ -1,15 +1,13 @@
-package com.generator.model.java07;
+package com.generator.model.tempate.repositories;
 
 
-import com.generator.core.build.ModelOup;
-import com.generator.core.build.interfaces.IModelBuilder;
+import com.generator.core.build.models.ModelOup;
+import com.generator.core.build.interfaces.models.IModelBuilder;
 import com.generator.core.design.BodyMethodDesign;
 import com.generator.core.design.ClassDesign;
-import com.generator.core.design.ParameterClassMethod;
 import com.generator.core.design.reference.ClassType;
 import com.generator.core.design.reference.Modifier;
 import com.generator.core.format.formatter.Formatter;
-import com.generator.core.interfaces.FileCreateService;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.pojos.AttributePojo;
 import com.generator.core.pojos.Creador;
@@ -25,22 +23,22 @@ import java.util.List;
 import java.util.Set;
 
 
-public class CreateRepositorie07 implements IModelBuilder {
+public class TemplateRepository implements IModelBuilder {
 
     private Creador creador;
     private ArchivoBaseDatosPojo archivo;
     private String packageNames;
     private List<EntityPojo> entidades;
     private AnotacionesJava anotacionesJava = new AnotacionesJava();
-    protected static final Log logger = LogFactory.getLog(CreateRepositorie07.class);
-    private static CreateRepositorie07 instance;
+    protected static final Log logger = LogFactory.getLog(TemplateRepository.class);
+    private static TemplateRepository instance;
 
-    private CreateRepositorie07() {
+    private TemplateRepository() {
     }
 
-    public static CreateRepositorie07 getInstance(){
+    public static TemplateRepository getInstance(){
         if( instance == null){
-            return new CreateRepositorie07();
+            return new TemplateRepository();
         }else {
             return instance;
         }

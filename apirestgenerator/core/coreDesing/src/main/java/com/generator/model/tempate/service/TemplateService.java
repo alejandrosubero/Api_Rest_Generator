@@ -1,8 +1,8 @@
-package com.generator.model.java07;
+package com.generator.model.tempate.service;
 
 
-import com.generator.core.build.ModelOup;
-import com.generator.core.build.interfaces.IModelBuilder;
+import com.generator.core.build.models.ModelOup;
+import com.generator.core.build.interfaces.models.IModelBuilder;
 import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,10 +11,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class CreateService07 implements IModelBuilder, ITemplateService07 {
+public class TemplateService implements IModelBuilder, ITemplateService {
 
 
-    protected static final Log logger = LogFactory.getLog(CreateService07.class);
+    protected static final Log logger = LogFactory.getLog(TemplateService.class);
 
 
     @Override

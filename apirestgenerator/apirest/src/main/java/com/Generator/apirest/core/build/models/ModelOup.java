@@ -1,4 +1,4 @@
-package com.generator.core.build;
+package com.Generator.apirest.core.build.models;
 
 public class ModelOup {
 
@@ -43,7 +43,7 @@ public class ModelOup {
         this.directoryForJava = directoryForJava;
     }
 
-    public static ModelOup.Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 

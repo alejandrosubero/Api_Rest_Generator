@@ -1,7 +1,7 @@
-package com.generator.core.build.interfaces;
+package com.generator.core.build.interfaces.models;
 
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.build.ModelOup;
+import com.generator.core.build.models.ModelOup;
 import com.generator.core.pojos.Creador;
 
 import java.util.LinkedList;

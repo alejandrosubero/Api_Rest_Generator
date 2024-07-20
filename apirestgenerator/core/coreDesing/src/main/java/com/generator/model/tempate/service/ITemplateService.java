@@ -1,12 +1,12 @@
-package com.generator.model.java07;
+package com.generator.model.tempate.service;
 
-import com.generator.core.build.ModelOup;
+import com.generator.core.build.models.ModelOup;
 import com.generator.core.format.formatter.Formatter;
 import com.generator.core.pojos.*;
 
 import java.util.List;
 
-public interface ITemplateService07 {
+public interface ITemplateService {
 
 
     default ModelOup template(EntityPojo entidad, ArchivoBaseDatosPojo archivo, String javaDirectory) throws InterruptedException {

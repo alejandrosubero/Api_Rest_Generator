@@ -1,7 +1,7 @@
-package com.generator.model.controller;
+package com.generator.model.tempate.controller;
 
 
-import com.generator.core.build.interfaces.IModelBuilder;
+import com.generator.core.build.interfaces.models.IModelBuilder;
 import com.generator.core.design.BodyMethodDesign;
 import com.generator.core.design.ClassDesign;
 import com.generator.core.design.MethodDesign;
@@ -11,7 +11,7 @@ import com.generator.core.design.reference.Modifier;
 import com.generator.core.design.reference.RetunsType;
 import com.generator.core.format.formatter.Formatter;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.build.ModelOup;
+import com.generator.core.build.models.ModelOup;
 import com.generator.core.pojos.AttributePojo;
 import com.generator.core.pojos.Creador;
 import com.generator.core.pojos.EntityPojo;
@@ -24,21 +24,21 @@ import org.apache.commons.logging.LogFactory;
 import java.util.*;
 
 
-public class CreateControlles07 implements IModelBuilder {
+public class TemplateControllers implements IModelBuilder {
 
-    private static final Log logger = LogFactory.getLog(CreateControlles07.class);
+    private static final Log logger = LogFactory.getLog(TemplateControllers.class);
 
     private ArchivoBaseDatosPojo archivo;
     private String paquete;
     private List<EntityPojo> entidades;
-    private  static CreateControlles07 instance;
+    private  static TemplateControllers instance;
 
-    private CreateControlles07() {
+    private TemplateControllers() {
     }
 
-    public static CreateControlles07 getInstance(){
+    public static TemplateControllers getInstance(){
         if(instance == null){
-            return new CreateControlles07();
+            return new TemplateControllers();
         }else {
             return instance;
         }
@@ -61,8 +61,13 @@ public class CreateControlles07 implements IModelBuilder {
             try {
                 if (entidad.getIsEntity()) {
                     String keynameOfClass = stringEnsamble(entidad.getNombreClase(), "Controller");
-                    response.add(ModelOup.builder().packageNane("controller").nameOfClass(keynameOfClass)
-                            .classInString(metods(entidad)).directoryForJava(creator.directionForJava()).build());
+                    response.add(
+                            ModelOup.builder()
+                                    .packageNane("controller")
+                                    .nameOfClass(keynameOfClass)
+                                    .classInString(metods(entidad))
+                                    .directoryForJava(creator.directionForJava())
+                                    .build());
                 }
             } catch (Exception e) {
                 e.printStackTrace();

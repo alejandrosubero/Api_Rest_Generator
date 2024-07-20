@@ -1,0 +1,404 @@
+package com.generator.model.tempate.implement;
+
+import com.generator.core.build.models.ModelOup;
+import com.generator.core.format.formatter.Formatter;
+import com.generator.core.pojos.*;
+
+import java.util.List;
+
+public interface ITemplateImplementService {
+
+
+    default ModelOup getTemplate(EntityPojo entidad, ArchivoBaseDatosPojo archivo, Creador creador) throws InterruptedException {
+
+
+        StringBuffer sbh = new StringBuffer("\r\n");
+        String entidadNombre = entidad.getNombreClase();
+        String nameOfClass = entidad.getNombreClase() + "ServiceImplement";
+        String repositorieName = entidad.getNombreClase() + "Repository";
+        String repositorieNameOjecte = repositorieName.toLowerCase();
+        String serviceName = entidad.getNombreClase() + "Service";
+
+        sbh.append(new AnotacionesJava(archivo).creatNotaClase() + "\r\n");
+        sbh.append(this.createImport(serviceName, repositorieName, entidad, archivo));
+        sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
+
+        if(archivo.getMethodManager().isMethodFindByOrLoop()) {
+            sbh.append(this.crearMetodoloop(entidad, repositorieNameOjecte));
+        }
+
+        sbh.append(this.metods(entidad, repositorieNameOjecte, entidadNombre, archivo));
+        sbh.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+
+
+        return ModelOup.builder()
+                .packageNane("serviceImplement")
+                .nameOfClass(nameOfClass)
+                .classInString(new Formatter().simpleFormat(sbh.toString()))
+                .directoryForJava(creador.directionForJava())
+                .build();
+
+    }
+
+
+
+    private StringBuffer createImport(String serviceName, String repositorieName, EntityPojo entidad, ArchivoBaseDatosPojo archivo) {
+        StringBuffer sb = new StringBuffer("\r\n");
+
+        sb.append("package " + archivo.getPackageNames() + ".serviceImplement ;\r\n");
+        sb.append("\r\n");
+        sb.append("import " + archivo.getPackageNames() + ".service." + archivo.getPackageNames() + ";\r\n");
+        sb.append("import " + archivo.getPackageNames() + ".repository." + archivo.getPackageNames() + ";\r\n");
+        sb.append("import java.util.ArrayList;" + "\r\n");
+        sb.append("import java.util.List;" + "\r\n");
+        sb.append("import java.util.Date;" + "\r\n");
+        sb.append("import org.apache.commons.logging.Log;" + "\r\n");
+        sb.append("import org.apache.commons.logging.LogFactory;" + "\r\n");
+        sb.append("import org.springframework.beans.factory.annotation.Autowired;" + "\r\n");
+        sb.append("import org.springframework.dao.DataAccessException;" + "\r\n");
+        sb.append("import org.springframework.stereotype.Service;" + "\r\n");
+        sb.append("import " + archivo.getPackageNames() + "." + entidad.getPaquete() + "." + entidad.getNombreClase() + ";" + "\r\n");
+
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+            sb.append("import " + archivo.getPackageNames() + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
+        }
+        sb.append("\r\n");
+        return sb;
+    }
+
+
+    private StringBuffer createTitulo(String nameOfClass, String serviceName, String repositorieName, String repositorieNameOjecte) {
+
+        StringBuffer sb1 = new StringBuffer("\r\n");
+        sb1.append("\r\n");
+        sb1.append("\r\n");
+        sb1.append("@Service" + "\r\n");
+        sb1.append("public class " + nameOfClass + " implements " + serviceName + " {" + "\r\n");
+        sb1.append("\r\n");
+        sb1.append("protected static final Log logger = LogFactory.getLog(" + nameOfClass + ".class);");
+        sb1.append("\r\n");
+        sb1.append("@Autowired" + "\r\n");
+        sb1.append("private " + repositorieName + " " + repositorieNameOjecte + ";" + "\r\n");
+        return sb1;
+    }
+
+
+    private StringBuffer crearMetodoloop(EntityPojo entidad, String repositorieNameOjecte) {
+
+        StringBuffer sbp = new StringBuffer("\r\n");
+        List<AttributePojo> listAtributos = entidad.getAtributos();
+
+        for (AttributePojo atributos : listAtributos) {
+            int cont = 1;
+            if (!atributos.getsId()) {
+                String atributoName = atributos.getAtributoName().substring(0, 1).toUpperCase() + atributos.getAtributoName().substring(1);
+                sbp.append("@Override" + "\r\n");
+                sbp.append("public " + entidad.getNombreClase() + " findBy" + atributoName + "(" + atributos.getTipoDato() + " " + atributos.getAtributoName() + "){" + "\r\n");
+                sbp.append("\r\n");
+                sbp.append("logger.info(\"Starting get" + entidad.getNombreClase() + "\");" + "\r\n");
+                sbp.append("" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + "Entity = new " + entidad.getNombreClase() + "();" + "\r\n");
+                String numeraly = String.valueOf(cont);
+                sbp.append("" + entidad.getNombreClase() + " fileOptional" + numeraly + " = " + repositorieNameOjecte + ".findBy" + atributoName + "(" + atributos.getAtributoName() + ");" + "\r\n");
+                sbp.append("\r\n");
+                sbp.append("if (null != fileOptional" + numeraly + ") { " + "\r\n");
+                String operacionu = "" + entidad.getNombreClase().toLowerCase() + "Entity = fileOptional" + numeraly + ";" + "\r\n";
+                String operacionElseu = "\r\n";
+                sbp.append(this.metodTrycath(operacionu, operacionElseu));
+                sbp.append("}" + "\r\n");
+                sbp.append("return " + entidad.getNombreClase().toLowerCase() + "Entity;");
+                sbp.append("}" + "\r\n");
+                cont += 1;
+            }
+        }
+        return sbp;
+    }
+
+
+    private StringBuffer metods(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre, ArchivoBaseDatosPojo archivo) {
+
+        StringBuffer sb = new StringBuffer("\r\n");
+
+
+        if(archivo.getMethodManager().isMethodgetAll()) {
+            sb.append(metodgetAll(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        if(archivo.getMethodManager().isMethodgetAll()) {
+            sb.append(this.metodSave(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        sb.append(this.metodDelete(entidad, repositorieNameOjecte, entidadNombre));
+
+        if(archivo.getMethodManager().isMethodfindById()) {
+            sb.append(this.metodfindById(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        if(archivo.checkAtributos(entidad)) {
+            sb.append(this.metodSearch(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        if(archivo.getMethodManager().isMethodContaining()) {
+            sb.append(this.metodContaining(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        if(archivo.getMethodManager().isMethodContainingRelacion()) {
+            sb.append(this.ContainingRelacion(entidad, repositorieNameOjecte, entidadNombre));
+        }
+
+        if(archivo.getMethodManager().isMethodContainingRelacionNoBiDirectional()) {
+            sb.append(this.ContainingRelacionNoBiDirectional(entidad, repositorieNameOjecte, entidadNombre));
+        }
+        sb.append("}\r\n");
+        return sb;
+    }
+
+
+    private StringBuffer metodgetAll(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+
+        StringBuffer ty = new StringBuffer("\r\n");
+        String getNombreClase = entidad.getNombreClase();
+        ty.append("\r\n");
+        ty.append("@Override" + "\r\n");
+        ty.append("public List<" + getNombreClase + "> getAll" + getNombreClase + "(){");
+        ty.append("\r\n");
+        ty.append("logger.info(\"Get allProyect\");" + "\r\n");
+        ty.append("	List<" + getNombreClase + "> lista" + getNombreClase + " = " + repositorieNameOjecte + ".findAll();" + "\r\n");
+        ty.append("	return lista" + getNombreClase + ";" + "\r\n");
+        ty.append("}" + "\r\n");
+        return ty;
+    }
+
+
+    private StringBuffer metodSave(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+
+        StringBuffer sbg = new StringBuffer("\r\n");
+        sbg.append("@Override" + "\r\n");
+        sbg.append("public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + "){" + "\r\n");
+        sbg.append("logger.info(\"Save Proyect\");" + "\r\n");
+        sbg.append("\r\n");
+        String operacion = "" + repositorieNameOjecte + ".save(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n" + "				return true;\r\n";
+        String operacionElse = "return false;\r\n";
+        sbg.append(this.metodTrycath(operacion, operacionElse));
+        sbg.append("}\r\n");
+        return sbg;
+    }
+
+
+    private StringBuffer metodDelete(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+
+        StringBuffer sbt = new StringBuffer("\r\n");
+
+        if (entidad.getDelete()) {
+            sbt.append("@Override" + "\r\n");
+            sbt.append("public boolean delete" + entidad.getNombreClase() + "( " + this.idTipoDato(entidad) + " id){" + "\r\n");
+            sbt.append("logger.info(\"Delete Proyect\");" + "\r\n");
+            sbt.append("boolean clave = false;\r\n");
+            sbt.append("\r\n");
+            String operacionA = "" + repositorieNameOjecte + ".delete(id);" + "\r\n" + " clave = true;\r\n";
+            String operacionElseA = "clave = false;\r\n";
+            sbt.append(this.metodTrycath(operacionA, operacionElseA));
+            sbt.append("return clave;\r\n");
+            sbt.append("}\r\n");
+        }
+        return sbt;
+    }
+
+
+    private StringBuffer metodfindById(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
+        sf.append("\r\n");
+        sf.append("@Override" + "\r\n");
+        sf.append("public " + entidad.getNombreClase() + " findById( " + this.idTipoDato(entidad) + " id){" + "\r\n");
+        sf.append("return  " + repositorieNameOjecte + ".findByIdQuery(id);" + "\r\n");
+        sf.append("}" + "\r\n");
+        return sf;
+    }
+
+
+
+    private StringBuffer metodSearch(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
+        sf.append("\r\n");
+        sf.append("@Override" + "\r\n");
+        sf.append("public List<" + entidad.getNombreClase() + "> search(String search ){" + "\r\n");
+        sf.append("return  " + repositorieNameOjecte + ".finBySearch(search);" + "\r\n");
+        sf.append("}" + "\r\n");
+        return sf;
+    }
+
+
+    private StringBuffer ContainingRelacion(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sbx = new StringBuffer();
+        String getNombreClase = entidadNombre;
+        String getNombre = entidad.getNombreClase().toLowerCase();
+        for (RelationshipPojo relacion : entidad.getRelaciones()) {
+            if (relacion.getBidireccional()) {
+                if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
+                    this.Relacionx(entidad, entidadNombre, relacion);
+                }
+            }
+        }
+        return sbx;
+    }
+
+
+    private StringBuffer Relacionx(EntityPojo entidad, String entidadNombre, RelationshipPojo relacion) {
+        StringBuffer sbw = new StringBuffer();
+        String getNombreClase = entidadNombre;
+        String getNombre = entidad.getNombreClase().toLowerCase();
+
+        sbw.append("@Override" + "\r\n");
+        sbw.append("public List<" + getNombreClase + "> findBy" + relacion.getNameClassRelacion() + "Containing(" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + "){" + "\r\n");
+        sbw.append("logger.info(\"get all "+relacion.getNameClassRelacion() + "Containing(" + relacion.getNameRelacion()+"\");" + "\r\n");
+        sbw.append("List<" + getNombreClase + "> lista" + getNombreClase + " = new ArrayList<" + getNombreClase + ">();" + "\r\n");
+        sbw.append("for (" + getNombreClase + " " + getNombre + " : this.getAll" + getNombreClase + "()) {" + "\r\n");
+        sbw.append("for (" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + "x : " + getNombre + ".get" + relacion.getNameRelacion() + "()) { " + "\r\n");
+        sbw.append("if(" + getNombreClase + ".get" + relacion.getNameRelacion() + "().contains(" + relacion.getNameRelacion() + ".get" + relacion.getNameRelacion() + "())) {	" + "\r\n");
+        sbw.append("lista" + getNombreClase + ".add(" + getNombre + "x);	" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("}" + "\r\n");
+        sbw.append("return lista" + getNombreClase + ";	" + "\r\n");
+        sbw.append("}" + "\r\n");
+        return sbw;
+    }
+
+
+    private StringBuffer ContainingRelacionNoBiDirectional(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sv = new StringBuffer();
+        for (RelationshipPojo relacion: entidad.getRelaciones()) {
+            if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
+                sv.append("\r\n");
+                sv.append("@Override" + "\r\n");
+                sv.append("public List<" + entidad.getNombreClase() + "> findByRelacion" + relacion.getNameClassRelacion() + "(" + relacion.getNameClassRelacion() + " " + relacion.getNameClassRelacion().toLowerCase() + "){" + "\r\n");
+                sv.append("List<" + entidad.getNombreClase() + "> lista" + entidad.getNombreClase() + " = new ArrayList<" + entidad.getNombreClase() + ">();" + "\r\n");
+                sv.append("for (" + entidad.getNombreClase() + " " + entidad.getNombreClase().toLowerCase() + " : this.getAll" + entidad.getNombreClase() + "()) {" + "\r\n");
+                sv.append("if(" + entidad.getNombreClase().toLowerCase() + ".get" + relacion.getNameRelacion() + "().equals" +  "(" + relacion.getNameClassRelacion().toLowerCase() + ")){" + "\r\n");
+                sv.append("lista" + entidad.getNombreClase() + ".add(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+                sv.append("}" + "\r\n");
+                sv.append("}" + "\r\n");
+                sv.append("return lista" + entidad.getNombreClase() + ";" + "\r\n");
+                sv.append("}" + "\r\n");
+            }
+
+            if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
+                String getNombreClase = entidad.getNombreClase();
+                String getNombre = entidad.getNombreClase().toLowerCase();
+
+                sv.append("@Override" + "\r\n");
+                sv.append("public List<" + getNombreClase + "> findBy" + relacion.getNameClassRelacion() + "Containing(" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + "){" + "\r\n");
+                sv.append("logger.info(\"get all "+relacion.getNameClassRelacion() + "Containing(" + relacion.getNameRelacion()+"\");" + "\r\n");
+                sv.append("List<" + getNombreClase + "> lista" + getNombreClase + " = new ArrayList<" + getNombreClase + ">();" + "\r\n");
+                sv.append("for (" + getNombreClase + " " + getNombre + " : this.getAll" + getNombreClase + "()) {" + "\r\n");
+                sv.append("for (" + relacion.getNameClassRelacion() + " " + relacion.getNameRelacion() + "x : " + getNombre + ".get" + relacion.getNameRelacion() + "()) { " + "\r\n");
+                sv.append("if("+relacion.getNameRelacion()+"x.equals"+"(" + relacion.getNameRelacion() + ")) {"+ "\r\n");
+                sv.append("lista" + getNombreClase + ".add(" + getNombre + ");	" + "\r\n");
+                sv.append("}" + "\r\n");
+                sv.append("}" + "\r\n");
+                sv.append("}" + "\r\n");
+                sv.append("return lista" + getNombreClase + ";	" + "\r\n");
+                sv.append("}" + "\r\n");
+            }
+        }
+        return sv;
+    }
+
+
+
+    private StringBuffer metodContaining(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sbx = new StringBuffer();
+        String getNombreClase = entidadNombre;
+        // String getNombre = entidad.getNombreClase().toLowerCase();
+        List<AttributePojo> listAtributos = entidad.getAtributos();
+
+        for (AttributePojo atributo : listAtributos) {
+            String cadenaOriginal = atributo.getAtributoName();
+            String primeraLetra = cadenaOriginal.substring(0, 1).toUpperCase();
+            String restoDeLaCadena = cadenaOriginal.substring(1);
+            String atributoName = primeraLetra + restoDeLaCadena;
+
+            if (!atributo.getsId()) {
+
+                sbx.append("@Override" + "\r\n");
+                sbx.append("public List<" + getNombreClase + "> findBy"+atributoName+"Containing(" + atributo.getTipoDato()+ " " + atributoName.toLowerCase()+"){" + "\r\n");
+                sbx.append("logger.info(\"get all "+getNombreClase + " donde "+atributoName+" Containing " + atributoName.toLowerCase()+"\");" + "\r\n");
+                sbx.append("List<"+getNombreClase+"> lista"+getNombreClase+" = new ArrayList<"+getNombreClase+">();"+ "\r\n");
+                sbx.append("lista"+getNombreClase+" = "+repositorieNameOjecte+".findBy"+atributoName +"Containing("+atributoName.toLowerCase()+");"+ "\r\n");
+                sbx.append("return lista"+getNombreClase+";"+ "\r\n");
+                sbx.append("}" + "\r\n");
+            }
+        }
+        return sbx;
+    }
+
+
+
+    private String idTipoDato(EntityPojo entidad) {
+        List<AttributePojo> listAtributos = entidad.getAtributos();
+        String datoTipo = "Integer";
+        for (AttributePojo atributoID : listAtributos) {
+            if (atributoID.getsId()) {
+                datoTipo = atributoID.getTipoDato();
+            }
+        }
+        return datoTipo;
+    }
+
+
+    private String metodTrycath(String operacion, String operacionElse) {
+        StringBuffer sb2 = new StringBuffer("\r\n");
+        sb2.append("try {" + "\r\n");
+        sb2.append(operacion);
+        sb2.append("} catch (DataAccessException e) {" + "\r\n");
+        sb2.append("logger.error(\" ERROR : \" + e);" + "\r\n");
+        sb2.append(operacionElse);
+        sb2.append("}\r\n");
+        return sb2.toString();
+    }
+
+
+    @SuppressWarnings("unused")
+    private StringBuffer metodSaveOrUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
+        String numeraly = String.valueOf(2);
+        sf.append("\r\n");
+        sf.append("@Override" + "\r\n");
+        sf.append("public boolean saveOrUpdate" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + "  " + entidad.getNombreClase().toLowerCase() + " ){" + "\r\n");
+        sf.append("logger.info(\"Update Proyect\");" + "\r\n");
+        sf.append("boolean clave = false;\r\n");
+        sf.append("" + entidad.getNombreClase() + " fileOptional" + numeraly + " = " + repositorieNameOjecte + ".findByIdQuery(" + entidad.getNombreClase().toLowerCase() + ".getId());" + "\r\n");
+        sf.append("if (null != fileOptional" + numeraly + ") { " + "\r\n");
+        sf.append("clave = this.update" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+        sf.append("logger.info(\" is update\");" + "\r\n");
+        sf.append("} else {" + "\r\n");
+        sf.append("clave = this.save" + entidad.getNombreClase() + "(" + entidad.getNombreClase().toLowerCase() + ");" + "\r\n");
+        sf.append("logger.info(\" is save\");" + "\r\n");
+        sf.append("}" + "\r\n");
+        sf.append("return clave;" + "\r\n");
+        sf.append("}");
+        return sf;
+    }
+
+
+    @SuppressWarnings("unused")
+    private StringBuffer metodUpdate(EntityPojo entidad, String repositorieNameOjecte, String entidadNombre) {
+        StringBuffer sf = new StringBuffer("\r\n");
+
+        sf.append("@Override" + "\r\n");
+        sf.append("public boolean update" + entidad.getNombreClase() + "(" + entidad.getNombreClase() + "  " + entidad.getNombreClase().toLowerCase() + " ){" + "\r\n");
+        sf.append("logger.info(\"Update Proyect\");" + "\r\n");
+        sf.append("boolean clave = false;" + "\r\n");
+        sf.append("" + entidad.getNombreClase() + " empre = findById(" + entidad.getNombreClase().toLowerCase() + ".getId());" + "\r\n");
+        sf.append("empre = " + entidad.getNombreClase().toLowerCase() + ";" + "\r\n");
+        String operacionc = "" + repositorieNameOjecte + ".save(empre);" + "\r\n" + 	"						clave = true;" + "\r\n";
+        String operacionElsec = "clave = false;" + "\r\n";
+        sf.append(this.metodTrycath(operacionc, operacionElsec));
+        sf.append("\r\n");
+        sf.append("return clave;" + "\r\n");
+        sf.append("	}\r\n");
+        return sf;
+    }
+
+
+
+}
