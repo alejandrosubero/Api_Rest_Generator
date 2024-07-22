@@ -1,5 +1,9 @@
 package com.Generator.apirest.core.pojos.back;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MethodManager {
 
     private Boolean methodFindByOrLoop; // method find for tipe or neme or atributed
@@ -22,8 +26,33 @@ public class MethodManager {
 
     private Boolean methodContainingRelacionNoBiDirectional; // si hay relacion bideireccional
 
+    private Map<String, Boolean> modelMethods = new HashMap<String, Boolean>();
+
+
     public MethodManager() {
     }
+
+    public Map<String, Boolean> getModelMethods() {
+        return modelMethods;
+    }
+
+    public void setModelMethods(Map<String, Boolean> modelMethods) {
+        this.modelMethods = modelMethods;
+    }
+
+    public void addModelMethod(String method, Boolean valueMethod) {
+       if(method != null && valueMethod !=null) {
+           this.modelMethods.put(method, valueMethod);
+       }
+    }
+
+    public Boolean getValueMethod(String method) {
+        if(method != null) {
+         return this.modelMethods.get(method);
+        }
+        return false;
+    }
+
 
     public MethodManager(Boolean defaultValue) {
         this.validDefault(defaultValue);

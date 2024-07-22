@@ -2,10 +2,11 @@ package com.generator.model;
 
 
 
+
+
 import com.generator.plugin.build.interfaces.plugin.IPluginConnection;
 import com.generator.plugin.build.models.ModelOup;
-import com.generator.plugin.pojos.ArchivoBaseDatosPojo;
-import com.generator.plugin.pojos.Creador;
+import com.generator.plugin.pojos.*;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -3,6 +3,7 @@ package com.Generator.apirest.files;
 import com.Generator.apirest.core.build.interfaces.plugin.IPluginConnection;
 import com.Generator.apirest.core.build.models.ModelOup;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.back.Creador;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -21,9 +22,6 @@ public class PluginLoader {
     private List<String> modelsIdentifiers;
     private Map<String, List<String>> modelMethods ;
 
-
-
-
     public PluginLoader() {
         pluginClasses = new ArrayList<>();
         modelMethods = new HashMap<String, List<String>>();
@@ -35,6 +33,10 @@ public class PluginLoader {
             this.updateModelsIdentifiers(pluginClasses);
             this.getModelMethods(pluginClasses);
         }
+    }
+
+    public void scanAndLoadPlugins(){
+        this.scanAndLoadPlugins(pluginClasses);
     }
 
     public List<String> updateModelsIdentifiers(){
@@ -59,6 +61,13 @@ public class PluginLoader {
             this.getModelMethods(pluginClasses);
         }
         return modelMethods;
+    }
+
+    public List<String> getMethods(String modelsIdentifiers) {
+        if (this.modelMethods == null || this.modelMethods.isEmpty()) {
+            this.getModelMethods(pluginClasses);
+        }
+        return modelMethods.get(modelsIdentifiers);
     }
 
 //    public List<Class<? extends IPluginConnection>> getPluginClasses() {

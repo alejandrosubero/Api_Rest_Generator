@@ -1,6 +1,6 @@
 package com.Generator.apirest.modelo.back.controller;
 
-import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 
 public interface ControllerInterface {

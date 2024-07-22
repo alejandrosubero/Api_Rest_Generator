@@ -10,7 +10,6 @@ import com.generator.core.design.reference.Modifier;
 import com.generator.core.format.formatter.Formatter;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.pojos.AttributePojo;
-import com.generator.core.pojos.Creador;
 import com.generator.core.pojos.EntityPojo;
 import com.generator.core.pojos.AnotacionesJava;
 import org.apache.commons.logging.Log;

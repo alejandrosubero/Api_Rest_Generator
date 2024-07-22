@@ -13,7 +13,6 @@ import com.generator.core.format.formatter.Formatter;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.build.models.ModelOup;
 import com.generator.core.pojos.AttributePojo;
-import com.generator.core.pojos.Creador;
 import com.generator.core.pojos.EntityPojo;
 import com.generator.core.pojos.RelationshipPojo;
 import com.generator.core.pojos.AnotacionesJava;

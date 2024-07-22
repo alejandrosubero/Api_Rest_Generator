@@ -1,7 +1,7 @@
 package com.Generator.apirest.modelo.back.java07;
 
 
-import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.modelo.back.javaPlus07.CreateServices;
 import com.Generator.apirest.notas.AnotacionesJava;
 import com.Generator.apirest.core.pojos.back.AttributePojo;

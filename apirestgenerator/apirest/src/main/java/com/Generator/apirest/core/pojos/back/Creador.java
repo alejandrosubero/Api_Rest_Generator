@@ -1,4 +1,4 @@
-package com.Generator.apirest.files;
+package com.Generator.apirest.core.pojos.back;
 
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 

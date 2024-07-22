@@ -4,7 +4,7 @@ package com.Generator.apirest.modelo.back.layer;
 import com.Generator.apirest.ServiceImpl.layers.CreateCapaPojoForEntitys;
 import com.Generator.apirest.ServiceImpl.layers.CreateClasesProyecto;
 import com.Generator.apirest.files.AnadirCarpeta;
-import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

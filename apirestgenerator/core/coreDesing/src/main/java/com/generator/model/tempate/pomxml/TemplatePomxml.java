@@ -5,7 +5,6 @@ package com.generator.model.tempate.pomxml;
 import com.generator.core.build.models.ModelOup;
 import com.generator.core.build.interfaces.models.IModelBuilder;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
-import com.generator.core.pojos.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

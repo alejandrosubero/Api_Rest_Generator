@@ -5,15 +5,15 @@ import java.util.List;
 
 
 public class EntityResponePojo implements Serializable {
-private static final long serialVersionUID = 9068664675778286044L;
+    private static final long serialVersionUID = 9068664675778286044L;
 
 
     private String error;
-   private String mensaje;
-   private List<Object> entidades;
+    private String mensaje;
+    private List<Object> entidades;
 
 
- public String getError() {
+    public String getError() {
         return error;
     }
 

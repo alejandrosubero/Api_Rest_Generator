@@ -1,20 +1,16 @@
 package com.Generator.apirest.files;
 
 
-import com.Generator.apirest.core.build.interfaces.plugin.IPluginConnection;
+
+import com.Generator.apirest.core.build.models.ModelOup;
 import com.Generator.apirest.core.interfaces.FileCreateService;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.back.Creador;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+
 
 
 @Service
@@ -29,26 +25,41 @@ public class PluginManagers {
     }
 
     public List<String> getAllModelsIdentifiers(){
-        return null;
+        return this.pluginLoader.getModelsIdentifiers();
     }
 
     public List<String> updateModelsIdentifiers(){
-        return null;
+        return this.pluginLoader.updateModelsIdentifiers();
     }
 
     public List<String> getModelMethods(String modelsIdentifiers) {
-        return null;
+        return this.pluginLoader.getMethods(modelsIdentifiers);
     }
 
     public void executeBuild(ArchivoBaseDatosPojo baseFilePojo, Creador creator, String identifier){
 
+        LinkedList<ModelOup> executedModel = this.pluginLoader.executeGetModel(baseFilePojo, creator, identifier);
+
+        for(ModelOup modelOup : executedModel){
+            if(modelOup.getPackageNane() == null){
+                this.fileService.crearArchivo(
+                        modelOup.getDirectoryForJava(),
+                        modelOup.getClassInString(),
+                        modelOup.getNameOfClass());
+            }
+
+            if(modelOup.getPackageNane() != null){
+                this.fileService.createFileClassJava(
+                        modelOup.getNameOfClass(),
+                        modelOup.getPackageNane(),
+                        new StringBuffer(modelOup.getClassInString()),
+                        modelOup.getDirectoryForJava());
+            }
+        }
     }
 
     public void  scanAndLoadPlugins(){
-
-
+        this.pluginLoader.scanAndLoadPlugins();
     }
-
-
 
 }

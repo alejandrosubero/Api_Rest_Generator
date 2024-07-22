@@ -6,13 +6,20 @@ public class LayerPojo {
 	private Boolean createCapaEntitysPlusPojo;
 	private Boolean createCapaJavaBase7;
 	private String savePojo;
-
 	private String modelT;
 	private String modelM;
-
+	private String architecture;
 
 	public LayerPojo() {
 		super();
+	}
+
+	public String getArchitecture() {
+		return architecture;
+	}
+
+	public void setArchitecture(String architecture) {
+		this.architecture = architecture;
 	}
 
 	public String getModelM() {

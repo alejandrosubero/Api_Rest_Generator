@@ -1,7 +1,7 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
 
-import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.core.design.ClassDesign;
 import com.Generator.apirest.core.design.MethodDesign;
 import com.Generator.apirest.core.design.ParameterClassMethod;

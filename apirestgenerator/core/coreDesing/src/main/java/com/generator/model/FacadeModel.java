@@ -4,7 +4,6 @@ package com.generator.model;
 import com.generator.core.build.interfaces.models.IFacadeModel;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.build.models.ModelOup;
-import com.generator.core.pojos.Creador;
 import com.generator.model.tempate.controller.TemplateControllers;
 import com.generator.model.tempate.repositories.TemplateRepository;
 import com.generator.model.tempate.service.TemplateService;

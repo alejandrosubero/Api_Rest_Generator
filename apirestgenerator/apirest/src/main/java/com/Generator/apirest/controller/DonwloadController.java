@@ -22,10 +22,10 @@ import java.io.InputStream;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/apis")
-public class Donwload {
+public class DonwloadController {
 
 	// /ApiREST/Generator/apis
-	protected static final Log logger = LogFactory.getLog(Donwload.class);
+	protected static final Log logger = LogFactory.getLog(DonwloadController.class);
 
 	@Autowired
 	private ProyectoServiceImpl proyectoServiceImpl;

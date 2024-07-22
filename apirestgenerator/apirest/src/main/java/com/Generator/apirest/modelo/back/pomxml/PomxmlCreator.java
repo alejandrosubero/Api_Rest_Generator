@@ -1,7 +1,7 @@
 package com.Generator.apirest.modelo.back.pomxml;
 
 
-import com.Generator.apirest.files.Creador;
+import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import com.Generator.apirest.core.interfaces.IImportModel;
 import org.apache.commons.logging.Log;

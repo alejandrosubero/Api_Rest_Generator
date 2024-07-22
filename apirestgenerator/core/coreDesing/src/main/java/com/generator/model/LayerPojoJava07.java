@@ -3,7 +3,6 @@ package com.generator.model;
 import com.generator.core.build.interfaces.plugin.IPluginConnection;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.build.models.ModelOup;
-import com.generator.core.pojos.Creador;
 
 import java.util.LinkedList;
 import java.util.List;
