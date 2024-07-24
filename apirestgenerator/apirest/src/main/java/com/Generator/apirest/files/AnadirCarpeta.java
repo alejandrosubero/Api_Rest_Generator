@@ -59,7 +59,6 @@ public class AnadirCarpeta {
 			parameters.setPassword(password);
 
 			zipFile.addFolder(folderpathZipInput, parameters);
-			
 			// en la linea superior cambiar Folder por File si es archivo o carpeta
 
 			logger.info("El archivo zip se creo");
@@ -101,18 +100,14 @@ public class AnadirCarpeta {
 			logger.info("Zip fue borrado");
 			salveInfo = true;
 
-			logger.info("Enviando Mail");
-			//	mensendService.sendMailResponse();// ejecuta el envio del correo
-			// envioEmailService.sendPreConfiguredMailR();
-			logger.info("Mail enviando...");
+			logger.info("salveInfo = "+ salveInfo + "....<.The End.>.....");
+
 		}
 
 	} catch (Exception e) {
 		logger.error("El proyecto no fue salvado");
-		// salveInfo = false;
+		 salveInfo = false;
 	}
-	//	logger.info("inicia el salvado del proyecto salveProyecto");
-	//	return proyectoServiceImpl.saveProyecto(proyecto);
 	return salveInfo;
 	}
 

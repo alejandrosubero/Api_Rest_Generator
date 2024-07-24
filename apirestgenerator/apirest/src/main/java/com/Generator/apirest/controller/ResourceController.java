@@ -24,12 +24,14 @@ public class ResourceController {
     @GetMapping("/identifiers")
     public List<String> getAllModelsIdentifiers() {
         logger.info("Loading Models Identifiers");
+        this.pluginManagers.scanAndLoadPlugins();
         return this.pluginManagers.getAllModelsIdentifiers();
     }
 
 
     @GetMapping("/identifiers/methods/{identifier}")
     public List<String> getModelMethods(@PathVariable String identifier) {
+        this.pluginManagers.scanAndLoadPlugins();
         logger.info("Loading Models Methods");
         return this.pluginManagers.getModelMethods(identifier);
     }

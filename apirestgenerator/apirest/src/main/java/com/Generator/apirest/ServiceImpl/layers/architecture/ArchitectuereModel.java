@@ -1,43 +1,43 @@
-package com.Generator.apirest.modelo.back.layer;
-
+package com.Generator.apirest.ServiceImpl.layers.architecture;
 
 import com.Generator.apirest.ServiceImpl.layers.CreatePojoLayerForEntitys;
-import com.Generator.apirest.ServiceImpl.layers.CreateClasesProyecto;
-import com.Generator.apirest.files.AnadirCarpeta;
-import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.Generator.apirest.core.pojos.back.Creador;
+import com.Generator.apirest.files.AnadirCarpeta;
+import com.Generator.apirest.modelo.back.layer.LayerInterface;
+import com.Generator.apirest.modelo.back.layer.LayerPojoBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LayerPojoBase implements LayerInterface{
+public class ArchitectuereModel  implements LayerInterface {
 
-    protected static final Log logger = LogFactory.getLog(LayerPojoBase.class);
+    protected static final Log logger = LogFactory.getLog(ArchitectuereModel.class);
 
     private Creador creator;
     private CreatePojoLayerForEntitys createPojoLayerForEntitys;
     private AnadirCarpeta folderDirectory;
+    private ArchitectuereClass architectuereClass;
 
-    private CreateClasesProyecto createClasesProyecto;
+    public ArchitectuereModel( CreatePojoLayerForEntitys createPojoLayerForEntitys, AnadirCarpeta folderDirectory, ArchitectuereClass architectuereClass) {
 
-
-    public LayerPojoBase(Creador creador, CreateClasesProyecto createClasesProyecto, CreatePojoLayerForEntitys createPojoLayerForEntitys, AnadirCarpeta anadirCarpeta) {
-        this.creator = creador;
-        this.createClasesProyecto = createClasesProyecto;
         this.createPojoLayerForEntitys = createPojoLayerForEntitys;
-        this.folderDirectory = anadirCarpeta;
+        this.folderDirectory = folderDirectory;
+        this.architectuereClass = architectuereClass;
     }
+
 
     @Override
-    public Boolean createLayer(ArchivoBaseDatosPojo baseFileDataPojo, Creador creador) {
-        return generateBasePojo(baseFileDataPojo);
+    public Boolean createLayer(ArchivoBaseDatosPojo baseFileDataPojo, Creador creator) {
+        this.creator = creator;
+        return generateBase(baseFileDataPojo);
     }
 
 
-    public boolean generateBasePojo(ArchivoBaseDatosPojo baseFileDataPojo){
+    public boolean generateBase(ArchivoBaseDatosPojo baseFileDataPojo) {
         try {
-            createClasesProyecto.StartCreateClasesProyecto(baseFileDataPojo, creator);
+            architectuereClass.createClasesProyecto(baseFileDataPojo, creator);
             createPojoLayerForEntitys.createLayerPojoForEntitys(baseFileDataPojo, creator);
             return addProyectToZipFileAndSave();
         } catch (Exception e) {
@@ -45,8 +45,6 @@ public class LayerPojoBase implements LayerInterface{
             return false;
         }
     }
-
-
 
     private boolean addProyectToZipFileAndSave() {
         try {
@@ -59,6 +57,5 @@ public class LayerPojoBase implements LayerInterface{
             return false;
         }
     }
-
 
 }

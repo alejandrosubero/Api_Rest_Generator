@@ -13,24 +13,31 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateCapaPojoForEntitys {
+public class CreatePojoLayerForEntitys {
 
-    private ControllerFactory controllerFactory;
+    protected static final Log logger = LogFactory.getLog(CreatePojoLayerForEntitys.class);
+    //    private ControllerFactory controllerFactory;
     private CreateMapper createMapper;
     private CreateValidation createValidation;
     private CreateToolImpl createTool;
     private EntityResponseClass entityResponseClass;
 
 
-    public CreateCapaPojoForEntitys(ControllerFactory controllerFactory, CreateMapper createMapper, CreateValidation createValidation, CreateToolImpl createTool, EntityResponseClass entityResponseClass) {
-        this.controllerFactory = controllerFactory;
+
+    public CreatePojoLayerForEntitys( CreateMapper createMapper, CreateValidation createValidation, CreateToolImpl createTool, EntityResponseClass entityResponseClass) {
         this.createMapper = createMapper;
         this.createValidation = createValidation;
         this.createTool = createTool;
         this.entityResponseClass = entityResponseClass;
     }
+//    public CreatePojoLayerForEntitys(ControllerFactory controllerFactory, CreateMapper createMapper, CreateValidation createValidation, CreateToolImpl createTool, EntityResponseClass entityResponseClass) {
+////        this.controllerFactory = controllerFactory;
+//        this.createMapper = createMapper;
+//        this.createValidation = createValidation;
+//        this.createTool = createTool;
+//        this.entityResponseClass = entityResponseClass;
+//    }
 
-    protected static final Log logger = LogFactory.getLog(CreateCapaPojoForEntitys.class);
 
     public void createLayerPojoForEntitys(ArchivoBaseDatosPojo archivo, Creador creador) {
 
@@ -39,7 +46,7 @@ public class CreateCapaPojoForEntitys {
             createValidation.startCreacion(archivo, creador);
         }
 
-        this.controllerFactory.controllerCreator(archivo.getCapaPojo()).initCreateController(archivo, creador);
+//        this.controllerFactory.controllerCreator(archivo.getCapaPojo()).initCreateController(archivo, creador);
         this.entityResponseClass.startCreateEntityResponseClass(archivo, creador);
 
         if (archivo.getIsToolActive()) {

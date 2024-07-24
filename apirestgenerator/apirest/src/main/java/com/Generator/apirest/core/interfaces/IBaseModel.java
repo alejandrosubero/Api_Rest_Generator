@@ -73,7 +73,7 @@ public interface IBaseModel extends IConstantModel {
 		String firstCharInString = str.substring(0, 1).toUpperCase();
 		String remainingCharsInString = str.substring(1);
 
-		return stringEnsamble(List.of(firstCharInString,remainingCharsInString));
+		return stringEnsamble(firstCharInString,remainingCharsInString);
 	}
 
 

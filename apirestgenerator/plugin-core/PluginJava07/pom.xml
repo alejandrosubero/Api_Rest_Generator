@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.generator</groupId>
-    <artifactId>model</artifactId>
+    <artifactId>LayerJava07</artifactId>
     <version>1.0.0</version>
 
     <packaging>jar</packaging>

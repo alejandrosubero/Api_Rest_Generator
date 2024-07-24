@@ -38,21 +38,23 @@ public class GenerateProjectRest implements ServiceGenerateProjectRest, IBaseMod
 
         String model = baseFileDataPojo.getCapaPojo().getModelT().trim();
         String modelM = model.substring(0, 1).toUpperCase() + model.substring(1);
+//        String modelM = capitalizeFirstLetter(baseFileDataPojo.getCapaPojo().getModelT().trim());
         baseFileDataPojo.getCapaPojo().setModelM(modelM);
-
         baseFileDataPojo.getMethodManager().validDefault(baseFileDataPojo.isMethoddefaultValue());
 
         if (baseFileDataPojo.getMethodManager().isMethodDelete()) {
             baseFileDataPojo.getEntidades().stream().forEach(entityPojo -> entityPojo.deleteActive(true));
         }
-        if (baseFileDataPojo.getCapaPojo().getCreateCapaPojoForEntitys()) {
+
+//        if (baseFileDataPojo.getCapaPojo().getCreateCapaPojoForEntitys()) {
             baseFileDataPojo.setEntidades(convertEntityToModelT.startConvertEntityToModelT(baseFileDataPojo));
-        }
+//        }
+
         this.creador.setDatos(baseFileDataPojo);
-        this.createBaseFiles.create(baseFileDataPojo, creador);
+        this.createBaseFiles.create(baseFileDataPojo, this.creador);
 
 
-        return this.layerFactory.generateLayer(baseFileDataPojo.getCapaPojo()).createLayer(baseFileDataPojo);
+        return this.layerFactory.generateLayer().createLayer(baseFileDataPojo, this.creador);
     }
 
 }

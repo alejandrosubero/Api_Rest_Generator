@@ -1,6 +1,6 @@
 package com.Generator.apirest.modelo.back.layer;
 
-import com.Generator.apirest.ServiceImpl.layers.CreateCapaPojoForEntitys;
+import com.Generator.apirest.ServiceImpl.layers.CreatePojoLayerForEntitys;
 import com.Generator.apirest.ServiceImpl.layers.CreateClassProyect07;
 import com.Generator.apirest.files.AnadirCarpeta;
 import com.Generator.apirest.core.pojos.back.Creador;
@@ -15,21 +15,22 @@ public class LayerPojoJava7 implements LayerInterface {
     protected static final Log logger = LogFactory.getLog(LayerPojoBase.class);
 
     private Creador creator;
-    private CreateCapaPojoForEntitys createCapaPojoForEntitys;
+    private CreatePojoLayerForEntitys createPojoLayerForEntitys;
     private AnadirCarpeta folderDirectory;
+
     private CreateClassProyect07 createClassProyect07;
 
 
-    public LayerPojoJava7(Creador creador, CreateCapaPojoForEntitys createCapaPojoForEntitys, AnadirCarpeta anadirCarpeta, CreateClassProyect07 createClassProyect07) {
+    public LayerPojoJava7(Creador creador, CreatePojoLayerForEntitys createPojoLayerForEntitys, AnadirCarpeta anadirCarpeta, CreateClassProyect07 createClassProyect07) {
         this.creator = creador;
-        this.createCapaPojoForEntitys = createCapaPojoForEntitys;
+        this.createPojoLayerForEntitys = createPojoLayerForEntitys;
         this.folderDirectory = anadirCarpeta;
         this.createClassProyect07 = createClassProyect07;
     }
 
 
     @Override
-    public Boolean createLayer(ArchivoBaseDatosPojo baseFileDataPojo) {
+    public Boolean createLayer(ArchivoBaseDatosPojo baseFileDataPojo,Creador creador) {
         return generateBase07(baseFileDataPojo);
     }
 
@@ -37,7 +38,7 @@ public class LayerPojoJava7 implements LayerInterface {
     public boolean generateBase07(ArchivoBaseDatosPojo baseFileDataPojo) {
         try {
             createClassProyect07.StartCreateClasesProyecto(baseFileDataPojo, creator);
-            createCapaPojoForEntitys.createLayerPojoForEntitys(baseFileDataPojo, creator);
+            createPojoLayerForEntitys.createLayerPojoForEntitys(baseFileDataPojo, creator);
             return addProyectToZipFileAndSave();
         } catch (Exception e) {
             e.printStackTrace();

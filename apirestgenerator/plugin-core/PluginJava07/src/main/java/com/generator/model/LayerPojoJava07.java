@@ -1,9 +1,6 @@
 package com.generator.model;
 
 
-
-
-
 import com.generator.plugin.build.interfaces.plugin.IPluginConnection;
 import com.generator.plugin.build.models.ModelOup;
 import com.generator.plugin.pojos.*;

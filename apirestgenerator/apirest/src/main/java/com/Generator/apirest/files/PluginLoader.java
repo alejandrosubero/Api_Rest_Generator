@@ -22,6 +22,7 @@ public class PluginLoader {
     private List<String> modelsIdentifiers;
     private Map<String, List<String>> modelMethods ;
 
+
     public PluginLoader() {
         pluginClasses = new ArrayList<>();
         modelMethods = new HashMap<String, List<String>>();
@@ -36,6 +37,7 @@ public class PluginLoader {
     }
 
     public void scanAndLoadPlugins(){
+        pluginClasses = new ArrayList<Class<? extends IPluginConnection>>();
         this.scanAndLoadPlugins(pluginClasses);
     }
 
@@ -78,6 +80,8 @@ public class PluginLoader {
 //    }
 
     public void scanAndLoadPlugins(List<Class<? extends IPluginConnection>> pluginClasses) {
+
+    if(pluginClasses != null) {
         File pluginsDir = new File(PLUGINS_DIRECTORY);
 
         if (pluginsDir.isDirectory()) {
@@ -111,6 +115,7 @@ public class PluginLoader {
             }
         }
     }
+    }
 
     private List<String> updateModelsIdentifiers(List<Class<? extends IPluginConnection>> pluginClasses) {
         this.modelsIdentifiers = new ArrayList<>();
@@ -141,7 +146,7 @@ public class PluginLoader {
 
 
     public LinkedList<ModelOup> executeGetModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator, String identifier){
-        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
+        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null && baseFilePojo != null && creator != null && identifier !=null){
            return this.getModels(this.pluginClasses, baseFilePojo,creator, identifier).get(identifier);
         }
         return new LinkedList<>();
@@ -149,18 +154,21 @@ public class PluginLoader {
 
 
     private Map<String, LinkedList<ModelOup>> getModels(List<Class<? extends IPluginConnection>> pluginClasses, ArchivoBaseDatosPojo baseFilePojo, Creador creator, String identifier) {
+        Map<String, LinkedList<ModelOup>> models = new HashMap<String, LinkedList<ModelOup>>();
 
-        Map<String,  LinkedList<ModelOup>> models = new HashMap<String,  LinkedList<ModelOup>>();
+        if(baseFilePojo != null && creator != null && identifier !=null) {
 
-        for (Class<? extends IPluginConnection> pluginClass : pluginClasses) {
-            try {
-                IPluginConnection pluginInstance = pluginClass.getDeclaredConstructor().newInstance();
-               if(identifier.equals(pluginInstance.modelIdentifier())){
-                   models.put(pluginInstance.modelIdentifier(), pluginInstance.getModel(baseFilePojo, creator));
-               }
-            } catch (Exception e) {
-                System.err.println("Error al ejecutar el plugin: " + pluginClass.getName());
-                e.printStackTrace();
+
+            for (Class<? extends IPluginConnection> pluginClass : pluginClasses) {
+                try {
+                    IPluginConnection pluginInstance = pluginClass.getDeclaredConstructor().newInstance();
+                    if (identifier.equals(pluginInstance.modelIdentifier())) {
+                        models.put(pluginInstance.modelIdentifier(), pluginInstance.getModel(baseFilePojo, creator));
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error al ejecutar el plugin: " + pluginClass.getName());
+                    e.printStackTrace();
+                }
             }
         }
         return models;

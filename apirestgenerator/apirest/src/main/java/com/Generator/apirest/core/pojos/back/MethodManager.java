@@ -1,8 +1,6 @@
 package com.Generator.apirest.core.pojos.back;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MethodManager {
 
@@ -26,29 +24,30 @@ public class MethodManager {
 
     private Boolean methodContainingRelacionNoBiDirectional; // si hay relacion bideireccional
 
-    private Map<String, Boolean> modelMethods = new HashMap<String, Boolean>();
+    private List<ModelMethod> modelMethods = new ArrayList<>();
 
 
     public MethodManager() {
     }
 
-    public Map<String, Boolean> getModelMethods() {
+    public List<ModelMethod> getModelMethods() {
         return modelMethods;
     }
 
-    public void setModelMethods(Map<String, Boolean> modelMethods) {
+    public void setModelMethods(List<ModelMethod> modelMethods) {
         this.modelMethods = modelMethods;
     }
 
     public void addModelMethod(String method, Boolean valueMethod) {
        if(method != null && valueMethod !=null) {
-           this.modelMethods.put(method, valueMethod);
+           this.modelMethods.add(new ModelMethod(method, valueMethod));
        }
     }
 
     public Boolean getValueMethod(String method) {
         if(method != null) {
-         return this.modelMethods.get(method);
+         Optional<ModelMethod> value = this.modelMethods.stream().filter(modelMethod -> modelMethod.getMethodSignature().equals(method)).findFirst();
+         return value.get().getCreate();
         }
         return false;
     }
@@ -61,16 +60,21 @@ public class MethodManager {
 
     public void validDefault(Boolean defaultValue) {
         if(defaultValue == null) {defaultValue = false;}
-
-        this.methodFindByOrLoop = defaultValue;
-        this.methodfindById = defaultValue;
-        this.metohdSave = defaultValue;
-        this.methodgetAll = defaultValue;
-        this.methodUpdate = defaultValue;
-        this.methodsaveOrUpdate = defaultValue;
-        this.methodContaining = defaultValue;
-        this.methodContainingRelacion = defaultValue;
-        this.methodContainingRelacionNoBiDirectional = defaultValue;
+        if(defaultValue) {
+            Boolean value = defaultValue;
+            this.methodFindByOrLoop = defaultValue;
+            this.methodfindById = defaultValue;
+            this.metohdSave = defaultValue;
+            this.methodgetAll = defaultValue;
+            this.methodUpdate = defaultValue;
+            this.methodsaveOrUpdate = defaultValue;
+            this.methodContaining = defaultValue;
+            this.methodContainingRelacion = defaultValue;
+            this.methodContainingRelacionNoBiDirectional = defaultValue;
+            if (this.modelMethods.size() > 0) {
+                this.modelMethods.stream().forEach(modelMethod -> modelMethod.setCreate(value));
+            }
+        }
     }
 
 
