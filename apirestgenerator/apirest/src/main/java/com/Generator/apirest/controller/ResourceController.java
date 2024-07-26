@@ -24,7 +24,7 @@ public class ResourceController {
     @GetMapping("/identifiers")
     public List<String> getAllModelsIdentifiers() {
         logger.info("Loading Models Identifiers");
-        this.pluginManagers.scanAndLoadPlugins();
+//        this.pluginManagers.scanAndLoadPlugins();
         return this.pluginManagers.getAllModelsIdentifiers();
     }
 

@@ -24,16 +24,16 @@ public class PluginLoader {
 
 
     public PluginLoader() {
-        pluginClasses = new ArrayList<>();
-        modelMethods = new HashMap<String, List<String>>();
-        modelsIdentifiers = new ArrayList<>();
-
-        scanAndLoadPlugins(pluginClasses);
-
-        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
-            this.updateModelsIdentifiers(pluginClasses);
-            this.getModelMethods(pluginClasses);
-        }
+//        pluginClasses = new ArrayList<>();
+//        modelMethods = new HashMap<String, List<String>>();
+//        modelsIdentifiers = new ArrayList<>();
+//
+//        scanAndLoadPlugins(pluginClasses);
+//
+//        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
+//            this.updateModelsIdentifiers(pluginClasses);
+//            this.getModelMethods(pluginClasses);
+//        }
     }
 
     public void scanAndLoadPlugins(){
@@ -157,7 +157,6 @@ public class PluginLoader {
         Map<String, LinkedList<ModelOup>> models = new HashMap<String, LinkedList<ModelOup>>();
 
         if(baseFilePojo != null && creator != null && identifier !=null) {
-
 
             for (Class<? extends IPluginConnection> pluginClass : pluginClasses) {
                 try {
