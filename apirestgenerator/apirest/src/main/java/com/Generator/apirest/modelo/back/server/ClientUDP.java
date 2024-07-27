@@ -1,10 +1,8 @@
 package com.Generator.apirest.modelo.back.server;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.modelo.back.tool.CreateGetPostTool;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -72,7 +70,7 @@ public class ClientUDP {
 
             sb.append(this.createCostructor());
             sb.append("\r\n");
-            sb.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+            sb.append(this.anotacionesJava.apacheSoftwareLicensed() + "\r\n");
 
 
         } catch (Exception e) {

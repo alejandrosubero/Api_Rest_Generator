@@ -1,17 +1,13 @@
 package com.Generator.apirest.modelo.back.base;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+
 
 import java.util.List;
 import java.util.Random;
 
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -56,7 +52,7 @@ public class CreateEntity implements IImportModel {
     	
     	sb.append("}");
         sb.append(BREAK_LINE);
-        sb.append(AnotacionesJava.apacheSoftwareLicensed());
+        sb.append(new AnotacionesJava(archivo).apacheSoftwareLicensed());
 
         String direction = this.path(Lists.newArrayList(
         		creador.getDireccionDeCarpeta() + archivo.getProyectoName(),"src","main","java",

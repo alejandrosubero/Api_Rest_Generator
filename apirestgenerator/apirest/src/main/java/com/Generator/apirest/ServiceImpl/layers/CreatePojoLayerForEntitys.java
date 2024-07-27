@@ -2,12 +2,12 @@ package com.Generator.apirest.ServiceImpl.layers;
 
 
 import com.Generator.apirest.ServiceImpl.tool.CreateToolImpl;
-import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.modelo.back.base.CreateMapper;
 import com.Generator.apirest.modelo.back.base.CreateValidation;
 import com.Generator.apirest.modelo.back.base.EntityResponseClass;
 import com.Generator.apirest.modelo.back.controller.ControllerFactory;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

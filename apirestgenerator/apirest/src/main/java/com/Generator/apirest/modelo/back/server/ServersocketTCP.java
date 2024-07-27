@@ -1,9 +1,8 @@
 package com.Generator.apirest.modelo.back.server;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

@@ -1,13 +1,11 @@
 package com.Generator.apirest.modelo.back.java07;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import com.Generator.apirest.modelo.back.javaPlus07.CreateServices;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.FileCreateService;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,7 +123,7 @@ public class CreateRepositorie07 {
 
         sb1.append("\r\n");
         sb1.append("}\r\n");
-        sb1.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+        sb1.append(new AnotacionesJava(archivo).apacheSoftwareLicensed() + "\r\n");
 
         fileCreateService.createFileClassJava(nameOfClass, "repository",sb1, this.creador.directionForJava());
        // fileCreateService.createFileClassJavaNoAddres(nameOfClass, "repository",sb1);

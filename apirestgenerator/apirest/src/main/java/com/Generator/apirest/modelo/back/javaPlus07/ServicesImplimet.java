@@ -1,22 +1,17 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.core.design.BodyMethodDesign;
-import com.Generator.apirest.core.design.ClassDesign;
-import com.Generator.apirest.core.design.MethodDesign;
-import com.Generator.apirest.core.design.ParameterClassMethod;
-import com.Generator.apirest.core.design.reference.ClassType;
-import com.Generator.apirest.core.design.reference.Modifier;
-import com.Generator.apirest.core.design.reference.RetunsType;
-import com.Generator.apirest.core.format.formatter.Formatter;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.LayerPojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+import com.generator.core.design.BodyMethodDesign;
+import com.generator.core.design.ClassDesign;
+import com.generator.core.design.MethodDesign;
+import com.generator.core.design.ParameterClassMethod;
+import com.generator.core.design.reference.ClassType;
+import com.generator.core.design.reference.Modifier;
+import com.generator.core.design.reference.RetunsType;
+import com.generator.core.format.formatter.Formatter;
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -146,7 +141,7 @@ public class ServicesImplimet implements IImportModel {
 
         main.append(classTemplate.toString());
         main.append(DOUBLEBREAK_LINE);
-        main.append(AnotacionesJava.apacheSoftwareLicensed() + BREAK_LINE);
+        main.append(new AnotacionesJava(archivo).apacheSoftwareLicensed() + BREAK_LINE);
 
         this.createFileClass(nameOfClass, "serviceImplement", main, creadors, archivo.getProyectoName());
     }

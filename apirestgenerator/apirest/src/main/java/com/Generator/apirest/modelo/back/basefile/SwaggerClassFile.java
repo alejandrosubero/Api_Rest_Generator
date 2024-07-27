@@ -1,9 +1,10 @@
 package com.Generator.apirest.modelo.back.basefile;
 
 import com.Generator.apirest.files.BaseFiles;
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import com.google.common.collect.Lists;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

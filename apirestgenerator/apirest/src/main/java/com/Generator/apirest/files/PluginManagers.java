@@ -2,10 +2,11 @@ package com.Generator.apirest.files;
 
 
 
-import com.Generator.apirest.core.build.models.ModelOup;
-import com.Generator.apirest.core.interfaces.FileCreateService;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.pojos.back.Creador;
+;
+import com.generator.core.build.models.ModelOup;
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

@@ -2,12 +2,12 @@ package com.Generator.apirest.ServiceImpl.layers;
 
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
+
+import com.generator.core.pojos.*;
 import com.Generator.apirest.modelo.back.base.CreateEntity;
 import com.Generator.apirest.modelo.back.javaPlus07.CreateRepositories;
 import com.Generator.apirest.modelo.back.javaPlus07.CreateServices;
 import com.Generator.apirest.modelo.back.javaPlus07.ServicesImplimet;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

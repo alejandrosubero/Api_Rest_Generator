@@ -1,11 +1,8 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +21,6 @@ public class CreateRepositories implements IImportModel {
     private List<EntityPojo> entidades;
     private Creador creador;
     private String barra = java.nio.file.FileSystems.getDefault().getSeparator();
-
-   @Autowired
     private AnotacionesJava anotacionesJava;
 
 
@@ -35,7 +30,7 @@ public class CreateRepositories implements IImportModel {
         this.packageNames = archivo.getPackageNames();
         this.creador = creadors;
         this.archivo = archivo;
-        this.anotacionesJava.activateAnotacionesJava(archivo);
+        this.anotacionesJava = new AnotacionesJava(archivo);
 
         try {
             this.create();
@@ -111,7 +106,7 @@ public class CreateRepositories implements IImportModel {
         }
         sb1.append("\r\n");
         sb1.append("}\r\n");
-        sb1.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
+        sb1.append(new AnotacionesJava(archivo).apacheSoftwareLicensed() + "\r\n");
         this.createFileClass(nameOfClass, "repository", sb1);
     }
 

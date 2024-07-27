@@ -1,10 +1,11 @@
 package com.Generator.apirest.files;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
+
 import com.Generator.apirest.modelo.back.basefile.*;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

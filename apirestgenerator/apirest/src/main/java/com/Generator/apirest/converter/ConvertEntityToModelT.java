@@ -1,9 +1,10 @@
 package com.Generator.apirest.converter;
 
 
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.EntityPojo;
+import com.generator.core.pojos.RelationshipPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;

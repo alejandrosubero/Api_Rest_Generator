@@ -1,9 +1,10 @@
 package com.Generator.apirest.files;
 
-import com.Generator.apirest.core.build.interfaces.plugin.IPluginConnection;
-import com.Generator.apirest.core.build.models.ModelOup;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.pojos.back.Creador;
+
+import com.generator.core.build.interfaces.plugin.IPluginConnection;
+import com.generator.core.build.models.ModelOup;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.springframework.stereotype.Component;
 
 import java.io.File;

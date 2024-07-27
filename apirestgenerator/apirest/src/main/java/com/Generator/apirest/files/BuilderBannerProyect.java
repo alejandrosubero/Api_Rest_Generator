@@ -1,8 +1,9 @@
 package com.Generator.apirest.files;
 
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
-import com.Generator.apirest.core.pojos.back.Creador;
+
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 

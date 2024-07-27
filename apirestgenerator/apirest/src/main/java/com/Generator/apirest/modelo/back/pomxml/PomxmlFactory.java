@@ -1,6 +1,7 @@
 package com.Generator.apirest.modelo.back.pomxml;
 
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;

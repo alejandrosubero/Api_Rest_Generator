@@ -1,6 +1,7 @@
 package com.Generator.apirest.files;
 
-import com.Generator.apirest.core.build.interfaces.plugin.IPluginConnection;
+
+import com.generator.core.build.interfaces.plugin.IPluginConnection;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

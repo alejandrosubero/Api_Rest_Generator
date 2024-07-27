@@ -1,10 +1,8 @@
 package com.Generator.apirest.modelo.back.base;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
 import com.Generator.apirest.modelo.back.controller.CreateControlles;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -124,7 +122,7 @@ public class EntityResponseClass {
 
         sb1.append("\r\n");
         sb1.append("}");
-        sb1.append(AnotacionesJava.apacheSoftwareLicensed()+"\r\n");
+        sb1.append(new AnotacionesJava(archivo).apacheSoftwareLicensed()+"\r\n");
         return sb1;
     }
 
@@ -195,7 +193,7 @@ public class EntityResponseClass {
         sb2.append("\r\n");
         sb2.append("}");
         sb2.append("\r\n");
-        sb2.append(AnotacionesJava.apacheSoftwareLicensed()+"\r\n");
+        sb2.append(new AnotacionesJava(archivo).apacheSoftwareLicensed()+"\r\n");
         return sb2;
     }
 

@@ -2,14 +2,8 @@ package com.Generator.apirest.modelo.back.base;
 
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.LayerPojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import com.google.common.collect.Lists;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -95,7 +89,7 @@ public class CreateMapper implements IImportModel {
             e.printStackTrace();
         }
         sb.append("}" + BREAK_LINE);
-        sb.append(AnotacionesJava.apacheSoftwareLicensed()+"\r\n");
+        sb.append(new AnotacionesJava(archivo).apacheSoftwareLicensed()+"\r\n");
         return sb;
     }
 

@@ -1,20 +1,16 @@
 package com.Generator.apirest.modelo.back.javaPlus07;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.core.design.ClassDesign;
-import com.Generator.apirest.core.design.MethodDesign;
-import com.Generator.apirest.core.design.ParameterClassMethod;
-import com.Generator.apirest.core.design.reference.ClassType;
-import com.Generator.apirest.core.design.reference.Modifier;
-import com.Generator.apirest.core.design.reference.RetunsType;
-import com.Generator.apirest.core.format.formatter.Formatter;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.interfaces.IImportModel;
+import com.generator.core.design.ClassDesign;
+import com.generator.core.design.MethodDesign;
+import com.generator.core.design.ParameterClassMethod;
+import com.generator.core.design.reference.ClassType;
+import com.generator.core.design.reference.Modifier;
+import com.generator.core.design.reference.RetunsType;
+import com.generator.core.format.formatter.Formatter;
+import com.generator.core.interfaces.FileCreateService;
+import com.generator.core.interfaces.IImportModel;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +30,6 @@ public class CreateServices implements IImportModel {
 	private List<EntityPojo> entidades;
 	private Creador creador;
 	private String barra = java.nio.file.FileSystems.getDefault().getSeparator();
-
-
-	@Autowired
 	private AnotacionesJava anotacionesJava;
 
 
@@ -47,7 +40,7 @@ public class CreateServices implements IImportModel {
 		this.packageNames = archivo.getPackageNames();
 		this.creador = creadors;
 		this.archivo = archivo;
-		this.anotacionesJava.activateAnotacionesJava(archivo);
+		this.anotacionesJava= new AnotacionesJava(archivo);
 		try {
 			this.create();
 		} catch (InterruptedException e) {

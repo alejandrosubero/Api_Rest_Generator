@@ -1,10 +1,11 @@
 package com.Generator.apirest.ServiceImpl.tool;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
+
 import com.Generator.apirest.modelo.back.server.*;
 import com.Generator.apirest.modelo.back.tool.*;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,8 @@
 package com.Generator.apirest.modelo.back.layer;
 
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.pojos.back.Creador;
+
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 
 public interface LayerInterface {
     public Boolean createLayer(ArchivoBaseDatosPojo archivo, Creador creator);

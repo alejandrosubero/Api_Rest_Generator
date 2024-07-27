@@ -2,13 +2,7 @@ package com.Generator.apirest.modelo.back.base;
 
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.notas.AnotacionesJava;
-import com.Generator.apirest.core.pojos.back.AttributePojo;
-import com.Generator.apirest.core.pojos.back.LayerPojo;
-import com.Generator.apirest.core.pojos.back.EntityPojo;
-import com.Generator.apirest.core.pojos.back.RelationshipPojo;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -98,7 +92,7 @@ public class CreateValidation {
         validations.append(this.metodovalida_id(entidad));
         validations.append(this.metodovalidation(entidad));
         validations.append("}"+"\r\n");
-        validations.append(AnotacionesJava.apacheSoftwareLicensed()+"\r\n");
+        validations.append(anotacionesJava.apacheSoftwareLicensed()+"\r\n");
         return  validations;
     }
 

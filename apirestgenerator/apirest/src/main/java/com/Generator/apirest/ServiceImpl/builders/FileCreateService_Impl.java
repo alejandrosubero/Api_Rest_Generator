@@ -1,8 +1,9 @@
 package com.Generator.apirest.ServiceImpl.builders;
 
 
-import com.Generator.apirest.core.pojos.back.Creador;
-import com.Generator.apirest.core.interfaces.FileCreateService;
+import com.generator.core.interfaces.FileCreateService;
+
+import com.generator.core.pojos.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;

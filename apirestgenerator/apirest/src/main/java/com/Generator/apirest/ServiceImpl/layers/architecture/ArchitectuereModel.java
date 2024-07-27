@@ -1,11 +1,12 @@
 package com.Generator.apirest.ServiceImpl.layers.architecture;
 
 import com.Generator.apirest.ServiceImpl.layers.CreatePojoLayerForEntitys;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
-import com.Generator.apirest.core.pojos.back.Creador;
+
 import com.Generator.apirest.files.AnadirCarpeta;
 import com.Generator.apirest.modelo.back.layer.LayerInterface;
 import com.Generator.apirest.modelo.back.layer.LayerPojoBase;
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
+import com.generator.core.pojos.Creador;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,6 @@ public class ArchitectuereModel  implements LayerInterface {
     private ArchitectuereClass architectuereClass;
 
     public ArchitectuereModel( CreatePojoLayerForEntitys createPojoLayerForEntitys, AnadirCarpeta folderDirectory, ArchitectuereClass architectuereClass) {
-
         this.createPojoLayerForEntitys = createPojoLayerForEntitys;
         this.folderDirectory = folderDirectory;
         this.architectuereClass = architectuereClass;

@@ -9,7 +9,8 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import com.Generator.apirest.core.build.interfaces.plugin.IPluginConnection;
+
+import com.generator.core.build.interfaces.plugin.IPluginConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
