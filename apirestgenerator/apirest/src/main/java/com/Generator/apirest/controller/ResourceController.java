@@ -1,6 +1,7 @@
 package com.Generator.apirest.controller;
 
 
+import com.Generator.apirest.files.PluginLoader;
 import com.Generator.apirest.files.PluginManager;
 import com.Generator.apirest.files.PluginManagers;
 import com.Generator.apirest.files.PluginResourceLoader;
@@ -22,13 +23,17 @@ public class ResourceController {
     @Autowired
     private PluginManager pluginManager;
 
+    @Autowired
+    PluginLoader pluginLoader;
+
     @GetMapping("/identifiers")
     public List<String> getAllModelsIdentifiers() {
         logger.info("Loading Models Identifiers");
         pluginManager.loadPlugins();
         List<String> list = new ArrayList<>();
         pluginManager.getPluginsMap().keySet().forEach(s ->  list.add(s));
-        return list;
+
+        return pluginLoader.getModelsIdentifiers();
     }
 
 

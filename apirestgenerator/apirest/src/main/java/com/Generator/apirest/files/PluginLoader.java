@@ -16,6 +16,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 
+@Component
 public class PluginLoader {
 
     private static final String PLUGINS_DIRECTORY = "plugins";
@@ -25,16 +26,16 @@ public class PluginLoader {
 
 
     public PluginLoader() {
-//        pluginClasses = new ArrayList<>();
-//        modelMethods = new HashMap<String, List<String>>();
-//        modelsIdentifiers = new ArrayList<>();
-//
-//        scanAndLoadPlugins(pluginClasses);
-//
-//        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
-//            this.updateModelsIdentifiers(pluginClasses);
-//            this.getModelMethods(pluginClasses);
-//        }
+        pluginClasses = new ArrayList<>();
+        modelMethods = new HashMap<String, List<String>>();
+        modelsIdentifiers = new ArrayList<>();
+
+        scanAndLoadPlugins(pluginClasses);
+
+        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
+            this.updateModelsIdentifiers(pluginClasses);
+            this.getModelMethods(pluginClasses);
+        }
     }
 
     public void scanAndLoadPlugins(){
