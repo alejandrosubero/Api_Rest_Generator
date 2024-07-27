@@ -11,15 +11,21 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-@Component
+
 public class PluginResourceLoader {
+
+
+    private ResourceLoader resourceLoader;
 
     private static final String PLUGINS_DIRECTORY = "plugins";
     private List<Class<? extends IPluginConnection>> pluginClasses;
@@ -28,9 +34,6 @@ public class PluginResourceLoader {
     private List<URL> jarPaths;
     private List<String> classNames;
 
-    @Autowired
-    private ResourceLoader resourceLoader;
-
 
     public PluginResourceLoader() {
         this.jarPaths = new ArrayList<>();
@@ -38,24 +41,14 @@ public class PluginResourceLoader {
         this.pluginClasses = new ArrayList<>();
         this.modelMethods = new HashMap<String, List<String>>();
         this.modelsIdentifiers = new ArrayList<>();
-
         this.scanAndLoadPlugins();
-//
-//        if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null ){
-////            this.updateModelsIdentifiers(pluginClasses);
-////            this.getModelMethods(pluginClasses);
-//        }
     }
 
     public void scanAndLoadPlugins() {
         try {
              this.loadPlugins(this.getJarUrls());
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -113,47 +106,63 @@ public class PluginResourceLoader {
     }
 
 
-//    public Class<?> loadPluginClass(String classPathResource) throws IOException, ClassNotFoundException {
-//        Resource resource = resourceLoader.getResource("classpath:" + classPathResource);
-//        byte[] classBytes = IOUtils.toByteArray(resource.getInputStream());
-//        ClassLoader classLoader = getClass().getClassLoader();
-//        String className = classPathResource.replace('/', '.').replace(".class", "");
-//        return classLoader.defineClass(className, classBytes, 0, classBytes.length);
-//    }
 
 
-    public void loadPlugins(List<URL> listUrls) throws IOException, ClassNotFoundException, URISyntaxException {
+
+    public void loadPlugins(List<URL> listUrls) throws IOException {
 
         for (URL url : listUrls) {
             // Crear un URLClassLoader para el plugin
-            URL[] urls = {new URL("file://" + url.toURI().toString())};
-            CustomClassLoader classLoader = new CustomClassLoader(urls);
+            URL[] urls = null;
+            JarFile jarFile = null;
 
-            // Abrir el JAR
-            JarFile jarFile = new JarFile(new File(url.toURI().toString()));
-            Enumeration<JarEntry> entries = jarFile.entries();
+            try {
 
-            while (entries.hasMoreElements()) {
-                JarEntry entry = entries.nextElement();
-                if (entry.getName().endsWith(".class")) {
-                    // Construir el nombre de la clase
-                    String className = entry.getName().substring(0, entry.getName().lastIndexOf('.')).replace('/', '.');
+                String path = url.toURI().toString().replace("file:/","/");
 
-                    try {
-                        // Cargar la clase
+                File file = new File(path);
+
+                if( file.exists()){
+                    urls = new URL[]{new URL("file://" + url.toURI().toString())};
+                    CustomClassLoader classLoader = new CustomClassLoader(urls);
+
+                    // Abrir el JAR
+                    jarFile = new JarFile(file);
+                    Enumeration<JarEntry> entries = jarFile.entries();
+
+                    while (entries.hasMoreElements()) {
+                        JarEntry entry = entries.nextElement();
+                        if (entry.getName().endsWith(".class")) {
+                            // Construir el nombre de la clase
+                            String className = entry.getName().substring(0, entry.getName().lastIndexOf('.')).replace('/', '.');
+
+                            try {
+                                // Cargar la clase
 //                        Class<?> clazz = classLoader.findClass(className);
-                        Class<?> clazz = classLoader.loadClass(className);
+                                Class<?> clazz = classLoader.loadClass(className);
 
-                        if (IPluginConnection.class.isAssignableFrom(clazz) && !clazz.isInterface()) {
-                            pluginClasses.add((Class<? extends IPluginConnection>) clazz);
+                                if (IPluginConnection.class.isAssignableFrom(clazz) && !clazz.isInterface()) {
+                                    pluginClasses.add((Class<? extends IPluginConnection>) clazz);
+                                }
+                            } catch (ClassNotFoundException | NoClassDefFoundError e) {
+                                System.err.println("the Class no was found: " + className);
+                            }
+
                         }
-                    } catch (ClassNotFoundException | NoClassDefFoundError e) {
-                        System.err.println("the Class no was found: " + className);
                     }
-
+                    jarFile.close();
                 }
+
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            jarFile.close();
+
+
+
         }
     }
 
@@ -176,6 +185,16 @@ public class PluginResourceLoader {
             }
         }
         return this.modelsIdentifiers;
+    }
+
+
+    public List<String> getAllModelsIdentifiers(){
+        try {
+            this.loadPlugins(this.getJarUrls());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.updateModelsIdentifiers(this.getPluginClasses());
     }
 
 

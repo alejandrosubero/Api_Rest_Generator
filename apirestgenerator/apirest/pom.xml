@@ -43,6 +43,13 @@
 
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.generator</groupId>
+			<artifactId>Core</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -127,6 +134,9 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
+
 	</dependencies>
 
 	<build>

@@ -3,7 +3,8 @@ package com.Generator.apirest.mapper;
 
 
 import com.Generator.apirest.entity.SalveProyect;
-import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
+
+import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.google.gson.Gson;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

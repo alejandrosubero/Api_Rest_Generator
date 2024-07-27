@@ -6,6 +6,7 @@ import com.Generator.apirest.core.build.models.ModelOup;
 import com.Generator.apirest.core.interfaces.FileCreateService;
 import com.Generator.apirest.core.pojos.ArchivoBaseDatosPojo;
 import com.Generator.apirest.core.pojos.back.Creador;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,13 @@ import java.util.List;
 
 
 
-@Component
+
 public class PluginManagers {
 
     private FileCreateService fileService;
     private PluginLoader pluginLoader;
     private PluginResourceLoader pluginResourceLoader;
+
 
     public PluginManagers(FileCreateService fileService,  PluginResourceLoader pluginResourceLoader) {
         this.fileService = fileService;
@@ -29,23 +31,13 @@ public class PluginManagers {
         this.pluginResourceLoader = pluginResourceLoader;
     }
 
-//    public PluginManagers(FileCreateService fileService, PluginLoader pluginLoader) {
-//        this.fileService = fileService;
-//        this.pluginLoader = pluginLoader;
-//    }
 
     public List<String> getAllModelsIdentifiers(){
 //         this.pluginResourceLoader.scanAndLoadPlugins();
         try {
             this.pluginResourceLoader.loadPlugins(this.pluginResourceLoader.getJarUrls());
-
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+           e.printStackTrace();
         }
 //        return this.pluginLoader.getModelsIdentifiers();
 //        this.pluginResourceLoader.getPluginClasses();

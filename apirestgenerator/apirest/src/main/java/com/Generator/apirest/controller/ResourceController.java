@@ -1,11 +1,15 @@
 package com.Generator.apirest.controller;
 
 
+import com.Generator.apirest.files.PluginManager;
 import com.Generator.apirest.files.PluginManagers;
+import com.Generator.apirest.files.PluginResourceLoader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,26 +19,25 @@ public class ResourceController {
 
     protected static final Log logger = LogFactory.getLog(ResourceController.class);
 
-    private PluginManagers pluginManagers;
-
-    public ResourceController(PluginManagers pluginManagers) {
-        this.pluginManagers = pluginManagers;
-    }
+    @Autowired
+    private PluginManager pluginManager;
 
     @GetMapping("/identifiers")
     public List<String> getAllModelsIdentifiers() {
         logger.info("Loading Models Identifiers");
+        pluginManager.loadPlugins();
+        List<String> list = new ArrayList<>();
+        pluginManager.getPluginsMap().keySet().forEach(s ->  list.add(s));
+        return list;
+    }
+
+
+//    @GetMapping("/identifiers/methods/{identifier}")
+//    public List<String> getModelMethods(@PathVariable String identifier) {
 //        this.pluginManagers.scanAndLoadPlugins();
-        return this.pluginManagers.getAllModelsIdentifiers();
-    }
-
-
-    @GetMapping("/identifiers/methods/{identifier}")
-    public List<String> getModelMethods(@PathVariable String identifier) {
-        this.pluginManagers.scanAndLoadPlugins();
-        logger.info("Loading Models Methods");
-        return this.pluginManagers.getModelMethods(identifier);
-    }
+//        logger.info("Loading Models Methods");
+//        return this.pluginManagers.getModelMethods(identifier);
+//    }
 
 
 

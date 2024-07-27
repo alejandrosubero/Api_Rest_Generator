@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-//@Component
+
 public class PluginLoader {
 
     private static final String PLUGINS_DIRECTORY = "plugins";
