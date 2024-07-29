@@ -37,9 +37,9 @@ public class TemplateControllers implements IModelBuilder {
 
     @Override
     public Set<ModelOup> createModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
-        this.entidades = archivo.getEntidades();
-        this.paquete = archivo.getPackageNames();
         this.archivo = baseFilePojo;
+        this.entidades = baseFilePojo.getEntidades();
+        this.paquete = baseFilePojo.getPackageNames();
         return this.createController(entidades, creator);
     }
 
@@ -56,7 +56,7 @@ public class TemplateControllers implements IModelBuilder {
                             ModelOup.builder()
                                     .packageNane("controller")
                                     .nameOfClass(keynameOfClass)
-                                    .classInString(metods(entidad))
+                                    .classInString(this.metods(entidad))
                                     .directoryForJava(creator.directionForJava())
                                     .build());
                 }
@@ -76,16 +76,13 @@ public class TemplateControllers implements IModelBuilder {
 
         try {
 
-            ParameterClassMethod servicePrameter =
-                    ParameterClassMethod.builder()
-                            .modifier(Modifier.Private)
-                            .annotations(List.of(AUTOWIRED))
-                            .parameterSignatuer(
+            ParameterClassMethod servicePrameter = ParameterClassMethod.builder()
+                    .modifier(Modifier.Private)
+                    .annotations(List.of(AUTOWIRED))
+                    .parameterSignatuer(
                                     stringEnsamble(
-                                            entidad.getNombreClase(),
-                                            "Service ",
-                                            entidad.getNombreClase().toLowerCase(),
-                                            "Service;"
+                                            entidad.getNombreClase(), "Service ",
+                                            entidad.getNombreClase().toLowerCase(), "Service;"
                                     )).build();
 
 
@@ -137,7 +134,7 @@ public class TemplateControllers implements IModelBuilder {
                     .isClassIsImplement(false)
                     .isClassIsInheritance(false)
                     .classImplement(null)
-                    .content(new Formatter().simpleFormat(this.listStringStructureToColummString(listContentLines)))
+                    .content(this.listStringStructureToColummString(listContentLines))
                     .build();
 
         } catch (Exception e) {
@@ -219,6 +216,7 @@ public class TemplateControllers implements IModelBuilder {
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
                                 .methodName(stringEnsamble(" findBy", atributoName, "Contain"))
+                                .curlyBraces(true)
                                 .parameter(List.of(
                                         ParameterClassMethod.builder()
                                                 .atributoClass(stringEnsamble("@PathVariable(\"", atrubutoObjeto, "\") ",
@@ -246,6 +244,7 @@ public class TemplateControllers implements IModelBuilder {
                         .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("findById", entidad.getNombreClase()))
+                        .curlyBraces(true)
                         .parameter(List.of(
                                 ParameterClassMethod.builder()
                                         .atributoClass(stringEnsamble("(@PathVariable(\"id\") ", idTipoDato(entidad)))
@@ -271,6 +270,7 @@ public class TemplateControllers implements IModelBuilder {
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("getAll", entidad.getNombreClase()))
                         .parameter(null)
+                        .curlyBraces(true)
                         .methodBody(BodyMethodDesign.builder()
                                 .bodyLines(List.of(
                                         "return ", entidad.getNombreClase().toLowerCase(), "Service.getAll", entidad.getNombreClase(), "();",
@@ -292,6 +292,7 @@ public class TemplateControllers implements IModelBuilder {
                         .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("finBySearch", entidad.getNombreClase()))
+                        .curlyBraces(true)
                         .parameter(List.of(
                                 ParameterClassMethod.builder()
                                         .atributoClass(stringEnsamble("@RequestParam(value = \"search\") String"))
@@ -318,6 +319,7 @@ public class TemplateControllers implements IModelBuilder {
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.none)
                         .returnsClass("Boolean")
+                        .curlyBraces(true)
                         .methodName(stringEnsamble("saveOrUpdate", entidad.getNombreClase()))
                         .parameter(List.of(
                                 ParameterClassMethod.builder()
@@ -349,6 +351,7 @@ public class TemplateControllers implements IModelBuilder {
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
                                 .methodName(stringEnsamble(" findBy", relacion.getNameClassRelacion()))
+                                .curlyBraces(true)
                                 .parameter(List.of(
                                         ParameterClassMethod.builder()
                                                 .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
@@ -377,6 +380,7 @@ public class TemplateControllers implements IModelBuilder {
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
                                 .methodName(stringEnsamble("findRelacion", relacion.getNameClassRelacion()))
+                                .curlyBraces(true)
                                 .parameter(List.of(
                                         ParameterClassMethod.builder()
                                                 .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
@@ -399,6 +403,7 @@ public class TemplateControllers implements IModelBuilder {
                         .annotation(List.of("@DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.none)
+                        .curlyBraces(true)
                         .returnsClass(RetunsType.Boolean.toString())
                         .methodName(stringEnsamble("delete", entidad.getNombreClase()))
                         .parameter(List.of(

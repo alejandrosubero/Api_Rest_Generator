@@ -17,10 +17,10 @@ public class ArchitectuereClass {
     private CreateEntity createEntity;
     private PluginManagers pluginManagers;
 
-    public ArchitectuereClass(CreateEntity createEntity) {
+    public ArchitectuereClass(CreateEntity createEntity, PluginManagers pluginManagers) {
         this.createEntity = createEntity;
+        this.pluginManagers = pluginManagers;
     }
-
 
     public void createClasesProyecto(ArchivoBaseDatosPojo archivo, Creador creador) {
 

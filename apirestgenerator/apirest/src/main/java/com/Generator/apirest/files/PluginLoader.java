@@ -149,7 +149,10 @@ public class PluginLoader {
 
     public LinkedList<ModelOup> executeGetModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator, String identifier){
         if(pluginClasses !=null && pluginClasses.size() > 0 && modelsIdentifiers != null && baseFilePojo != null && creator != null && identifier !=null){
-           return this.getModels(this.pluginClasses, baseFilePojo,creator, identifier).get(identifier);
+
+            Map<String, LinkedList<ModelOup>> models = this.getModels(this.pluginClasses, baseFilePojo,creator, identifier);
+
+           return models.get(identifier);
         }
         return new LinkedList<>();
     }
@@ -164,7 +167,10 @@ public class PluginLoader {
                 try {
                     IPluginConnection pluginInstance = pluginClass.getDeclaredConstructor().newInstance();
                     if (identifier.equals(pluginInstance.modelIdentifier())) {
-                        models.put(pluginInstance.modelIdentifier(), pluginInstance.getModel(baseFilePojo, creator));
+                        String iIdentifier = pluginInstance.modelIdentifier();
+                        LinkedList<ModelOup>  model = pluginInstance.getModel(baseFilePojo, creator);
+
+                        models.put(iIdentifier, model);
                     }
                 } catch (Exception e) {
                     System.err.println("Error al ejecutar el plugin: " + pluginClass.getName());

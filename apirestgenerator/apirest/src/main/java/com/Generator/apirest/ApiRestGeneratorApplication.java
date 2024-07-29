@@ -6,8 +6,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
 //@ComponentScan(basePackages = {"com.Generator.apirest"})
+@SpringBootApplication
 public class ApiRestGeneratorApplication {
 
 	public static void main(String[] args) {
@@ -19,5 +19,5 @@ public class ApiRestGeneratorApplication {
 
 
 }
-// http://localhost:8080/ApiREST/Generator/swagger-ui/
-//http://localhost:8080/ApiREST/Generator/swagger-ui.html
+// http://localhost:8888/ApiREST/Generator/swagger-ui/
+//http://localhost:8888/ApiREST/Generator/swagger-ui.html

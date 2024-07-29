@@ -11,15 +11,15 @@ public interface ITemplateImplementService {
 
     default ModelOup getTemplate(EntityPojo entidad, ArchivoBaseDatosPojo archivo, Creador creador) throws InterruptedException {
 
-
         StringBuffer sbh = new StringBuffer("\r\n");
         String entidadNombre = entidad.getNombreClase();
         String nameOfClass = entidad.getNombreClase() + "ServiceImplement";
         String repositorieName = entidad.getNombreClase() + "Repository";
         String repositorieNameOjecte = repositorieName.toLowerCase();
         String serviceName = entidad.getNombreClase() + "Service";
+        AnotacionesJava anotacionesJava = new AnotacionesJava(archivo);
 
-        sbh.append(new AnotacionesJava(archivo).creatNotaClase() + "\r\n");
+        sbh.append(anotacionesJava.creatNotaClase() + "\r\n");
         sbh.append(this.createImport(serviceName, repositorieName, entidad, archivo));
         sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
 
@@ -37,7 +37,6 @@ public interface ITemplateImplementService {
                 .classInString(new Formatter().simpleFormat(sbh.toString()))
                 .directoryForJava(creador.directionForJava())
                 .build();
-
     }
 
 

@@ -26,14 +26,18 @@ public interface MethodInterface extends DesingCommunInterface {
 
     default public String bodyBuildStructure(Boolean curlyBraces, String methodBody){
         StringBuilder contexmethodBody = new StringBuilder();
-        if (curlyBraces) {
+        if (curlyBraces != null && curlyBraces) {
             contexmethodBody.append( stringEnsamble(List.of(BRACKET_OPEN,BREAK_LINE)));
             if (methodBody != null) {
                 contexmethodBody.append(methodBody);
             }
             contexmethodBody.append( stringEnsamble(List.of(BRACKET_CLOSE,BREAK_LINE)));
         } else {
-            contexmethodBody.append(stringEnsamble(List.of(SEMICOLON,BREAK_LINE)));
+            if(curlyBraces == null){
+                contexmethodBody.append(stringEnsamble(List.of(SEMICOLON,BREAK_LINE, "// the curlyBraces parameter is null")));
+            }else {
+                contexmethodBody.append(stringEnsamble(List.of(SEMICOLON,BREAK_LINE)));
+            }
         }
         return contexmethodBody.toString();
     }

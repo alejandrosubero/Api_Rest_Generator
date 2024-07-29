@@ -42,7 +42,8 @@ public class TemplateService implements IModelBuilder, ITemplateService {
                     for (EntityPojo entidad : archivo.getEntidades()) {
                         if (entidad.getIsEntity()) {
                             logger.info("start create the module Service 07" + entidad.getNombreClase());
-                            response.add(template(entidad, archivo, creador.directionForJava()));
+                            ModelOup template = template(entidad, archivo, creador.directionForJava());
+                            response.add(template);
                         }
                     }
             }

@@ -24,16 +24,20 @@ public class ResourceController {
     private PluginManager pluginManager;
 
     @Autowired
+    private PluginManagers pluginManagers;
+
+    @Autowired
     PluginLoader pluginLoader;
 
     @GetMapping("/identifiers")
     public List<String> getAllModelsIdentifiers() {
         logger.info("Loading Models Identifiers");
-        pluginManager.loadPlugins();
-        List<String> list = new ArrayList<>();
-        pluginManager.getPluginsMap().keySet().forEach(s ->  list.add(s));
+//        pluginManager.loadPlugins();
+//        List<String> list = new ArrayList<>();
+//        pluginManager.getPluginsMap().keySet().forEach(s ->  list.add(s));
+//        pluginLoader.getModelsIdentifiers();
 
-        return pluginLoader.getModelsIdentifiers();
+        return  pluginManagers.getAllModelsIdentifiers();
     }
 
 

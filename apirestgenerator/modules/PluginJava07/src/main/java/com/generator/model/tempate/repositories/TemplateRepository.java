@@ -46,11 +46,11 @@ public class TemplateRepository implements IModelBuilder {
     public Set<ModelOup> createModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
 
         Set<ModelOup> response = new HashSet<>();
-        this.creador = creator;
-        this.entidades = archivo.getEntidades();
-        this.packageNames = archivo.getPackageNames();
-        this.anotacionesJava.activateAnotacionesJava(archivo);
         this.archivo = baseFilePojo;
+        this.creador = creator;
+        this.entidades = baseFilePojo.getEntidades();
+        this.packageNames = baseFilePojo.getPackageNames();
+        this.anotacionesJava.activateAnotacionesJava(archivo);
 
         if (this.entidades.size() > 0) {
             for (EntityPojo entidad : this.entidades) {

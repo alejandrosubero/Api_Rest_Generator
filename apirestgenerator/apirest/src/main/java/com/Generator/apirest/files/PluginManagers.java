@@ -18,31 +18,22 @@ import java.util.List;
 
 
 
-
+@Component
 public class PluginManagers {
 
     private FileCreateService fileService;
     private PluginLoader pluginLoader;
-    private PluginResourceLoader pluginResourceLoader;
 
 
-    public PluginManagers(FileCreateService fileService,  PluginResourceLoader pluginResourceLoader) {
+    @Autowired
+    public PluginManagers(FileCreateService fileService,  PluginLoader pluginLoader) {
         this.fileService = fileService;
-        this.pluginLoader = new PluginLoader();
-        this.pluginResourceLoader = pluginResourceLoader;
+        this.pluginLoader = pluginLoader;
     }
 
 
     public List<String> getAllModelsIdentifiers(){
-//         this.pluginResourceLoader.scanAndLoadPlugins();
-        try {
-            this.pluginResourceLoader.loadPlugins(this.pluginResourceLoader.getJarUrls());
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
-//        return this.pluginLoader.getModelsIdentifiers();
-//        this.pluginResourceLoader.getPluginClasses();
-        return this.pluginResourceLoader.updateModelsIdentifiers(this.pluginResourceLoader.getPluginClasses());
+           return this.pluginLoader.getModelsIdentifiers();
     }
 
     public List<String> updateModelsIdentifiers(){
@@ -60,19 +51,22 @@ public class PluginManagers {
             LinkedList<ModelOup> executedModel = this.pluginLoader.executeGetModel(baseFilePojo, creator, identifier);
 
             for (ModelOup modelOup : executedModel) {
-                if (modelOup.getPackageNane() == null) {
-                    this.fileService.crearArchivo(
-                            modelOup.getDirectoryForJava(),
-                            modelOup.getClassInString(),
-                            modelOup.getNameOfClass());
-                }
 
-                if (modelOup.getPackageNane() != null) {
-                    this.fileService.createFileClassJava(
-                            modelOup.getNameOfClass(),
-                            modelOup.getPackageNane(),
-                            new StringBuffer(modelOup.getClassInString()),
-                            modelOup.getDirectoryForJava());
+                if ( modelOup.getClassInString() != null && modelOup.getNameOfClass() != null) {
+                    if (modelOup.getPackageNane() == null) {
+                        this.fileService.crearArchivo(
+                                modelOup.getDirectoryForJava(),
+                                modelOup.getClassInString(),
+                                modelOup.getNameOfClass());
+                    }
+
+                    if (modelOup.getPackageNane() != null) {
+                        this.fileService.createFileClassJava(
+                                modelOup.getNameOfClass(),
+                                modelOup.getPackageNane(),
+                                new StringBuffer(modelOup.getClassInString()),
+                                modelOup.getDirectoryForJava());
+                    }
                 }
             }
         }

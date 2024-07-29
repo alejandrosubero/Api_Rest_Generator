@@ -2,6 +2,7 @@ package com.generator.core.pojos;
 
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 // @Scope("singleton")
@@ -16,7 +17,9 @@ public class AnotacionesJava {
     private ArchivoBaseDatosPojo archivos;
     private Date fecha;
 
-    public AnotacionesJava (){ }
+    public AnotacionesJava (){
+        this.fecha = new Date();
+    }
     
     
     public AnotacionesJava(ArchivoBaseDatosPojo archivos){
@@ -37,19 +40,45 @@ public class AnotacionesJava {
 
     public StringBuilder creatNotaClase() {
         StringBuilder sb4 = new StringBuilder();
+        Calendar calendar = Calendar.getInstance();
         sb4.append("/*" + "\r\n");
-        sb4.append("Create on " +fecha+ "\r\n");
-        sb4.append("*Copyright (C) "+fecha.getYear()+"." + "\r\n");
+        sb4.append("Create on " +dateCalendar()+ "\r\n");
+        sb4.append("*Copyright (C) "+dateYear()+"." + "\r\n");
         sb4.append("@author "+ autor + "\r\n");
         sb4.append("@author "+ user + "\r\n");
         sb4.append("@author "+ creadoPor + "\r\n");
         sb4.append("@since "+ archivos.getJavaVersion() + "\r\n");
-        sb4.append("@version"+version + "\r\n");
+
+        if(version != null) {
+            sb4.append("@version" + version + "\r\n");
+        }else {
+            sb4.append("@version " +  "\r\n");
+        }
         sb4.append("@version  %I%, %G%"+ "\r\n");
-        sb4.append("*<p>Description: "+description+" </p>" + "\r\n");
+
+        if(this.description != null) {
+            sb4.append("*<p>Description: " + description + " </p>" + "\r\n");
+        }
+
         sb4.append("*/" + "\r\n");
         sb4.append("" + "\r\n");
         return sb4;
+    }
+
+    private String dateCalendar(){
+        Calendar calendar = Calendar.getInstance();
+
+        // Get the current year, month, and day
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1; // Month is 0-based
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        String date = month + "/" + dayOfMonth + "/" + year;
+        return date;
+    }
+
+    private String dateYear(){
+        Calendar calendar = Calendar.getInstance();
+       return ""+calendar.get(Calendar.YEAR);
     }
 
 
@@ -69,7 +98,7 @@ public class AnotacionesJava {
 
         sb5.append("@since:" + this.version+ "\r\n");
 
-        sb5.append("Create on " +fecha+ "\r\n");
+        sb5.append("Create on " +dateCalendar()+ "\r\n");
         sb5.append("*/" + "\r\n");
         return sb5;
     }

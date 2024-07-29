@@ -13,7 +13,7 @@ public interface ITemplateService {
 
     default ModelOup template(EntityPojo entidad, ArchivoBaseDatosPojo archivo, String javaDirectory) throws InterruptedException {
 
-        AnotacionesJava anotacionesJava = new AnotacionesJava();
+        AnotacionesJava anotacionesJava = new AnotacionesJava(archivo);
         StringBuffer sb2 = new StringBuffer("\r\n");
         String cadenaOriginal = "";
         String atributoName = "";

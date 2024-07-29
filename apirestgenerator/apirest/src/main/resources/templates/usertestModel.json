@@ -31,7 +31,8 @@
     "createCapaJavaBase7": false,
     "createCapaEntitysPlusPojo": false,
     "savePojo": "SH24",
-    "modelT": "Model"
+    "modelT": "Model",
+    "architecture":"LayerPojoJava07"
   },
   "entidades": [
     {
@@ -180,6 +181,7 @@
     "methodsaveOrUpdate": false,
     "methodContaining": false,
     "methodContainingRelacion": false,
-    "methodContainingRelacionNoBiDirectional": false
+    "methodContainingRelacionNoBiDirectional": false,
+    "modelMethods": []
   }
 }

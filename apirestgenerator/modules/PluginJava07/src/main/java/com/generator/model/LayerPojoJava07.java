@@ -15,7 +15,8 @@ public class LayerPojoJava07 implements IPluginConnection {
 
     @Override
     public LinkedList<ModelOup> getModel(ArchivoBaseDatosPojo baseFilePojo, Creador creator) {
-        return new FacadeModel().getModels(baseFilePojo, creator);
+        FacadeModel facade = new FacadeModel();
+        return facade.getModels(baseFilePojo, creator);
     }
 
     @Override
