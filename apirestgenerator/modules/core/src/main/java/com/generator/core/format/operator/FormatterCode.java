@@ -8,7 +8,7 @@ import com.generator.core.format.interfaces.IFormatter;
 import com.generator.core.format.utils.DataReferece;
 
 import java.util.List;
-
+//version 1.0.1
 public class FormatterCode extends RemoveFormatte implements IFormatter {
 
     @Override
@@ -33,8 +33,7 @@ public class FormatterCode extends RemoveFormatte implements IFormatter {
                 beforeLine = line;
             }
 
-            if (line.contains("@Component") || line.contains("@Service") || line.contains("@Repository")
-                    || line.contains("interface") || line.contains("class")) {
+            if (line.contains("@Component") || line.contains("@Service") || line.contains("@Repository") || line.contains("interface") || line.contains("class")) {
                 codigoFormateado.append(line).append(IBaseString.createNewLine);
             }
 
@@ -43,18 +42,17 @@ public class FormatterCode extends RemoveFormatte implements IFormatter {
                 codigoFormateado.append(IBaseString.indentation(indentationLevel)).append(line).append(IBaseString.createNewLine);
             }
 
-            if (beforeLine.contains(DataReferece.OVERRIDE.getNombre()) && line.contains("{") &&
-                    (line.contains("private") || line.contains("public") || line.contains("protected"))) {
+            if (beforeLine.contains(DataReferece.OVERRIDE.getNombre()) && line.contains("{")  && !line.contains("interface") && !line.contains("class") && ((line.contains("private") || line.contains("public") || line.contains("protected") ))) {
                 indentationLevel = 2;
                 codigoFormateado.append(IBaseString.indentation(indentationLevel)).append(line).append(IBaseString.createNewLine);
-            } else if (line.contains("{") && !line.contains("else") && !line.contains("catch") && !line.contains("}")) {
+            }
+
+            if (line.contains("{") && !line.contains("else") && !line.contains("catch") && !line.contains("}") && !line.contains("interface") && !line.contains("class")) {
                 codigoFormateado.append(IBaseString.indentation(indentationLevel)).append(line).append(IBaseString.createNewLine);
                 indentationLevel++;
             }
 
-            if (line.contains("}")
-                    && (line.contains("else") || line.contains("catch") || line.contains("finally") || line.contains("final"))
-                    && line.contains("{")) {
+            if (line.contains("}") && (line.contains("else") || line.contains("catch") || line.contains("finally") || line.contains("final")) && line.contains("{")) {
                 indentationLevel--;
                 codigoFormateado.append(IBaseString.indentation(indentationLevel)).append(line).append(IBaseString.createNewLine);
             }

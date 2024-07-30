@@ -126,7 +126,7 @@ public class TemplateControllers implements IModelBuilder {
                     .packagePaht(archivo.getPackageNames())
                     .packageName("serviceImplement")
                     .imports(this.createImport(entidad))
-                    .annotation(List.of("@RestController", "@CrossOrigin(origins = \"*\")", "@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")"))
+                    .annotation(List.of("@RestController", "@CrossOrigin(origins = \"*\")", this.stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")")))
                     .modifier(Modifier.Public)
                     .className(stringEnsamble(entidad.getNombreClase(), "Controller"))
                     .classType(ClassType.CLASS)
