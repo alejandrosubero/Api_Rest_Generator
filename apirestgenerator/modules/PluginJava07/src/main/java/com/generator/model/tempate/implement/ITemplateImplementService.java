@@ -19,9 +19,12 @@ public interface ITemplateImplementService {
         String serviceName = entidad.getNombreClase() + "Service";
         AnotacionesJava anotacionesJava = new AnotacionesJava(archivo);
 
+
         sbh.append(anotacionesJava.creatNotaClase() + "\r\n");
         sbh.append(this.createImport(serviceName, repositorieName, entidad, archivo));
-        sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte));
+        sbh.append(new Formatter().simpleFormat(
+                this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte).toString()
+        ));
 
         if(archivo.getMethodManager().isMethodFindByOrLoop()) {
             sbh.append(this.crearMetodoloop(entidad, repositorieNameOjecte));
@@ -34,7 +37,7 @@ public interface ITemplateImplementService {
         return ModelOup.builder()
                 .packageNane("serviceImplement")
                 .nameOfClass(nameOfClass)
-                .classInString(new Formatter().simpleFormat(sbh.toString()))
+                .classInString(sbh.toString())
                 .directoryForJava(creador.directionForJava())
                 .build();
     }
@@ -46,8 +49,8 @@ public interface ITemplateImplementService {
 
         sb.append("package " + archivo.getPackageNames() + ".serviceImplement ;\r\n");
         sb.append("\r\n");
-        sb.append("import " + archivo.getPackageNames() + ".service." + archivo.getPackageNames() + ";\r\n");
-        sb.append("import " + archivo.getPackageNames() + ".repository." + archivo.getPackageNames() + ";\r\n");
+        sb.append("import " + archivo.getPackageNames() + ".service." + serviceName + ";\r\n");
+        sb.append("import " + archivo.getPackageNames() + ".repository." + repositorieName + ";\r\n");
         sb.append("import java.util.ArrayList;" + "\r\n");
         sb.append("import java.util.List;" + "\r\n");
         sb.append("import java.util.Date;" + "\r\n");

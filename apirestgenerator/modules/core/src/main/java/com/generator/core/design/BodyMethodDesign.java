@@ -31,7 +31,12 @@ public class BodyMethodDesign implements DesingCommunInterface {
 
     @Override
     public String toString() {
-        return stringEnsamble(bodyLines.stream().map(line -> stringEnsamble(line, BREAK_LINE)).collect(Collectors.toList()));
+        List<String> newLines = new ArrayList<>();
+        this.bodyLines.forEach(line -> {
+            newLines.add(stringEnsamble(line, BREAK_LINE));
+        });
+        return stringEnsamble(this.bodyLines);
+//        return stringEnsamble(bodyLines.stream().map(line -> stringEnsamble(line, BREAK_LINE)).collect(Collectors.toList()));
     }
 
     public static Builder builder() {

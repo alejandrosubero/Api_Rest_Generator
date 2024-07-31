@@ -56,7 +56,9 @@ public class TemplateControllers implements IModelBuilder {
                             ModelOup.builder()
                                     .packageNane("controller")
                                     .nameOfClass(keynameOfClass)
-                                    .classInString(this.metods(entidad))
+                                    .classInString(
+                                    new Formatter().simpleFormat(this.metods(entidad))
+                                    )
                                     .directoryForJava(creator.directionForJava())
                                     .build());
                 }
@@ -124,7 +126,7 @@ public class TemplateControllers implements IModelBuilder {
 
             classTemplate = ClassDesign.builder()
                     .packagePaht(archivo.getPackageNames())
-                    .packageName("serviceImplement")
+                    .packageName("controller")
                     .imports(this.createImport(entidad))
                     .annotation(List.of("@RestController", "@CrossOrigin(origins = \"*\")", this.stringEnsamble("@RequestMapping(\"/", entidad.getNombreClase().toLowerCase(), "\")")))
                     .modifier(Modifier.Public)
@@ -134,7 +136,9 @@ public class TemplateControllers implements IModelBuilder {
                     .isClassIsImplement(false)
                     .isClassIsInheritance(false)
                     .classImplement(null)
-                    .content(this.listStringStructureToColummString(listContentLines))
+                    .content(
+                          this.listStringStructureToColummString(listContentLines)
+                    )
                     .build();
 
         } catch (Exception e) {
@@ -161,7 +165,7 @@ public class TemplateControllers implements IModelBuilder {
 
         importList.add(new AnotacionesJava(archivo).creatNotaClase().toString());
         importList.add(BREAK_LINE);
-        importList.add(stringEnsamble("package ", paquete, ".controller;"));
+//        importList.add(stringEnsamble("package ", paquete, ".controller;"));
         importList.add(stringEnsamble("import ", paquete, ".entitys.", entidad.getNombreClase(), ";"));
         importList.add(stringEnsamble("import ", paquete, ".service.", entidad.getNombreClase(), "Service;"));
         importList.add(importController07());
@@ -187,9 +191,11 @@ public class TemplateControllers implements IModelBuilder {
 
                 sb3.append(BodyMethodDesign.builder()
                         .bodyLines(
-                                toList(BREAK_LINE, stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")"),
-                                        stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {"),
-                                        stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");"),
+                                toList(
+                                        BREAK_LINE,
+                                        stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "/{", atrubutoObjeto, "}\")", BREAK_LINE),
+                                        stringEnsamble("private " + entidad.getNombreClase(), " findBy", atributoName, "(@PathVariable(\"", atrubutoObjeto, "\") ", atributos.getTipoDato(), "  ", atrubutoObjeto, ") {",BREAK_LINE),
+                                        stringEnsamble("return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName, "(", atrubutoObjeto, ");",BREAK_LINE),
                                         stringEnsamble("}")
                                 )
                         ).build().toString());
@@ -211,7 +217,7 @@ public class TemplateControllers implements IModelBuilder {
                 sb3.append(BREAK_LINE);
                 sb3.append(
                         MethodDesign.builder()
-                                .annotation(List.of("@GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")", BREAK_LINE))
+                                .annotation(List.of(stringEnsamble("@GetMapping(\"/Get", atrubutoObjeto, "contain/{", atrubutoObjeto, "}\")")))
                                 .modifiers(Modifier.Private)
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
@@ -223,9 +229,9 @@ public class TemplateControllers implements IModelBuilder {
                                                         atributo.getTipoDato()))
                                                 .atributoName(atrubutoObjeto).build()))
                                 .methodBody(BodyMethodDesign.builder()
-                                        .bodyLines(List.of(
+                                        .bodyLines(List.of(stringEnsamble(
                                                 "return ", entidad.getNombreClase().toLowerCase(), "Service.findBy", atributoName,
-                                                "Containing(", atrubutoObjeto, ");", BREAK_LINE)
+                                                "Containing(", atrubutoObjeto, ");", BREAK_LINE))
                                         ).build().toString()
                                 ).build().toString());
             }
@@ -239,7 +245,9 @@ public class TemplateControllers implements IModelBuilder {
         sb4.append(BREAK_LINE);
         sb4.append(
                 MethodDesign.builder()
-                        .annotation(List.of("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
+                        .annotation(List.of(
+                                stringEnsamble("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")"))
+                        )
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
@@ -247,12 +255,12 @@ public class TemplateControllers implements IModelBuilder {
                         .curlyBraces(true)
                         .parameter(List.of(
                                 ParameterClassMethod.builder()
-                                        .atributoClass(stringEnsamble("(@PathVariable(\"id\") ", idTipoDato(entidad)))
+                                        .atributoClass(stringEnsamble("@PathVariable(\"id\") ", idTipoDato(entidad)))
                                         .atributoName("id").build()))
                         .methodBody(BodyMethodDesign.builder()
-                                .bodyLines(List.of(
+                                .bodyLines(List.of(stringEnsamble(
                                         "return ", entidad.getNombreClase().toLowerCase(), "Service.findById(id);", BREAK_LINE,
-                                        BREAK_LINE)
+                                        BREAK_LINE))
                                 ).build().toString()
                         ).build().toString());
         return sb4;
@@ -264,7 +272,7 @@ public class TemplateControllers implements IModelBuilder {
         sb5.append(BREAK_LINE);
         sb5.append(
                 MethodDesign.builder()
-                        .annotation(List.of("@GetMapping(\"/GetAll", entidad.getNombreClase(), "\")", BREAK_LINE))
+                        .annotation(List.of(stringEnsamble("@GetMapping(\"/GetAll", entidad.getNombreClase(), "\")")))
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
@@ -272,9 +280,9 @@ public class TemplateControllers implements IModelBuilder {
                         .parameter(null)
                         .curlyBraces(true)
                         .methodBody(BodyMethodDesign.builder()
-                                .bodyLines(List.of(
+                                .bodyLines(List.of(stringEnsamble(
                                         "return ", entidad.getNombreClase().toLowerCase(), "Service.getAll", entidad.getNombreClase(), "();",
-                                        BREAK_LINE)
+                                        BREAK_LINE))
                                 ).build().toString()
                         ).build().toString());
 
@@ -287,7 +295,7 @@ public class TemplateControllers implements IModelBuilder {
         sb5.append(BREAK_LINE);
         sb5.append(
                 MethodDesign.builder()
-                        .annotation(List.of("@GetMapping(\"/Search\")", BREAK_LINE))
+                        .annotation(List.of(stringEnsamble("@GetMapping(\"/Search\")")))
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.List)
                         .returnsClass(entidad.getNombreClase())
@@ -298,11 +306,11 @@ public class TemplateControllers implements IModelBuilder {
                                         .atributoClass(stringEnsamble("@RequestParam(value = \"search\") String"))
                                         .atributoName("search").build()))
                         .methodBody(BodyMethodDesign.builder()
-                                .bodyLines(List.of(
+                                .bodyLines(List.of(stringEnsamble(
                                         "return ",
                                         entidad.getNombreClase().toLowerCase(),
                                         "Service.search(search);",
-                                        BREAK_LINE)
+                                        BREAK_LINE))
                                 ).build().toString()
                         ).build().toString());
 
@@ -315,7 +323,7 @@ public class TemplateControllers implements IModelBuilder {
 
         sb6.append(
                 MethodDesign.builder()
-                        .annotation(List.of("@PostMapping(\"/saveOrUpdate\")", BREAK_LINE))
+                        .annotation(List.of(stringEnsamble("@PostMapping(\"/saveOrUpdate\")")))
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.none)
                         .returnsClass("Boolean")
@@ -326,12 +334,12 @@ public class TemplateControllers implements IModelBuilder {
                                         .atributoClass(stringEnsamble("@RequestBody ", entidad.getNombreClase()))
                                         .atributoName(entidad.getNombreClase().toLowerCase()).build()))
                         .methodBody(BodyMethodDesign.builder()
-                                .bodyLines(List.of(
+                                .bodyLines(List.of(stringEnsamble(
                                         "return ",
                                         entidad.getNombreClase().toLowerCase(),
                                         "Service.saveOrUpdate", entidad.getNombreClase(),
                                         "(", entidad.getNombreClase().toLowerCase(), ");",
-                                        BREAK_LINE)
+                                        BREAK_LINE))
                                 ).build().toString()
                         ).build().toString());
 
@@ -346,7 +354,7 @@ public class TemplateControllers implements IModelBuilder {
             if (relacion.getRelation().equals("ManyToMany") || relacion.getRelation().equals("OneToMany")) {
                 sb61.append(
                         MethodDesign.builder()
-                                .annotation(List.of("@PostMapping(\"/Get_", relacion.getNameRelacion(), "_contain/\")"))
+                                .annotation(List.of(stringEnsamble("@PostMapping(\"/Get_", relacion.getNameRelacion(), "_contain/\")")))
                                 .modifiers(Modifier.Private)
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
@@ -357,11 +365,11 @@ public class TemplateControllers implements IModelBuilder {
                                                 .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
                                                 .atributoName(relacion.getNameClassRelacion().toLowerCase()).build()))
                                 .methodBody(BodyMethodDesign.builder()
-                                        .bodyLines(List.of(
+                                        .bodyLines(List.of(stringEnsamble(
                                                 "return ", entidad.getNombreClase().toLowerCase(),
                                                 "Service.findBy", relacion.getNameClassRelacion(),
                                                 "Containing(", relacion.getNameClassRelacion().toLowerCase(), ");", BREAK_LINE)
-                                        ).build().toString()
+                                        )).build().toString()
                                 ).build().toString());
             }
         }
@@ -375,7 +383,7 @@ public class TemplateControllers implements IModelBuilder {
             if (!relacion.getRelation().equals("ManyToMany") && !relacion.getRelation().equals("OneToMany")) {
                 sb61.append(
                         MethodDesign.builder()
-                                .annotation(List.of("@PostMapping(\"/findRelacion\")", BREAK_LINE))
+                                .annotation(List.of(stringEnsamble("@PostMapping(\"/findRelacion\")")))
                                 .modifiers(Modifier.Private)
                                 .returnsType(RetunsType.List)
                                 .returnsClass(entidad.getNombreClase())
@@ -386,9 +394,9 @@ public class TemplateControllers implements IModelBuilder {
                                                 .atributoClass(stringEnsamble("@RequestBody ", relacion.getNameClassRelacion()))
                                                 .atributoName(relacion.getNameClassRelacion().toLowerCase()).build()))
                                 .methodBody(BodyMethodDesign.builder()
-                                        .bodyLines(List.of("return ", entidad.getNombreClase().toLowerCase()
+                                        .bodyLines(List.of(stringEnsamble("return ", entidad.getNombreClase().toLowerCase()
                                                 , "Service.findByRelacion", relacion.getNameClassRelacion(),
-                                                "(", relacion.getNameClassRelacion().toLowerCase(), ");")
+                                                "(", relacion.getNameClassRelacion().toLowerCase(), ");"))
                                         ).build().toString()
                                 ).build().toString());
             }
@@ -400,7 +408,7 @@ public class TemplateControllers implements IModelBuilder {
     private StringBuffer createDelete(EntityPojo entidad) {
         return new StringBuffer(
                 MethodDesign.builder()
-                        .annotation(List.of("@DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")", BREAK_LINE))
+                        .annotation(List.of(stringEnsamble("@DeleteMapping(\"/delete", entidad.getNombreClase(), "/{id}\")")))
                         .modifiers(Modifier.Private)
                         .returnsType(RetunsType.none)
                         .curlyBraces(true)
@@ -414,10 +422,10 @@ public class TemplateControllers implements IModelBuilder {
                                         .atributoName("id").build()))
                         .methodBody(
                                 BodyMethodDesign.builder()
-                                        .bodyLines(List.of(
+                                        .bodyLines(List.of(stringEnsamble(
                                                 "return ", entidad.getNombreClase().toLowerCase(),
                                                 "Service.delete", entidad.getNombreClase(),
-                                                "(id); }", BREAK_LINE)
+                                                "(id); }", BREAK_LINE))
                                         ).build().toString()
                         ).build().toString()
         );
