@@ -99,11 +99,11 @@ public class CreateMapper implements IImportModel {
         sb1.append(new AnotacionesJava(archivo).creatNotaClase().toString()+BREAK_LINE);
         sb1.append("package " + creadors.getPackageNames() + ".mapper;" + BREAK_LINE);
         sb1.append("import " + creadors.getPackageNames() + ".entitys." + entidads.getNombreClase() + ";" + BREAK_LINE);
-        sb1.append("import " + creadors.getPackageNames() + "."+archivo.getCapaPojo().getModelT()+"." + entidads.getNombreClase() + archivo.getCapaPojo().getModelM()+";" + BREAK_LINE);
+        sb1.append("import " + creadors.getPackageNames() + "."+archivo.getCapaPojo().getModelT().toLowerCase()+"." + entidads.getNombreClase() + archivo.getCapaPojo().getModelM()+";" + BREAK_LINE);
 
         for (RelationshipPojo relacion : entidads.getRelaciones()) {
             sb1.append("import " + creadors.getPackageNames() + "." + entidads.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + BREAK_LINE);
-            sb1.append("import " + creadors.getPackageNames() + "."+archivo.getCapaPojo().getModelT()+"."+ relacion.getNameClassRelacion() +archivo.getCapaPojo().getModelM()+ ";" + BREAK_LINE);
+            sb1.append("import " + creadors.getPackageNames() + "."+archivo.getCapaPojo().getModelT().toLowerCase()+"."+ relacion.getNameClassRelacion() +archivo.getCapaPojo().getModelM()+ ";" + BREAK_LINE);
         }
         
         sb1.append("import org.springframework.web.bind.annotation.*;" + BREAK_LINE);

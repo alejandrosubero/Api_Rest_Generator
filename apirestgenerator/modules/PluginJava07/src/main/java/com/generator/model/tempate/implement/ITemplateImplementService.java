@@ -27,10 +27,13 @@ public interface ITemplateImplementService {
         ));
 
         if(archivo.getMethodManager().isMethodFindByOrLoop()) {
-            sbh.append(this.crearMetodoloop(entidad, repositorieNameOjecte));
+            sbh.append( new Formatter().simpleFormat(
+                    this.crearMetodoloop(entidad, repositorieNameOjecte).toString()));
         }
 
-        sbh.append(this.metods(entidad, repositorieNameOjecte, entidadNombre, archivo));
+        sbh.append(new Formatter().simpleFormat(
+                this.metods(entidad, repositorieNameOjecte, entidadNombre, archivo).toString())
+        );
         sbh.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
 
 

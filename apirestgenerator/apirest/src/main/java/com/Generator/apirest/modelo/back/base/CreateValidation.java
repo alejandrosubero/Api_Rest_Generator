@@ -138,7 +138,7 @@ public class CreateValidation {
 
     for (RelationshipPojo relacion : entidad.getRelaciones()) {
         sb0.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
-        sb0.append("import " + packageNames + "."+ layerPojo.getModelT()+"."+ relacion.getNameClassRelacion() + layerPojo.getModelM()+ ";" + "\r\n");
+        sb0.append("import " + packageNames + "."+ layerPojo.getModelT().toLowerCase()+"."+ relacion.getNameClassRelacion() + layerPojo.getModelM()+ ";" + "\r\n");
     }
     return sb0;
 }

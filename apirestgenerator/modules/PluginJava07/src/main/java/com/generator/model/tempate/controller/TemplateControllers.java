@@ -249,7 +249,7 @@ public class TemplateControllers implements IModelBuilder {
                                 stringEnsamble("@GetMapping(\"/Get", entidad.getNombreClase(), "/{id}\")"))
                         )
                         .modifiers(Modifier.Private)
-                        .returnsType(RetunsType.List)
+                        .returnsType(RetunsType.none)
                         .returnsClass(entidad.getNombreClase())
                         .methodName(stringEnsamble("findById", entidad.getNombreClase()))
                         .curlyBraces(true)
