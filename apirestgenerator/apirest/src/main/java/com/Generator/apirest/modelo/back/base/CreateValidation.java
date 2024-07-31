@@ -129,6 +129,12 @@ public class CreateValidation {
     sb0.append("import org.springframework.stereotype.Service;");
     sb0.append("\r\n");
 
+    if(layerPojo.getModelM() !=null ){
+        sb0.append("import " + packageNames + "."+ layerPojo.getModelT().toLowerCase()+"."+ entidad.getNombreClase()+layerPojo.getModelM()+ ";" + "\r\n");
+    }
+
+
+
     for (EntityPojo entidadPojo : toPojos) {
         String[] clavePojo = entidadPojo.getNombreClase().split(layerPojo.getModelM());
         if (entidad.getNombreClase().equals(clavePojo[0])) {
@@ -140,6 +146,7 @@ public class CreateValidation {
         sb0.append("import " + packageNames + "." + entidad.getPaquete() + "." + relacion.getNameClassRelacion() + ";" + "\r\n");
         sb0.append("import " + packageNames + "."+ layerPojo.getModelT().toLowerCase()+"."+ relacion.getNameClassRelacion() + layerPojo.getModelM()+ ";" + "\r\n");
     }
+
     return sb0;
 }
 
