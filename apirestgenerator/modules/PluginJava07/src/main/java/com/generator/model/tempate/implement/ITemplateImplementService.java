@@ -27,8 +27,9 @@ public interface ITemplateImplementService {
         ));
 
         if(archivo.getMethodManager().isMethodFindByOrLoop()) {
-            sbh.append( new Formatter().simpleFormat(
-                    this.crearMetodoloop(entidad, repositorieNameOjecte).toString()));
+            sbh.append(
+                    this.crearMetodoloop(entidad, repositorieNameOjecte).toString()
+            );
         }
 
         sbh.append(new Formatter().simpleFormat(

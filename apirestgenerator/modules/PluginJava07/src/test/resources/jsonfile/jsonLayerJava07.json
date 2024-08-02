@@ -295,6 +295,7 @@
         },
         {
           "sId": false,
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -313,11 +314,11 @@
           "nameSequenceTable": "CANBIAR",
           "initialValue": 1,
           "allocationSize": 1000,
-          "transiente": false,
-          "nombreClase": "Class"
+          "transiente": false
         },
         {
           "sId": false,
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -336,11 +337,11 @@
           "nameSequenceTable": "CANBIAR",
           "initialValue": 1,
           "allocationSize": 1000,
-          "transiente": false,
-          "nombreClase": "Class"
+          "transiente": false
         },
         {
           "sId": false,
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -359,8 +360,7 @@
           "nameSequenceTable": "CANBIAR",
           "initialValue": 1,
           "allocationSize": 1000,
-          "transiente": false,
-          "nombreClase": "Class"
+          "transiente": false
         }
       ],
       "relaciones": [],
@@ -378,10 +378,13 @@
     "leerExcel": false,
     "crearExcel": false
   },
-  "capaPojo": {
-    "createCapaPojoForEntitys": false,
-    "createCapaJavaBase7": true,
-    "savePojo": "SH24"
+  "layerPojo": {
+    "createCapaPojoForEntitys": true,
+    "createCapaJavaBase7": false,
+    "createCapaEntitysPlusPojo": false,
+    "savePojo": "SH24",
+    "modelT": "Model",
+    "architecture":"LayerPojoJava07"
   },
   "isToolActive": false,
   "methoddefaultValue": true,
@@ -395,6 +398,7 @@
     "methodsaveOrUpdate": false,
     "methodContaining": false,
     "methodContainingRelacion": false,
-    "methodContainingRelacionNoBiDirectional": false
+    "methodContainingRelacionNoBiDirectional": false,
+    "modelMethods": []
   }
 }

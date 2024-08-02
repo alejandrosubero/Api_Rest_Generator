@@ -20,6 +20,9 @@ public class JsonToObject  implements IImportModel {
         ArchivoBaseDatosPojo archivoBaseDatosPojoObject = null;
         Gson gson = new Gson();
         try {
+            String name ="jsonLayerJava07.json";
+            String name1 ="usertestModel.json";
+
             String filePath = stringEnsamble(
                     systemUserDirectorio,
                     pathSeparator,
@@ -28,7 +31,7 @@ public class JsonToObject  implements IImportModel {
                     "test",pathSeparator,
                     "resources",pathSeparator,
                     "jsonfile", pathSeparator,
-                    "usertestModel.json"
+                    name
             );
             archivoBaseDatosPojoObject = gson.fromJson(new FileReader(filePath), ArchivoBaseDatosPojo.class);
 

@@ -3,9 +3,11 @@ package com.generator.model.template;
 import com.generator.core.build.models.ModelOup;
 import com.generator.core.pojos.ArchivoBaseDatosPojo;
 import com.generator.core.pojos.Creador;
+import com.generator.model.FacadeModel;
 import com.generator.model.tempate.controller.TemplateControllers;
 import com.generator.model.util.JsonToObject;
 
+import java.util.LinkedList;
 import java.util.Set;
 
 public class TemplateControllerTest {
@@ -17,12 +19,14 @@ public class TemplateControllerTest {
 
     }
 
-    public Set<ModelOup> runTest() {
+    public LinkedList<ModelOup> runTest() {
+        LinkedList<ModelOup> models = new LinkedList<>();
+
         this.jsonToObject = new JsonToObject();
         this.creador = new Creador();
         ArchivoBaseDatosPojo baseFileDataPojo = this.jsonToObject.getArchivoBaseDatosPojo();
 
-        TemplateControllers template = TemplateControllers.getInstance();
+
 
         String model = baseFileDataPojo.getCapaPojo().getModelT().trim();
         String modelM = model.substring(0, 1).toUpperCase() + model.substring(1);
@@ -35,7 +39,13 @@ public class TemplateControllerTest {
         }
 
         this.creador.setDatos(baseFileDataPojo);
-        Set<ModelOup> createModels = template.createModel(baseFileDataPojo, creador);
-        return createModels;
+
+        FacadeModel facadeModel = new FacadeModel();
+
+//        TemplateControllers template = TemplateControllers.getInstance();
+//        Set<ModelOup> createModels = template.createModel(baseFileDataPojo, creador);
+        LinkedList<ModelOup> arModel = facadeModel.getModels(baseFileDataPojo, creador);
+
+        return arModel;
     }
 }
