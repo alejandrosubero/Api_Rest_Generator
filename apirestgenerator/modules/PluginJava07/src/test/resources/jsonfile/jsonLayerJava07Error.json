@@ -266,13 +266,13 @@
     {
       "isEntity": true,
       "delete": false,
-      "nombreClase": "Evaluation",
-      "nombreTabla": "evaluation",
+      "nombreClase": "ClassX",
+      "nombreTabla": "classx",
       "paquete": "entitys",
       "atributos": [
         {
           "idName": "id",
-          "nombreClase": "Evaluation",
+          "nombreClase": "Class",
           "sId": true,
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -295,7 +295,7 @@
         },
         {
           "sId": false,
-          "nombreClase": "Evaluation",
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -318,7 +318,7 @@
         },
         {
           "sId": false,
-          "nombreClase": "Evaluation",
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,
@@ -341,7 +341,7 @@
         },
         {
           "sId": false,
-          "nombreClase": "Evaluation",
+          "nombreClase": "Class",
           "idName": "id",
           "modificadorExtra": "static",
           "ismodificadorExtra": false,

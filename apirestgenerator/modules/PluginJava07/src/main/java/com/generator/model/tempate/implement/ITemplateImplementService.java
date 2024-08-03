@@ -22,26 +22,20 @@ public interface ITemplateImplementService {
 
         sbh.append(anotacionesJava.creatNotaClase() + "\r\n");
         sbh.append(this.createImport(serviceName, repositorieName, entidad, archivo));
-        sbh.append(new Formatter().simpleFormat(
-                this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte).toString()
-        ));
+        sbh.append(this.createTitulo(nameOfClass, serviceName, repositorieName, repositorieNameOjecte).toString());
 
         if(archivo.getMethodManager().isMethodFindByOrLoop()) {
-            sbh.append(
-                    this.crearMetodoloop(entidad, repositorieNameOjecte).toString()
-            );
+            sbh.append(this.crearMetodoloop(entidad, repositorieNameOjecte).toString());
         }
 
-        sbh.append(new Formatter().simpleFormat(
-                this.metods(entidad, repositorieNameOjecte, entidadNombre, archivo).toString())
-        );
+        sbh.append(this.metods(entidad, repositorieNameOjecte, entidadNombre, archivo).toString());
         sbh.append(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
 
 
         return ModelOup.builder()
                 .packageNane("serviceImplement")
                 .nameOfClass(nameOfClass)
-                .classInString(sbh.toString())
+                .classInString(new Formatter().simpleFormat(sbh.toString()))
                 .directoryForJava(creador.directionForJava())
                 .build();
     }
@@ -111,7 +105,7 @@ public interface ITemplateImplementService {
                 String operacionElseu = "\r\n";
                 sbp.append(this.metodTrycath(operacionu, operacionElseu));
                 sbp.append("}" + "\r\n");
-                sbp.append("return " + entidad.getNombreClase().toLowerCase() + "Entity;");
+                sbp.append("return " + entidad.getNombreClase().toLowerCase() + "Entity;"+"\r\n");
                 sbp.append("}" + "\r\n");
                 cont += 1;
             }

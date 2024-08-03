@@ -89,13 +89,15 @@ public class TemplateRepository implements IModelBuilder {
 
             if (atributos.getsId()) {
                 String metodoSearch = "";
+
                 if (this.archivo.checkAtributos(entidad)) {
                     metodoSearch = stringEnsamble(metodoSearch(entidad), "\r\n");
                 }
-                body.add(stringEnsamble("public ", entidad.getNombreClase(), " findBy", atributoName, "(" + atributos.getTipoDato(), " ", atributos.getAtributoName(), ");"));
-                body.add(stringEnsamble("public List<", entidad.getNombreClase(), "> findBy", atributoName, "Containing(", atributos.getTipoDato(), " ", atributos.getAtributoName(), ");"));
-                body.add(stringEnsamble("@Query(value = \"SELECT t FROM ", entidad.getNombreClase(), " t WHERE t.id =?1\")"));
-                body.add(stringEnsamble(" public ", entidad.getNombreClase(), " findByIdQuery(", datoTipo, " id);"));
+
+                body.add(stringEnsamble("public ", entidad.getNombreClase(), " findBy", atributoName, "(" + atributos.getTipoDato(), " ", atributos.getAtributoName(), ");", "\r\n"));
+                body.add(stringEnsamble("\r\n","public List<", entidad.getNombreClase(), "> findBy", atributoName, "Containing(", atributos.getTipoDato(), " ", atributos.getAtributoName(), ");","\r\n"));
+                body.add(stringEnsamble("\r\n","@Query(value = \"SELECT t FROM ", entidad.getNombreClase(), " t WHERE t.id =?1\")","\r\n"));
+                body.add(stringEnsamble(" public ", entidad.getNombreClase(), " findByIdQuery(", datoTipo, " id);","\r\n"));
                 body.add(metodoSearch);
             }
 
@@ -110,6 +112,8 @@ public class TemplateRepository implements IModelBuilder {
         body.add(AnotacionesJava.apacheSoftwareLicensed() + "\r\n");
 //        imports.add("public interface "+nameOfClass+" extends JpaRepository< " + entidad.getNombreClase() + ", "+ datoTipo + "> { ");
 
+        String content = BodyMethodDesign.builder().bodyLines(body).build().toString();
+
         ClassDesign classTemplate = ClassDesign.builder()
                 .packagePaht(archivo.getPackageNames())
                 .packageName("repository")
@@ -123,14 +127,16 @@ public class TemplateRepository implements IModelBuilder {
                 .classImplement(null)
                 .isClassIsInheritance(true)
                 .classInheritance(stringEnsamble("JpaRepository< " + entidad.getNombreClase() + ", " + datoTipo + ">"))
-                .content(new Formatter().simpleFormat(BodyMethodDesign.builder().bodyLines(body).build().toString()))
+                .content(content)
                 .build();
 
 
         return ModelOup.builder()
                 .packageNane("repository")
                 .nameOfClass(nameOfClass)
-                .classInString(classTemplate.toString())
+                .classInString(new Formatter().simpleFormat(
+                        classTemplate.toString()
+                ))
                 .directoryForJava(creador.directionForJava())
                 .build();
     }
@@ -175,7 +181,7 @@ public class TemplateRepository implements IModelBuilder {
         }
 
         search.append("\r\n");
-        search.append("public List<" + entidad.getNombreClase() + "> finBySearch(String keyword);" + "\r\n");
+        search.append("\r\n"+"public List<" + entidad.getNombreClase() + "> finBySearch(String keyword);" + "\r\n");
         search.append("\r\n");
         return search.toString();
     }

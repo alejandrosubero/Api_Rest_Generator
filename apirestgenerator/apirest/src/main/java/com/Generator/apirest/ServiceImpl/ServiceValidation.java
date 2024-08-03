@@ -23,7 +23,7 @@ public class ServiceValidation implements ValidateService {
 	private ProyectMapper mapper;
 	
 	
-	private String clave = "zz2";
+	private String clave = "SH24";
 
 	private boolean checkSave(String valor) {
 		// TODO: conectar esta clave con el token o con password.
