@@ -1,6 +1,8 @@
 package com.generator.core.pojos;
 
-public class LayerPojo {
+import java.io.Serializable;
+
+public class LayerPojo  implements Serializable {
 
 	private Boolean createCapaPojoForEntitys;
 	private Boolean createCapaEntitysPlusPojo;

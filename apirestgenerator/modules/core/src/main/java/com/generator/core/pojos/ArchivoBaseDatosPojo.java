@@ -3,12 +3,13 @@ package com.generator.core.pojos;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 //@Scope("singleton")
 
-public class ArchivoBaseDatosPojo {
+public class ArchivoBaseDatosPojo implements Serializable {
 
 	private String autor;
 	private String user;
