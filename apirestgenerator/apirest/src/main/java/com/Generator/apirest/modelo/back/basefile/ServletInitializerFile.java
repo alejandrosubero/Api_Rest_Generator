@@ -20,7 +20,8 @@ public class ServletInitializerFile implements IImportModel {
 
             as.append("package " + creador.getPackageNames() + ";" + DOUBLEBREAK_LINE);
 //			as.append(BREAK_LINE);
-            as.append(importServletInitializer(archivo.getCapaPojo().getCreateCapaJavaBase7()));
+
+            as.append(importServletInitializer(archivo.getJavaVersion()));
             as.append("public class ServletInitializer extends SpringBootServletInitializer {" + BREAK_LINE);
             as.append(TAB+"@Override"+BREAK_LINE);
             as.append(TAB+"protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {"+BREAK_LINE);

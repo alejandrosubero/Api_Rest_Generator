@@ -122,7 +122,7 @@
           "mappedBy": "",
           "bidireccional": false,
           "nameClassRelacion": "Evaluation",
-          "nameRelacion": "classes",
+          "nameRelacion": "evaluation",
           "relation": "OneToMany",
           "joinColumn": true,
           "fetchType": false,

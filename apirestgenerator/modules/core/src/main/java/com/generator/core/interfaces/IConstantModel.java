@@ -87,6 +87,8 @@ public interface IConstantModel {
     public final String SPRING_BOOT_SpringApplicationBuilder_IMPORT 		= "import org.springframework.boot.builder.SpringApplicationBuilder;"+ BREAK_LINE;
     public final String SPRING_BOOT_support_SpringBootServletInitializer_IMPORT = "import org.springframework.boot.web.support.SpringBootServletInitializer;"+ BREAK_LINE;
     public final String SPRING_BOOT_SpringBootServletInitializer_IMPORT		= "import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;"+ BREAK_LINE;
+
+
     public final String SPRING_BOOT_TEST_IMPORT 							= "import org.springframework.boot.test.context.SpringBootTest;"+ BREAK_LINE;
     public final String SPRING_BOOT_SpringApplication_IMPORT 				= "import org.springframework.boot.SpringApplication;"+ BREAK_LINE;
     public final String SPRING_BOOT_SpringBootApplication_IMPORT 			= "import org.springframework.boot.autoconfigure.SpringBootApplication;"+ BREAK_LINE;

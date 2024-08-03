@@ -108,10 +108,10 @@ public interface IImportModel extends IBaseModel {
 	}
 	
 	
-	default public String importServletInitializer(Boolean CapaJavaBase7) {
+	default public String importServletInitializer(Double CapaJavaBase7) {
 		StringBuilder imports = new StringBuilder();
 		imports.append(SPRING_BOOT_SpringApplicationBuilder_IMPORT);
-		if (CapaJavaBase7) {
+		if (CapaJavaBase7 == 1.7 ) {
 			imports.append(SPRING_BOOT_support_SpringBootServletInitializer_IMPORT);
 		}else {
 			imports.append(SPRING_BOOT_SpringBootServletInitializer_IMPORT);
@@ -120,10 +120,10 @@ public interface IImportModel extends IBaseModel {
 	}
 	
 	
-	default public String importApplicationTests(Boolean CapaJavaBase7) {
+	default public String importApplicationTests(Double CapaJavaBase7) {
 		StringBuilder imports = new StringBuilder();
 		imports.append(SPRING_BOOT_TEST_IMPORT);
-		if (CapaJavaBase7) {
+		if (CapaJavaBase7 == 1.7 ) {
 			imports.append(JUNIT_TEST_IMPORT);
 		}else {
 			imports.append(JUNIT_JUPITER_TEST_IMPORT);

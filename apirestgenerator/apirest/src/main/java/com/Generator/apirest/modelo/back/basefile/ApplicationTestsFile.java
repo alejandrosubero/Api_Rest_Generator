@@ -20,7 +20,7 @@ public class ApplicationTestsFile implements IImportModel {
             String claseName = proyectoName + "ApplicationTests";
             StringBuffer sb1 = new StringBuffer();
             sb1.append("package " + creador.getPackageNames() + ";" + BREAK_LINE );
-            sb1.append(importApplicationTests(archivo.getCapaPojo().getCreateCapaJavaBase7()));
+            sb1.append(importApplicationTests(archivo.getJavaVersion()));
             sb1.append("@SpringBootTest\r\n" + "class " + claseName + " {\r\n" + BREAK_LINE + "	@Test"+BREAK_LINE);
             sb1.append(DOUBLETAB+"void contextLoads() {"+BREAK_LINE + "	}" + BREAK_LINE + "}" + BREAK_LINE);
 
