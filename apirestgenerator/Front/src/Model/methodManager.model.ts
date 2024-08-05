@@ -1,3 +1,5 @@
+import { ModelMethod } from "./modelmethod.model";
+
 export class MethodManager {
 
      methodFindByOrLoop:boolean; // method find for tipe or neme or atributed 	
@@ -10,6 +12,7 @@ export class MethodManager {
 	 methodContaining:boolean; // metodo contain de atributos de la clase	
 	 methodContainingRelacion:boolean; // si hay relacion 
 	 methodContainingRelacionNoBiDirectional:boolean; // si hay relacion bideireccional
+	modelMethods:Array<ModelMethod>;
 
      constructor() {
 		this.methodFindByOrLoop = false; 
@@ -22,6 +25,7 @@ export class MethodManager {
 		this.methodContaining = false;
 		this.methodContainingRelacion= false;
 		this.methodContainingRelacionNoBiDirectional = false;
+		this.modelMethods = new Array<ModelMethod>();
 	 }
 
 

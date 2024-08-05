@@ -38,7 +38,6 @@ export class EntidadService {
         return this.http.get(environment.serverUrl + url, { headers });
     }
 
-
    
     postP(body: ArchivoBaseDatosPojo) {
         return this.http.post( environment.serverUrl + 'api/archivosBase', body);
@@ -63,9 +62,7 @@ export class EntidadService {
         // http://localhost:8888/ANACODE/Anas/downloadLogFiles/
     }
 
-
-   
-
+    
     UppercaseFirs(valor: string) { return valor.charAt(0).toUpperCase() + valor.slice(1); }
 
     lowercaseFirs(valor: string) { return valor.charAt(0).toLowerCase() + valor.slice(1); }

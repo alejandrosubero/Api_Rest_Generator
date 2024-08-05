@@ -14,11 +14,11 @@
                         
                     <mat-card-content>
                     <div class="container">
-                        <div class="p-2 m-1" >
+                        <!-- <div class="p-2 m-1" >
                             <mat-slide-toggle  [(ngModel)]="isChecked11" (change)="onIsChecked11()">MVC WEB CAPAPOJO
                                 <samp class="m-1" [ngStyle]="{'background-color':isChecked11 ? 'green' : 'blue' }">{{isChecked11}}</samp></mat-slide-toggle>
-                        </div>
-                        <div class="p-2 bd-highlight" *ngIf="isChecked11">
+                        </div> -->
+                        <div class="p-2 bd-highlight">
                             <mat-form-field>
                                 <mat-label>{{ 'PROJECTARQUITECTURE_name_modelo_pojo' | translate }}</mat-label>
                                 <input matInput [(ngModel)]="nameModeloPojo"
@@ -28,11 +28,25 @@
                         </div>
 
 
-                        <div class="p-2 m-1" >
+                        <!-- <div class="p-2 m-1" >
                             <mat-slide-toggle  [(ngModel)]="isChecked12" (change)="onIsChecked12()">MVC WEB Java 1.7
                                 <samp class="m-1" [ngStyle]="{'background-color':isChecked12 ? 'green' : 'blue' }">{{isChecked12}}</samp></mat-slide-toggle>
+                        </div> -->
+
+                        <div class="p-2 bd-highlight">
+                            <mat-form-field>
+                                <mat-label>{{ 'DataBase' | translate }}</mat-label>
+                                <mat-select [(ngModel)]="architecture"  (selectionChange)="onSelectionChange($event)">
+                                    <mat-option *ngFor="let base of architectures" [value]="base" >
+                                        {{ base }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
+
                     </div>
+
+                
                 
                     </mat-card-content>
         

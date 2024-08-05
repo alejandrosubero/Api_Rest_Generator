@@ -30,6 +30,7 @@ import { IdiomaService } from 'src/app/service/idioma.service';
 import { MethodManager } from 'src/Model/methodManager.model';
 import { SaveService } from 'src/Model/save.model';
 import { CapaPojo } from 'src/Model/capapojo.model';
+import { ArchitectureService } from 'src/app/services/architecture.service';
 
 
 
@@ -71,7 +72,7 @@ export class ClienteComponent implements OnInit {
   public modelTList: Array<string> = ['Model', 'Pojo', 'DTO'];
   public sprintVersion: Array<string> = [];
   public sprintVersionCapaPojo: Array<string> = [
-    '2.2.6.RELEASE', '2.3.11.RELEASE', '2.3.12.BUILD-SNAPSHOT',
+    '1.5.22.RELEASE','2.2.6.RELEASE', '2.3.11.RELEASE', '2.3.12.BUILD-SNAPSHOT',
     '2.4.6', '2.4.7-SNAPSHOT', '2.5.0', '2.5.1-SNAPSHOT'
   ];
 
@@ -79,7 +80,7 @@ export class ClienteComponent implements OnInit {
     '1.5.22.RELEASE'
   ];
 
-  public javaversionListCapaPojo: number[] = [1.8, 11, 14];
+  public javaversionListCapaPojo: number[] = [1.7, 1.8, 11, 14];
   public javaversionListCapa07: number[] = [1.7];
   public javaversionlist: number[] = [];
 
@@ -119,13 +120,15 @@ export class ClienteComponent implements OnInit {
   public listTools: ToolClassPojo = new ToolClassPojo();
   public activeLang = 'es';
   public idio: Observable<string>;
+  architecture:string;
 
   constructor(private _formBuilder: FormBuilder,
     private servicesEntidad: EntidadService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private idiomas: IdiomaService
+    private idiomas: IdiomaService,
+    private architectureService: ArchitectureService
   ) {
     this.translate.setDefaultLang(this.activeLang);
     this.oncargaArchivo();
@@ -134,6 +137,10 @@ export class ClienteComponent implements OnInit {
 
 
   ngOnInit() {
+    this.architectureService.getIdentifiers().subscribe((x:Array<string>)=>{
+      this.architectureService.updateEntidad(x);
+    });
+
     this.onBuilderform();
     this.idiomas.subject$.subscribe(x => {
       this.cambiarLenguaje(x);
@@ -410,14 +417,17 @@ export class ClienteComponent implements OnInit {
     this.archivo.toolClassPojo = this.listTools;
     this.archivo.capaPojo.createCapaPojoForEntitys = this.createCapaPojoForEntitys;
     this.archivo.capaPojo.createCapaJavaBase7 = this.createCapaJavaBase7;
-
+    this.archivo.capaPojo.architecture = this.architecture;
+    
     if (this.modelT === null || this.modelT === undefined) {
       this.setModelDefault();
     }
 
-    if (this.createCapaPojoForEntitys && !this.createCapaJavaBase7) {
-      this.archivo.capaPojo.modelT = this.modelT;
-    }
+    this.archivo.capaPojo.modelT = this.modelT;
+
+    // if (this.createCapaPojoForEntitys && !this.createCapaJavaBase7) {
+    //   this.archivo.capaPojo.modelT = this.modelT;
+    // }
 
     this.archivo.isToolActive = this.useTools;
     // this.archivo.entidades = this.ListEntidadesFinal;
@@ -545,6 +555,8 @@ export class ClienteComponent implements OnInit {
         this.archivo.isToolActive = tools.isToolActive;
         this.archivo.capaPojo.createCapaPojoForEntitys = tools.capaPojo.createCapaPojoForEntitys;
         this.archivo.capaPojo.createCapaJavaBase7 = tools.capaPojo.createCapaJavaBase7;
+        this.archivo.capaPojo.architecture = tools.capaPojo.architecture;
+        this.architecture = tools.capaPojo.architecture;
         this.createCapaJavaBase7 = tools.capaPojo.createCapaJavaBase7;
         this.createCapaPojoForEntitys = tools.capaPojo.createCapaPojoForEntitys;
 

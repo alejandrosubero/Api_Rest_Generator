@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ArchitectureService } from 'src/app/services/architecture.service';
 import { ArchivoBaseDatosPojo } from 'src/Model/archivo.model';
 import { MethodManager } from 'src/Model/methodManager.model';
 import { ToolClassPojo } from 'src/Model/tool-class-pojo .model';
@@ -44,8 +45,11 @@ export class ToolPanelComponent implements OnInit {
   editar = false;
   capaPojoForEntitys: boolean;
   archivo: ArchivoBaseDatosPojo = new ArchivoBaseDatosPojo();
+  architectures:Array<string> = new Array<string>();
+  architecture:string;
 
-  constructor(private dialogRef: MatDialogRef<ToolPanelComponent>,
+
+  constructor(private dialogRef: MatDialogRef<ToolPanelComponent>, private architectureService: ArchitectureService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
     if (data.edit) {
@@ -67,9 +71,16 @@ export class ToolPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.architectureService.identifier$.subscribe(list=>{
+      this.architectures = list;
+    });
+
     // console.log('capaPojoForEntitys', this.archivo);
     this.startChargue();
+
+
   }
+
 
 
   startChargue() {
@@ -84,6 +95,7 @@ export class ToolPanelComponent implements OnInit {
     this.isChecked8 = this.tools.leerExcel;
     this.isChecked9 = this.tools.crearExcel;
     this.isChecked10 = this.archivo.isToolActive;
+
     this.isChecked11 = this.archivo.capaPojo.createCapaPojoForEntitys;
     this.isChecked12 = this.archivo.capaPojo.createCapaJavaBase7;
 
@@ -144,6 +156,22 @@ export class ToolPanelComponent implements OnInit {
     }
 
   }
+
+
+  onSelectionChange(event: any) {
+    // let selectedValue = event.value;
+    // console.log('Nuevo valor seleccionado:', selectedValue);
+    // console.log('capaPojoFor: ', this.architecture);
+
+    this.archivo.capaPojo.architecture =  this.architecture;
+    if(this.nameModeloPojo == null || this.nameModeloPojo === undefined || this.nameModeloPojo == ""){
+      this.nameModeloPojo = 'Pojo';
+    }
+    this.archivo.capaPojo.createCapaJavaBase7 = false;
+    this.archivo.capaPojo.createCapaPojoForEntitys = false;
+  }
+
+
 
   onEmitToolSelection() {
     this.archivo.toolClassPojo = this.tools;

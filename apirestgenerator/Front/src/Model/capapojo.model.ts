@@ -5,12 +5,14 @@ export class CapaPojo {
     savePojo:string;
 	  createCapaEntitysPlusPojo: boolean;
 	  modelT:string;
+    architecture:string;
 
     constructor() {
       this.createCapaPojoForEntitys = true;
       this.createCapaJavaBase7 = false;
       this.createCapaEntitysPlusPojo = false;
       this.savePojo = "SH24";
+      this.architecture="";
     }
 
 }

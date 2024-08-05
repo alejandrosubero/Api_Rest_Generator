@@ -20,4 +20,4 @@ public class ApiRestGeneratorApplication {
 
 }
 // http://localhost:8888/ApiREST/Generator/swagger-ui/
-// http://localhost:8888/ApiREST/Generator/swagger-ui.html
+// http://localhost:8888/ApiREST/Generator/#/

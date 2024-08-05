@@ -41,10 +41,10 @@ public class CreatePojoLayerForEntitys {
 
     public void createLayerPojoForEntitys(ArchivoBaseDatosPojo archivo, Creador creador) {
 
-        if (archivo.getCapaPojo().getCreateCapaPojoForEntitys()) {
+//        if (archivo.getCapaPojo().getCreateCapaPojoForEntitys()) {
             createMapper.initiarCreateMapper(archivo, creador);
             createValidation.startCreacion(archivo, creador);
-        }
+//        }
 
 //        this.controllerFactory.controllerCreator(archivo.getCapaPojo()).initCreateController(archivo, creador);
         this.entityResponseClass.startCreateEntityResponseClass(archivo, creador);
