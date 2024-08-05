@@ -116,7 +116,9 @@ public class CreateValidation {
 
     sb0.append("package " + packageNames + ".validation ;\r\n");
     sb0.append("\r\n");
-    sb0.append("import java.util.Optional;");
+    if(!layerPojo.getArchitecture().contains("07")){
+        sb0.append("import java.util.Optional;");
+    }
     sb0.append("\r\n");
     sb0.append("import java.util.ArrayList;");
     sb0.append("\r\n");
