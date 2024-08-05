@@ -1,8 +1,0 @@
-package com.generator.plugin;
-
-public class Main {
-
-    public static void main(String[] args) {
-        System.out.println("Plugin Core");
-    }
-}
