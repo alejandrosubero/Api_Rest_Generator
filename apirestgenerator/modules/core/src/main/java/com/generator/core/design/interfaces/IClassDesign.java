@@ -9,7 +9,7 @@ import com.generator.core.design.ParameterClassMethod;
 import com.generator.core.design.reference.ClassModifier;
 import java.util.List;
 
-public interface ClassDesignInterface extends DesingCommunInterface {
+public interface IClassDesign extends IDesingCommun {
 
 
     default public String packagePahtBuild(String packagePaht, String packageName) {

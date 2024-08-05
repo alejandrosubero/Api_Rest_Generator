@@ -3,7 +3,6 @@ package com.generator.core.design;
 
 
 
-import com.generator.core.design.interfaces.MethodInterface;
 import com.generator.core.design.reference.Modifier;
 import com.generator.core.design.reference.RetunsType;
 
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MethodDesign implements MethodInterface {
+public class IMethodDesignDesign implements com.generator.core.design.interfaces.IMethodDesign {
 
     private Modifier modifiers;
     private RetunsType returnsType;
@@ -87,10 +86,10 @@ public class MethodDesign implements MethodInterface {
         this.annotation = annotation;
     }
 
-    public MethodDesign() {
+    public IMethodDesignDesign() {
     }
 
-    public MethodDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, Boolean curlyBraces, String methodBody, List<ParameterClassMethod> parameter, List<String> annotation) {
+    public IMethodDesignDesign(Modifier modifiers, RetunsType returnsType, String returnsClass, String methodName, Boolean curlyBraces, String methodBody, List<ParameterClassMethod> parameter, List<String> annotation) {
         this.modifiers = modifiers;
         this.returnsType = returnsType;
         this.returnsClass = returnsClass;
@@ -132,7 +131,7 @@ public class MethodDesign implements MethodInterface {
         public Builder curlyBraces(Boolean curlyBraces);
         public Builder methodBody(String methodBody);
         public Builder annotation(List<String> annotation);
-        public MethodDesign build();
+        public IMethodDesignDesign build();
     }
 
 
@@ -196,8 +195,8 @@ public class MethodDesign implements MethodInterface {
 
 
         @Override
-        public MethodDesign build() {
-            MethodDesign method = new MethodDesign();
+        public IMethodDesignDesign build() {
+            IMethodDesignDesign method = new IMethodDesignDesign();
 
             if (this.methodName != null)
                 method.setMethodName(this.methodName);

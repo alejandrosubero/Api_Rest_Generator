@@ -6,7 +6,7 @@ import com.generator.core.design.reference.RetunsType;
 
 import java.util.List;
 
-public interface MethodInterface extends DesingCommunInterface {
+public interface IMethodDesign extends IDesingCommun {
 
     // SyntaxOfMethod = annotation + modifiers + returnsType + methodName+ (parameter) + curlyBraces + methodBody + curlyBraces
 

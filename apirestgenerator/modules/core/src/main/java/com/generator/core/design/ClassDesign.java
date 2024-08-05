@@ -2,7 +2,7 @@ package com.generator.core.design;
 
 
 
-import com.generator.core.design.interfaces.ClassDesignInterface;
+import com.generator.core.design.interfaces.IClassDesign;
 import com.generator.core.design.reference.ClassType;
 import com.generator.core.design.reference.Modifier;
 import com.generator.core.design.reference.TypeInject;
@@ -10,7 +10,7 @@ import com.generator.core.design.reference.TypeInject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDesign implements ClassDesignInterface {
+public class ClassDesign implements IClassDesign {
 
     private Modifier modifier;
     private String packagePaht;

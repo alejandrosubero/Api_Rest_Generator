@@ -8,7 +8,7 @@ import com.generator.core.interfaces.IImportModel;
 
 import java.util.List;
 
-public interface DesingCommunInterface extends IImportModel {
+public interface IDesingCommun extends IImportModel {
 
 
     default public String annotationBuild(List<String> annotation) {

@@ -4,13 +4,12 @@ package com.generator.core.design;
 
 
 
-import com.generator.core.design.interfaces.DesingCommunInterface;
+import com.generator.core.design.interfaces.IDesingCommun;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class BodyMethodDesign implements DesingCommunInterface {
+public class BodyMethodDesign implements IDesingCommun {
 
     private List<String> bodyLines = new ArrayList<>();
 
